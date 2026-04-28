@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Radio Valencianismo | Premium</title>
+    <meta name="description" content="Radio Valencianismo - Emisión 24/7 con la mejor calidad y diseño.">
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="assets/icon.png">
+    <link rel="apple-touch-icon" href="assets/icon.png">
+    <link rel="stylesheet" href="css/style-v2.css">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+</head>
+
+<body>
+    <div class="ambient-background" id="ambient-bg"></div>
+
+    <div class="glass-container">
+        <header class="v2-header">
+            <div class="logo-container">
+                <img src="assets/icon.png" alt="Logo" class="logo-img">
+                <h1>Radio Valencianismo</h1>
+            </div>
+            <div class="status-indicator">
+                <span class="pulse"></span> LIVE
+            </div>
+        </header>
+
+        <div class="refran-text-container">
+            <span id="refran-text">Cargando refrán...</span>
+        </div>
+
+        <main class="v2-player">
+            <div class="record-player">
+                <div class="vinyl-wrapper" id="vinyl-wrapper">
+                    <img id="cover-image" src="assets/default-cover.png" alt="Carátula" class="vinyl-cover"
+                        onerror="this.src='assets/default-cover.png'">
+                    <div class="vinyl-hole"></div>
+                </div>
+            </div>
+
+            <div class="song-info">
+                <div class="scrolling-text-container">
+                    <h2 id="current-song" class="scrolling-text">Conectando...</h2>
+                </div>
+                <p id="status-text" class="station-name">ZenoFM Stream</p>
+            </div>
+
+            <div class="modern-controls">
+                <button class="glass-btn secondary"
+                    onclick="document.querySelector('.history-panel').classList.toggle('active')">
+                    <svg viewBox="0 0 24 24">
+                        <path fill="currentColor"
+                            d="M13.5,8H12V13L16.28,15.54L17,14.33L13.5,12.25V8M13,3A9,9 0 0,0 4,12H1L4.96,16.03L9,12H6A7,7 0 0,1 13,5A7,7 0 0,1 20,12A7,7 0 0,1 13,19C11.07,19 9.32,18.21 8.06,16.94L6.64,18.36C8.27,20 10.5,21 13,21A9,9 0 0,0 22,12A9,9 0 0,0 13,3" />
+                    </svg>
+                </button>
+                <button id="play-btn" class="glass-btn primary" aria-label="Reproducir/Pausar">
+                    <svg viewBox="0 0 24 24" class="icon-play" id="icon-play">
+                        <path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z" />
+                    </svg>
+                    <svg viewBox="0 0 24 24" class="icon-pause" id="icon-pause" style="display:none;">
+                        <path fill="currentColor" d="M14,19H18V5H14M6,19H10V5H6V19Z" />
+                    </svg>
+                </button>
+
+            </div>
+
+            <div class="audio-visualizer">
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+                <div class="bar"></div>
+            </div>
+        </main>
+
+        <div class="history-panel">
+            <div class="history-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                <h3 style="margin: 0;">Historial de Canciones</h3>
+                <button class="close-history" aria-label="Cerrar" onclick="document.querySelector('.history-panel').classList.remove('active')" style="background: rgba(255,255,255,0.1); border: none; border-radius: 50%; width: 32px; height: 32px; color: #fff; cursor: pointer; display: flex; justify-content: center; align-items: center;">
+                    <svg viewBox="0 0 24 24" style="width: 20px; height: 20px;"><path fill="currentColor" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" /></svg>
+                </button>
+            </div>
+            <ul id="history-list" class="modern-history-list">
+            </ul>
+        </div>
+    </div>
+
+    <audio id="radio-stream" preload="none">
+        <source src="https://stream.zeno.fm/oqux7fanb3lvv" type="audio/mpeg">
+    </audio>
+
+    <script src="js/refranes.js"></script>
+    <script src="js/radio.js"></script>
+</body>
+
+</html>
