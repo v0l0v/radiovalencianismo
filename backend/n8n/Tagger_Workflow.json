@@ -42,19 +42,19 @@
     },
     {
       "parameters": {
-        "resource": "chat",
-        "operation": "create",
+        "model": "gemini-1.5-flash",
+        "prompt": "={{ $json.stdout }}",
         "messages": {
           "messageValues": [
             {
-              "content": "Extract the artist and song title from this file path. Return ONLY valid JSON with keys 'artist' and 'title'. If artist is unknown, use 'Desconocido'. Path: {{$json.stdout}}"
+              "message": "Extract the artist and song title from this file path. Return ONLY valid JSON with keys 'artist' and 'title'. If artist is unknown, use 'Desconocido'. Path: {{$json.stdout}}"
             }
           ]
         }
       },
       "id": "ai-node",
-      "name": "OpenAI",
-      "type": "n8n-nodes-base.openAi",
+      "name": "Google Gemini (Free)",
+      "type": "n8n-nodes-base.googleGenerativeAi",
       "typeVersion": 1,
       "position": [
         880,
