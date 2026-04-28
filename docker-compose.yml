@@ -16,6 +16,7 @@ services:
     environment:
       - GENERIC_TIMEZONE=Europe/Madrid
       - TZ=Europe/Madrid
+      - N8N_SECURE_COOKIE=false
     volumes:
       - n8n_data:/home/node/.n8n
     restart: unless-stopped
