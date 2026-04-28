@@ -14,8 +14,9 @@ playlist = playlist(mode="random", "/mp3")
 
 # 3. Logica de Fallback
 # Si entra audio por el puerto 8080 (live), la lista de reproduccion se corta
-# 'track_sensitive=false' significa que cortará la canción actual inmediatamente
-radio = fallback(track_sensitive=false, [live, playlist])
+# 'track_sensitive=false' significa que# Creamos la radio con fallback (si entra el directo, corta la música)
+# mksafe asegura que la radio nunca se apague si no hay archivos
+radio = mksafe(fallback(track_sensitive=false, [live, playlist]))
 
 # 4. Salida hacia Icecast
 # Mandamos la señal resultante (radio) a nuestro contenedor de icecast en el puerto 8000
