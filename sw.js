@@ -7,7 +7,10 @@ const urlsToCache = [
   './js/radio.js',
   './js/refranes.js',
   './assets/icon.png',
-  './assets/default-cover.png'
+  './assets/default-cover.png',
+  './assets/default-cover-2.png',
+  './assets/default-cover-3.png',
+  './assets/default-cover-4.png'
 ];
 
 // Install SW

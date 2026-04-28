@@ -118,6 +118,23 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    function setRandomCover() {
+        const defaultCovers = [
+            'assets/default-cover.png',
+            'assets/default-cover-2.png',
+            'assets/default-cover-3.png',
+            'assets/default-cover-4.png'
+        ];
+        const randomCover = defaultCovers[Math.floor(Math.random() * defaultCovers.length)];
+        coverImage.src = randomCover;
+        if (ambientBg) {
+            ambientBg.style.backgroundImage = `url(${randomCover})`;
+            ambientBg.style.backgroundSize = 'cover';
+            ambientBg.style.backgroundPosition = 'center';
+            ambientBg.style.opacity = '0.3';
+        }
+    }
+
     async function updateCover(songName) {
         try {
             // Remove common radio tags for better search
@@ -139,12 +156,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     ambientBg.style.opacity = '0.3';
                 }
             } else {
-                coverImage.src = 'assets/default-cover.png';
-                if (ambientBg) ambientBg.style.backgroundImage = 'none';
+                setRandomCover();
             }
         } catch (error) {
             console.error("Cover search error:", error);
-            coverImage.src = 'assets/default-cover.png';
+            setRandomCover();
         }
     }
 
