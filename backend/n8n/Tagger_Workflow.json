@@ -78,7 +78,7 @@
     },
     {
       "parameters": {
-        "command": "=python3 /home/node/tagger.py \"{{ $('Split Lines').item.json.stdout }}\" \"{{ $json.artist }}\" \"{{ $json.title }}\""
+        "command": "=node /home/node/tagger.js \"{{ $('Split Lines').item.json.stdout }}\" \"{{ $json.artist }}\" \"{{ $json.title }}\""
       },
       "id": "execute-tag",
       "name": "Tag MP3",

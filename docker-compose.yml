@@ -20,7 +20,7 @@ services:
     volumes:
       - n8n_data:/home/node/.n8n
       - ./backend/mp3:/mp3
-      - ./backend/n8n/tagger.py:/home/node/tagger.py:ro
+      - ./backend/n8n/tagger.js:/home/node/tagger.js:ro
     restart: unless-stopped
 
   icecast:
