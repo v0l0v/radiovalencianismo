@@ -21,5 +21,27 @@ services:
       - n8n_data:/home/node/.n8n
     restart: unless-stopped
 
+  icecast:
+    image: infiniteproject/icecast
+    container_name: icecast
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./backend/icecast.xml:/etc/icecast.xml:ro
+    restart: unless-stopped
+
+  liquidsoap:
+    image: savonet/liquidsoap:main
+    container_name: liquidsoap
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./backend/radio.liq:/etc/liquidsoap/radio.liq:ro
+      - ./backend/mp3:/mp3:ro
+    command: ["liquidsoap", "/etc/liquidsoap/radio.liq"]
+    depends_on:
+      - icecast
+    restart: unless-stopped
+
 volumes:
   n8n_data:
