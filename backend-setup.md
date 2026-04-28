@@ -72,8 +72,24 @@ Para hablar encima del AutoDJ cuando quieras:
 4. Guarda y pulsa en **Play**.
 5. Liquidsoap automáticamente bajará o cortará la música del servidor y pasará tu micrófono a la emisión principal. Al desconectar, volverá la lista de reproducción.
 
-## 4. Despliegue de la PWA (Frontend)
+## 4. Despliegue de la PWA (Frontend) con Docker
 
-El código de tu web estática (las versiones 1 y 2, css, js, etc.) debes subirlo a SpinupWP en un "Site" normal de HTML estático y apuntar el dominio `valencianismo.com` hacia allí.
+Ya que tu servidor cuenta con **Docker y Docker Compose**, no necesitas instalar nada en el sistema. Puedes levantar la web de forma limpia con el archivo `docker-compose.yml` incluido en este repositorio.
 
-Luego, en `js/radio.js` del código fuente, asegúrate de cambiar la URL del stream de ZenoFM a la URL de tu nuevo servidor (por ejemplo, `https://valencianismo.com:8000/stream`).
+Pasos para levantar la web en tu servidor:
+
+1. Entra por SSH a tu servidor: `ssh debian@54.36.100.247`
+2. Clona el repositorio:
+   ```bash
+   git clone https://github.com/v0l0v/radiovalencianismo.git
+   cd radiovalencianismo
+   ```
+3. Levanta el servidor web con Docker en segundo plano:
+   ```bash
+   sudo docker compose up -d
+   ```
+
+A partir de este momento, si visitas `http://54.36.100.247` en tu navegador, verás la web funcionando perfectamente.
+
+> **Nota para el futuro (Backend Completo con Docker):**
+> Si más adelante quieres pasar Icecast y Liquidsoap también a Docker para no tener que usar `apt install`, el archivo `docker-compose.yml` se puede ampliar fácilmente añadiendo los servicios de `icecast` y `liquidsoap`.
