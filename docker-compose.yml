@@ -17,6 +17,8 @@ services:
       - GENERIC_TIMEZONE=Europe/Madrid
       - TZ=Europe/Madrid
       - N8N_SECURE_COOKIE=false
+      - N8N_BLOCK_NODES=
+      - N8N_NODES_EXCLUDE_SSH_EXECUTION=false
     volumes:
       - n8n_data:/home/node/.n8n
       - ./backend/mp3:/mp3
