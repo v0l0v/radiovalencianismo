@@ -246,6 +246,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function handleZap(event) {
+        // Active celebration state
+        document.body.classList.add("zap-active");
+
         // Show Zap Notification
         const zapNotice = document.createElement("div");
         zapNotice.className = "zap-notification";
@@ -260,7 +263,10 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 3000);
         }
 
-        setTimeout(() => zapNotice.remove(), 5000);
+        setTimeout(() => {
+            zapNotice.remove();
+            document.body.classList.remove("zap-active");
+        }, 4000);
     }
 
     initNostr();

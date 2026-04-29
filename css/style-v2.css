@@ -481,3 +481,35 @@ body {
     line-height: 1.4;
     margin: 10px 0 20px;
 }
+
+/* Efecto Celebración Zap */
+.zap-active .ambient-background {
+    animation: zap-bg-flash 0.5s infinite alternate, zap-bg-spin 2s linear infinite;
+    opacity: 0.8 !important;
+    background: radial-gradient(circle, #FFD700 0%, #FFA500 50%, #FF4500 100%);
+}
+
+.zap-active .glass-container {
+    animation: zap-shake 0.2s infinite;
+    border-color: #FFD700;
+    box-shadow: 0 0 100px rgba(255, 215, 0, 0.4);
+}
+
+@keyframes zap-bg-flash {
+    from { filter: blur(60px) brightness(1); }
+    to { filter: blur(40px) brightness(2); }
+}
+
+@keyframes zap-bg-spin {
+    from { transform: rotate(0deg) scale(1.5); }
+    to { transform: rotate(360deg) scale(2); }
+}
+
+@keyframes zap-shake {
+    0% { transform: translate(1px, 1px) rotate(0deg); }
+    10% { transform: translate(-1px, -2px) rotate(-1deg); }
+    20% { transform: translate(-3px, 0px) rotate(1deg); }
+    30% { transform: translate(3px, 2px) rotate(0deg); }
+    40% { transform: translate(1px, -1px) rotate(1deg); }
+    50% { transform: translate(-1px, 2px) rotate(-1deg); }
+}
