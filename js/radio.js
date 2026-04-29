@@ -265,7 +265,17 @@ document.addEventListener('DOMContentLoaded', () => {
 
     initNostr();
 
-    // 6. Register PWA Service Worker
+    // 6. Test & Simulation
+    const logoImg = document.querySelector(".logo-img");
+    if (logoImg) {
+        logoImg.addEventListener('dblclick', () => {
+            console.log("Simulando Zap...");
+            handleZap({});
+        });
+    }
+    window.simulateZap = () => handleZap({});
+
+    // 7. Register PWA Service Worker
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('sw.js').then(registration => {
