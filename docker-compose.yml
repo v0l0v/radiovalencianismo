@@ -24,7 +24,7 @@ services:
     restart: unless-stopped
 
   icecast:
-    image: infiniteproject/icecast
+    image: moucedre/icecast2
     container_name: icecast
     ports:
       - "8000:8000"
