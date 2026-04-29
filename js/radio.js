@@ -30,13 +30,15 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             if (typeof REFRANES !== 'undefined' && REFRANES.length > 0) {
                 const randomRefran = REFRANES[Math.floor(Math.random() * REFRANES.length)];
-                refranText.textContent = `"${randomRefran}"`;
+                // Insertamos un salto de línea antes del paréntesis
+                const formattedRefran = randomRefran.replace(' (', '<br>(');
+                refranText.innerHTML = `"${formattedRefran}"`;
             } else {
-                refranText.textContent = '"A poc a poc s\'ompli la gerra"';
+                refranText.innerHTML = '"A poc a poc s\'ompli la gerra<br>(Refrán Valenciano)"';
             }
         } catch (error) {
             console.error("Error loading refranes:", error);
-            refranText.textContent = '"A poc a poc s\'ompli la gerra"'; // Fallback
+            refranText.innerHTML = '"A poc a poc s\'ompli la gerra<br>(Refrán Valenciano)"';
         }
     }
 
