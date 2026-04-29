@@ -198,6 +198,9 @@ body {
         display: none;
     }
 
+    .stream-progress-container {
+        display: none;
+    }
     .song-info {
         text-align: left;
         margin-bottom: 4px;
@@ -247,10 +250,6 @@ body {
         height: 18px;
     }
 
-    .stream-progress-container {
-        width: 100%;
-        margin-top: 0;
-    }
 }
 
 /* Tablets y pantallas medianas */
