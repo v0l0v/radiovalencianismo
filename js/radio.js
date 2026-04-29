@@ -249,24 +249,25 @@ document.addEventListener('DOMContentLoaded', () => {
         // Active celebration state
         document.body.classList.add("zap-active");
 
-        // Show Zap Notification
-        const zapNotice = document.createElement("div");
-        zapNotice.className = "zap-notification";
-        zapNotice.innerHTML = "⚡ ¡ZAP RECIBIDO! ⚡";
-        document.body.appendChild(zapNotice);
+        // Save original cover and swap to Bitcoin logo
+        const originalCover = coverImage.src;
+        coverImage.src = 'assets/logob.png';
 
-        // Vinyl Glow Effect
+        // Vinyl Glow Effect (stronger)
         if (vinylWrapper) {
-            vinylWrapper.style.boxShadow = "0 0 50px #FFD700";
-            setTimeout(() => {
-                vinylWrapper.style.boxShadow = "0 20px 50px rgba(0,0,0,0.8)";
-            }, 3000);
+            vinylWrapper.style.boxShadow = "0 0 80px #FFD700";
         }
 
         setTimeout(() => {
-            zapNotice.remove();
             document.body.classList.remove("zap-active");
-        }, 4000);
+            // Only restore if the cover hasn't changed in the meantime (unlikely but safe)
+            if (coverImage.src.includes('logob.png')) {
+                coverImage.src = originalCover;
+            }
+            if (vinylWrapper) {
+                vinylWrapper.style.boxShadow = "0 20px 50px rgba(0,0,0,0.8)";
+            }
+        }, 5000);
     }
 
     initNostr();

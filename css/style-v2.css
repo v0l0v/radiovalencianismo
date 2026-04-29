@@ -33,8 +33,8 @@ body {
 
 .glass-container {
     width: 100%;
-    max-width: 400px;
-    height: 100vh;
+    max-width: 450px;
+    height: 90vh;
     max-height: 850px;
     background: var(--glass-bg);
     backdrop-filter: blur(20px);
@@ -49,6 +49,9 @@ body {
 }
 
 @media (max-width: 450px) {
+    body {
+        align-items: flex-start;
+    }
     .glass-container {
         border-radius: 0;
         height: 100vh;
@@ -56,6 +59,86 @@ body {
         border: none;
     }
 }
+
+@media (max-height: 660px) {
+    .v2-header { padding: 15px 20px 5px; }
+    .record-player { width: 180px; height: 180px; margin-bottom: 15px; }
+    .refran-text-container { min-height: 50px; margin: 5px 20px; font-size: 0.95rem; }
+    .song-title { font-size: 1.3rem; }
+    .glass-btn.primary { width: 65px; height: 65px; }
+    .glass-btn.primary svg { width: 30px; height: 30px; }
+    .modern-controls { margin-bottom: 15px; }
+}
+
+@media (orientation: landscape) and (max-height: 500px) {
+    .glass-container {
+        max-width: 100%;
+        height: 100vh;
+        max-height: 100vh;
+        border-radius: 0;
+    }
+    .v2-header {
+        position: absolute;
+        top: 10px;
+        left: 20px;
+        width: calc(100% - 40px);
+        padding: 0;
+        z-index: 5;
+    }
+    .refran-text-container {
+        display: none;
+    }
+    .v2-player {
+        flex-direction: row;
+        gap: 5vw;
+        padding: 40px 40px 20px;
+        justify-content: center;
+        align-items: center;
+    }
+    .record-player {
+        width: min(250px, 40vw);
+        height: min(250px, 40vw);
+        margin-bottom: 0;
+    }
+    .song-info {
+        text-align: left;
+        margin-bottom: 15px;
+        width: auto;
+        flex: 1;
+    }
+    .scrolling-text-container {
+        justify-content: flex-start;
+        height: 40px;
+        -webkit-mask-image: linear-gradient(to right, black 85%, transparent);
+        mask-image: linear-gradient(to right, black 85%, transparent);
+    }
+    .song-title {
+        font-size: 1.4rem;
+        padding: 0;
+    }
+    .modern-controls {
+        justify-content: flex-start;
+        margin-bottom: 15px;
+        gap: 15px;
+    }
+    .glass-btn.primary {
+        width: 60px;
+        height: 60px;
+    }
+    .glass-btn.primary svg {
+        width: 25px;
+        height: 25px;
+    }
+    .glass-btn.secondary {
+        width: 45px;
+        height: 45px;
+    }
+    .stream-progress-container {
+        width: 100%;
+        margin-top: 10px;
+    }
+}
+
 
 .v2-header {
     display: flex;
@@ -112,19 +195,20 @@ body {
 }
 
 .refran-text-container {
-    margin: 15px 20px 25px;
-    min-height: 90px;
+    margin: 10px 20px;
+    min-height: 60px;
+    flex-shrink: 0;
     display: flex;
     justify-content: center;
     align-items: center;
     text-align: center;
     font-family: 'Outfit', system-ui, sans-serif;
-    font-size: 1.25rem;
+    font-size: clamp(1rem, 4vw, 1.25rem);
     font-weight: 400;
     color: var(--secondary);
     font-style: italic;
     text-shadow: 1px 2px 6px rgba(0,0,0,0.9), 0 0 15px rgba(0,0,0,0.6);
-    line-height: 1.4;
+    line-height: 1.3;
     letter-spacing: 0.5px;
 }
 
@@ -138,10 +222,10 @@ body {
 }
 
 .record-player {
-    width: 280px;
-    height: 280px;
+    width: min(280px, 70vw);
+    height: min(280px, 70vw);
     position: relative;
-    margin-bottom: 40px;
+    margin-bottom: 30px;
 }
 
 .vinyl-wrapper {
@@ -166,8 +250,8 @@ body {
 @keyframes spin { 100% { transform: rotate(360deg); } }
 
 .vinyl-cover {
-    width: 120px;
-    height: 120px;
+    width: 40%;
+    height: 40%;
     border-radius: 50%;
     object-fit: cover;
     position: absolute;
@@ -185,14 +269,15 @@ body {
 .song-info {
     text-align: center;
     width: 100%;
-    margin-bottom: 40px;
+    margin-bottom: 20px;
+    flex-shrink: 0;
 }
 
 .scrolling-text-container {
     width: 100%;
     overflow: hidden;
     position: relative;
-    height: 60px;
+    height: 50px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -202,7 +287,7 @@ body {
 
 .song-title {
     margin: 0;
-    font-size: 1.8rem;
+    font-size: clamp(1.2rem, 5vw, 1.8rem);
     font-weight: 800;
     white-space: nowrap;
     text-align: center;
@@ -234,8 +319,8 @@ body {
 .modern-controls {
     display: flex;
     align-items: center;
-    gap: 30px;
-    margin-bottom: 30px;
+    gap: 20px;
+    margin-bottom: 20px;
 }
 
 .glass-btn {
@@ -338,6 +423,14 @@ body {
     .history-panel { border-radius: 20px 20px 0 0; }
 }
 
+@media (orientation: landscape) and (max-height: 500px) {
+    .history-panel {
+        height: 85%;
+        padding: 20px;
+    }
+}
+
+
 .history-panel.active {
     bottom: 0;
 }
@@ -371,30 +464,10 @@ body {
 }
 
 /* Nostr Zap Notifications */
-.zap-notification {
-    position: fixed;
-    top: 20%;
-    left: 50%;
-    transform: translateX(-50%);
-    background: linear-gradient(135deg, #FFD700, #FFA500);
-    color: #000;
-    padding: 15px 30px;
-    border-radius: 50px;
-    font-weight: 800;
-    font-size: 1.2rem;
-    box-shadow: 0 0 30px #FFD700;
-    z-index: 1000;
-    animation: zap-pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-}
-
-@keyframes zap-pop {
-    0% { transform: translateX(-50%) scale(0) rotate(-10deg); opacity: 0; }
-    100% { transform: translateX(-50%) scale(1) rotate(0deg); opacity: 1; }
-}
-
 #zap-btn svg {
     filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5));
 }
+
 
 #zap-btn:hover {
     background: rgba(255, 215, 0, 0.1);
@@ -495,6 +568,41 @@ body {
     box-shadow: 0 0 100px rgba(255, 215, 0, 0.4);
 }
 
+.zap-active .vinyl-wrapper {
+    animation: zap-spin-fast 0.5s linear infinite, zap-brilliant 1s infinite alternate;
+    border: 2px solid #FFD700;
+    overflow: visible;
+}
+
+.zap-active .vinyl-wrapper::after {
+    content: '';
+    position: absolute;
+    top: -20px;
+    left: -20px;
+    right: -20px;
+    bottom: -20px;
+    background: radial-gradient(circle, rgba(255,215,0,0.4) 0%, transparent 70%);
+    animation: zap-sparkle 0.5s infinite;
+    z-index: -1;
+    border-radius: 50%;
+}
+
+@keyframes zap-spin-fast {
+    from { transform: rotate(0deg) scale(1.1); }
+    to { transform: rotate(360deg) scale(1.1); }
+}
+
+@keyframes zap-brilliant {
+    from { filter: brightness(1) contrast(1); }
+    to { filter: brightness(1.5) contrast(1.2) drop-shadow(0 0 20px #fff); }
+}
+
+@keyframes zap-sparkle {
+    0% { opacity: 0.3; transform: scale(0.8); }
+    50% { opacity: 1; transform: scale(1.2); }
+    100% { opacity: 0.3; transform: scale(0.8); }
+}
+
 @keyframes zap-bg-flash {
     from { filter: blur(60px) brightness(1); }
     to { filter: blur(40px) brightness(2); }
@@ -514,83 +622,3 @@ body {
     50% { transform: translate(-1px, 2px) rotate(-1deg); }
 }
 
-/* Zap Modal Styles */
-.modern-modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.85);
-    backdrop-filter: blur(10px);
-    display: none;
-    justify-content: center;
-    align-items: center;
-    z-index: 2000;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-}
-
-.modern-modal.active {
-    display: flex;
-    opacity: 1;
-}
-
-.modal-content {
-    background: var(--glass-bg);
-    padding: 40px;
-    border-radius: 30px;
-    border: 1px solid var(--glass-border);
-    text-align: center;
-    max-width: 90%;
-    width: 320px;
-    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
-}
-
-.modal-content h3 {
-    margin-top: 0;
-    color: var(--secondary);
-    font-size: 1.5rem;
-}
-
-#qrcode-container {
-    background: #fff;
-    padding: 15px;
-    border-radius: 20px;
-    margin: 20px 0;
-    display: inline-block;
-}
-
-#zap-qr {
-    width: 200px;
-    height: 200px;
-    display: block;
-}
-
-.zap-address {
-    font-size: 0.9rem;
-    color: #888;
-    margin-bottom: 25px;
-}
-
-.close-modal {
-    background: var(--primary);
-    border: none;
-    padding: 12px 30px;
-    border-radius: 50px;
-    color: #fff;
-    font-weight: 600;
-    cursor: pointer;
-    transition: transform 0.2s;
-}
-
-.close-modal:hover {
-    transform: scale(1.05);
-}
-
-.zap-help {
-    font-size: 0.85rem;
-    color: #ccc;
-    line-height: 1.4;
-    margin: 10px 0 20px;
-}
