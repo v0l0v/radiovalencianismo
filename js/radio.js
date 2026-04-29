@@ -90,17 +90,17 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Metadata & Cover Logic
     async function updateMetadata() {
         try {
-            // Note: ZenoFM metadata API endpoint might require a specific subscribe endpoint.
-            // Using a fallback approach if API fails.
             let songName = "Radio Valencianismo 24/7";
             
             try {
-                // Trying standard icecast/zeno json endpoint if available
-                const metaRes = await fetch(`https://api.zeno.fm/mounts/metadata/subscribe/${STREAM_ID}`);
+                const metaRes = await fetch(ICECAST_JSON_URL);
                 if (metaRes.ok) {
                     const data = await metaRes.json();
-                    if (data && data.streamTitle) {
-                        songName = data.streamTitle;
+                    if (data.icestats && data.icestats.source) {
+                        const source = Array.isArray(data.icestats.source) ? data.icestats.source[0] : data.icestats.source;
+                        if (source && source.title) {
+                            songName = source.title;
+                        }
                     }
                 }
             } catch(e) {

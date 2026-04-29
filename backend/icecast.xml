@@ -6,6 +6,10 @@
         <chroot>0</chroot>
     </security>
 
+    <http-headers>
+        <header name="Access-Control-Allow-Origin" value="*" />
+    </http-headers>
+
     <limits>
         <clients>100</clients>
         <sources>2</sources>
