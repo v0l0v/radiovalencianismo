@@ -396,6 +396,11 @@ body {
     min-width: 0; /* Crucial para flexbox */
 }
 
+/* En portrait el wrapper es transparente para flexbox */
+.song-info-landscape-wrapper {
+    display: contents;
+}
+
 .scrolling-text-container {
     width: 100%;
     overflow: hidden;
