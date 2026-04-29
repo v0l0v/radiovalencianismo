@@ -296,9 +296,11 @@ document.addEventListener('DOMContentLoaded', () => {
     initNostr();
 
     // 6. Test & Simulation
-    const logoImg = document.querySelector(".logo-img");
-    if (logoImg) {
-        logoImg.addEventListener('dblclick', () => {
+    // 6. Test & Simulation (Easter Egg)
+    const mainTitle = document.getElementById("main-title");
+    if (mainTitle) {
+        mainTitle.style.cursor = "pointer";
+        mainTitle.addEventListener('dblclick', () => {
             console.log("Simulando Zap...");
             handleZap({});
         });
