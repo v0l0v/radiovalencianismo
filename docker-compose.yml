@@ -1,11 +1,15 @@
 services:
   web:
-    image: nginx:alpine
+    image: caddy:alpine
     container_name: radiovalencianismo-web
     ports:
       - "80:80"
+      - "443:443"
     volumes:
-      - ./:/usr/share/nginx/html:ro
+      - ./:/srv:ro
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddy_data:/data
+      - caddy_config:/config
     restart: unless-stopped
 
   icecast:
@@ -29,3 +33,7 @@ services:
     depends_on:
       - icecast
     restart: unless-stopped
+
+volumes:
+  caddy_data:
+  caddy_config:
