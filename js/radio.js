@@ -1,4 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Configuración de la radio
+    const STREAM_URL = "http://54.36.100.247:8000/stream";
+    const ICECAST_JSON_URL = "http://54.36.100.247:8000/status-json.xsl";
+
     // Elements
     const audio = document.getElementById("radio-stream");
     const playBtn = document.getElementById("play-btn");
