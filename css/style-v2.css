@@ -362,6 +362,54 @@ body {
     border: 2px solid #666;
 }
 
+/* Estilos Modo Casete (Tape) */
+.vinyl-wrapper.is-cassette {
+    width: 280px;
+    height: 180px;
+    border-radius: 10px;
+    background: #1a1a1a;
+    border: 3px solid #333;
+    animation: none;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 40px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.7), inset 0 0 20px #000;
+}
+
+.vinyl-wrapper.is-cassette::before,
+.vinyl-wrapper.is-cassette::after {
+    content: '';
+    position: absolute;
+    width: 45px;
+    height: 45px;
+    background: #000;
+    border-radius: 50%;
+    border: 3px dashed #444;
+    top: 50%;
+    margin-top: -22.5px;
+    animation: spin 4s linear infinite;
+    z-index: 1;
+}
+
+.vinyl-wrapper.is-cassette::before { left: 55px; }
+.vinyl-wrapper.is-cassette::after { right: 55px; }
+
+.vinyl-wrapper.is-cassette .vinyl-cover {
+    width: 120px;
+    height: 65px;
+    border-radius: 4px;
+    position: relative;
+    z-index: 2;
+    border: 1px solid #444;
+    object-fit: cover;
+    opacity: 0.8;
+}
+
+.vinyl-wrapper.is-cassette .vinyl-hole {
+    display: none;
+}
+
 .song-info {
     text-align: center;
     width: 100%;
