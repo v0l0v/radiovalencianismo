@@ -570,6 +570,7 @@ body {
 
 .zap-active .vinyl-wrapper {
     animation: zap-spin-fast 0.5s linear infinite, zap-brilliant 1s infinite alternate;
+    animation-play-state: running !important;
     border: 2px solid #FFD700;
     overflow: visible;
 }
