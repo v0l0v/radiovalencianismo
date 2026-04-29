@@ -1,4 +1,4 @@
-const CACHE_NAME = 'radio-valencianismo-v1';
+const CACHE_NAME = 'radio-valencianismo-v2';
 const urlsToCache = [
   './',
   './index.html',
@@ -7,6 +7,7 @@ const urlsToCache = [
   './js/radio.js',
   './js/refranes.js',
   './assets/icon.png',
+  './assets/logob.png',
   './assets/default-cover.png',
   './assets/default-cover-2.png',
   './assets/default-cover-3.png',
