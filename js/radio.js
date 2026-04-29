@@ -296,14 +296,37 @@ document.addEventListener('DOMContentLoaded', () => {
     initNostr();
 
     // 6. Test & Simulation
-    // 6. Test & Simulation (Easter Egg)
+    // 6. Test & Simulation (Easter Eggs)
     const eggZap = document.getElementById("easter-egg-zap");
+    const eggCd = document.getElementById("easter-egg-cd");
+    const cdIconPath = document.getElementById("cd-icon-path");
+    let isCdMode = false;
+
     if (eggZap) {
         eggZap.addEventListener('dblclick', () => {
             console.log("Simulando Zap...");
+            // Ocultar historial automáticamente
+            document.querySelector('.history-panel').classList.remove('active');
             handleZap({});
         });
     }
+
+    if (eggCd) {
+        eggCd.addEventListener('dblclick', () => {
+            isCdMode = !isCdMode;
+            if (isCdMode) {
+                vinylWrapper.classList.add("is-cd");
+                // Cambiar icono a vinilo
+                cdIconPath.setAttribute("d", "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14.5c-2.48 0-4.5-2.02-4.5-4.5S9.52 7.5 12 7.5s4.5 2.02 4.5 4.5-2.02 4.5-4.5 4.5zM12 11c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z");
+            } else {
+                vinylWrapper.classList.remove("is-cd");
+                // Cambiar icono a CD
+                cdIconPath.setAttribute("d", "M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2M12,16.5C9.5,16.5 7.5,14.5 7.5,12C7.5,9.5 9.5,7.5 12,7.5C14.5,7.5 16.5,9.5 16.5,12C16.5,14.5 14.5,16.5 12,16.5M12,10.5C11.17,10.5 10.5,11.17 10.5,12C10.5,12.83 11.17,13.5 12,13.5C12.83,13.5 13.5,12.83 13.5,12C13.5,11.17 12.83,10.5 12,10.5Z");
+            }
+            console.log("Modo disco cambiado:", isCdMode ? "CD" : "Vinilo");
+        });
+    }
+
     window.simulateZap = () => handleZap({});
 
     // 7. Register PWA Service Worker
