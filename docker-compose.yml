@@ -8,23 +8,6 @@ services:
       - ./:/usr/share/nginx/html:ro
     restart: unless-stopped
 
-  n8n:
-    build: ./backend/n8n
-    container_name: n8n
-    ports:
-      - "5678:5678"
-    environment:
-      - GENERIC_TIMEZONE=Europe/Madrid
-      - TZ=Europe/Madrid
-      - N8N_SECURE_COOKIE=false
-      - N8N_BLOCK_NODES=
-      - N8N_NODES_EXCLUDE_SSH_EXECUTION=false
-    volumes:
-      - n8n_data:/home/node/.n8n
-      - ./backend/mp3:/mp3
-      - ./backend/n8n/tagger.js:/home/node/tagger.js:ro
-    restart: unless-stopped
-
   icecast:
     image: pltnk/icecast2
     container_name: icecast
@@ -46,6 +29,3 @@ services:
     depends_on:
       - icecast
     restart: unless-stopped
-
-volumes:
-  n8n_data:
