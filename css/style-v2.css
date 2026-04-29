@@ -411,41 +411,6 @@ body {
     box-shadow: 0 15px 30px rgba(0, 102, 204, 0.5);
 }
 
-.stream-progress-container {
-    width: 80%;
-    height: 6px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 10px;
-    margin-top: 20px;
-    overflow: hidden;
-    position: relative;
-    opacity: 0;
-    transition: opacity 0.5s ease;
-}
-
-.stream-progress-container.active {
-    opacity: 1;
-}
-
-.stream-progress-bar {
-    width: 40%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, var(--secondary), var(--primary), transparent);
-    border-radius: 10px;
-    position: absolute;
-    left: -40%;
-    box-shadow: 0 0 15px var(--primary);
-}
-
-.stream-progress-container.active .stream-progress-bar {
-    animation: stream-loading 3s infinite linear;
-}
-
-@keyframes stream-loading {
-    0% { left: -40%; }
-    100% { left: 100%; }
-}
-
 .history-panel {
     position: absolute;
     bottom: 0;
