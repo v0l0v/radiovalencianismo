@@ -205,8 +205,19 @@ document.addEventListener('DOMContentLoaded', () => {
     const NOSTR_PUBKEY = "72bdbc57bdd6dfc4e62685051de8041d148c3c68fe42bf301f71aa6cf53e52fb";
     const RELAYS = ["wss://relay.coinos.io", "wss://relay.damus.io", "wss://nos.lol"];
 
+    const zapModal = document.getElementById("zap-modal");
+    const zapQrImg = document.getElementById("zap-qr");
+    const closeZapBtn = document.getElementById("close-zap");
+
     zapBtn.addEventListener('click', () => {
-        window.open(`lightning:${LIGHTNING_ADDRESS}`, '_blank');
+        const lnUri = `lightning:${LIGHTNING_ADDRESS}`;
+        // Usamos una API gratuita para generar el QR al vuelo
+        zapQrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(lnUri)}`;
+        zapModal.classList.add("active");
+    });
+
+    closeZapBtn.addEventListener('click', () => {
+        zapModal.classList.remove("active");
     });
 
     function initNostr() {
