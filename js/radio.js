@@ -156,7 +156,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ambientBg.style.backgroundImage = `url(${randomCover})`;
             ambientBg.style.backgroundSize = 'cover';
             ambientBg.style.backgroundPosition = 'center';
-            ambientBg.style.opacity = '0.3';
+            ambientBg.style.opacity = '0.5';
         }
     }
 
@@ -210,6 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 4. Initialize
     loadRefran();
+    setRandomCover(); // Fondo con portada desde el primer momento
     updateMetadata();
     checkMarquee();
     // Poll metadata every 15 seconds
