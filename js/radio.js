@@ -300,8 +300,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const eggZap = document.getElementById("easter-egg-zap");
     const eggCd = document.getElementById("easter-egg-cd");
     const cdIconPath = document.getElementById("cd-icon-path");
-    let clickCount = 0;
-    let clickTimer = null;
+    let isCdMode = false;
 
     if (eggZap) {
         eggZap.addEventListener('dblclick', () => {
@@ -312,28 +311,17 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     if (eggCd) {
-        eggCd.addEventListener('click', () => {
-            clickCount++;
-            clearTimeout(clickTimer);
-            clickTimer = setTimeout(() => {
-                document.querySelector('.history-panel').classList.remove('active');
-                
-                // Vinyl=0, CD=1, Cassette=2
-                const state = clickCount % 3;
-                
-                vinylWrapper.classList.remove("is-cd", "is-cassette");
-                
-                if (state === 1) { // CD
-                    vinylWrapper.classList.add("is-cd");
-                    cdIconPath.setAttribute("d", "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14.5c-2.48 0-4.5-2.02-4.5-4.5S9.52 7.5 12 7.5s4.5 2.02 4.5 4.5-2.02 4.5-4.5 4.5zM12 11c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z");
-                } else if (state === 2) { // Cassette
-                    vinylWrapper.classList.add("is-cassette");
-                    cdIconPath.setAttribute("d", "M21,17H3V7h18V17z M5,9h14v2H5V9z M5,13h14v2H5V13z");
-                } else { // Vinyl
-                    cdIconPath.setAttribute("d", "M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2M12,16.5C9.5,16.5 7.5,14.5 7.5,12C7.5,9.5 9.5,7.5 12,7.5C14.5,7.5 16.5,9.5 16.5,12C16.5,14.5 14.5,16.5 12,16.5M12,10.5C11.17,10.5 10.5,11.17 10.5,12C10.5,12.83 11.17,13.5 12,13.5C12.83,13.5 13.5,12.83 13.5,12C13.5,11.17 12.83,10.5 12,10.5Z");
-                }
-                clickCount = 0;
-            }, 500);
+        eggCd.addEventListener('dblclick', () => {
+            isCdMode = !isCdMode;
+            document.querySelector('.history-panel').classList.remove('active');
+            
+            if (isCdMode) {
+                vinylWrapper.classList.add("is-cd");
+                cdIconPath.setAttribute("d", "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14.5c-2.48 0-4.5-2.02-4.5-4.5S9.52 7.5 12 7.5s4.5 2.02 4.5 4.5-2.02 4.5-4.5 4.5zM12 11c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z");
+            } else {
+                vinylWrapper.classList.remove("is-cd");
+                cdIconPath.setAttribute("d", "M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2M12,16.5C9.5,16.5 7.5,14.5 7.5,12C7.5,9.5 9.5,7.5 12,7.5C14.5,7.5 16.5,9.5 16.5,12C16.5,14.5 14.5,16.5 12,16.5M12,10.5C11.17,10.5 10.5,11.17 10.5,12C10.5,12.83 11.17,13.5 12,13.5C12.83,13.5 13.5,12.83 13.5,12C13.5,11.17 12.83,10.5 12,10.5Z");
+            }
         });
     }
 
