@@ -199,7 +199,62 @@ document.addEventListener('DOMContentLoaded', () => {
     // Poll metadata every 15 seconds
     setInterval(updateMetadata, 15000);
 
-    // 5. Register PWA Service Worker
+    // 5. Nostr & Zaps
+    const zapBtn = document.getElementById("zap-btn");
+    const LIGHTNING_ADDRESS = "boss@coinos.io";
+    const NOSTR_PUBKEY = "72bdbc57bdd6dfc4e62685051de8041d148c3c68fe42bf301f71aa6cf53e52fb";
+    const RELAYS = ["wss://relay.coinos.io", "wss://relay.damus.io", "wss://nos.lol"];
+
+    zapBtn.addEventListener('click', () => {
+        window.open(`lightning:${LIGHTNING_ADDRESS}`, '_blank');
+    });
+
+    function initNostr() {
+        RELAYS.forEach(relayUrl => {
+            try {
+                const ws = new WebSocket(relayUrl);
+                ws.onopen = () => {
+                    // Subscribe to Zap events (Kind 9735) for your pubkey
+                    const sub = ["REQ", "zaps-" + Math.random(), {
+                        kinds: [9735],
+                        "#p": [NOSTR_PUBKEY],
+                        since: Math.floor(Date.now() / 1000)
+                    }];
+                    ws.send(JSON.stringify(sub));
+                };
+                ws.onmessage = (e) => {
+                    const data = JSON.parse(e.data);
+                    if (data[0] === "EVENT" && data[2].kind === 9735) {
+                        handleZap(data[2]);
+                    }
+                };
+            } catch (err) {
+                console.error("Nostr error on " + relayUrl, err);
+            }
+        });
+    }
+
+    function handleZap(event) {
+        // Show Zap Notification
+        const zapNotice = document.createElement("div");
+        zapNotice.className = "zap-notification";
+        zapNotice.innerHTML = "⚡ ¡ZAP RECIBIDO! ⚡";
+        document.body.appendChild(zapNotice);
+
+        // Vinyl Glow Effect
+        if (vinylWrapper) {
+            vinylWrapper.style.boxShadow = "0 0 50px #FFD700";
+            setTimeout(() => {
+                vinylWrapper.style.boxShadow = "0 20px 50px rgba(0,0,0,0.8)";
+            }, 3000);
+        }
+
+        setTimeout(() => zapNotice.remove(), 5000);
+    }
+
+    initNostr();
+
+    // 6. Register PWA Service Worker
     if ('serviceWorker' in navigator) {
         window.addEventListener('load', () => {
             navigator.serviceWorker.register('sw.js').then(registration => {
