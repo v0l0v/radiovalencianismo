@@ -32,7 +32,7 @@
         </div>
 
         <main class="v2-player">
-            <div class="record-player">
+            <div class="record-player" id="record-player-btn" title="Ver Historial" style="cursor: pointer;">
                 <div class="vinyl-wrapper" id="vinyl-wrapper">
                     <img id="cover-image" src="assets/default-cover.png" alt="Carátula" class="vinyl-cover"
                         onerror="this.src='assets/default-cover.png'">
@@ -53,13 +53,6 @@
                         <path fill="#FFD700" d="M7,2V13H10V22L17,10H13L17,2H7Z" />
                     </svg>
                 </button>
-                <button class="glass-btn secondary"
-                    onclick="document.querySelector('.history-panel').classList.toggle('active')">
-                    <svg viewBox="0 0 24 24">
-                        <path fill="currentColor"
-                            d="M13.5,8H12V13L16.28,15.54L17,14.33L13.5,12.25V8M13,3A9,9 0 0,0 4,12H1L4.96,16.03L9,12H6A7,7 0 0,1 13,5A7,7 0 0,1 20,12A7,7 0 0,1 13,19C11.07,19 9.32,18.21 8.06,16.94L6.64,18.36C8.27,20 10.5,21 13,21A9,9 0 0,0 22,12A9,9 0 0,0 13,3" />
-                    </svg>
-                </button>
                 <button id="play-btn" class="glass-btn primary" aria-label="Reproducir/Pausar">
                     <svg viewBox="0 0 24 24" class="icon-play" id="icon-play">
                         <path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z" />
@@ -68,24 +61,28 @@
                         <path fill="currentColor" d="M14,19H18V5H14M6,19H10V5H6V19Z" />
                     </svg>
                 </button>
-
+                <button id="paypal-btn" class="glass-btn secondary paypal" title="Donar con PayPal">
+                    <svg viewBox="0 0 24 24">
+                        <path fill="#003087" d="M20,8C20,13 17,15.5 13,15.5H10.5L9.5,21.5H6L8.5,5.5H13.5C17.5,5.5 20,6.5 20,8Z" />
+                    </svg>
+                </button>
             </div>
 
             <div class="stream-progress-container" id="progress-container">
                 <div class="stream-progress-bar" id="progress-bar"></div>
             </div>
         </main>
+    </div>
 
-        <div class="history-panel">
-            <div class="history-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <h3 style="margin: 0;">Historial de Canciones</h3>
-                <button class="close-history" aria-label="Cerrar" onclick="document.querySelector('.history-panel').classList.remove('active')" style="background: rgba(255,255,255,0.1); border: none; border-radius: 50%; width: 32px; height: 32px; color: #fff; cursor: pointer; display: flex; justify-content: center; align-items: center;">
-                    <svg viewBox="0 0 24 24" style="width: 20px; height: 20px;"><path fill="currentColor" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" /></svg>
-                </button>
-            </div>
-            <ul id="history-list" class="modern-history-list">
-            </ul>
+    <div class="history-panel">
+        <div class="history-header" style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+            <h3 style="margin: 0;">Historial de Canciones</h3>
+            <button class="close-history" aria-label="Cerrar" onclick="document.querySelector('.history-panel').classList.remove('active')" style="background: rgba(255,255,255,0.1); border: none; border-radius: 50%; width: 32px; height: 32px; color: #fff; cursor: pointer; display: flex; justify-content: center; align-items: center;">
+                <svg viewBox="0 0 24 24" style="width: 20px; height: 20px;"><path fill="currentColor" d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" /></svg>
+            </button>
         </div>
+        <ul id="history-list" class="modern-history-list">
+        </ul>
     </div>
 
     <div id="zap-modal" class="modern-modal">
@@ -97,6 +94,20 @@
             </div>
             <p class="zap-address">boss@coinos.io</p>
             <button class="close-modal" id="close-zap">Cerrar</button>
+        </div>
+    </div>
+
+    <div id="paypal-modal" class="modern-modal">
+        <div class="modal-content">
+            <h3>Donar con PayPal 💙</h3>
+            <p class="zap-help">Tu apoyo nos ayuda a mantener la radio libre de publicidad y con la mejor calidad.</p>
+            <div class="paypal-container" style="margin: 20px 0;">
+                <a href="https://www.paypal.me/RadioValencianismo" target="_blank" class="paypal-link-btn">
+                    Ir a PayPal.me
+                </a>
+            </div>
+            <p class="zap-address">@RadioValencianismo</p>
+            <button class="close-modal" id="close-paypal">Cerrar</button>
         </div>
     </div>
 

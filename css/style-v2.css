@@ -1,3 +1,7 @@
+* {
+    box-sizing: border-box;
+}
+
 :root {
     --primary: #0066CC; 
     --secondary: #FFD700;
@@ -7,16 +11,24 @@
     --glass-border: rgba(255, 255, 255, 0.08);
 }
 
-body {
+html, body {
     margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    height: 100dvh;
+    overflow: hidden;
+    overflow-x: hidden !important;
+    position: relative;
+}
+
+body {
     font-family: 'Outfit', system-ui, sans-serif;
     background-color: var(--bg-dark);
     color: #fff;
-    height: 100vh;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
 }
 
 .ambient-background {
@@ -32,7 +44,7 @@ body {
 }
 
 .glass-container {
-    width: 100%;
+    width: 95%;
     max-width: 450px;
     height: 90vh;
     max-height: 850px;
@@ -46,17 +58,28 @@ body {
     position: relative;
     overflow: hidden;
     box-shadow: 0 30px 60px rgba(0,0,0,0.5), inset 0 1px 0 rgba(255,255,255,0.1);
+    z-index: 10;
 }
 
-@media (max-width: 450px) {
+@media (max-width: 480px) {
     body {
         align-items: flex-start;
     }
     .glass-container {
-        border-radius: 0;
-        height: 100vh;
-        max-height: 100vh;
-        border: none;
+        width: 100% !important;
+        max-width: 100% !important;
+        height: 100% !important;
+        height: 100dvh !important;
+        max-height: 100dvh !important;
+        border-radius: 0 !important;
+        border: none !important;
+        margin: 0 !important;
+    }
+    .v2-header {
+        padding: 20px 20px 5px !important;
+    }
+    .v2-player {
+        padding: 15px !important;
     }
 }
 
@@ -271,36 +294,40 @@ body {
     width: 100%;
     margin-bottom: 20px;
     flex-shrink: 0;
+    min-width: 0; /* Crucial para flexbox */
 }
 
 .scrolling-text-container {
     width: 100%;
     overflow: hidden;
     position: relative;
-    height: 50px;
+    height: 60px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: center; /* Centrado por defecto */
     mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
     -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+    min-width: 0;
 }
 
 .song-title {
     margin: 0;
-    font-size: clamp(1.2rem, 5vw, 1.8rem);
+    font-size: clamp(1.2rem, 6vw, 1.8rem);
     font-weight: 800;
     white-space: nowrap;
-    text-align: center;
     line-height: 1.2;
-    padding: 0 20px;
-    display: inline-block;
+    padding: 0 30px;
+    width: 100%;
+    text-align: center;
 }
 
-/* Animación de desplazamiento cuando el texto es largo */
-.scrolling-text-container .song-title {
-    animation: marquee 10s linear infinite;
-    padding-left: 100%;
+/* Animación de desplazamiento mejorada */
+.scrolling-text-container.is-long .song-title {
+    width: auto;
     display: inline-block;
+    padding-left: 100%;
+    animation: marquee 15s linear infinite;
+    text-align: left;
 }
 
 @keyframes marquee {
@@ -468,10 +495,41 @@ body {
     filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5));
 }
 
-
 #zap-btn:hover {
     background: rgba(255, 215, 0, 0.1);
     border-color: #FFD700;
+}
+
+/* PayPal Styles */
+.glass-btn.paypal:hover {
+    background: rgba(0, 112, 186, 0.1);
+    border-color: #0070ba;
+}
+
+.paypal-link-btn {
+    display: inline-block;
+    background: #0070ba;
+    color: white;
+    padding: 12px 25px;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 112, 186, 0.3);
+}
+
+.paypal-link-btn:hover {
+    background: #005ea6;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 112, 186, 0.4);
+}
+
+.record-player:hover {
+    transform: scale(1.02);
+}
+
+.record-player:active {
+    transform: scale(0.98);
 }
 
 /* Zap Modal Styles */

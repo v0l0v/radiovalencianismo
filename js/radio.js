@@ -120,6 +120,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
             if (currentSongEl.textContent !== songName && songName !== "Radio Valencianismo 24/7") {
                 currentSongEl.textContent = songName;
+                checkMarquee();
                 updateCover(songName);
                 addToHistory(songName);
             }
@@ -127,6 +128,20 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error("Metadata error:", error);
         }
     }
+
+    function checkMarquee() {
+        const container = document.querySelector('.scrolling-text-container');
+        const title = document.getElementById('current-song');
+        
+        if (title.scrollWidth > container.clientWidth) {
+            container.classList.add('is-long');
+        } else {
+            container.classList.remove('is-long');
+        }
+    }
+
+    // Check on resize too
+    window.addEventListener('resize', checkMarquee);
 
     function setRandomCover() {
         const defaultCovers = [
@@ -196,18 +211,26 @@ document.addEventListener('DOMContentLoaded', () => {
     // 4. Initialize
     loadRefran();
     updateMetadata();
+    checkMarquee();
     // Poll metadata every 15 seconds
     setInterval(updateMetadata, 15000);
 
-    // 5. Nostr & Zaps
+    // 5. Nostr & Zaps & PayPal
     const zapBtn = document.getElementById("zap-btn");
+    const paypalBtn = document.getElementById("paypal-btn");
+    const vinylBtn = document.getElementById("record-player-btn");
+    
     const LIGHTNING_ADDRESS = "boss@coinos.io";
     const NOSTR_PUBKEY = "72bdbc57bdd6dfc4e62685051de8041d148c3c68fe42bf301f71aa6cf53e52fb";
     const RELAYS = ["wss://relay.coinos.io", "wss://relay.damus.io", "wss://nos.lol"];
+    const PAYPAL_ME_URL = "https://www.paypal.me/RadioValencianismo";
 
     const zapModal = document.getElementById("zap-modal");
     const zapQrImg = document.getElementById("zap-qr");
     const closeZapBtn = document.getElementById("close-zap");
+    
+    const paypalModal = document.getElementById("paypal-modal");
+    const closePaypalBtn = document.getElementById("close-paypal");
 
     zapBtn.addEventListener('click', () => {
         const lnUri = `lightning:${LIGHTNING_ADDRESS}`;
@@ -218,6 +241,32 @@ document.addEventListener('DOMContentLoaded', () => {
 
     closeZapBtn.addEventListener('click', () => {
         zapModal.classList.remove("active");
+    });
+
+    // PayPal Logic
+    const openPaypal = () => {
+        paypalModal.classList.add("active");
+    };
+
+    if (paypalBtn) paypalBtn.addEventListener('click', openPaypal);
+    
+    // Vinyl click -> History
+    if (vinylBtn) {
+        vinylBtn.addEventListener('click', () => {
+            document.querySelector('.history-panel').classList.toggle('active');
+        });
+    }
+
+    closePaypalBtn.addEventListener('click', () => {
+        paypalModal.classList.remove("active");
+    });
+
+    // Close modals on escape key
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+            zapModal.classList.remove("active");
+            paypalModal.classList.remove("active");
+        }
     });
 
     function initNostr() {
