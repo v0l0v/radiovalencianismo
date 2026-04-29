@@ -161,51 +161,8 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function updateCover(songName) {
-        try {
-            // Limpieza básica del nombre
-            const cleanName = songName.replace(/ft\.|feat\.|&/ig, '').replace(/\d+/g, '').trim();
-            if (cleanName.length < 3) {
-                setRandomCover();
-                return;
-            }
-
-            const query = encodeURIComponent(cleanName);
-            // Pedimos 5 resultados para poder filtrar si el primero es basura (Disney/Frozen)
-            const imgRes = await fetch(`https://itunes.apple.com/search?term=${query}&limit=5&entity=song`);
-            const data = await imgRes.json();
-
-            if (data.results && data.results.length > 0) {
-                // Buscamos el primer resultado que NO sea de Disney o Frozen
-                const bestMatch = data.results.find(res => {
-                    const artist = (res.artistName || "").toLowerCase();
-                    const collection = (res.collectionName || "").toLowerCase();
-                    return !artist.includes("disney") && !artist.includes("frozen") && 
-                           !collection.includes("disney") && !collection.includes("frozen");
-                }) || data.results[0]; // Si todos son "basura", nos quedamos el primero o fallamos
-
-                // Si incluso el mejor match es sospechoso, usamos cover aleatoria
-                const finalArtist = (bestMatch.artistName || "").toLowerCase();
-                if (finalArtist.includes("disney") || finalArtist.includes("frozen")) {
-                    setRandomCover();
-                    return;
-                }
-
-                const coverUrl = bestMatch.artworkUrl100.replace('100x100bb', '600x600bb');
-                coverImage.src = coverUrl;
-                
-                if (ambientBg) {
-                    ambientBg.style.backgroundImage = `url(${coverUrl})`;
-                    ambientBg.style.backgroundSize = 'cover';
-                    ambientBg.style.backgroundPosition = 'center';
-                    ambientBg.style.opacity = '0.3';
-                }
-            } else {
-                setRandomCover();
-            }
-        } catch (error) {
-            console.error("Cover search error:", error);
-            setRandomCover();
-        }
+        // Siempre usamos las carátulas aleatorias locales para mantener la estética
+        setRandomCover();
     }
 
     function addToHistory(songName) {
