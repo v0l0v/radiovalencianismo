@@ -192,19 +192,35 @@ body {
     width: 100%;
     overflow: hidden;
     position: relative;
-    height: 60px; /* Aumentado de 40px */
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
+    mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
+    -webkit-mask-image: linear-gradient(to right, transparent, black 15%, black 85%, transparent);
 }
 
-.scrolling-text, .song-title {
+.song-title {
     margin: 0;
     font-size: 1.8rem;
     font-weight: 800;
     white-space: nowrap;
     text-align: center;
     line-height: 1.2;
+    padding: 0 20px;
+    display: inline-block;
+}
+
+/* Animación de desplazamiento cuando el texto es largo */
+.scrolling-text-container .song-title {
+    animation: marquee 10s linear infinite;
+    padding-left: 100%;
+    display: inline-block;
+}
+
+@keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-100%); }
 }
 
 .station-name {
