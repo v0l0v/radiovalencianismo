@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // v2 specific elements
     const vinylWrapper = document.getElementById("vinyl-wrapper");
-    const visualizer = document.querySelector(".audio-visualizer");
+    const progressContainer = document.getElementById("progress-container");
     const ambientBg = document.getElementById("ambient-bg");
 
     // State
@@ -75,13 +75,13 @@ document.addEventListener('DOMContentLoaded', () => {
             iconPause.style.display = "block";
             statusTextEl.textContent = "Emitiendo en directo";
             if (vinylWrapper) vinylWrapper.classList.add("playing");
-            if (visualizer) visualizer.classList.add("active");
+            if (progressContainer) progressContainer.classList.add("active");
         } else {
             iconPlay.style.display = "block";
             iconPause.style.display = "none";
             statusTextEl.textContent = "Pausado";
             if (vinylWrapper) vinylWrapper.classList.remove("playing");
-            if (visualizer) visualizer.classList.remove("active");
+            if (progressContainer) progressContainer.classList.remove("active");
         }
     }
 

@@ -283,35 +283,39 @@ body {
     box-shadow: 0 15px 30px rgba(0, 102, 204, 0.5);
 }
 
-.audio-visualizer {
-    display: flex;
-    gap: 5px;
-    height: 20px;
-    align-items: flex-end;
+.stream-progress-container {
+    width: 80%;
+    height: 6px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 10px;
+    margin-top: 20px;
+    overflow: hidden;
+    position: relative;
     opacity: 0;
-    transition: opacity 0.3s;
+    transition: opacity 0.5s ease;
 }
 
-.audio-visualizer.active {
+.stream-progress-container.active {
     opacity: 1;
 }
 
-.bar {
-    width: 4px;
-    background: var(--secondary);
-    border-radius: 2px;
-    animation: eq 1s ease-in-out infinite alternate;
+.stream-progress-bar {
+    width: 40%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, var(--secondary), var(--primary), transparent);
+    border-radius: 10px;
+    position: absolute;
+    left: -40%;
+    box-shadow: 0 0 15px var(--primary);
 }
 
-.bar:nth-child(1) { height: 10px; animation-delay: 0.1s; }
-.bar:nth-child(2) { height: 20px; animation-delay: 0.3s; }
-.bar:nth-child(3) { height: 15px; animation-delay: 0.0s; }
-.bar:nth-child(4) { height: 25px; animation-delay: 0.2s; }
-.bar:nth-child(5) { height: 12px; animation-delay: 0.4s; }
+.stream-progress-container.active .stream-progress-bar {
+    animation: stream-loading 3s infinite linear;
+}
 
-@keyframes eq {
-    0% { height: 5px; }
-    100% { height: 25px; }
+@keyframes stream-loading {
+    0% { left: -40%; }
+    100% { left: 100%; }
 }
 
 .history-panel {
