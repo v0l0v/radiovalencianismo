@@ -297,10 +297,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 6. Test & Simulation
     // 6. Test & Simulation (Easter Egg)
-    const mainTitle = document.getElementById("main-title");
-    if (mainTitle) {
-        mainTitle.style.cursor = "pointer";
-        mainTitle.addEventListener('dblclick', () => {
+    const eggZap = document.getElementById("easter-egg-zap");
+    if (eggZap) {
+        eggZap.addEventListener('dblclick', () => {
             console.log("Simulando Zap...");
             handleZap({});
         });
