@@ -474,3 +474,10 @@ body {
 .close-modal:hover {
     transform: scale(1.05);
 }
+
+.zap-help {
+    font-size: 0.85rem;
+    color: #ccc;
+    line-height: 1.4;
+    margin: 10px 0 20px;
+}
