@@ -4,6 +4,7 @@
   "description": "Emisión 24/7 de música y cultura valenciana.",
   "start_url": "./index.html",
   "display": "standalone",
+  "orientation": "portrait",
   "background_color": "#121212",
   "theme_color": "#d32f2f",
   "icons": [

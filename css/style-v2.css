@@ -131,127 +131,6 @@ body {
     .song-info { margin-bottom: 10px; }
 }
 
-/* Landscape en móvil — diseño dos columnas */
-@media (orientation: landscape) and (max-height: 500px) {
-
-    .glass-container {
-        width: 100% !important;
-        max-width: 100% !important;
-        height: 100dvh !important;
-        max-height: 100dvh !important;
-        border-radius: 0 !important;
-        border: none !important;
-        flex-direction: row;   /* columnas en vez de filas */
-        overflow: hidden;
-    }
-
-    /* Columna izquierda: solo el vinilo */
-    .v2-player {
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-        padding: 8px 12px;
-        gap: 0;
-        width: 100%;
-        height: 100%;
-    }
-
-    .record-player {
-        width: min(140px, 32vh);
-        height: min(140px, 32vh);
-        margin-bottom: 0;
-        flex-shrink: 0;
-    }
-
-    /* Columna derecha: header + canción + controles */
-    .song-info-landscape-wrapper {
-        display: flex;
-        flex-direction: column;
-        justify-content: space-between;
-        flex: 1;
-        height: min(140px, 32vh);
-        padding: 0 12px 0 20px;
-        min-width: 0;
-    }
-
-    /* Mover header dentro del player en landscape */
-    .v2-header {
-        position: static;
-        padding: 0;
-        margin-bottom: 4px;
-    }
-
-    .v2-header h1 {
-        font-size: 0.85rem;
-    }
-
-    .logo-img {
-        width: 22px;
-        height: 22px;
-    }
-
-    .status-indicator {
-        font-size: 0.65rem;
-    }
-
-    .refran-text-container {
-        display: none;
-    }
-
-    .song-info {
-        text-align: left;
-        margin-bottom: 4px;
-        min-width: 0;
-    }
-
-    .scrolling-text-container {
-        height: 30px;
-        justify-content: flex-start;
-        -webkit-mask-image: linear-gradient(to right, black 80%, transparent);
-        mask-image: linear-gradient(to right, black 80%, transparent);
-    }
-
-    .song-title {
-        font-size: 1rem;
-        padding: 0;
-    }
-
-    .status {
-        font-size: 0.7rem;
-        margin: 2px 0 0;
-    }
-
-    .modern-controls {
-        justify-content: flex-start;
-        margin-bottom: 4px;
-        gap: 10px;
-    }
-
-    .glass-btn.primary {
-        width: 50px;
-        height: 50px;
-    }
-
-    .glass-btn.primary svg {
-        width: 22px;
-        height: 22px;
-    }
-
-    .glass-btn.secondary {
-        width: 38px;
-        height: 38px;
-    }
-
-    .glass-btn.secondary svg {
-        width: 18px;
-        height: 18px;
-    }
-
-    .stream-progress-container {
-        width: 100%;
-        margin-top: 0;
-    }
-}
 
 /* Tablets y pantallas medianas */
 @media (min-width: 481px) and (max-width: 768px) {
@@ -396,10 +275,6 @@ body {
     min-width: 0; /* Crucial para flexbox */
 }
 
-/* En portrait el wrapper es transparente para flexbox */
-.song-info-landscape-wrapper {
-    display: contents;
-}
 
 .scrolling-text-container {
     width: 100%;
@@ -554,12 +429,6 @@ body {
     .history-panel { border-radius: 20px 20px 0 0; }
 }
 
-@media (orientation: landscape) and (max-height: 500px) {
-    .history-panel {
-        height: 85%;
-        padding: 20px;
-    }
-}
 
 
 .history-panel.active {
