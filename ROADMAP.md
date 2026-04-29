@@ -13,5 +13,11 @@ Este archivo contiene las ideas y funcionalidades pendientes para elevar la expe
 - [ ] **IA Tagger (n8n):** Automatizar el etiquetado de la biblioteca MP3 mediante IA cuando la RAM del servidor lo permita.
 - [ ] **Dominio Propio:** Configurar un dominio oficial (ej: radio.valencianismo.es) y certificado SSL.
 
+## 📰 Módulo de Noticias (Agregador RSS)
+- [ ] **Lector de Feeds Dinámico:** Sistema que consuma una lista de URLs (RSS/Atom) y genere tarjetas visuales.
+- [ ] **Interfaz de Tarjetas (Cards):** Diseño premium de rejilla con miniaturas y titulares.
+- [ ] **Vista Expandida:** Al hacer clic, se despliega la información completa en un modal o panel lateral.
+- [ ] **Enlaces de Origen:** Enlace directo a la fuente original de la noticia.
+
 ---
 *Nota: Para añadir nuevas ideas, simplemente dímelo y las actualizaré aquí.*
