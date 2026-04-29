@@ -314,6 +314,9 @@ document.addEventListener('DOMContentLoaded', () => {
     if (eggCd) {
         eggCd.addEventListener('dblclick', () => {
             isCdMode = !isCdMode;
+            // Ocultar historial automáticamente para ver el cambio
+            document.querySelector('.history-panel').classList.remove('active');
+            
             if (isCdMode) {
                 vinylWrapper.classList.add("is-cd");
                 // Cambiar icono a vinilo
