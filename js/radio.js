@@ -1,7 +1,7 @@
 document.addEventListener('DOMContentLoaded', () => {
     // Configuración de la radio
-    const STREAM_URL = "http://54.36.100.247:8000/stream";
-    const ICECAST_JSON_URL = "http://54.36.100.247:8000/status-json.xsl";
+    const STREAM_URL = "https://valencianismo.com/stream";
+    const ICECAST_JSON_URL = "https://valencianismo.com/status-json.xsl";
 
     // Elements
     const audio = document.getElementById("radio-stream");

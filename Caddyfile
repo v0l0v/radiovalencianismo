@@ -2,4 +2,8 @@ valencianismo.com {
     root * /srv
     file_server
     encode gzip
+
+    # Proxy del stream de audio para evitar Mixed Content
+    reverse_proxy /stream icecast:8000
+    reverse_proxy /status-json.xsl icecast:8000
 }
