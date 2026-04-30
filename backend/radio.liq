@@ -14,7 +14,7 @@ veinte_horas = playlist(mode="random", loop=false, "/mp3/programas/veinte-horas"
 parrilla = switch([
   # Si son entre las 20:00 y las 21:00, suena el programa.
   # Al tener loop=false, si termina antes de las 21:00, saltará al AutoDJ automáticamente.
-  ({ 16h-17h }, veinte_horas),
+  ({ 19h40-21h00 }, veinte_horas),
   
   # Por defecto (siempre que no haya un programa especial), suena la música normal.
   ({ true }, musica_normal)
