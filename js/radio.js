@@ -21,15 +21,13 @@ document.addEventListener('DOMContentLoaded', () => {
     // State
     let isPlaying = false;
     let songHistory = [];
-    const maxHistory = 10;
-    const STREAM_ID = "oqux7fanb3lvv"; // Your ZenoFM Stream ID
+    const maxHistory = 20;
 
     // 1. Load Refranes
     function loadRefran() {
         try {
             if (typeof REFRANES !== 'undefined' && REFRANES.length > 0) {
                 const randomRefran = REFRANES[Math.floor(Math.random() * REFRANES.length)];
-                // Separamos el refrán de la fuente
                 const parts = randomRefran.split(' (');
                 if (parts.length > 1) {
                     refranText.innerHTML = `"${parts[0]}"<br>(${parts[1]}`;
@@ -51,7 +49,6 @@ document.addEventListener('DOMContentLoaded', () => {
             audio.pause();
             isPlaying = false;
         } else {
-            // Force reload stream to avoid buffering old audio
             audio.load();
             const playPromise = audio.play();
             if (playPromise !== undefined) {
@@ -82,9 +79,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    playBtn.addEventListener('click', togglePlay);
+    if (playBtn) playBtn.addEventListener('click', togglePlay);
     
-    // Sync external pauses
     audio.addEventListener('pause', () => {
         isPlaying = false;
         updatePlayState();
@@ -110,10 +106,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     }
                 }
-            } catch(e) {
-                // Ignore API fetch error, keep default name or try another endpoint
-                // In a real scenario you might parse an ICY header via a proxy
-            }
+            } catch(e) {}
 
             if (currentSongEl.textContent !== songName && songName !== "Radio Valencianismo 24/7") {
                 currentSongEl.textContent = songName;
@@ -130,14 +123,13 @@ document.addEventListener('DOMContentLoaded', () => {
         const container = document.querySelector('.scrolling-text-container');
         const title = document.getElementById('current-song');
         
-        if (title.scrollWidth > container.clientWidth) {
+        if (title && container && title.scrollWidth > container.clientWidth) {
             container.classList.add('is-long');
-        } else {
+        } else if (container) {
             container.classList.remove('is-long');
         }
     }
 
-    // Check on resize too
     window.addEventListener('resize', checkMarquee);
 
     function setRandomCover() {
@@ -148,7 +140,7 @@ document.addEventListener('DOMContentLoaded', () => {
             'assets/default-cover-4.png'
         ];
         const randomCover = defaultCovers[Math.floor(Math.random() * defaultCovers.length)];
-        coverImage.src = randomCover;
+        if (coverImage) coverImage.src = randomCover;
         if (ambientBg) {
             ambientBg.style.backgroundImage = `url(${randomCover})`;
             ambientBg.style.backgroundSize = 'cover';
@@ -158,13 +150,16 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function updateCover(songName) {
-        // Siempre usamos las carátulas aleatorias locales para mantener la estética
         setRandomCover();
     }
 
     function addToHistory(songName) {
-        if (songHistory.length === 0 || songHistory[0] !== songName) {
-            songHistory.unshift(songName);
+        const now = new Date();
+        const timeStr = now.getHours().toString().padStart(2, '0') + ':' + 
+                        now.getMinutes().toString().padStart(2, '0');
+        
+        if (songHistory.length === 0 || songHistory[0].title !== songName) {
+            songHistory.unshift({ title: songName, time: timeStr });
             if (songHistory.length > maxHistory) {
                 songHistory.pop();
             }
@@ -173,20 +168,25 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function renderHistory() {
+        if (!historyList) return;
         historyList.innerHTML = '';
         songHistory.forEach(song => {
             const li = document.createElement('li');
-            li.textContent = song;
+            li.innerHTML = `
+                <div class="history-item-info" style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+                    <span class="history-song-title" style="flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${song.title}</span>
+                    <span class="history-song-time" style="font-size: 0.8rem; opacity: 0.5; margin-left: 10px;">${song.time}</span>
+                </div>
+            `;
             historyList.appendChild(li);
         });
     }
 
     // 4. Initialize
     loadRefran();
-    setRandomCover(); // Fondo con portada desde el primer momento
+    setRandomCover();
     updateMetadata();
     checkMarquee();
-    // Poll metadata every 15 seconds
     setInterval(updateMetadata, 15000);
 
     // 5. Nostr & Zaps & PayPal
@@ -197,7 +197,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const LIGHTNING_ADDRESS = "boss@coinos.io";
     const NOSTR_PUBKEY = "72bdbc57bdd6dfc4e62685051de8041d148c3c68fe42bf301f71aa6cf53e52fb";
     const RELAYS = ["wss://relay.coinos.io", "wss://relay.damus.io", "wss://nos.lol"];
-    const PAYPAL_ME_URL = "https://www.paypal.me/RadioValencianismo";
 
     const zapModal = document.getElementById("zap-modal");
     const zapQrImg = document.getElementById("zap-qr");
@@ -206,40 +205,34 @@ document.addEventListener('DOMContentLoaded', () => {
     const paypalModal = document.getElementById("paypal-modal");
     const closePaypalBtn = document.getElementById("close-paypal");
 
-    zapBtn.addEventListener('click', () => {
+    if (zapBtn) zapBtn.addEventListener('click', () => {
         const lnUri = `lightning:${LIGHTNING_ADDRESS}`;
-        // Usamos una API gratuita para generar el QR al vuelo
         zapQrImg.src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(lnUri)}`;
         zapModal.classList.add("active");
     });
 
-    closeZapBtn.addEventListener('click', () => {
+    if (closeZapBtn) closeZapBtn.addEventListener('click', () => {
         zapModal.classList.remove("active");
     });
 
-    // PayPal Logic
-    const openPaypal = () => {
+    if (paypalBtn) paypalBtn.addEventListener('click', () => {
         paypalModal.classList.add("active");
-    };
+    });
 
-    if (paypalBtn) paypalBtn.addEventListener('click', openPaypal);
-    
-    // Vinyl click -> History
     if (vinylBtn) {
         vinylBtn.addEventListener('click', () => {
             document.querySelector('.history-panel').classList.toggle('active');
         });
     }
 
-    closePaypalBtn.addEventListener('click', () => {
+    if (closePaypalBtn) closePaypalBtn.addEventListener('click', () => {
         paypalModal.classList.remove("active");
     });
 
-    // Close modals on escape key
     document.addEventListener('keydown', (e) => {
         if (e.key === 'Escape') {
-            zapModal.classList.remove("active");
-            paypalModal.classList.remove("active");
+            if (zapModal) zapModal.classList.remove("active");
+            if (paypalModal) paypalModal.classList.remove("active");
         }
     });
 
@@ -248,7 +241,6 @@ document.addEventListener('DOMContentLoaded', () => {
             try {
                 const ws = new WebSocket(relayUrl);
                 ws.onopen = () => {
-                    // Subscribe to Zap events (Kind 9735) for your pubkey
                     const sub = ["REQ", "zaps-" + Math.random(), {
                         kinds: [9735],
                         "#p": [NOSTR_PUBKEY],
@@ -269,21 +261,14 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function handleZap(event) {
-        // Active celebration state
         document.body.classList.add("zap-active");
-
-        // Save original cover and swap to Bitcoin logo
         const originalCover = coverImage.src;
         coverImage.src = 'assets/logob.png';
-
-        // Vinyl Glow Effect (stronger)
         if (vinylWrapper) {
             vinylWrapper.style.boxShadow = "0 0 80px #FFD700";
         }
-
         setTimeout(() => {
             document.body.classList.remove("zap-active");
-            // Only restore if the cover hasn't changed in the meantime (unlikely but safe)
             if (coverImage.src.includes('logob.png')) {
                 coverImage.src = originalCover;
             }
@@ -296,7 +281,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initNostr();
 
     // 6. Test & Simulation
-    // 6. Test & Simulation (Easter Eggs)
     const eggZap = document.getElementById("easter-egg-zap");
     const eggCd = document.getElementById("easter-egg-cd");
     const cdIconPath = document.getElementById("cd-icon-path");
@@ -304,7 +288,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     if (eggZap) {
         eggZap.addEventListener('dblclick', () => {
-            console.log("Simulando Zap...");
             document.querySelector('.history-panel').classList.remove('active');
             handleZap({});
         });
@@ -314,7 +297,6 @@ document.addEventListener('DOMContentLoaded', () => {
         eggCd.addEventListener('dblclick', () => {
             isCdMode = !isCdMode;
             document.querySelector('.history-panel').classList.remove('active');
-            
             if (isCdMode) {
                 vinylWrapper.classList.add("is-cd");
                 cdIconPath.setAttribute("d", "M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 14.5c-2.48 0-4.5-2.02-4.5-4.5S9.52 7.5 12 7.5s4.5 2.02 4.5 4.5-2.02 4.5-4.5 4.5zM12 11c-.55 0-1 .45-1 1s.45 1 1 1 1-.45 1-1-.45-1-1-1z");

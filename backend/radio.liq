@@ -1,25 +1,29 @@
-# Configuracion basica de Liquidsoap para Radio Valencianismo
+# 1. Fuentes de audio
+live = input.harbor("live", port=8080, password="D26VmLg3791+")
 
-# Configuracion de logs para poder depurar si algo falla
-set("log.file.path", "/tmp/radio.log")
-set("log.stdout", true)
+# AutoDJ principal (música de todo el día)
+# Sugerencia: pon tu música normal en /mp3/generico
+musica_normal = playlist(mode="random", "/mp3/generico")
 
-# 1. Fuente 1: Puerto "Harbor" para conectar BUTT en directo
-# Esto abre el puerto interno 8080. BUTT se conectará aquí con el password "hackme"
-live = input.harbor("live", port=8080, password="hackme")
+# Programa "Veinte Horas" (suena a las 20:00)
+# Pon los archivos en /mp3/programas/veinte-horas
+# loop=false hace que suene una vez y luego pase a la siguiente fuente
+veinte_horas = playlist(mode="random", loop=false, "/mp3/programas/veinte-horas")
 
-# 2. Fuente 2: Carpeta de música MP3 (AutoDJ)
-# Reproduce los archivos en bucle aleatorio
-playlist = playlist(mode="random", "/mp3")
+# 2. Programación de la Parrilla
+parrilla = switch([
+  # Si son entre las 20:00 y las 21:00, suena el programa.
+  # Al tener loop=false, si termina antes de las 21:00, saltará al AutoDJ automáticamente.
+  ({ 16h-17h }, veinte_horas),
+  
+  # Por defecto (siempre que no haya un programa especial), suena la música normal.
+  ({ true }, musica_normal)
+])
 
-# 3. Logica de Fallback
-# Si entra audio por el puerto 8080 (live), la lista de reproduccion se corta
-# 'track_sensitive=false' significa que# Creamos la radio con fallback (si entra el directo, corta la música)
-# mksafe asegura que la radio nunca se apague si no hay archivos
-radio = mksafe(fallback(track_sensitive=false, [live, playlist]))
+# 3. Mezcla final y Salida
+# Prioridad absoluta al directo, luego a la parrilla programada.
+radio = mksafe(fallback(track_sensitive=false, [live, parrilla]))
 
-# 4. Salida hacia Icecast
-# Mandamos la señal resultante (radio) a nuestro contenedor de icecast en el puerto 8000
 output.icecast(%mp3(bitrate=128),
   host="icecast", port=8000, password="hackme",
   mount="stream", name="Radio Valencianismo", description="Emisión 24/7",
