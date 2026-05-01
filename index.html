@@ -723,9 +723,10 @@
         }
 
         function makeLongerTitle(title, desc) {
-            title = stripEmojis(title);
+            if (!title) return "";
+            title = stripEmojis(title).replace(/https?:\/\/[^\s]+/g, '').replace(/\s+/g, ' ').trim();
             if (!desc) return title.length > 130 ? title.slice(0, 127) + '...' : title;
-            const cleanDesc = stripEmojis(desc.replace(/<\/?[^>]+(>|$)/g, ""));
+            const cleanDesc = stripEmojis(desc.replace(/<\/?[^>]+(>|$)/g, "")).replace(/https?:\/\/[^\s]+/g, '').replace(/\s+/g, ' ').trim();
             if (title.length < 55 && cleanDesc.length > 20) {
                 const sep = title.endsWith('.') ? ' ' : ': ';
                 let combined = title + sep + cleanDesc.slice(0, 100);
