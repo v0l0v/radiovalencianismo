@@ -21,7 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // State
     let isPlaying = false;
     let songHistory = [];
-    const maxHistory = 20;
+    const maxHistory = 10;
 
     // 1. Load Refranes
     function loadRefran() {
