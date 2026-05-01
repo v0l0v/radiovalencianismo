@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="es" data-theme="dark">
-
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
@@ -29,7 +28,7 @@
     <meta name="twitter:description" content="Escucha Radio Valencianismo en directo 24/7. La millor música i cultura valenciana.">
     <meta name="twitter:image" content="https://valencianismo.com/assets/icon.png">
 
-    <!-- Schema.org: RadioStation (Google entenderá que es una radio) -->
+    <!-- Schema.org: RadioStation -->
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
@@ -58,126 +57,817 @@
     <link rel="apple-touch-icon" href="assets/icon.png">
     <meta name="theme-color" content="#0a0a0f">
 
-    <!-- Estilos -->
-    <link rel="stylesheet" href="css/style-v2.css?v=3">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="css/style-v2.css">
+    <style>
+        /* Estilos específicos para la demo de noticias */
+        body {
+            overflow: hidden;
+            height: 100vh;
+            max-height: 100vh;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: var(--bg-dark);
+            margin: 0;
+            box-sizing: border-box;
+        }
+
+        .dashboard-layout {
+            display: grid;
+            grid-template-columns: 1.4fr auto 1.4fr;
+            gap: 40px;
+            align-items: center;
+            max-width: 1800px;
+            margin: 0 auto;
+            padding: 0 40px;
+            position: relative;
+            z-index: 10;
+        }
+
+        .glass-container {
+            width: 480px;
+            min-width: 480px;
+            max-width: 480px;
+            flex-shrink: 0;
+        }
+
+        .news-column {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 15px;
+            width: 100%;
+        }
+
+        .news-card {
+            background: rgba(10, 10, 15, 0.65);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 14px;
+            padding: 18px;
+            aspect-ratio: 1 / 1;
+            width: 100%;
+            height: 100%;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            cursor: pointer;
+            box-sizing: border-box;
+            animation: fadeIn 0.8s ease-out both;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .news-card::after {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0; bottom: 0;
+            border-radius: 14px;
+            padding: 2.5px;
+            background: linear-gradient(135deg, #ffd700, #ff5e62, #12c2e9);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask-composite: exclude;
+            z-index: 3;
+            pointer-events: none;
+            opacity: 0.75;
+            transition: all 0.3s ease;
+        }
+
+        .news-card:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.35);
+        }
+
+        .news-card:hover::after {
+            opacity: 1;
+            background: linear-gradient(135deg, #12c2e9, #c471ed, #f64f59);
+        }
+
+        .news-img {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            object-fit: cover;
+            flex-shrink: 0;
+            background: #222;
+        }
+
+        .news-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .news-tag {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--secondary);
+            margin-bottom: 2px;
+            font-weight: 800;
+        }
+
+        .news-title {
+            font-size: 1.15rem;
+            font-weight: 800;
+            line-height: 1.25;
+            margin: 0;
+            display: -webkit-box;
+            -webkit-line-clamp: 6;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            color: #fff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+        }
+
+        .news-source {
+            font-size: 0.65rem;
+            opacity: 0.5;
+            color: #ccc;
+        }
+
+        .btn-modal-close {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-modal-close:hover {
+            background: #e63946 !important;
+            color: #fff !important;
+            border-color: #e63946 !important;
+            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.4);
+        }
+
+        .btn-modal-link {
+            display: inline-block;
+            background: var(--secondary);
+            color: #0a0a0f;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+        .btn-modal-link:hover {
+            background: #2a9d8f !important;
+            color: #fff !important;
+            box-shadow: 0 4px 15px rgba(42, 157, 143, 0.4);
+        }
+
+        /* Responsive */
+        @media (max-width: 900px) {
+            .dashboard-layout {
+                grid-template-columns: 1fr;
+                padding: 10px;
+                gap: 15px;
+            }
+            .news-column {
+                display: grid;
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+                max-width: 100%;
+                order: 2;
+            }
+            .glass-container {
+                margin: 0 auto 15px;
+                order: 1;
+                height: auto;
+            }
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* EFECTO MASCLETÀ */
+        .mascleta-active {
+            animation: screen-shake 0.1s infinite;
+        }
+
+        .mascleta-active .ambient-background {
+            animation: mascleta-flash 0.1s infinite alternate;
+            background: radial-gradient(circle, #FF4500 0%, #FFD700 50%, #fff 100%) !important;
+            opacity: 0.8 !important;
+        }
+
+        .news-card.breaking {
+            border: 2px solid var(--accent);
+            box-shadow: 0 0 30px rgba(255, 42, 42, 0.6);
+            animation: breaking-news-pop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.5) both;
+        }
+
+        @keyframes screen-shake {
+            0% { transform: translate(2px, 2px); }
+            25% { transform: translate(-2px, -3px); }
+            50% { transform: translate(3px, 1px); }
+            75% { transform: translate(-1px, 2px); }
+            100% { transform: translate(2px, -1px); }
+        }
+
+        @keyframes mascleta-flash {
+            from { filter: brightness(1) blur(60px); }
+            to { filter: brightness(3) blur(30px); }
+        }
+
+        @keyframes breaking-news-pop {
+            0% { transform: scale(0.5); opacity: 0; }
+            70% { transform: scale(1.1); }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        .mascleta-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--accent);
+            border: none;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 50px;
+            font-weight: 800;
+            cursor: pointer;
+            z-index: 1000;
+            box-shadow: 0 5px 20px rgba(255, 42, 42, 0.4);
+        }
+
+        .mascleta-btn:hover { transform: scale(1.1); }
+
+        /* Animaciones para el flujo vertical de las noticias */
+        @keyframes slideInTop {
+            from { opacity: 0; transform: translateY(-50px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes shiftToRightTop {
+            0% {
+                opacity: 1;
+                transform: translate(0, 0) scale(1);
+                filter: drop-shadow(0 0 0px var(--accent));
+            }
+            50% {
+                opacity: 0.75;
+                transform: translate(240px, -85px) scale(0.95);
+                filter: drop-shadow(0 0 15px var(--accent));
+            }
+            100% {
+                opacity: 0;
+                transform: translate(480px, -170px) scale(0.85);
+                filter: drop-shadow(0 0 25px var(--accent));
+            }
+        }
+
+        @keyframes slideOutDown {
+            from { opacity: 1; transform: translateY(0); }
+            to { opacity: 0; transform: translateY(50px); }
+        }
+
+        @keyframes slideInLeft {
+            from { opacity: 0; transform: translateX(-100%) scale(0.95); }
+            to { opacity: 1; transform: translateX(0) scale(1); }
+        }
+
+        @keyframes slideOutRight {
+            from { opacity: 1; transform: translateX(0) scale(1); }
+            to { opacity: 0; transform: translateX(100%) scale(0.95); }
+        }
+
+        .slide-in-top {
+            animation: slideInTop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1) both;
+        }
+
+        .shift-to-right-top {
+            animation: shiftToRightTop 0.5s cubic-bezier(0.175, 0.885, 0.32, 1) both;
+        }
+
+        .slide-out-down {
+            animation: slideOutDown 0.5s cubic-bezier(0.175, 0.885, 0.32, 1) both;
+        }
+
+        .slide-in-left {
+            animation: slideInLeft 0.5s cubic-bezier(0.175, 0.885, 0.32, 1) both;
+        }
+
+        .slide-out-right {
+            animation: slideOutRight 0.5s cubic-bezier(0.175, 0.885, 0.32, 1) both;
+        }
+
+        /* Modal de Noticia 90% de la pantalla */
+        .news-modal {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2500;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .news-modal.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .news-modal-content {
+            background: var(--glass-bg);
+            backdrop-filter: blur(35px);
+            -webkit-backdrop-filter: blur(35px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 30px;
+            width: 90vw;
+            max-width: 1200px;
+            height: 85vh;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: relative;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            overflow-y: auto;
+        }
+
+        .close-news-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            padding: 8px 18px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+
+        .close-news-modal:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+    </style>
 </head>
-
 <body>
-    <div class="ambient-background" id="ambient-bg"></div>
+    <div id="ambient-bg" class="ambient-background"></div>
 
-    <div class="glass-container">
-        <header class="v2-header">
-            <div class="logo-container">
-                <h1>Radio Valencianismo</h1>
-            </div>
-            <div class="status-indicator">
-                <span class="pulse"></span> LIVE
-            </div>
-        </header>
+    <div class="dashboard-layout">
+        <!-- Columna Izquierda: Actualidad -->
+        <div class="news-column" id="news-left"></div>
 
-        <div class="refran-text-container">
-            <span id="refran-text">Cargando refrán...</span>
-        </div>
-
-        <main class="v2-player">
-            <div class="record-player" id="record-player-btn" title="Ver Historial" style="cursor: pointer;">
-                <div class="vinyl-wrapper" id="vinyl-wrapper">
-                    <img id="cover-image" src="assets/default-cover.png" alt="Carátula" class="vinyl-cover"
-                        onerror="this.src='assets/default-cover.png'">
-                    <div class="vinyl-hole"></div>
+        <!-- Centro: El Reproductor Original -->
+        <div class="glass-container">
+            <div class="v2-header">
+                <div class="logo-container">
+                    <h1>Radio Valencianismo</h1>
+                </div>
+                <div class="status-indicator">
+                    <div class="pulse"></div> LIVE
                 </div>
             </div>
 
-            <div class="song-info">
-                <div class="scrolling-text-container">
-                    <h1 id="current-song" class="song-title">Conectando...</h1>
-                </div>
-                <p id="status-text" class="status">RADIO VALENCIANISMO 24/7</p>
+            <div class="refran-text-container" id="refran-text">
+                "A poc a poc s'ompli la gerra"<br>(Refrán Valenciano)
             </div>
 
-            <div class="modern-controls">
-                <button id="zap-btn" class="glass-btn secondary zap" title="Enviar Zap (Lightning)">
-                    <svg viewBox="0 0 24 24">
+            <div class="v2-player">
+                <div class="record-player" id="record-player-btn">
+                    <div class="vinyl-wrapper" id="vinyl-wrapper">
+                        <img src="assets/default-cover.png" id="cover-image" class="vinyl-cover" alt="Cover">
+                        <div class="vinyl-hole"></div>
+                    </div>
+                </div>
+
+                <div class="song-info">
+                    <div class="scrolling-text-container">
+                        <h2 class="song-title" id="current-song">Conectando...</h2>
+                    </div>
+                    <p class="station-name" id="status-text" style="display: none;">Escuchando en directo</p>
+                </div>
+
+                <div class="modern-controls">
+                    <button class="glass-btn secondary" id="zap-btn">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                    </button>
+                    <button class="glass-btn primary" id="play-btn">
+                        <svg id="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
+                        <svg id="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+                    </button>
+                    <button class="glass-btn secondary" id="paypal-btn" onclick="openOptionsModal()">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20m10-10H2"/></svg>
+                    </button>
+                </div>
+
+                <!-- Barra de Volumen -->
+                <div class="volume-control-wrapper" style="margin-top: 20px; width: 100%; max-width: 280px; margin-left: auto; margin-right: auto; text-align: center;">
+                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+                        <span style="font-size: 0.75rem; color: rgba(255, 255, 255, 0.6); font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">VOLUMEN</span>
+                        <span id="volume-val" style="font-size: 0.85rem; color: #ffd700; font-weight: 700;">80%</span>
+                    </div>
+                    <div class="custom-volume-slider-container" style="position: relative; display: flex; align-items: center; height: 32px; background: rgba(255, 255, 255, 0.03); border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.1); padding: 0 10px; cursor: pointer; user-select: none;" id="volume-slider-track">
+                        <!-- Ticks/Vertical bars -->
+                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: space-between; align-items: center; padding: 0 12px; pointer-events: none; z-index: 1;">
+                            <div style="width: 2px; height: 12px; background: rgba(255, 255, 255, 0.35); border-radius: 2px;"></div>
+                            <div style="width: 2px; height: 8px; background: rgba(255, 255, 255, 0.2); border-radius: 2px;"></div>
+                            <div style="width: 2px; height: 8px; background: rgba(255, 255, 255, 0.2); border-radius: 2px;"></div>
+                            <div style="width: 2px; height: 12px; background: rgba(255, 255, 255, 0.35); border-radius: 2px;"></div>
+                            <div style="width: 2px; height: 8px; background: rgba(255, 255, 255, 0.2); border-radius: 2px;"></div>
+                            <div style="width: 2px; height: 8px; background: rgba(255, 255, 255, 0.2); border-radius: 2px;"></div>
+                            <div style="width: 2px; height: 12px; background: rgba(255, 255, 255, 0.35); border-radius: 2px;"></div>
+                            <div style="width: 2px; height: 8px; background: rgba(255, 255, 255, 0.2); border-radius: 2px;"></div>
+                            <div style="width: 2px; height: 8px; background: rgba(255, 255, 255, 0.2); border-radius: 2px;"></div>
+                            <div style="width: 2px; height: 12px; background: rgba(255, 255, 255, 0.35); border-radius: 2px;"></div>
+                        </div>
+                        <!-- Fill progress bar -->
+                        <div id="volume-fill-bar" style="position: absolute; top: 0; left: 0; height: 100%; width: 80%; background: linear-gradient(90deg, rgba(255, 215, 0, 0.2), rgba(0, 242, 254, 0.45)); border-radius: 8px; z-index: 0; transition: width 0.1s ease; border-right: 2px solid #00f2fe;"></div>
+                        <!-- Thump handler -->
+                        <div id="volume-thumb" style="position: absolute; top: 50%; left: 80%; transform: translate(-50%, -50%); width: 14px; height: 14px; background: #fff; border-radius: 50%; border: 2px solid #ffd700; z-index: 2; transition: left 0.1s ease; box-shadow: 0 0 8px rgba(0,242,254,0.6);"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="history-panel" id="history-panel">
+                <h3>HISTORIAL</h3>
+                <ul class="modern-history-list" id="history-list"></ul>
+                <div class="history-footer" style="text-align: center; margin-top: 15px; opacity: 0.3; display: flex; justify-content: center; gap: 15px;">
+                    <svg id="easter-egg-zap" viewBox="0 0 24 24" style="width: 16px; height: 16px; cursor: pointer;" title="Zap Sim">
                         <path fill="#FFD700" d="M7,2V13H10V22L17,10H13L17,2H7Z" />
                     </svg>
-                </button>
-                <button id="play-btn" class="glass-btn primary" aria-label="Reproducir/Pausar">
-                    <svg viewBox="0 0 24 24" class="icon-play" id="icon-play">
-                        <path fill="currentColor" d="M8,5.14V19.14L19,12.14L8,5.14Z" />
+                    <svg id="easter-egg-cd" viewBox="0 0 24 24" style="width: 16px; height: 16px; cursor: pointer;" title="Cambiar Disco">
+                        <path id="cd-icon-path" fill="#ccc" d="M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2M12,16.5C9.5,16.5 7.5,14.5 7.5,12C7.5,9.5 9.5,7.5 12,7.5C14.5,7.5 16.5,9.5 16.5,12C16.5,14.5 14.5,16.5 12,16.5M12,10.5C11.17,10.5 10.5,11.17 10.5,12C10.5,12.83 11.17,13.5 12,13.5C12.83,13.5 13.5,12.83 13.5,12C13.5,11.17 12.83,10.5 12,10.5Z" />
                     </svg>
-                    <svg viewBox="0 0 24 24" class="icon-pause" id="icon-pause" style="display:none;">
-                        <path fill="currentColor" d="M14,19H18V5H14M6,19H10V5H6V19Z" />
-                    </svg>
-                </button>
-                <button id="paypal-btn" class="glass-btn secondary paypal" title="Donar con PayPal">
-                    <svg viewBox="0 0 24 24">
-                        <path fill="#003087"
-                            d="M20,8C20,13 17,15.5 13,15.5H10.5L9.5,21.5H6L8.5,5.5H13.5C17.5,5.5 20,6.5 20,8Z" />
-                    </svg>
-                </button>
-            </div>
-
-        </main>
-        <div class="history-panel">
-            <div class="history-header"
-                style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
-                <h3 style="margin: 0;">Historial de Canciones</h3>
-                <button class="close-history" aria-label="Cerrar"
-                    onclick="document.querySelector('.history-panel').classList.remove('active')"
-                    style="background: rgba(255,255,255,0.1); border: none; border-radius: 50%; width: 32px; height: 32px; color: #fff; cursor: pointer; display: flex; justify-content: center; align-items: center;">
-                    <svg viewBox="0 0 24 24" style="width: 20px; height: 20px;">
-                        <path fill="currentColor"
-                            d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
-                    </svg>
-                </button>
-            </div>
-            <ul id="history-list" class="modern-history-list">
-            </ul>
-            <div class="history-footer" style="text-align: center; margin-top: 15px; opacity: 0.3; display: flex; justify-content: center; gap: 15px;">
-                <svg id="easter-egg-zap" viewBox="0 0 24 24" style="width: 16px; height: 16px; cursor: pointer;" title="Zap Sim">
-                    <path fill="#FFD700" d="M7,2V13H10V22L17,10H13L17,2H7Z" />
-                </svg>
-                <svg id="easter-egg-cd" viewBox="0 0 24 24" style="width: 16px; height: 16px; cursor: pointer;" title="Cambiar Disco">
-                    <path id="cd-icon-path" fill="#ccc" d="M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2M12,16.5C9.5,16.5 7.5,14.5 7.5,12C7.5,9.5 9.5,7.5 12,7.5C14.5,7.5 16.5,9.5 16.5,12C16.5,14.5 14.5,16.5 12,16.5M12,10.5C11.17,10.5 10.5,11.17 10.5,12C10.5,12.83 11.17,13.5 12,13.5C12.83,13.5 13.5,12.83 13.5,12C13.5,11.17 12.83,10.5 12,10.5Z" />
-                </svg>
+                </div>
             </div>
         </div>
+
+        <!-- Columna Derecha: Valencianismo -->
+        <div class="news-column" id="news-right"></div>
     </div>
 
+    <!-- Modales -->
     <div id="zap-modal" class="modern-modal">
-        <div class="modal-content">
-            <h3>Enviar un Zap ⚡</h3>
-            <p class="zap-help">Apoya la emisora con micro-donaciones instantáneas. Escanea el código con tu wallet de
-                Bitcoin/Lightning para enviar sats.</p>
-            <div id="qrcode-container">
-                <img id="zap-qr" src="" alt="QR Code Lightning">
+        <div class="modal-content" style="max-width: 450px; padding: 25px; text-align: center;">
+            <h3 style="color: #ffd700; margin-bottom: 10px;">ENVÍA UN ZAP ⚡</h3>
+            <p style="font-size: 0.95rem; color: #eee; line-height: 1.5; margin-bottom: 15px; text-align: left; background: rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 8px; border-left: 3px solid #ffd700;">
+                Un <strong>Zap</strong> es una micro-donación instantánea enviada a través de la red Lightning de Bitcoin. 
+                <br><br>
+                <strong>Procedimiento para colaborar:</strong><br>
+                1. Abre tu billetera Bitcoin/Lightning (por ejemplo: Wallet of Satoshi, Strike, Phoenix, etc.).<br>
+                2. Escanea el código QR inferior o copia la dirección de abajo.<br>
+                3. Introduce la cantidad de sats que desees enviar y confirma el pago.
+            </p>
+            <div id="qrcode-container" style="margin: 15px auto;">
+                <img id="zap-qr" src="" alt="QR Zap" style="border-radius: 8px;">
             </div>
-            <p class="zap-address">boss@coinos.io</p>
-            <button class="close-modal" id="close-zap">Cerrar</button>
+            <p class="zap-address" style="color: #ffd700; font-weight: 700; font-family: monospace; font-size: 1.1rem; margin-bottom: 15px;">boss@coinos.io</p>
+            <button class="close-modal" id="close-zap" style="background: var(--secondary); color: #0a0a0f; border: none; padding: 10px 30px; border-radius: 50px; cursor: pointer; font-weight: 700; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(255,215,0,0.3);">CERRAR</button>
         </div>
     </div>
 
-    <div id="paypal-modal" class="modern-modal">
-        <div class="modal-content">
-            <h3>Donar con PayPal 💙</h3>
-            <p class="zap-help">Tu apoyo nos ayuda a mantener la radio libre de publicidad y con la mejor calidad.</p>
-            <div class="paypal-container" style="margin: 20px 0;">
-                <a href="https://www.paypal.me/RadioValencianismo" target="_blank" class="paypal-link-btn">
-                    Ir a PayPal.me
-                </a>
-            </div>
-            <p class="zap-address">@RadioValencianismo</p>
-            <button class="close-modal" id="close-paypal">Cerrar</button>
+    <!-- Modal Opciones Extra -->
+    <div id="options-modal" class="modern-modal" onclick="closeOptionsModal()">
+        <div class="modal-content" onclick="event.stopPropagation()" style="max-width: 450px; padding: 25px; text-align: center;">
+            <h3 style="color: #ffd700; margin-bottom: 15px; font-weight: 800; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px;">OPCIONES EXTRA</h3>
+            <ul style="list-style: none; padding: 0; margin: 0; text-align: left;">
+                <li style="margin-bottom: 15px; background: rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 12px; border-left: 4px solid #00f2fe; color: #eee; font-size: 0.95rem; line-height: 1.4;">
+                    <div style="font-weight: 700; margin-bottom: 8px; color: #00f2fe;">Compartir lo que estás escuchando:</div>
+                    <div style="margin-bottom: 10px;">¡Estoy escuchando Radio Valencianismo! 📻🎶 Únete aquí: https://valencianismo.com</div>
+                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
+                        <a href="https://twitter.com/intent/tweet?text=¡Estoy%20escuchando%20Radio%20Valencianismo!%20📻🎶%20Únete%20aquí:%20https://valencianismo.com" target="_blank" style="background: #1da1f2; color: #fff; padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; text-decoration: none; font-weight: 600;">En X (Twitter)</a>
+                        <a href="https://api.whatsapp.com/send?text=¡Estoy%20escuchando%20Radio%20Valencianismo!%20📻🎶%20Únete%20aquí:%20https://valencianismo.com" target="_blank" style="background: #25d366; color: #fff; padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; text-decoration: none; font-weight: 600;">En WhatsApp</a>
+                        <a href="https://t.me/share/url?url=https://valencianismo.com&text=¡Estoy%20escuchando%20Radio%20Valencianismo!%20📻🎶" target="_blank" style="background: #0088cc; color: #fff; padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; text-decoration: none; font-weight: 600;">En Telegram</a>
+                        <a href="nostr:nevent1..." onclick="navigator.clipboard.writeText('¡Estoy escuchando Radio Valencianismo! 📻🎶 Únete aquí: https://valencianismo.com'); alert('¡Copiado para compartir en Nostr!'); return true;" style="background: #7928ca; color: #fff; padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; text-decoration: none; font-weight: 600;">En Nostr</a>
+                        <button onclick="navigator.clipboard.writeText('https://valencianismo.com'); alert('¡Enlace copiado al portapapeles!');" style="background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; cursor: pointer; font-weight: 600;">Compartir enlace</button>
+                    </div>
+                </li>
+            </ul>
+            <button class="close-modal" onclick="closeOptionsModal()" style="background: var(--secondary); color: #0a0a0f; border: none; padding: 10px 30px; border-radius: 50px; cursor: pointer; font-weight: 700; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(255,215,0,0.3); margin-top: 15px;">CERRAR</button>
         </div>
     </div>
 
-    <audio id="radio-stream" preload="none">
+    <audio id="radio-stream" preload="none" crossorigin="anonymous">
         <source src="https://valencianismo.com/stream" type="audio/mpeg">
     </audio>
 
     <script src="js/refranes.js"></script>
-    <script src="js/radio.js?v=3"></script>
-</body>
+    <script src="js/radio.js"></script>
+    <!-- Modal de Noticia (Pantalla completa al 90%) -->
+    <div id="news-modal" class="news-modal" onclick="closeNewsModal()">
+        <div class="news-modal-content" onclick="event.stopPropagation()" style="position: relative; overflow: hidden; border: 2.5px solid rgba(255,255,255,0.45); border-radius: 14px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div id="modal-bg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url(''); background-size: cover; background-position: center; filter: blur(3px) brightness(0.4); z-index: 1; transform: scale(1.15); transition: transform 0.3s ease;"></div>
+            <div style="border-bottom: 1px solid var(--glass-border); padding-bottom: 15px; margin-bottom: 10px; position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center;">
+                <img id="modal-source-logo" src="" style="width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.25);" alt="Logo">
+                <div id="modal-source-text" style="font-size: 1rem; font-weight: 700; color: #ffd700; text-shadow: 0 1px 3px rgba(0,0,0,0.8);"></div>
+            </div>
+            <p id="modal-body" style="font-size: 1.6rem; font-weight: 600; line-height: 1.5; color: #eee; margin: 0; position: relative; z-index: 2; text-shadow: 0 1px 2px rgba(0,0,0,0.8); flex-grow: 1; overflow: hidden;">
+                Este es el contenido completo de la noticia seleccionada. Aquí puedes leer el artículo completo, detalles técnicos y más información sobre la actualidad del valencianismo. Las mejores fuentes de información reunidas en un solo lugar.
+            </p>
+            <div style="margin-top: auto; padding-top: 15px; border-top: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 2;">
+                <button onclick="closeNewsModal()" class="btn-modal-close">
+                    CERRAR
+                </button>
+                <a id="modal-link" href="#" target="_blank" class="btn-modal-link">
+                    Seguir leyendo en la fuente original...
+                </a>
+            </div>
+        </div>
+    </div>
 
+    <script>
+        let allNews = [];
+        let newsIndex = 8; // Empezamos a partir de las 8 mostradas inicialmente
+
+        function stripEmojis(text) {
+            if (!text) return "";
+            return text.replace(/[\u{1F600}-\u{1F64F}\u{1F300}-\u{1F5FF}\u{1F680}-\u{1F6FF}\u{1F1E0}-\u{1F1FF}\u{2600}-\u{26FF}\u{2700}-\u{27BF}\u{E000}-\u{F8FF}\u{1F900}-\u{1F9FF}\u{1F018}-\u{1F093}]/gu, '').trim();
+        }
+
+        function makeLongerTitle(title, desc) {
+            title = stripEmojis(title);
+            if (!desc) return title;
+            const cleanDesc = stripEmojis(desc.replace(/<\/?[^>]+(>|$)/g, ""));
+            if (title.length < 55 && cleanDesc.length > 20) {
+                const sep = title.endsWith('.') ? ' ' : ': ';
+                return title + sep + cleanDesc.slice(0, 100) + (cleanDesc.length > 100 ? '...' : '');
+            }
+            return title;
+        }
+
+        async function loadFeeds() {
+            try {
+                const response = await fetch('feeds.txt');
+                if (!response.ok) throw new Error("No se pudo cargar feeds.txt");
+                const text = await response.text();
+                const urls = text.split('\n').map(u => u.trim()).filter(u => u.length > 0);
+                
+                allNews = [];
+                
+                for (const url of urls) {
+                    try {
+                        const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`);
+                        const data = await res.json();
+                        if (data.status === 'ok' && data.items) {
+                            data.items.forEach(item => {
+                                const rawDate = item.pubDate ? new Date(item.pubDate) : new Date();
+                                allNews.push({
+                                    title: makeLongerTitle(item.title, item.description || item.content),
+                                    link: item.link,
+                                    source: data.feed.title || "NOTICIAS CV",
+                                    rawDate: rawDate,
+                                    date: rawDate.toLocaleDateString('es-ES'),
+                                    tag: item.categories?.[0] || "Actualidad",
+                                    desc: stripEmojis(item.description || item.content || "No hay descripción disponible para esta noticia."),
+                                    img: item.thumbnail || item.enclosure?.link || `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(item.title)}`,
+                                    feedImage: data.feed.image || ""
+                                });
+                            });
+                        }
+                    } catch (err) {
+                        console.error("Error fetching feed: " + url, err);
+                    }
+                }
+                
+                if (allNews.length > 0) {
+                    // Ordenamos por orden descendente de fecha de publicación
+                    allNews.sort((a, b) => b.rawDate - a.rawDate);
+                    
+                    // Llenamos las 4 tarjetas de la columna izquierda
+                    const leftCol = document.getElementById("news-left");
+                    leftCol.innerHTML = "";
+                    for (let i = 0; i < Math.min(4, allNews.length); i++) {
+                        const item = allNews[i];
+                        leftCol.appendChild(createNewsCard(item));
+                    }
+                    
+                    // Llenamos las 4 tarjetas de la columna derecha
+                    const rightCol = document.getElementById("news-right");
+                    rightCol.innerHTML = "";
+                    for (let i = 4; i < Math.min(8, allNews.length); i++) {
+                        const item = allNews[i];
+                        rightCol.appendChild(createNewsCard(item));
+                    }
+                }
+            } catch (error) {
+                console.error("Error loading feeds.txt or CORS proxy, se usarán las noticias por defecto:", error);
+            }
+        }
+
+        function createNewsCard(item) {
+            const card = document.createElement("div");
+            card.className = "news-card";
+            card.setAttribute('onclick', 'openNewsModal(this)');
+            card.setAttribute('data-url', item.link);
+            card.setAttribute('data-img', item.img);
+            card.setAttribute('data-date', item.date);
+            card.setAttribute('data-desc', item.desc);
+            card.setAttribute('data-feed-img', item.feedImage || '');
+            let sourceIcon = item.feedImage || `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(item.source)}&fontSize=45`;
+            card.setAttribute('data-source-img', sourceIcon);
+            card.innerHTML = `
+                <div class="news-card-bg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('${item.img}'); background-size: cover; background-position: center; filter: blur(3px) brightness(0.4); z-index: 1; transform: scale(1.15); transition: transform 0.3s ease;"></div>
+                <h4 class="news-title" style="position: relative; z-index: 2; margin-top: 5px; margin-bottom: 10px;">${item.title}</h4>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; position: relative; z-index: 2; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 8px;">
+                    <div style="display: flex; align-items: center; gap: 8px;">
+                        <img src="${sourceIcon}" class="news-source-img" style="width: 20px; height: 20px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2);" alt="Source Icon">
+                        <div class="news-source" style="text-shadow: 0 1px 3px rgba(0,0,0,0.8); font-size: 0.8rem; font-weight: 600; color: #ffd700;">${item.source}</div>
+                    </div>
+                    <div class="news-date" style="font-size: 0.75rem; color: rgba(255,255,255,0.7); font-weight: 500; text-shadow: 0 1px 2px rgba(0,0,0,0.8);">${item.date}</div>
+                </div>
+            `;
+            return card;
+        }
+
+        // Ejecutar loadFeeds cuando carga el DOM
+        document.addEventListener('DOMContentLoaded', loadFeeds);
+
+        function openNewsModal(card) {
+            const title = card.querySelector('.news-title').innerText;
+            const source = card.querySelector('.news-source').innerText;
+            const date = card.getAttribute('data-date') || '';
+            const img = card.getAttribute('data-img') || 'https://api.dicebear.com/7.x/identicon/svg?seed=fallback';
+            const url = card.getAttribute('data-url') || 'https://www.levante-emv.com';
+            let sourceImg = '';
+            const logoEl = card.querySelector('.news-source-img');
+            if (logoEl) {
+                sourceImg = logoEl.getAttribute('src') || logoEl.src;
+            }
+            if (!sourceImg) {
+                sourceImg = card.getAttribute('data-source-img');
+            }
+            if (!sourceImg) {
+                sourceImg = `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(source)}&fontSize=45`;
+            }
+            const rawDesc = card.getAttribute('data-desc') || 'No hay descripción disponible para esta noticia.';
+            const cleanDesc = rawDesc.replace(/<\/?[^>]+(>|$)/g, "");
+
+            document.getElementById('modal-source-logo').src = sourceImg;
+            document.getElementById('modal-source-text').innerText = `${source} • ${date}`;
+            document.getElementById('modal-body').innerText = cleanDesc;
+            document.getElementById('modal-link').href = url;
+            document.getElementById('modal-bg').style.backgroundImage = `url('${img}')`;
+
+            const modal = document.getElementById('news-modal');
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                modal.classList.add('active');
+            }, 10);
+        }
+
+        function closeNewsModal() {
+            const modal = document.getElementById('news-modal');
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        }
+
+        function openOptionsModal() {
+            const modal = document.getElementById('options-modal');
+            modal.style.display = 'flex';
+            setTimeout(() => {
+                modal.classList.add('active');
+            }, 10);
+        }
+
+        function closeOptionsModal() {
+            const modal = document.getElementById('options-modal');
+            modal.classList.remove('active');
+            setTimeout(() => {
+                modal.style.display = 'none';
+            }, 300);
+        }
+
+        function triggerMascleta() {
+            const leftCol = document.getElementById("news-left");
+            const rightCol = document.getElementById("news-right");
+            
+            // 1. Obtener las tarjetas actuales de la izquierda y la derecha
+            const leftCards = Array.from(leftCol.getElementsByClassName("news-card"));
+            
+            // Obtener nueva noticia o usar la por defecto si no quedan
+            let nextNews;
+            if (allNews.length > 0) {
+                nextNews = allNews[newsIndex % allNews.length];
+                newsIndex++;
+            } else {
+                nextNews = {
+                    tag: "¡URGENTE!",
+                    title: "ÚLTIMA HORA: El sentimiento valencianista se dispara tras el estreno del nuevo portal",
+                    link: "https://www.google.com",
+                    source: "RADIO VALENCIANISMO",
+                    img: `https://api.dicebear.com/7.x/identicon/svg?seed=${Math.random()}`
+                };
+            }
+
+            // Crear la nueva tarjeta cuadrada con animación de entrada
+            const breakingCard = createNewsCard(nextNews);
+            breakingCard.classList.add("slide-in-top");
+            
+            // Si la columna izquierda tiene 4 o más elementos, movemos el 4º elemento (índice 3)
+            if (leftCards.length >= 4) {
+                const itemToMove = leftCards[3];
+                itemToMove.classList.add("shift-to-right-top");
+                
+                // Esperamos el tiempo de la animación de desplazamiento hacia la derecha
+                setTimeout(() => {
+                    // Prepend de la nueva noticia en la izquierda
+                    leftCol.prepend(breakingCard);
+                    
+                    // Quitar el elemento de la izquierda y añadirlo arriba de la derecha
+                    itemToMove.classList.remove("shift-to-right-top");
+                    itemToMove.classList.add("slide-in-top");
+                    rightCol.prepend(itemToMove);
+                    
+                    // Limpiar la clase de animación tras completarse
+                    setTimeout(() => {
+                        itemToMove.classList.remove("slide-in-top");
+                    }, 500);
+                    
+                    // Ahora la columna derecha tiene 5 elementos. Eliminamos el último de la derecha con desplazamiento
+                    const newRightCards = Array.from(rightCol.getElementsByClassName("news-card"));
+                    if (newRightCards.length > 4) {
+                        const lastCard = newRightCards[newRightCards.length - 1];
+                        lastCard.classList.add("slide-out-down");
+                        setTimeout(() => {
+                            if (lastCard.parentNode === rightCol) {
+                                rightCol.removeChild(lastCard);
+                            }
+                        }, 450);
+                    }
+                }, 450);
+            } else {
+                leftCol.prepend(breakingCard);
+            }
+        }
+
+        // Control de volumen logic
+        const volumeTrack = document.getElementById('volume-slider-track');
+        const volumeFill = document.getElementById('volume-fill-bar');
+        const volumeThumb = document.getElementById('volume-thumb');
+        const volumeVal = document.getElementById('volume-val');
+        const audioStream = document.getElementById('radio-stream');
+
+        let isDraggingVolume = false;
+
+        function updateVolumeFromClick(e) {
+            const rect = volumeTrack.getBoundingClientRect();
+            let clickX = e.clientX - rect.left;
+            let percent = Math.max(0, Math.min(100, (clickX / rect.width) * 100));
+            
+            volumeFill.style.width = percent + '%';
+            volumeThumb.style.left = percent + '%';
+            volumeVal.innerText = Math.round(percent) + '%';
+            
+            if (audioStream) {
+                audioStream.volume = percent / 100;
+            }
+        }
+
+        if (volumeTrack) {
+            volumeTrack.addEventListener('mousedown', (e) => {
+                isDraggingVolume = true;
+                updateVolumeFromClick(e);
+            });
+
+            document.addEventListener('mousemove', (e) => {
+                if (isDraggingVolume) {
+                    updateVolumeFromClick(e);
+                }
+            });
+
+            document.addEventListener('mouseup', () => {
+                isDraggingVolume = false;
+            });
+            
+            // Eventos táctiles
+            volumeTrack.addEventListener('touchstart', (e) => {
+                isDraggingVolume = true;
+                updateVolumeFromClick(e.touches[0]);
+            });
+            document.addEventListener('touchmove', (e) => {
+                if (isDraggingVolume) {
+                    updateVolumeFromClick(e.touches[0]);
+                }
+            });
+            document.addEventListener('touchend', () => {
+                isDraggingVolume = false;
+            });
+        }
+    </script>
+</body>
 </html>
