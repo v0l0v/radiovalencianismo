@@ -559,22 +559,68 @@
 
     <!-- Modal Opciones Extra -->
     <div id="options-modal" class="modern-modal" onclick="closeOptionsModal()">
-        <div class="modal-content" onclick="event.stopPropagation()" style="max-width: 450px; padding: 25px; text-align: center;">
-            <h3 style="color: #ffd700; margin-bottom: 15px; font-weight: 800; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px;">OPCIONES EXTRA</h3>
-            <ul style="list-style: none; padding: 0; margin: 0; text-align: left;">
-                <li style="margin-bottom: 15px; background: rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 12px; border-left: 4px solid #00f2fe; color: #eee; font-size: 0.95rem; line-height: 1.4;">
-                    <div style="font-weight: 700; margin-bottom: 8px; color: #00f2fe;">Compartir lo que estás escuchando:</div>
-                    <div style="margin-bottom: 10px;">¡Estoy escuchando Radio Valencianismo! 📻🎶 Únete aquí: https://valencianismo.com</div>
-                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                        <a href="https://twitter.com/intent/tweet?text=¡Estoy%20escuchando%20Radio%20Valencianismo!%20📻🎶%20Únete%20aquí:%20https://valencianismo.com" target="_blank" style="background: #1da1f2; color: #fff; padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; text-decoration: none; font-weight: 600;">En X (Twitter)</a>
-                        <a href="https://api.whatsapp.com/send?text=¡Estoy%20escuchando%20Radio%20Valencianismo!%20📻🎶%20Únete%20aquí:%20https://valencianismo.com" target="_blank" style="background: #25d366; color: #fff; padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; text-decoration: none; font-weight: 600;">En WhatsApp</a>
-                        <a href="https://t.me/share/url?url=https://valencianismo.com&text=¡Estoy%20escuchando%20Radio%20Valencianismo!%20📻🎶" target="_blank" style="background: #0088cc; color: #fff; padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; text-decoration: none; font-weight: 600;">En Telegram</a>
-                        <a href="nostr:nevent1..." onclick="navigator.clipboard.writeText('¡Estoy escuchando Radio Valencianismo! 📻🎶 Únete aquí: https://valencianismo.com'); alert('¡Copiado para compartir en Nostr!'); return true;" style="background: #7928ca; color: #fff; padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; text-decoration: none; font-weight: 600;">En Nostr</a>
-                        <button onclick="navigator.clipboard.writeText('https://valencianismo.com'); alert('¡Enlace copiado al portapapeles!');" style="background: rgba(255,255,255,0.15); border: 1px solid rgba(255,255,255,0.2); color: #fff; padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; cursor: pointer; font-weight: 600;">Compartir enlace</button>
+        <div class="modal-content" onclick="event.stopPropagation()" style="max-width: 1100px; width: 90%; padding: 25px; text-align: center;">
+            <h3 style="color: #ffd700; margin-bottom: 15px; font-weight: 800; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px; text-transform: uppercase; letter-spacing: 1px;">OPCIONES EXTRA</h3>
+            
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-bottom: 20px;">
+                <!-- Opción 1: Compartir enlace -->
+                <div style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 15px; display: flex; flex-direction: column; justify-content: space-between; text-align: left; border-left: 4px solid #00f2fe; min-height: 140px;">
+                    <div>
+                        <div style="font-weight: 700; margin-bottom: 4px; color: #00f2fe; font-size: 0.9rem;">Compartir enlace:</div>
+                        <div style="margin-bottom: 10px; font-size: 0.8rem; color: #ccc;">¡Estoy escuchando Radio Valencianismo! 📻🎶</div>
                     </div>
-                </li>
-            </ul>
-            <button class="close-modal" onclick="closeOptionsModal()" style="background: var(--secondary); color: #0a0a0f; border: none; padding: 10px 30px; border-radius: 50px; cursor: pointer; font-weight: 700; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(255,215,0,0.3); margin-top: 15px;">CERRAR</button>
+                    <div style="display: flex; gap: 6px; flex-wrap: wrap;">
+                        <a href="https://twitter.com/intent/tweet?text=¡Estoy%20escuchando%20Radio%20Valencianismo!%20📻🎶%20Únete%20aquí:%20https://valencianismo.com" target="_blank" style="background: #1da1f2; color: #fff; padding: 4px 8px; border-radius: 20px; font-size: 0.75rem; text-decoration: none; font-weight: 600;">En X</a>
+                        <a href="https://api.whatsapp.com/send?text=¡Estoy%20escuchando%20Radio%20Valencianismo!%20📻🎶%20Únete%20aquí:%20https://valencianismo.com" target="_blank" style="background: #25d366; color: #fff; padding: 4px 8px; border-radius: 20px; font-size: 0.75rem; text-decoration: none; font-weight: 600;">En WA</a>
+                        <a href="https://t.me/share/url?url=https://valencianismo.com&text=¡Estoy%20escuchando%20Radio%20Valencianismo!%20📻🎶" target="_blank" style="background: #0088cc; color: #fff; padding: 4px 8px; border-radius: 20px; font-size: 0.75rem; text-decoration: none; font-weight: 600;">En TG</a>
+                        <a href="nostr:nevent1..." onclick="navigator.clipboard.writeText('¡Estoy escuchando Radio Valencianismo! 📻🎶 Únete aquí: https://valencianismo.com'); alert('¡Copiado para compartir en Nostr!'); return true;" style="background: #7928ca; color: #fff; padding: 4px 8px; border-radius: 20px; font-size: 0.75rem; text-decoration: none; font-weight: 600;">Nostr</a>
+                    </div>
+                </div>
+                
+                <!-- Opción 2: Placeholder -->
+                <div style="background: rgba(255, 255, 255, 0.02); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 14px; padding: 15px; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 140px; color: rgba(255, 255, 255, 0.25); font-size: 0.8rem;">
+                    <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 4px; opacity: 0.4;">+</div>
+                    <div>Próxima Opción</div>
+                </div>
+
+                <!-- Opción 3: Placeholder -->
+                <div style="background: rgba(255, 255, 255, 0.02); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 14px; padding: 15px; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 140px; color: rgba(255, 255, 255, 0.25); font-size: 0.8rem;">
+                    <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 4px; opacity: 0.4;">+</div>
+                    <div>Próxima Opción</div>
+                </div>
+
+                <!-- Opción 4: Placeholder -->
+                <div style="background: rgba(255, 255, 255, 0.02); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 14px; padding: 15px; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 140px; color: rgba(255, 255, 255, 0.25); font-size: 0.8rem;">
+                    <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 4px; opacity: 0.4;">+</div>
+                    <div>Próxima Opción</div>
+                </div>
+
+                <!-- Opción 5: Placeholder -->
+                <div style="background: rgba(255, 255, 255, 0.02); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 14px; padding: 15px; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 140px; color: rgba(255, 255, 255, 0.25); font-size: 0.8rem;">
+                    <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 4px; opacity: 0.4;">+</div>
+                    <div>Próxima Opción</div>
+                </div>
+
+                <!-- Opción 6: Placeholder -->
+                <div style="background: rgba(255, 255, 255, 0.02); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 14px; padding: 15px; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 140px; color: rgba(255, 255, 255, 0.25); font-size: 0.8rem;">
+                    <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 4px; opacity: 0.4;">+</div>
+                    <div>Próxima Opción</div>
+                </div>
+
+                <!-- Opción 7: Placeholder -->
+                <div style="background: rgba(255, 255, 255, 0.02); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 14px; padding: 15px; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 140px; color: rgba(255, 255, 255, 0.25); font-size: 0.8rem;">
+                    <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 4px; opacity: 0.4;">+</div>
+                    <div>Próxima Opción</div>
+                </div>
+
+                <!-- Opción 8: Placeholder -->
+                <div style="background: rgba(255, 255, 255, 0.02); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 14px; padding: 15px; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 140px; color: rgba(255, 255, 255, 0.25); font-size: 0.8rem;">
+                    <div style="font-weight: 700; font-size: 1.1rem; margin-bottom: 4px; opacity: 0.4;">+</div>
+                    <div>Próxima Opción</div>
+                </div>
+            </div>
+
+            <button class="close-modal" onclick="closeOptionsModal()" style="background: var(--secondary); color: #0a0a0f; border: none; padding: 10px 30px; border-radius: 50px; cursor: pointer; font-weight: 700; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(255,215,0,0.3); margin-top: 5px;">CERRAR</button>
         </div>
     </div>
 
