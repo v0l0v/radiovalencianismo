@@ -971,6 +971,10 @@
                 if (newsModal && newsModal.style.display === 'flex') {
                     closeNewsModal();
                 }
+                const historyPanel = document.getElementById('history-panel');
+                if (historyPanel && historyPanel.classList.contains('active')) {
+                    historyPanel.classList.remove('active');
+                }
             }
         });
     </script>
