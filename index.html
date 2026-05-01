@@ -439,7 +439,7 @@
         <!-- Centro: El Reproductor Original -->
         <div class="glass-container">
             <div class="v2-header">
-                <div class="logo-container">
+                <div class="logo-container" onclick="window.location.href='index.html'" style="cursor: pointer;" title="Ir al inicio / Recargar">
                     <h1>Radio Valencianismo</h1>
                 </div>
                 <div class="status-indicator">
@@ -960,6 +960,19 @@
                 isDraggingVolume = false;
             });
         }
+
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                const optionsModal = document.getElementById('options-modal');
+                if (optionsModal && optionsModal.style.display === 'flex') {
+                    closeOptionsModal();
+                }
+                const newsModal = document.getElementById('news-modal');
+                if (newsModal && newsModal.style.display === 'flex') {
+                    closeNewsModal();
+                }
+            }
+        });
     </script>
 </body>
 </html>
