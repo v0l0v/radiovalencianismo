@@ -553,6 +553,17 @@ body {
     font-weight: 500;
 }
 
+.modern-history-list li:hover .history-song-title {
+    display: inline-block;
+    animation: history-marquee 4s linear infinite alternate;
+}
+
+@keyframes history-marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-100% + 150px)); }
+}
+
+
 .history-song-time {
     font-size: 0.8rem;
     opacity: 0.5;
