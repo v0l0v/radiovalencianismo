@@ -704,16 +704,35 @@
 
     <!-- Modal de todas las Noticias (RSS) -->
     <div id="control-panel-news-modal" class="modern-modal" onclick="closeControlPanelNewsModal()">
-        <div class="modal-content" onclick="event.stopPropagation()" style="width: 85vw; max-width: 1300px; height: 80vh; max-height: 85vh; padding: 30px; display: flex; flex-direction: column; border: 2.5px solid rgba(255, 255, 255, 0.4); box-shadow: 0 30px 60px rgba(0,0,0,0.8); overflow: hidden;">
+        <style>
+            #cp-news-modal-content {
+                width: 85vw !important;
+                max-width: 1300px !important;
+                height: 85vh !important;
+                max-height: 85vh !important;
+                padding: 30px !important;
+                display: flex !important;
+                flex-direction: column !important;
+                border: 2.5px solid rgba(255, 255, 255, 0.4) !important;
+                box-shadow: 0 30px 60px rgba(0,0,0,0.8) !important;
+                overflow: hidden !important;
+                background: rgba(10, 10, 15, 0.85) !important;
+                backdrop-filter: blur(25px) !important;
+                -webkit-backdrop-filter: blur(25px) !important;
+                border-radius: 24px !important;
+            }
+            #all-rss-news-container::-webkit-scrollbar { display: none; }
+        </style>
+        <div id="cp-news-modal-content" class="modal-content" onclick="event.stopPropagation()">
             <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 15px;">
                 <h3 style="color: #00d2ff; margin: 0; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; font-size: 1.3rem;">Últimas 100 noticias</h3>
                 <button onclick="closeControlPanelNewsModal()" style="background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.2); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease;">✕</button>
             </div>
-            <style>
-                #all-rss-news-container::-webkit-scrollbar { display: none; }
-            </style>
-            <div id="all-rss-news-container" style="flex: 1; overflow-y: auto; overflow-x: hidden; scrollbar-width: none; -ms-overflow-style: none; padding-right: 5px; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 15px;">
+            <div id="all-rss-news-container" style="height: 65vh !important; max-height: 65vh !important; overflow-y: scroll !important; overflow-x: hidden !important; scrollbar-width: none !important; -ms-overflow-style: none !important; padding: 10px 5px !important; display: grid !important; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important; gap: 20px !important;">
                 <!-- Se poblará dinámicamente con las últimas noticias -->
+            </div>
+            <div style="display: flex; justify-content: center; margin-top: 15px;">
+                <button id="load-more-news-btn" onclick="loadNextChunk()" style="background: linear-gradient(135deg, #00d2ff, #00f2fe); color: #0a0a0f; border: none; padding: 12px 36px; border-radius: 50px; cursor: pointer; font-weight: 700; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,210,255,0.4); font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px;">Cargar más noticias</button>
             </div>
         </div>
     </div>
@@ -1009,6 +1028,8 @@
             });
         }
 
+        let controlPanelNewsIndex = 8;
+        let isFetchingNextChunk = false;
         function openControlPanelNewsModal() {
             const modal = document.getElementById('control-panel-news-modal');
             modal.style.display = 'flex';
@@ -1016,41 +1037,48 @@
 
             const container = document.getElementById('all-rss-news-container');
             container.innerHTML = '';
+            controlPanelNewsIndex = 8;
+            isFetchingNextChunk = false;
 
-            const newsToShow = allNews.slice(8, 108);
-
-            if (newsToShow.length === 0) {
-                container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: rgba(255,255,255,0.4); font-size: 1.1rem; padding: 40px 0;">No hay noticias cargadas todavía.</div>`;
+            if (allNews.length <= 8) {
+                container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: rgba(255,255,255,0.4); font-size: 1.1rem; padding: 40px 0;">No hay más noticias cargadas todavía.</div>`;
                 return;
             }
 
-            newsToShow.forEach(item => {
-                const card = document.createElement('div');
-                card.style.cssText = `
-                    background: rgba(255, 255, 255, 0.05);
-                    border: 1px solid rgba(255, 255, 255, 0.1);
-                    border-radius: 12px;
-                    padding: 15px;
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: space-between;
-                    gap: 12px;
-                    transition: all 0.2s ease;
-                    text-align: left;
-                `;
-                card.innerHTML = `
-                    <div>
-                        <div style="font-size: 0.75rem; color: #ffd700; font-weight: 800; text-transform: uppercase; margin-bottom: 5px;">${item.source || 'RSS'}</div>
-                        <h4 style="font-size: 0.95rem; color: #fff; margin: 0; line-height: 1.3; font-weight: 600;">${item.title}</h4>
-                    </div>
-                    <div style="display: flex; justify-content: flex-end;">
-                        <a href="${item.link}" target="_blank" rel="noopener noreferrer" style="background: rgba(255,255,255,0.08); color: #00d2ff; border: 1px solid rgba(0, 210, 255, 0.3); padding: 6px 12px; border-radius: 20px; font-size: 0.8rem; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 4px; transition: all 0.2s ease;">
-                            Leer más ↗
-                        </a>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
+            function loadNextChunk() {
+                if (isFetchingNextChunk) return;
+                isFetchingNextChunk = true;
+
+                const nextChunk = allNews.slice(controlPanelNewsIndex, controlPanelNewsIndex + 8);
+                if (nextChunk.length === 0) {
+                    controlPanelNewsIndex = 8;
+                    isFetchingNextChunk = false;
+                    loadNextChunk();
+                    return;
+                }
+                
+                // Vaciamos el contenedor para eliminar la tanda anterior de la vista
+                container.innerHTML = '';
+
+                nextChunk.forEach(item => {
+                    const card = createNewsCard(item);
+                    container.appendChild(card);
+                });
+                controlPanelNewsIndex += 8;
+
+                isFetchingNextChunk = false;
+                container.scrollTop = 0;
+            }
+
+            window.loadNextChunk = loadNextChunk;
+
+            loadNextChunk();
+
+            container.onscroll = () => {
+                if (container.scrollTop + container.clientHeight >= container.scrollHeight - 250) {
+                    loadNextChunk();
+                }
+            };
         }
 
         function closeControlPanelNewsModal() {
