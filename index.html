@@ -564,7 +564,7 @@
             
             <div id="options-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px;">
                 <!-- Opción 1: Compartir enlace -->
-                <div class="option-card-slot" draggable="true" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; text-align: left; border-left: 4px solid #00f2fe; min-height: 180px; cursor: grab;">
+                <div class="option-card-slot" data-id="opt-compartir" draggable="true" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; text-align: left; border-left: 4px solid #00f2fe; min-height: 180px; cursor: grab;">
                     <div>
                         <div style="font-weight: 700; margin-bottom: 6px; color: #00f2fe; font-size: 1rem;">Compartir enlace:</div>
                         <div style="margin-bottom: 12px; font-size: 0.85rem; color: #ccc;">¡Estoy escuchando Radio Valencianismo! 📻🎶</div>
@@ -595,7 +595,7 @@
                 </div>
                 
                 <!-- Opción 2: Contacto -->
-                <div class="option-card-slot" draggable="true" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; text-align: left; border-left: 4px solid #ff007f; min-height: 180px; cursor: grab;">
+                <div class="option-card-slot" data-id="opt-contacto" draggable="true" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; text-align: left; border-left: 4px solid #ff007f; min-height: 180px; cursor: grab;">
                     <div>
                         <div style="font-weight: 700; margin-bottom: 6px; color: #ff007f; font-size: 1rem;">Contacto / Comunidad:</div>
                         <div style="margin-bottom: 12px; font-size: 0.85rem; color: #ccc;">¿Tienes dudas o propuestas? ¡Escríbenos!</div>
@@ -612,7 +612,7 @@
                 </div>
 
                 <!-- Opción 3: Últimas Noticias (Modal) -->
-                <div class="option-card-slot" draggable="true" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; text-align: left; border-left: 4px solid #00d2ff; min-height: 180px; cursor: grab;">
+                <div class="option-card-slot" data-id="opt-noticias" draggable="true" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; text-align: left; border-left: 4px solid #00d2ff; min-height: 180px; cursor: grab;">
                     <div>
                         <div style="font-weight: 700; margin-bottom: 6px; color: #00d2ff; font-size: 1rem;">Últimas 100 Noticias:</div>
                         <div style="margin-bottom: 12px; font-size: 0.85rem; color: #ccc;">Visualiza las últimas noticias de todos los feeds.</div>
@@ -630,37 +630,40 @@
                 </div>
 
                 <!-- Opción 4: Placeholder -->
-                <div class="option-card-slot" draggable="true" style="background: rgba(255, 255, 255, 0.02); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 180px; color: rgba(255, 255, 255, 0.25); font-size: 0.9rem; cursor: grab;">
+                <div class="option-card-slot" data-id="opt-4" draggable="true" style="background: rgba(255, 255, 255, 0.02); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 180px; color: rgba(255, 255, 255, 0.25); font-size: 0.9rem; cursor: grab;">
                     <div style="font-weight: 700; font-size: 1.5rem; margin-bottom: 8px; opacity: 0.4;">+</div>
                     <div>Próxima Opción</div>
                 </div>
 
                 <!-- Opción 5: Placeholder -->
-                <div class="option-card-slot" draggable="true" style="background: rgba(255, 255, 255, 0.02); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 180px; color: rgba(255, 255, 255, 0.25); font-size: 0.9rem; cursor: grab;">
+                <div class="option-card-slot" data-id="opt-5" draggable="true" style="background: rgba(255, 255, 255, 0.02); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 180px; color: rgba(255, 255, 255, 0.25); font-size: 0.9rem; cursor: grab;">
                     <div style="font-weight: 700; font-size: 1.5rem; margin-bottom: 8px; opacity: 0.4;">+</div>
                     <div>Próxima Opción</div>
                 </div>
 
                 <!-- Opción 6: Placeholder -->
-                <div class="option-card-slot" draggable="true" style="background: rgba(255, 255, 255, 0.02); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 180px; color: rgba(255, 255, 255, 0.25); font-size: 0.9rem; cursor: grab;">
+                <div class="option-card-slot" data-id="opt-6" draggable="true" style="background: rgba(255, 255, 255, 0.02); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 180px; color: rgba(255, 255, 255, 0.25); font-size: 0.9rem; cursor: grab;">
                     <div style="font-weight: 700; font-size: 1.5rem; margin-bottom: 8px; opacity: 0.4;">+</div>
                     <div>Próxima Opción</div>
                 </div>
 
                 <!-- Opción 7: Placeholder -->
-                <div class="option-card-slot" draggable="true" style="background: rgba(255, 255, 255, 0.02); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 180px; color: rgba(255, 255, 255, 0.25); font-size: 0.9rem; cursor: grab;">
+                <div class="option-card-slot" data-id="opt-7" draggable="true" style="background: rgba(255, 255, 255, 0.02); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 180px; color: rgba(255, 255, 255, 0.25); font-size: 0.9rem; cursor: grab;">
                     <div style="font-weight: 700; font-size: 1.5rem; margin-bottom: 8px; opacity: 0.4;">+</div>
                     <div>Próxima Opción</div>
                 </div>
 
                 <!-- Opción 8: Placeholder -->
-                <div class="option-card-slot" draggable="true" style="background: rgba(255, 255, 255, 0.02); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 180px; color: rgba(255, 255, 255, 0.25); font-size: 0.9rem; cursor: grab;">
+                <div class="option-card-slot" data-id="opt-8" draggable="true" style="background: rgba(255, 255, 255, 0.02); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 180px; color: rgba(255, 255, 255, 0.25); font-size: 0.9rem; cursor: grab;">
                     <div style="font-weight: 700; font-size: 1.5rem; margin-bottom: 8px; opacity: 0.4;">+</div>
                     <div>Próxima Opción</div>
                 </div>
             </div>
 
-            <button class="close-modal" onclick="closeOptionsModal()" style="background: var(--secondary); color: #0a0a0f; border: none; padding: 12px 36px; border-radius: 50px; cursor: pointer; font-weight: 700; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(255,215,0,0.3); font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; margin-top: auto; align-self: center;">CERRAR</button>
+            <div style="display: flex; gap: 15px; margin-top: auto; align-self: center;">
+                <button id="save-config-btn" onclick="saveControlPanelOrder()" style="background: #00d2ff; color: #0a0a0f; border: none; padding: 12px 36px; border-radius: 50px; cursor: pointer; font-weight: 700; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,210,255,0.4); font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px; display: none;">GUARDAR CONFIGURACIÓN ACTUAL</button>
+                <button class="close-modal" onclick="closeOptionsModal()" style="background: var(--secondary); color: #0a0a0f; border: none; padding: 12px 36px; border-radius: 50px; cursor: pointer; font-weight: 700; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(255,215,0,0.3); font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px;">CERRAR</button>
+            </div>
         </div>
     </div>
 
@@ -1058,6 +1061,8 @@
                     dragSource.style.opacity = '1';
                     dragSource = null;
                 }
+                const btn = document.getElementById('save-config-btn');
+                if (btn) btn.style.display = 'inline-block';
             });
 
             grid.addEventListener('dragover', (e) => {
@@ -1069,6 +1074,37 @@
                     grid.insertBefore(dragSource, next ? targetCard.nextSibling : targetCard);
                 }
             });
+
+            function applySavedOrder() {
+                const saved = localStorage.getItem('options-card-order');
+                if (saved) {
+                    try {
+                        const order = JSON.parse(saved);
+                        if (order && order.length > 0) {
+                            const slots = Array.from(grid.querySelectorAll('.option-card-slot'));
+                            order.forEach(id => {
+                                const found = slots.find(s => s.getAttribute('data-id') === id);
+                                if (found) grid.appendChild(found);
+                            });
+                        }
+                    } catch (err) {
+                        console.error(err);
+                    }
+                }
+            }
+            applySavedOrder();
+        }
+
+        function saveControlPanelOrder() {
+            const grid = document.getElementById('options-grid');
+            if (grid) {
+                const slots = Array.from(grid.querySelectorAll('.option-card-slot'));
+                const order = slots.map(card => card.getAttribute('data-id'));
+                localStorage.setItem('options-card-order', JSON.stringify(order));
+                alert('¡Configuración guardada correctamente!');
+                const btn = document.getElementById('save-config-btn');
+                if (btn) btn.style.display = 'none';
+            }
         }
 
         document.addEventListener('keydown', (e) => {
