@@ -562,11 +562,11 @@ body {
 }
 
 /* Nostr Zap Notifications */
-#zap-btn svg {
+#zap-btn svg, #paypal-btn svg {
     filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.5));
 }
 
-#zap-btn:hover {
+#zap-btn:hover, #paypal-btn:hover {
     background: rgba(255, 215, 0, 0.1);
     border-color: #FFD700;
 }
