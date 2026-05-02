@@ -3,12 +3,12 @@ live = input.harbor("live", port=8080, password="D26VmLg3791+")
 
 # AutoDJ principal (música de todo el día)
 # Sugerencia: pon tu música normal en /mp3/generico
-musica_normal = playlist(mode="random", "/mp3/generico")
+musica_normal = playlist(mode="randomize", "/mp3/generico")
 
 # Programa "Veinte Horas" (suena a las 20:00)
 # Pon los archivos en /mp3/programas/veinte-horas
 # loop=false hace que suene una vez y luego pase a la siguiente fuente
-veinte_horas = playlist(mode="random", loop=false, "/mp3/programas/veinte-horas")
+veinte_horas = playlist(mode="randomize", loop=false, "/mp3/programas/veinte-horas")
 
 # 2. Programación de la Parrilla
 parrilla = switch(track_sensitive=false, [
