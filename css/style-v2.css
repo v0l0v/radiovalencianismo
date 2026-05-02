@@ -546,9 +546,9 @@ body {
 .history-song-title {
     flex: 1;
     min-width: 0;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-break: break-word;
     font-size: 0.95rem;
     font-weight: 500;
 }
