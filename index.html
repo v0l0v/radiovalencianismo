@@ -478,14 +478,19 @@
                 </div>
 
                 <div class="modern-controls">
-                    <button class="glass-btn secondary" id="zap-btn">
+                    <button class="glass-btn secondary" id="zap-btn" title="Enviar Zap (Lightning)">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
                     </button>
-                    <button class="glass-btn primary" id="play-btn">
+                    <button class="glass-btn primary" id="play-btn" title="Reproducir / Pausar">
                         <svg id="icon-play" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg>
                         <svg id="icon-pause" viewBox="0 0 24 24" fill="currentColor" style="display:none"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
                     </button>
-                    <button class="glass-btn secondary" id="paypal-btn" onclick="openOptionsModal()">
+                    <button class="glass-btn secondary" id="paypal-btn" title="Donar con PayPal">
+                        <svg viewBox="0 0 24 24">
+                            <path fill="#003087" d="M20,8C20,13 17,15.5 13,15.5H10.5L9.5,21.5H6L8.5,5.5H13.5C17.5,5.5 20,6.5 20,8Z" />
+                        </svg>
+                    </button>
+                    <button class="glass-btn secondary" id="options-btn" onclick="openOptionsModal()" title="Opciones Extra / Panel de Control">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20m10-10H2"/></svg>
                     </button>
                 </div>
@@ -564,6 +569,23 @@
         </div>
     </div>
 
+    <!-- Modal Donar con PayPal -->
+    <div id="paypal-modal" class="modern-modal" onclick="document.getElementById('paypal-modal').classList.remove('active')">
+        <div class="modal-content" onclick="event.stopPropagation()" style="max-width: 450px; padding: 25px; text-align: center;">
+            <h3 style="color: #ffd700; margin-bottom: 10px;">DONAR CON PAYPAL 💙</h3>
+            <p style="font-size: 0.95rem; color: #eee; line-height: 1.5; margin-bottom: 15px; text-align: left; background: rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 8px; border-left: 3px solid #ffd700;">
+                Tu apoyo nos ayuda a mantener la radio libre de publicidad y con la mejor calidad. ¡Muchas gracias por tu colaboración!
+            </p>
+            <div class="paypal-container" style="margin: 20px 0;">
+                <a href="https://www.paypal.com/pools/c/9oOuJpSJJR" target="_blank" class="paypal-link-btn" style="background: #ffd700; color: #0a0a0f; font-weight: 700; padding: 12px 30px; border-radius: 50px; text-decoration: none; display: inline-block; box-shadow: 0 4px 15px rgba(255,215,0,0.3); transition: all 0.3s ease;">
+                    Ir a la Campaña de PayPal
+                </a>
+            </div>
+            <p class="zap-address" style="color: #ffd700; font-weight: 700; font-family: monospace; font-size: 1.1rem; margin-bottom: 15px;">Radio Valencianismo</p>
+            <button class="close-modal" id="close-paypal" style="background: var(--secondary); color: #0a0a0f; border: none; padding: 10px 30px; border-radius: 50px; cursor: pointer; font-weight: 700; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(255,215,0,0.3);">CERRAR</button>
+        </div>
+    </div>
+
     <!-- Modal Opciones Extra -->
     <div id="options-modal" class="modern-modal" onclick="closeOptionsModal()">
         <div class="modal-content" onclick="event.stopPropagation()" style="width: 85vw; max-width: 1300px; height: auto; min-height: 560px; padding: 40px; text-align: center; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; border: 2px solid rgba(255, 255, 255, 0.2); box-shadow: 0 30px 60px rgba(0,0,0,0.8);">
@@ -636,10 +658,20 @@
                     </div>
                 </div>
 
-                <!-- Opción 4: Placeholder -->
-                <div class="option-card-slot" data-id="opt-4" draggable="true" style="background: rgba(255, 255, 255, 0.02); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 180px; color: rgba(255, 255, 255, 0.25); font-size: 0.9rem; cursor: grab;">
-                    <div style="font-weight: 700; font-size: 1.5rem; margin-bottom: 8px; opacity: 0.4;">+</div>
-                    <div>Próxima Opción</div>
+                <!-- Opción 4: Campaña de Recaudación -->
+                <div class="option-card-slot" data-id="opt-4" draggable="true" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; text-align: left; border-left: 4px solid #ffd700; min-height: 180px; cursor: grab;">
+                    <div>
+                        <div style="font-weight: 700; margin-bottom: 6px; color: #ffd700; font-size: 1rem;">Campaña de Recaudación:</div>
+                        <div style="margin-bottom: 12px; font-size: 0.85rem; color: #ccc;">Ayúdanos a mantener la radio con la mejor calidad y sin anuncios.</div>
+                    </div>
+                    <div>
+                        <a href="https://www.paypal.com/pools/c/9oOuJpSJJR" target="_blank" rel="noopener noreferrer" style="background: #ffd700; color: #0a0a0f; padding: 10px 20px; border-radius: 25px; font-size: 0.85rem; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3); transition: transform 0.2s ease;">
+                            <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;">
+                                <path d="M12 2v20m10-10H2"></path>
+                            </svg>
+                            Donar en PayPal
+                        </a>
+                    </div>
                 </div>
 
                 <!-- Opción 5: Placeholder -->
