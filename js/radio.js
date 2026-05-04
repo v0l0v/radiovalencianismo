@@ -129,22 +129,34 @@ document.addEventListener('DOMContentLoaded', () => {
                                 const elevatorTitle = document.getElementById('elevator-title');
                                 const elevatorImgWrapper = document.getElementById('elevator-img-wrapper');
                                 const elevatorImg = document.getElementById('elevator-img');
+                                const elevatorSourceTag = document.getElementById('elevator-source-tag');
                                 
                                 if (elevatorWidget && elevatorTitle) {
                                     let rawNews = newsLines[currentNewsIndex];
                                     let cleanNews = rawNews;
                                     let imgUrl = null;
+                                    let sourceText = "ÚLTIMA HORA";
 
-                                    // Extraemos la foto si viene en formato: URL||TEXTO
+                                    // Extraemos la foto y la fuente si viene en formato: URL||FUENTE||TEXTO
                                     if (rawNews.includes('||')) {
                                         const parts = rawNews.split('||');
-                                        imgUrl = parts[0].trim();
-                                        cleanNews = parts[1].trim();
+                                        if (parts.length >= 3) {
+                                            imgUrl = parts[0].trim();
+                                            sourceText = parts[1].trim();
+                                            cleanNews = parts[2].trim();
+                                        } else if (parts.length === 2) {
+                                            imgUrl = parts[0].trim();
+                                            cleanNews = parts[1].trim();
+                                        }
                                     }
 
                                     // Limpiamos el texto
                                     cleanNews = cleanNews.replace("📢 ÚLTIMA HORA:", "").trim();
                                     elevatorTitle.textContent = cleanNews;
+                                    
+                                    if (elevatorSourceTag) {
+                                        elevatorSourceTag.innerHTML = sourceText; //innerHTML para mantener el pseudo-elemento (el puntito rojo)
+                                    }
 
                                     // Mostramos la foto si hay una
                                     if (elevatorImgWrapper && elevatorImg) {
