@@ -93,7 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Metadata & Cover Logic
     let lastNewsShownTime = 0;
     const newsDisplayDuration = 30000; // 30 segundos mostrándose
-    const newsFetchInterval = 210000; // Cada 3 min y 30 seg (210,000 ms)
+    const newsFetchInterval = 180000; // Cada 3 minutos (180,000 ms)
     let isShowingNews = false;
     let currentNewsIndex = 0; // Para recordar qué noticia toca en el carrusel
 
