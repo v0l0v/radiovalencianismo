@@ -2,3 +2,5 @@ backend/mp3/
 node_modules/
 .DS_Store
 *.log
+n8n_data/*.sqlite-shm
+n8n_data/*.sqlite-wal
