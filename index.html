@@ -438,9 +438,9 @@
         /* Tarjeta de Ascensor para Última Hora */
         .elevator-widget {
             position: fixed;
-            bottom: 5vh;
+            top: 50%;
             left: 50%;
-            transform: translate(-50%, 150%);
+            transform: translate(-50%, 100vh);
             width: 90vw;
             max-width: 500px;
             background: rgba(20, 20, 25, 0.85);
@@ -451,34 +451,18 @@
             box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 30px rgba(255, 215, 0, 0.15);
             display: flex;
             align-items: center;
-            padding: 20px;
+            padding: 25px;
             gap: 20px;
             z-index: 9999;
             opacity: 0;
             visibility: hidden;
-            transition: all 0.9s cubic-bezier(0.19, 1, 0.22, 1); /* Transición muy suave */
+            transition: all 0.9s cubic-bezier(0.19, 1, 0.22, 1);
         }
 
         .elevator-widget.show {
             opacity: 1;
             visibility: visible;
-            transform: translate(-50%, 0);
-        }
-
-        .elevator-img-container {
-            width: 80px;
-            height: 80px;
-            border-radius: 12px;
-            overflow: hidden;
-            flex-shrink: 0;
-            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .elevator-img-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
+            transform: translate(-50%, -50%);
         }
 
         .elevator-content {
@@ -535,9 +519,6 @@
 
     <!-- Tarjeta tipo Ascensor -->
     <div id="elevator-news-widget" class="elevator-widget">
-        <div class="elevator-img-container">
-            <img src="assets/logob.png" alt="Última Hora">
-        </div>
         <div class="elevator-content">
             <span class="elevator-tag">ÚLTIMA HORA</span>
             <h3 id="elevator-title" class="elevator-title">Cargando noticia...</h3>
