@@ -127,11 +127,35 @@ document.addEventListener('DOMContentLoaded', () => {
                                 // 4. Mostramos la noticia en la tarjeta de ascensor flotante
                                 const elevatorWidget = document.getElementById('elevator-news-widget');
                                 const elevatorTitle = document.getElementById('elevator-title');
+                                const elevatorImgWrapper = document.getElementById('elevator-img-wrapper');
+                                const elevatorImg = document.getElementById('elevator-img');
                                 
                                 if (elevatorWidget && elevatorTitle) {
-                                    // Limpiamos el texto para quitar el emoji y prefijo si lo trae
-                                    let cleanNews = newsLines[currentNewsIndex].replace("📢 ÚLTIMA HORA:", "").trim();
+                                    let rawNews = newsLines[currentNewsIndex];
+                                    let cleanNews = rawNews;
+                                    let imgUrl = null;
+
+                                    // Extraemos la foto si viene en formato: URL||TEXTO
+                                    if (rawNews.includes('||')) {
+                                        const parts = rawNews.split('||');
+                                        imgUrl = parts[0].trim();
+                                        cleanNews = parts[1].trim();
+                                    }
+
+                                    // Limpiamos el texto
+                                    cleanNews = cleanNews.replace("📢 ÚLTIMA HORA:", "").trim();
                                     elevatorTitle.textContent = cleanNews;
+
+                                    // Mostramos la foto si hay una
+                                    if (elevatorImgWrapper && elevatorImg) {
+                                        if (imgUrl && imgUrl.startsWith('http')) {
+                                            elevatorImg.src = imgUrl;
+                                            elevatorImgWrapper.style.display = 'block';
+                                        } else {
+                                            elevatorImgWrapper.style.display = 'none';
+                                        }
+                                    }
+
                                     elevatorWidget.classList.add('show');
                                 }
                                 
