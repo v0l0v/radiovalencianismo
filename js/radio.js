@@ -124,15 +124,36 @@ document.addEventListener('DOMContentLoaded', () => {
                                     currentNewsIndex = 0;
                                 }
 
-                                // 4. Mostramos la noticia en la tarjeta de ascensor flotante
-                                const elevatorWidget = document.getElementById('elevator-news-widget');
+                                // 4. Mostramos la noticia en la parte de atrás del reproductor 3D
+                                const flipper = document.getElementById('player-flipper');
                                 const elevatorTitle = document.getElementById('elevator-title');
+                                const newsBackImg = document.getElementById('news-back-img');
                                 
-                                if (elevatorWidget && elevatorTitle) {
-                                    // Limpiamos el texto para quitar el emoji y prefijo si lo trae
-                                    let cleanNews = newsLines[currentNewsIndex].replace("📢 ÚLTIMA HORA:", "").trim();
+                                if (flipper && elevatorTitle) {
+                                    let rawNews = newsLines[currentNewsIndex];
+                                    let cleanNews = rawNews;
+                                    let imgUrl = null;
+
+                                    // Si n8n nos manda "URL_IMAGEN||TITULO"
+                                    if (rawNews.includes('||')) {
+                                        const parts = rawNews.split('||');
+                                        imgUrl = parts[0].trim();
+                                        cleanNews = parts[1].trim();
+                                    }
+
+                                    cleanNews = cleanNews.replace("📢 ÚLTIMA HORA:", "").trim();
                                     elevatorTitle.textContent = cleanNews;
-                                    elevatorWidget.classList.add('show');
+
+                                    if (newsBackImg) {
+                                        if (imgUrl && imgUrl.startsWith('http')) {
+                                            newsBackImg.src = imgUrl;
+                                            newsBackImg.style.display = 'block';
+                                        } else {
+                                            newsBackImg.style.display = 'none';
+                                        }
+                                    }
+
+                                    flipper.classList.add('flipped');
                                 }
                                 
                                 lastNewsShownTime = now;
@@ -141,14 +162,11 @@ document.addEventListener('DOMContentLoaded', () => {
                                 // 5. Preparamos el índice para la siguiente vez
                                 currentNewsIndex = (currentNewsIndex + 1) % newsLines.length;
                                 
-                                // 6. Tras 30 segundos, ocultar tarjeta
+                                // 6. Tras 30 segundos, voltear de nuevo al reproductor
                                 setTimeout(() => {
-                                    if (elevatorWidget) elevatorWidget.classList.remove('show');
+                                    if (flipper) flipper.classList.remove('flipped');
                                     isShowingNews = false;
                                 }, newsDisplayDuration);
-                                
-                                // OJO: Ya no hacemos 'return;' porque queremos que el título de la canción de fondo se siga mostrando en el vinilo
-                            }
                         }
                     }
                 } catch (e) {
