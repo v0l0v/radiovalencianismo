@@ -91,28 +91,62 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 3. Metadata & Cover Logic
+    let lastNewsShownTime = 0;
+    const newsDisplayDuration = 20000; // 20 segundos mostrándose
+    const newsFetchInterval = 5 * 60 * 1000; // Cada 5 minutos
+    let isShowingNews = false;
+
     async function updateMetadata() {
         try {
             let songName = "Radio Valencianismo 24/7";
-            
-            try {
-                const metaRes = await fetch(ICECAST_JSON_URL);
-                if (metaRes.ok) {
-                    const data = await metaRes.json();
-                    if (data.icestats && data.icestats.source) {
-                        const source = Array.isArray(data.icestats.source) ? data.icestats.source[0] : data.icestats.source;
-                        if (source && source.title) {
-                            songName = source.title;
+            const now = Date.now();
+
+            // Rotar a la noticia de noticia_actual.txt si es el momento
+            if (!isShowingNews && (now - lastNewsShownTime > newsFetchInterval)) {
+                try {
+                    const newsRes = await fetch('noticia_actual.txt');
+                    if (newsRes.ok) {
+                        const newsText = await newsRes.text();
+                        if (newsText && newsText.trim().length > 0) {
+                            currentSongEl.textContent = newsText.trim();
+                            checkMarquee();
+                            lastNewsShownTime = now;
+                            isShowingNews = true;
+                            
+                            // Tras 20 segundos, revertir a la canción habitual
+                            setTimeout(() => {
+                                isShowingNews = false;
+                                updateMetadata();
+                            }, newsDisplayDuration);
+                            return;
                         }
                     }
+                } catch (e) {
+                    console.error("Error fetching noticia_actual.txt:", e);
                 }
-            } catch(e) {}
+            }
 
-            if (currentSongEl.textContent !== songName && songName !== "Radio Valencianismo 24/7") {
-                currentSongEl.textContent = songName;
-                checkMarquee();
-                updateCover(songName);
-                addToHistory(songName);
+            // Si no estamos en modo noticia, obtener la canción habitual de Icecast
+            if (!isShowingNews) {
+                try {
+                    const metaRes = await fetch(ICECAST_JSON_URL);
+                    if (metaRes.ok) {
+                        const data = await metaRes.json();
+                        if (data.icestats && data.icestats.source) {
+                            const source = Array.isArray(data.icestats.source) ? data.icestats.source[0] : data.icestats.source;
+                            if (source && source.title) {
+                                songName = source.title;
+                            }
+                        }
+                    }
+                } catch(e) {}
+
+                if (currentSongEl.textContent !== songName && songName !== "Radio Valencianismo 24/7") {
+                    currentSongEl.textContent = songName;
+                    checkMarquee();
+                    updateCover(songName);
+                    addToHistory(songName);
+                }
             }
         } catch (error) {
             console.error("Metadata error:", error);
