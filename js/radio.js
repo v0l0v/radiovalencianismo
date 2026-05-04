@@ -124,22 +124,30 @@ document.addEventListener('DOMContentLoaded', () => {
                                     currentNewsIndex = 0;
                                 }
 
-                                // 4. Mostramos la noticia que toca en el orden
-                                currentSongEl.textContent = newsLines[currentNewsIndex];
-                                checkMarquee();
+                                // 4. Mostramos la noticia en la tarjeta de ascensor flotante
+                                const elevatorWidget = document.getElementById('elevator-news-widget');
+                                const elevatorTitle = document.getElementById('elevator-title');
+                                
+                                if (elevatorWidget && elevatorTitle) {
+                                    // Limpiamos el texto para quitar el emoji y prefijo si lo trae
+                                    let cleanNews = newsLines[currentNewsIndex].replace("📢 ÚLTIMA HORA:", "").trim();
+                                    elevatorTitle.textContent = cleanNews;
+                                    elevatorWidget.classList.add('show');
+                                }
                                 
                                 lastNewsShownTime = now;
                                 isShowingNews = true;
                                 
-                                // 5. Preparamos el índice para la siguiente vez (ej: si hay 3, hará 0 -> 1 -> 2 -> 0)
+                                // 5. Preparamos el índice para la siguiente vez
                                 currentNewsIndex = (currentNewsIndex + 1) % newsLines.length;
                                 
-                                // 6. Tras 30 segundos, revertir a la canción habitual
+                                // 6. Tras 30 segundos, ocultar tarjeta
                                 setTimeout(() => {
+                                    if (elevatorWidget) elevatorWidget.classList.remove('show');
                                     isShowingNews = false;
-                                    updateMetadata();
                                 }, newsDisplayDuration);
-                                return;
+                                
+                                // OJO: Ya no hacemos 'return;' porque queremos que el título de la canción de fondo se siga mostrando en el vinilo
                             }
                         }
                     }

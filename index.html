@@ -434,10 +434,115 @@
             background: var(--accent);
             border-color: var(--accent);
         }
+
+        /* Tarjeta de Ascensor para Última Hora */
+        .elevator-widget {
+            position: fixed;
+            bottom: 5vh;
+            left: 50%;
+            transform: translate(-50%, 150%);
+            width: 90vw;
+            max-width: 500px;
+            background: rgba(20, 20, 25, 0.85);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid rgba(255, 215, 0, 0.4);
+            border-radius: 20px;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.8), 0 0 30px rgba(255, 215, 0, 0.15);
+            display: flex;
+            align-items: center;
+            padding: 20px;
+            gap: 20px;
+            z-index: 9999;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.9s cubic-bezier(0.19, 1, 0.22, 1); /* Transición muy suave */
+        }
+
+        .elevator-widget.show {
+            opacity: 1;
+            visibility: visible;
+            transform: translate(-50%, 0);
+        }
+
+        .elevator-img-container {
+            width: 80px;
+            height: 80px;
+            border-radius: 12px;
+            overflow: hidden;
+            flex-shrink: 0;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.6);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .elevator-img-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .elevator-content {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .elevator-tag {
+            color: #ffd700;
+            font-size: 0.75rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .elevator-tag::before {
+            content: '';
+            display: inline-block;
+            width: 8px;
+            height: 8px;
+            background-color: #ff3333;
+            border-radius: 50%;
+            box-shadow: 0 0 10px #ff3333;
+            animation: pulse-red 1.5s infinite;
+        }
+
+        @keyframes pulse-red {
+            0% { box-shadow: 0 0 0 0 rgba(255, 51, 51, 0.7); }
+            70% { box-shadow: 0 0 0 10px rgba(255, 51, 51, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(255, 51, 51, 0); }
+        }
+
+        .elevator-title {
+            color: #fff;
+            font-size: 1.1rem;
+            font-weight: 500;
+            margin: 0;
+            line-height: 1.4;
+            display: -webkit-box;
+            -webkit-line-clamp: 3;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+        }
     </style>
 </head>
 <body>
     <div id="ambient-bg" class="ambient-background"></div>
+
+    <!-- Tarjeta tipo Ascensor -->
+    <div id="elevator-news-widget" class="elevator-widget">
+        <div class="elevator-img-container">
+            <img src="assets/logob.png" alt="Última Hora">
+        </div>
+        <div class="elevator-content">
+            <span class="elevator-tag">ÚLTIMA HORA</span>
+            <h3 id="elevator-title" class="elevator-title">Cargando noticia...</h3>
+        </div>
+    </div>
 
     <div class="dashboard-layout">
         <!-- Columna Izquierda: Actualidad -->
