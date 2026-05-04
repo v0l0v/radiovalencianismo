@@ -53,11 +53,11 @@ services:
       - N8N_BASIC_AUTH_PASSWORD=D26VmLg3791+
       - N8N_BLOCK_EXECV=false
       - N8N_COMMAND_TIMEOUT=30000
-      - N8N_NODES_INCLUDE=["n8n-nodes-base.executeCommand","n8n-nodes-base.rssFeedRead","n8n-nodes-base.filter","n8n-nodes-base.code","n8n-nodes-base.scheduleTrigger"]
+      # Quitado N8N_NODES_INCLUDE para permitir que carguen todos los nodos
     volumes:
       - ./n8n_data:/home/node/.n8n
       - /var/run/docker.sock:/var/run/docker.sock
-      - .:/home/node/radiovalencianismo:ro
+      - .:/home/node/radiovalencianismo
     deploy:
       resources:
         limits:
