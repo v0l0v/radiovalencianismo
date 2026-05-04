@@ -92,9 +92,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // 3. Metadata & Cover Logic
     let lastNewsShownTime = 0;
-    const newsDisplayDuration = 20000; // 20 segundos mostrándose
-    const newsFetchInterval = 5 * 60 * 1000; // Cada 5 minutos
+    const newsDisplayDuration = 30000; // 30 segundos mostrándose
+    const newsFetchInterval = 210000; // Cada 3 min y 30 seg (210,000 ms)
     let isShowingNews = false;
+    let currentNewsIndex = 0; // Para recordar qué noticia toca en el carrusel
 
     async function updateMetadata() {
         try {
@@ -104,21 +105,42 @@ document.addEventListener('DOMContentLoaded', () => {
             // Rotar a la noticia de noticia_actual.txt si es el momento
             if (!isShowingNews && (now - lastNewsShownTime > newsFetchInterval)) {
                 try {
-                    const newsRes = await fetch('noticia_actual.txt');
+                    // El "?t=" evita que el navegador guarde el archivo en caché
+                    const newsRes = await fetch('noticia_actual.txt?t=' + now);
                     if (newsRes.ok) {
                         const newsText = await newsRes.text();
                         if (newsText && newsText.trim().length > 0) {
-                            currentSongEl.textContent = newsText.trim();
-                            checkMarquee();
-                            lastNewsShownTime = now;
-                            isShowingNews = true;
                             
-                            // Tras 20 segundos, revertir a la canción habitual
-                            setTimeout(() => {
-                                isShowingNews = false;
-                                updateMetadata();
-                            }, newsDisplayDuration);
-                            return;
+                            // 1. Separamos el texto por líneas y quitamos las vacías
+                            let newsLines = newsText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
+                            
+                            if (newsLines.length > 0) {
+                                // 2. Nos aseguramos de no leer un número máximo exagerado si el archivo crece
+                                // Por seguridad, cogemos como máximo las últimas 50 noticias
+                                newsLines = newsLines.slice(-50);
+
+                                // 3. Ajustamos el índice si el archivo de repente tiene menos noticias
+                                if (currentNewsIndex >= newsLines.length) {
+                                    currentNewsIndex = 0;
+                                }
+
+                                // 4. Mostramos la noticia que toca en el orden
+                                currentSongEl.textContent = newsLines[currentNewsIndex];
+                                checkMarquee();
+                                
+                                lastNewsShownTime = now;
+                                isShowingNews = true;
+                                
+                                // 5. Preparamos el índice para la siguiente vez (ej: si hay 3, hará 0 -> 1 -> 2 -> 0)
+                                currentNewsIndex = (currentNewsIndex + 1) % newsLines.length;
+                                
+                                // 6. Tras 30 segundos, revertir a la canción habitual
+                                setTimeout(() => {
+                                    isShowingNews = false;
+                                    updateMetadata();
+                                }, newsDisplayDuration);
+                                return;
+                            }
                         }
                     }
                 } catch (e) {
