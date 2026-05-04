@@ -513,16 +513,20 @@
 <body>
     <div id="ambient-bg" class="ambient-background"></div>
 
+    <!-- Tarjeta tipo Ascensor -->
+    <div id="elevator-news-widget" class="elevator-widget">
+        <div class="elevator-content">
+            <span class="elevator-tag">ÚLTIMA HORA</span>
+            <h3 id="elevator-title" class="elevator-title">Cargando noticia...</h3>
+        </div>
+    </div>
+
     <div class="dashboard-layout">
         <!-- Columna Izquierda: Actualidad -->
         <div class="news-column" id="news-left"></div>
 
         <!-- Centro: El Reproductor Original -->
-        <div class="player-3d-wrapper">
-            <div class="player-flipper" id="player-flipper">
-                
-                <!-- Cara Frontal: Reproductor -->
-                <div class="glass-container player-face player-front">
+        <div class="glass-container">
             <div class="v2-header">
                 <div class="logo-container" onclick="window.location.href='index.html'" style="cursor: pointer;" title="Ir al inicio / Recargar">
                     <h1>Radio Valencianismo</h1>
@@ -614,18 +618,9 @@
                     <svg id="easter-egg-cd" viewBox="0 0 24 24" style="width: 16px; height: 16px; cursor: pointer;" title="Cambiar Disco">
                         <path id="cd-icon-path" fill="#ccc" d="M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2M12,16.5C9.5,16.5 7.5,14.5 7.5,12C7.5,9.5 9.5,7.5 12,7.5C14.5,7.5 16.5,9.5 16.5,12C16.5,14.5 14.5,16.5 12,16.5M12,10.5C11.17,10.5 10.5,11.17 10.5,12C10.5,12.83 11.17,13.5 12,13.5C12.83,13.5 13.5,12.83 13.5,12C13.5,11.17 12.83,10.5 12,10.5Z" />
                     </svg>
-                    </div>
                 </div>
-            </div> <!-- Fin Cara Frontal -->
-
-            <!-- Cara Trasera: Noticias -->
-            <div class="glass-container player-face player-back">
-                <span class="elevator-tag" style="margin-bottom: 20px; font-size: 1.2rem; text-shadow: 0 0 15px rgba(255, 51, 51, 0.8);">ÚLTIMA HORA</span>
-                <img id="news-back-img" src="" alt="Noticia" style="display:none; width:100%; max-height:220px; object-fit:cover; border-radius:15px; margin-bottom:20px; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-                <h3 id="elevator-title" class="elevator-title" style="font-size: 1.8rem; line-height: 1.4; font-weight: 800; padding: 0 10px;">Cargando noticia...</h3>
             </div>
-            </div> <!-- Fin Flipper -->
-        </div> <!-- Fin 3D Wrapper -->
+        </div>
 
         <!-- Columna Derecha: Valencianismo -->
         <div class="news-column" id="news-right"></div>
