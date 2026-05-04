@@ -53,6 +53,7 @@ services:
       - N8N_BASIC_AUTH_PASSWORD=D26VmLg3791+
       - N8N_BLOCK_EXECV=false
       - N8N_COMMAND_TIMEOUT=30000
+      - NODES_EXCLUDE=[]
       # Quitado N8N_NODES_INCLUDE para permitir que carguen todos los nodos
     volumes:
       - ./n8n_data:/home/node/.n8n
