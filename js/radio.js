@@ -91,128 +91,28 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // 3. Metadata & Cover Logic
-    let lastNewsShownTime = 0;
-    const newsDisplayDuration = 30000; // 30 segundos mostrándose
-    const newsFetchInterval = 180000; // Cada 3 minutos (180,000 ms)
-    let isShowingNews = false;
-    let currentNewsIndex = 0; // Para recordar qué noticia toca en el carrusel
-
     async function updateMetadata() {
         try {
             let songName = "Radio Valencianismo 24/7";
-            const now = Date.now();
 
-            // Rotar a la noticia de noticia_actual.txt si es el momento
-            if (!isShowingNews && (now - lastNewsShownTime > newsFetchInterval)) {
-                try {
-                    // El "?t=" evita que el navegador guarde el archivo en caché
-                    const newsRes = await fetch('noticia_actual.txt?t=' + now);
-                    if (newsRes.ok) {
-                        const newsText = await newsRes.text();
-                        if (newsText && newsText.trim().length > 0) {
-                            
-                            // 1. Separamos el texto por líneas y quitamos las vacías
-                            let newsLines = newsText.split('\n').map(l => l.trim()).filter(l => l.length > 0);
-                            
-                            if (newsLines.length > 0) {
-                                // 2. Nos aseguramos de no leer un número máximo exagerado si el archivo crece
-                                // Por seguridad, cogemos como máximo las últimas 50 noticias
-                                newsLines = newsLines.slice(-50);
-
-                                // 3. Ajustamos el índice si el archivo de repente tiene menos noticias
-                                if (currentNewsIndex >= newsLines.length) {
-                                    currentNewsIndex = 0;
-                                }
-
-                                // 4. Mostramos la noticia en la tarjeta de ascensor flotante
-                                const elevatorWidget = document.getElementById('elevator-news-widget');
-                                const elevatorTitle = document.getElementById('elevator-title');
-                                const elevatorImgWrapper = document.getElementById('elevator-img-wrapper');
-                                const elevatorImg = document.getElementById('elevator-img');
-                                const elevatorSourceTag = document.getElementById('elevator-source-tag');
-                                
-                                if (elevatorWidget && elevatorTitle) {
-                                    let rawNews = newsLines[currentNewsIndex];
-                                    let cleanNews = rawNews;
-                                    let imgUrl = null;
-                                    let sourceText = "ÚLTIMA HORA";
-
-                                    // Extraemos la foto y la fuente si viene en formato: URL||FUENTE||TEXTO
-                                    if (rawNews.includes('||')) {
-                                        const parts = rawNews.split('||');
-                                        if (parts.length >= 3) {
-                                            imgUrl = parts[0].trim();
-                                            sourceText = parts[1].trim();
-                                            cleanNews = parts[2].trim();
-                                        } else if (parts.length === 2) {
-                                            imgUrl = parts[0].trim();
-                                            cleanNews = parts[1].trim();
-                                        }
-                                    }
-
-                                    // Limpiamos el texto
-                                    cleanNews = cleanNews.replace("📢 ÚLTIMA HORA:", "").trim();
-                                    elevatorTitle.textContent = cleanNews;
-                                    
-                                    if (elevatorSourceTag) {
-                                        elevatorSourceTag.innerHTML = sourceText; //innerHTML para mantener el pseudo-elemento (el puntito rojo)
-                                    }
-
-                                    // Mostramos la foto si hay una
-                                    if (elevatorImgWrapper && elevatorImg) {
-                                        if (imgUrl && imgUrl.startsWith('http')) {
-                                            elevatorImg.src = imgUrl;
-                                            elevatorImgWrapper.style.display = 'block';
-                                        } else {
-                                            elevatorImgWrapper.style.display = 'none';
-                                        }
-                                    }
-
-                                    elevatorWidget.classList.add('show');
-                                }
-                                
-                                lastNewsShownTime = now;
-                                isShowingNews = true;
-                                
-                                // 5. Preparamos el índice para la siguiente vez
-                                currentNewsIndex = (currentNewsIndex + 1) % newsLines.length;
-                                
-                                // 6. Tras 30 segundos, ocultar tarjeta
-                                setTimeout(() => {
-                                    if (elevatorWidget) elevatorWidget.classList.remove('show');
-                                    isShowingNews = false;
-                                }, newsDisplayDuration);
-                                
-                                // OJO: Ya no hacemos 'return;' porque queremos que el título de la canción de fondo se siga mostrando en el vinilo
-                            }
+            try {
+                const metaRes = await fetch(ICECAST_JSON_URL);
+                if (metaRes.ok) {
+                    const data = await metaRes.json();
+                    if (data.icestats && data.icestats.source) {
+                        const source = Array.isArray(data.icestats.source) ? data.icestats.source[0] : data.icestats.source;
+                        if (source && source.title) {
+                            songName = source.title;
                         }
                     }
-                } catch (e) {
-                    console.error("Error fetching noticia_actual.txt:", e);
                 }
-            }
+            } catch(e) {}
 
-            // Si no estamos en modo noticia, obtener la canción habitual de Icecast
-            if (!isShowingNews) {
-                try {
-                    const metaRes = await fetch(ICECAST_JSON_URL);
-                    if (metaRes.ok) {
-                        const data = await metaRes.json();
-                        if (data.icestats && data.icestats.source) {
-                            const source = Array.isArray(data.icestats.source) ? data.icestats.source[0] : data.icestats.source;
-                            if (source && source.title) {
-                                songName = source.title;
-                            }
-                        }
-                    }
-                } catch(e) {}
-
-                if (currentSongEl.textContent !== songName && songName !== "Radio Valencianismo 24/7") {
-                    currentSongEl.textContent = songName;
-                    checkMarquee();
-                    updateCover(songName);
-                    addToHistory(songName);
-                }
+            if (currentSongEl.textContent !== songName && songName !== "Radio Valencianismo 24/7") {
+                currentSongEl.textContent = songName;
+                checkMarquee();
+                updateCover(songName);
+                addToHistory(songName);
             }
         } catch (error) {
             console.error("Metadata error:", error);
