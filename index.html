@@ -436,15 +436,19 @@
         }
 
 
-        @keyframes warp-click {
-            0% { transform: scale(1.02); filter: brightness(1.5); box-shadow: 0 0 30px #00f2fe; }
-            50% { transform: scale(0.9); filter: brightness(2); box-shadow: 0 0 50px #00f2fe; }
-            100% { transform: scale(0.9); filter: brightness(2); box-shadow: 0 0 50px #00f2fe; opacity: 0; }
+        @keyframes epic-black-hole {
+            0% { transform: scale(1) rotate(0deg); filter: brightness(1); border-radius: 14px; }
+            25% { transform: scale(1.15) translateY(-15px); filter: brightness(1.8) contrast(1.3); box-shadow: 0 25px 50px rgba(0, 210, 255, 0.8), 0 0 20px rgba(255, 215, 0, 0.6); z-index: 100; }
+            50% { transform: scale(0.8) rotate(-8deg) skewX(15deg); filter: hue-rotate(120deg) brightness(2.5); box-shadow: -30px 0 80px #ff00ff, 30px 0 80px #00d2ff; border-radius: 24px; }
+            80% { transform: scale(0.1) rotate(360deg); filter: invert(1) brightness(5); box-shadow: 0 0 150px #fff; border-radius: 50%; opacity: 1; }
+            100% { transform: scale(0) rotate(720deg); opacity: 0; }
         }
 
         .news-card.redirecting {
-            animation: warp-click 0.5s ease-out forwards !important;
+            animation: epic-black-hole 0.8s cubic-bezier(0.25, 1, 0.5, 1) forwards !important;
             pointer-events: none;
+            z-index: 999;
+            position: relative;
         }
     </style>
 </head>
@@ -1030,14 +1034,14 @@
             // Añadir clase de animación
             card.classList.add('redirecting');
             
-            // Esperar a que la animación termine (500ms) y luego abrir
+            // Esperar a que la animación termine (800ms) y luego abrir
             setTimeout(() => {
                 window.open(url, '_blank');
                 // Restaurar estado visual de la tarjeta
                 setTimeout(() => {
                     card.classList.remove('redirecting');
                 }, 200);
-            }, 500);
+            }, 800);
         }
 
         function openNewsModal(card) {
