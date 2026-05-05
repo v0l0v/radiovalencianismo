@@ -525,6 +525,13 @@
             line-height: 1.4;
             text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
+
+        .news-card.redirecting {
+            transform: scale(0.92) !important;
+            opacity: 0.8;
+            filter: brightness(1.2);
+            box-shadow: 0 0 25px rgba(0, 210, 255, 0.6) !important;
+        }
     </style>
 </head>
 <body>
@@ -958,7 +965,7 @@
         function createNewsCard(item) {
             const card = document.createElement("div");
             card.className = "news-card";
-            card.setAttribute('onclick', 'openNewsModal(this)');
+            card.setAttribute('onclick', 'redirectNews(this)');
             card.setAttribute('data-url', item.link);
             card.setAttribute('data-img', item.img);
             card.setAttribute('data-date', item.date);
@@ -982,6 +989,23 @@
 
         // Ejecutar loadFeeds cuando carga el DOM
         document.addEventListener('DOMContentLoaded', loadFeeds);
+
+        function redirectNews(card) {
+            const url = card.getAttribute('data-url');
+            if (!url) return;
+            
+            // Añadir clase de animación
+            card.classList.add('redirecting');
+            
+            // Esperar a que la animación termine (300ms) y luego abrir
+            setTimeout(() => {
+                window.open(url, '_blank');
+                // Restaurar estado visual de la tarjeta
+                setTimeout(() => {
+                    card.classList.remove('redirecting');
+                }, 200);
+            }, 300);
+        }
 
         function openNewsModal(card) {
             const title = card.querySelector('.news-title').innerText;
