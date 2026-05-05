@@ -525,12 +525,15 @@
             line-height: 1.4;
             text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
+        @keyframes warp-click {
+            0% { transform: scale(1.02); filter: brightness(1.5); box-shadow: 0 0 30px #00f2fe; }
+            50% { transform: scale(0.9); filter: brightness(2); box-shadow: 0 0 50px #00f2fe; }
+            100% { transform: scale(0.9); filter: brightness(2); box-shadow: 0 0 50px #00f2fe; opacity: 0; }
+        }
 
         .news-card.redirecting {
-            transform: scale(0.92) !important;
-            opacity: 0.8;
-            filter: brightness(1.2);
-            box-shadow: 0 0 25px rgba(0, 210, 255, 0.6) !important;
+            animation: warp-click 0.5s ease-out forwards !important;
+            pointer-events: none;
         }
     </style>
 </head>
@@ -997,14 +1000,14 @@
             // Añadir clase de animación
             card.classList.add('redirecting');
             
-            // Esperar a que la animación termine (300ms) y luego abrir
+            // Esperar a que la animación termine (500ms) y luego abrir
             setTimeout(() => {
                 window.open(url, '_blank');
                 // Restaurar estado visual de la tarjeta
                 setTimeout(() => {
                     card.classList.remove('redirecting');
                 }, 200);
-            }, 300);
+            }, 500);
         }
 
         function openNewsModal(card) {
