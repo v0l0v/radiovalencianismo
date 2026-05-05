@@ -132,6 +132,8 @@
             animation: fadeIn 0.8s ease-out both;
             position: relative;
             overflow: hidden;
+            filter: blur(1.5px);
+            opacity: 0.85;
         }
 
         .news-card::after {
@@ -153,6 +155,8 @@
         .news-card:hover {
             transform: translateY(-5px) scale(1.02);
             box-shadow: 0 15px 40px rgba(255, 215, 0, 0.35);
+            filter: blur(0);
+            opacity: 1;
         }
 
         .news-card:hover::after {
@@ -924,7 +928,7 @@
                                     link: item.link,
                                     source: cleanSource,
                                     rawDate: rawDate,
-                                    date: rawDate.toLocaleDateString('es-ES'),
+                                    date: rawDate.toLocaleDateString('es-ES') + ' ' + rawDate.toLocaleTimeString('es-ES', {hour: '2-digit', minute:'2-digit'}),
                                     tag: item.categories?.[0] || "Actualidad",
                                     desc: stripEmojis(item.description || item.content || "No hay descripción disponible para esta noticia."),
                                     img: item.thumbnail || item.enclosure?.link || `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(item.title)}`,
