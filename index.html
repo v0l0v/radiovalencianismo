@@ -683,10 +683,23 @@
                     </div>
                 </div>
 
-                <!-- Opción 5: Placeholder -->
-                <div class="option-card-slot" data-id="opt-5" draggable="true" style="background: rgba(255, 255, 255, 0.02); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 180px; color: rgba(255, 255, 255, 0.25); font-size: 0.9rem; cursor: grab;">
-                    <div style="font-weight: 700; font-size: 1.5rem; margin-bottom: 8px; opacity: 0.4;">+</div>
-                    <div>Próxima Opción</div>
+                <!-- Opción 5: Agenda -->
+                <div class="option-card-slot" data-id="opt-agenda" draggable="true" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; text-align: left; border-left: 4px solid #a8ff78; min-height: 180px; cursor: grab;">
+                    <div>
+                        <div style="font-weight: 700; margin-bottom: 6px; color: #a8ff78; font-size: 1rem;">Agenda / Eventos:</div>
+                        <div style="margin-bottom: 12px; font-size: 0.85rem; color: #ccc;">Consulta las próximas actividades y eventos.</div>
+                    </div>
+                    <div>
+                        <button onclick="openAgendaModal()" style="background: #a8ff78; color: #0a0a0f; border: none; padding: 10px 20px; border-radius: 25px; font-size: 0.85rem; cursor: pointer; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 10px rgba(168, 255, 120, 0.3); transition: transform 0.2s ease;">
+                            <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;">
+                                <rect x="3" y="4" width="18" height="18" rx="2" ry="2"></rect>
+                                <line x1="16" y1="2" x2="16" y2="6"></line>
+                                <line x1="8" y1="2" x2="8" y2="6"></line>
+                                <line x1="3" y1="10" x2="21" y2="10"></line>
+                            </svg>
+                            Ver Agenda
+                        </button>
+                    </div>
                 </div>
 
                 <!-- Opción 6: Placeholder -->
@@ -774,6 +787,56 @@
             </div>
             <div style="display: flex; justify-content: center; margin-top: 15px;">
                 <button id="load-more-news-btn" onclick="loadNextChunk()" style="background: linear-gradient(135deg, #00d2ff, #00f2fe); color: #0a0a0f; border: none; padding: 12px 36px; border-radius: 50px; cursor: pointer; font-weight: 700; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(0,210,255,0.4); font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px;">Cargar más noticias</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Agenda -->
+    <div id="agenda-modal" class="modern-modal" onclick="closeAgendaModal()">
+        <style>
+            #agenda-modal-content {
+                width: 85vw !important;
+                max-width: 1000px !important;
+                height: 80vh !important;
+                max-height: 80vh !important;
+                padding: 30px !important;
+                display: flex !important;
+                flex-direction: column !important;
+                border: 2.5px solid rgba(168, 255, 120, 0.4) !important;
+                box-shadow: 0 30px 60px rgba(0,0,0,0.8) !important;
+                overflow: hidden !important;
+                background: rgba(10, 10, 15, 0.85) !important;
+                backdrop-filter: blur(25px) !important;
+                -webkit-backdrop-filter: blur(25px) !important;
+                border-radius: 24px !important;
+            }
+            #agenda-container {
+                height: 65vh !important; 
+                overflow-y: auto !important; 
+                padding: 10px 5px !important;
+                display: flex;
+                flex-direction: column;
+                gap: 15px;
+            }
+            .agenda-item {
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(168, 255, 120, 0.2);
+                border-radius: 12px;
+                padding: 20px;
+                transition: all 0.2s ease;
+            }
+            .agenda-item:hover {
+                background: rgba(255, 255, 255, 0.1);
+                border-color: rgba(168, 255, 120, 0.5);
+            }
+        </style>
+        <div id="agenda-modal-content" class="modal-content" onclick="event.stopPropagation()">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 15px;">
+                <h3 style="color: #a8ff78; margin: 0; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; font-size: 1.3rem;">Agenda / Eventos Próximos</h3>
+                <button onclick="closeAgendaModal()" style="background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.2); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease;">✕</button>
+            </div>
+            <div id="agenda-container">
+                <div style="text-align: center; color: rgba(255,255,255,0.5); padding: 40px 0;">Cargando agenda...</div>
             </div>
         </div>
     </div>
@@ -1228,8 +1291,54 @@
                 if (cpModal && cpModal.style.display === 'flex') {
                     closeControlPanelNewsModal();
                 }
+                const agendaModal = document.getElementById('agenda-modal');
+                if (agendaModal && agendaModal.style.display === 'flex') {
+                    closeAgendaModal();
+                }
             }
         });
+
+        function openAgendaModal() {
+            const modal = document.getElementById('agenda-modal');
+            modal.style.display = 'flex';
+            setTimeout(() => { modal.classList.add('active'); }, 10);
+            loadAgenda();
+        }
+
+        function closeAgendaModal() {
+            const modal = document.getElementById('agenda-modal');
+            modal.classList.remove('active');
+            setTimeout(() => { modal.style.display = 'none'; }, 300);
+        }
+
+        async function loadAgenda() {
+            const container = document.getElementById('agenda-container');
+            try {
+                // n8n guardará los datos limpios en un archivo 'agenda.json' en la raíz de tu proyecto web
+                const res = await fetch('agenda.json?t=' + Date.now());
+                if (!res.ok) throw new Error("No se pudo cargar agenda.json");
+                const data = await res.json();
+                
+                container.innerHTML = '';
+                if (!data || data.length === 0) {
+                    container.innerHTML = '<div style="text-align: center; color: rgba(255,255,255,0.5); padding: 40px 0;">No hay eventos programados.</div>';
+                    return;
+                }
+                
+                data.forEach(item => {
+                    const el = document.createElement('div');
+                    el.className = 'agenda-item';
+                    el.innerHTML = `
+                        <div style="color: #a8ff78; font-size: 0.85rem; font-weight: 700; margin-bottom: 8px;">${item.date || 'Reciente'}</div>
+                        <div style="font-size: 1.1rem; color: #fff; font-weight: 500; line-height: 1.4;">${item.title}</div>
+                        ${item.link ? \`<a href="\${item.link}" target="_blank" style="display: inline-block; margin-top: 10px; color: #00d2ff; text-decoration: none; font-size: 0.9rem;">Más información →</a>\` : ''}
+                    `;
+                    container.appendChild(el);
+                });
+            } catch (err) {
+                container.innerHTML = '<div style="text-align: center; color: rgba(255,255,255,0.5); padding: 40px 0;">Actualmente no hay datos en la agenda o el archivo agenda.json no existe aún.</div>';
+            }
+        }
     </script>
 </body>
 </html>
