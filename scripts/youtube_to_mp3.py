@@ -78,7 +78,8 @@ def download_videos(feed_filename):
                 "-x",                      # Extraer audio
                 "--audio-format", "mp3",    # Formato mp3
                 "--no-playlist",            # No bajar listas enteras, solo el vídeo
-                "--extractor-args", "youtube:player_client=ios,web", # Bypass para algunos 403
+                "--extractor-args", "youtube:player_client=android,ios", # Clientes más difíciles de bloquear
+                "--no-check-certificate", # Evitar problemas de SSL en algunos VPS
                 "--download-archive", archive_path, # No bajar si ya está en el archivo
                 "-o", f"{dest_path}/%(title)s.%(ext)s", # Guardar con título del vídeo
                 video_url
