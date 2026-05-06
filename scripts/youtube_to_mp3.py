@@ -3,6 +3,7 @@ import requests
 import xml.etree.ElementTree as ET
 import os
 import sys
+import time
 
 # La carpeta base para las descargas de audios
 BASE_DEST_DIR = "backend/mp3/programas"
