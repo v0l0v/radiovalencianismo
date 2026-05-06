@@ -95,15 +95,22 @@ def download_videos(feed_filename):
                 cmd.insert(1, "--cookies")
                 cmd.insert(2, cookie_path)
                 # Al usar cookies, usamos clientes que las soportan mejor
-                cmd.insert(3, "--extractor-args")
-                cmd.insert(4, "youtube:player_client=web_embedded,tv")
+                cmd.extend([
+                    "--extractor-args", "youtube:player_client=web_embedded,tv",
+                    "--js-runtimes", "node",
+                    "--user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"
+                ])
             else:
                 # Sin cookies, usamos clientes móviles que suelen ser más permisivos
                 cmd.insert(1, "--extractor-args")
                 cmd.insert(2, "youtube:player_client=android,ios")
+                cmd.insert(3, "--js-runtimes")
+                cmd.insert(4, "node")
             
             # Ejecutar yt-dlp
             subprocess.run(cmd)
+            # Pequeña pausa para no saturar a YouTube
+            time.sleep(2)
 
         print(f"\n=== Tarea finalizada para {program_folder} ===")
 
