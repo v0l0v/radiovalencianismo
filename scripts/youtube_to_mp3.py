@@ -63,7 +63,10 @@ def download_videos(feed_filename):
             print("No se encontraron vídeos de YouTube en este feed.")
             return
 
-        print(f"Se detectaron {len(links)} vídeos en el feed. Verificando descargas...")
+        # Solo procesar los 3 más recientes
+        links = links[:3]
+
+        print(f"Se detectaron {len(links)} vídeos recientes. Verificando descargas...")
 
         # Crear carpeta de destino si no existe
         if not os.path.exists(dest_path):
