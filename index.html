@@ -713,7 +713,7 @@
                         <div style="margin-bottom: 12px; font-size: 0.85rem; color: #ccc;">Últimos planes, ocio y turismo de Valencia.</div>
                     </div>
                     <div>
-                        <button onclick="openPlanesModal()" style="background: #ff7eb3; color: #0a0a0f; border: none; padding: 10px 20px; border-radius: 25px; font-size: 0.85rem; cursor: pointer; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 10px rgba(255, 126, 179, 0.3); transition: transform 0.2s ease;">
+                        <button onclick="openControlPanelNewsModal('planes')" style="background: #ff7eb3; color: #0a0a0f; border: none; padding: 10px 20px; border-radius: 25px; font-size: 0.85rem; cursor: pointer; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 10px rgba(255, 126, 179, 0.3); transition: transform 0.2s ease;">
                             <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;">
                                 <circle cx="12" cy="12" r="10"></circle>
                                 <polyline points="12 6 12 12 16 14"></polyline>
@@ -856,38 +856,6 @@
         </div>
     </div>
 
-    <!-- Modal de Planes -->
-    <div id="planes-modal" class="modern-modal" onclick="closePlanesModal()">
-        <style>
-            #planes-modal-content {
-                width: 85vw !important;
-                max-width: 1000px !important;
-                height: 80vh !important;
-                max-height: 80vh !important;
-                padding: 30px !important;
-                display: flex !important;
-                flex-direction: column !important;
-                border: 2.5px solid rgba(255, 126, 179, 0.4) !important;
-                box-shadow: 0 30px 60px rgba(0,0,0,0.8) !important;
-                overflow: hidden !important;
-                background: rgba(10, 10, 15, 0.85) !important;
-                backdrop-filter: blur(25px) !important;
-                -webkit-backdrop-filter: blur(25px) !important;
-                border-radius: 24px !important;
-            }
-        </style>
-        <div id="planes-modal-content" class="modal-content" onclick="event.stopPropagation()">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 15px;">
-                <h3 style="color: #ff7eb3; margin: 0; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; font-size: 1.3rem;">Últimos 100 Planes en Valencia</h3>
-                <button onclick="closePlanesModal()" style="background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.2); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease;">✕</button>
-            </div>
-            <div id="planes-container" style="height: 65vh !important; max-height: 65vh !important; overflow-y: scroll !important; overflow-x: hidden !important; scrollbar-width: none !important; -ms-overflow-style: none !important; padding: 10px 5px !important; display: grid !important; grid-template-columns: repeat(4, 1fr) !important; gap: 20px !important;">
-                <!-- Se poblará dinámicamente -->
-            </div>
-            <div style="display: flex; justify-content: center; margin-top: 15px;">
-                <button id="load-more-planes-btn" onclick="loadNextPlanesChunk()" style="background: linear-gradient(135deg, #ff7eb3, #ff758c); color: #0a0a0f; border: none; padding: 12px 36px; border-radius: 50px; cursor: pointer; font-weight: 700; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(255,126,179,0.4); font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px;">Cargar más planes</button>
-            </div>
-        </div>
     </div>
 
     <script>
@@ -1302,18 +1270,45 @@
 
         let controlPanelNewsIndex = 8;
         let isFetchingNextChunk = false;
-        function openControlPanelNewsModal() {
+        let currentModalSourceType = 'news';
+
+        function openControlPanelNewsModal(type = 'news') {
             const modal = document.getElementById('control-panel-news-modal');
+            const titleEl = modal.querySelector('h3');
+            const container = document.getElementById('all-rss-news-container');
+            const loadMoreBtn = document.getElementById('load-more-news-btn');
+            const modalContent = modal.querySelector('.modal-content');
+            
+            currentModalSourceType = type;
+
+            if (type === 'planes') {
+                controlPanelNewsIndex = 0;
+                titleEl.innerText = 'Últimos 100 Planes en Valencia';
+                titleEl.style.color = '#ff7eb3';
+                modalContent.style.border = '2.5px solid rgba(255, 126, 179, 0.4)';
+                loadMoreBtn.innerText = 'Cargar más planes';
+                loadMoreBtn.style.background = 'linear-gradient(135deg, #ff7eb3, #ff758c)';
+                loadMoreBtn.style.boxShadow = '0 4px 15px rgba(255,126,179,0.4)';
+            } else {
+                controlPanelNewsIndex = 8;
+                titleEl.innerText = 'Últimas 100 noticias';
+                titleEl.style.color = '#00d2ff';
+                modalContent.style.border = '2.5px solid rgba(0, 210, 255, 0.4)';
+                loadMoreBtn.innerText = 'Cargar más noticias';
+                loadMoreBtn.style.background = 'linear-gradient(135deg, #00d2ff, #00f2fe)';
+                loadMoreBtn.style.boxShadow = '0 4px 15px rgba(0,210,255,0.4)';
+            }
+
             modal.style.display = 'flex';
             setTimeout(() => { modal.classList.add('active'); }, 10);
 
-            const container = document.getElementById('all-rss-news-container');
             container.innerHTML = '';
-            controlPanelNewsIndex = 8;
             isFetchingNextChunk = false;
 
-            if (allNews.length <= 8) {
-                container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: rgba(255,255,255,0.4); font-size: 1.1rem; padding: 40px 0;">No hay más noticias cargadas todavía.</div>`;
+            const sourceArray = (type === 'planes' ? allPlanes : allNews);
+
+            if (sourceArray.length <= controlPanelNewsIndex) {
+                container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: rgba(255,255,255,0.4); font-size: 1.1rem; padding: 40px 0;">No hay más elementos cargados todavía.</div>`;
                 return;
             }
 
@@ -1321,29 +1316,27 @@
                 if (isFetchingNextChunk) return;
                 isFetchingNextChunk = true;
 
-                const nextChunk = allNews.slice(controlPanelNewsIndex, controlPanelNewsIndex + 8);
+                const source = (currentModalSourceType === 'planes' ? allPlanes : allNews);
+                const nextChunk = source.slice(controlPanelNewsIndex, controlPanelNewsIndex + 8);
+                
                 if (nextChunk.length === 0) {
-                    controlPanelNewsIndex = 8;
+                    controlPanelNewsIndex = (currentModalSourceType === 'planes' ? 0 : 8);
                     isFetchingNextChunk = false;
                     loadNextChunk();
                     return;
                 }
                 
-                // Vaciamos el contenedor para eliminar la tanda anterior de la vista
                 container.innerHTML = '';
-
                 nextChunk.forEach(item => {
                     const card = createNewsCard(item);
                     container.appendChild(card);
                 });
                 controlPanelNewsIndex += 8;
-
                 isFetchingNextChunk = false;
                 container.scrollTop = 0;
             }
 
             window.loadNextChunk = loadNextChunk;
-
             loadNextChunk();
 
             container.onscroll = () => {
@@ -1462,62 +1455,6 @@
 
         function closeAgendaModal() {
             const modal = document.getElementById('agenda-modal');
-            modal.classList.remove('active');
-            setTimeout(() => { modal.style.display = 'none'; }, 300);
-        }
-
-        function openPlanesModal() {
-            const modal = document.getElementById('planes-modal');
-            modal.style.display = 'flex';
-            setTimeout(() => { modal.classList.add('active'); }, 10);
-
-            const container = document.getElementById('planes-container');
-            container.innerHTML = '';
-            planesIndex = 0;
-            isFetchingNextPlanesChunk = false;
-
-            if (allPlanes.length === 0) {
-                container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: rgba(255,255,255,0.4); font-size: 1.1rem; padding: 40px 0;">No hay planes cargados todavía o se están cargando en segundo plano. Prueba en unos segundos.</div>`;
-                return;
-            }
-
-            function loadNextPlanesChunk() {
-                if (isFetchingNextPlanesChunk) return;
-                isFetchingNextPlanesChunk = true;
-
-                const nextChunk = allPlanes.slice(planesIndex, planesIndex + 8);
-                if (nextChunk.length === 0) {
-                    planesIndex = 0;
-                    isFetchingNextPlanesChunk = false;
-                    loadNextPlanesChunk();
-                    return;
-                }
-
-                // Vaciamos el contenedor para ser igual que noticias
-                container.innerHTML = '';
-
-                nextChunk.forEach(item => {
-                    const card = createNewsCard(item);
-                    container.appendChild(card);
-                });
-
-                planesIndex += 8;
-                isFetchingNextPlanesChunk = false;
-                container.scrollTop = 0;
-            }
-
-            window.loadNextPlanesChunk = loadNextPlanesChunk;
-            loadNextPlanesChunk();
-
-            container.onscroll = () => {
-                if (container.scrollTop + container.clientHeight >= container.scrollHeight - 250) {
-                    loadNextPlanesChunk();
-                }
-            };
-        }
-
-        function closePlanesModal() {
-            const modal = document.getElementById('planes-modal');
             modal.classList.remove('active');
             setTimeout(() => { modal.style.display = 'none'; }, 300);
         }
