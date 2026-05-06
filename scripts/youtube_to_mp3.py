@@ -87,6 +87,13 @@ def download_videos(feed_filename):
                 "-o", f"{dest_path}/%(title)s.%(ext)s", # Guardar con título del vídeo
                 video_url
             ]
+
+            # Si existe el archivo cookies.txt en la raíz, usarlo
+            cookie_path = os.path.join(base_path, "cookies.txt")
+            if os.path.exists(cookie_path):
+                print("Usando archivo de cookies detectado...")
+                cmd.insert(1, "--cookies")
+                cmd.insert(2, cookie_path)
             
             # Ejecutar yt-dlp
             subprocess.run(cmd)
