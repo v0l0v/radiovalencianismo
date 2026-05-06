@@ -75,25 +75,32 @@ def download_videos(feed_filename):
         for video_url in links:
             print(f"\n--- Procesando: {video_url} ---")
             
-            # Comando de yt-dlp optimizado para evitar bloqueos y descargar solo audio
+            # Comando de yt-dlp optimizado
             cmd = [
                 "yt-dlp",
                 "-x",                      # Extraer audio
                 "--audio-format", "mp3",    # Formato mp3
-                "--no-playlist",            # No bajar listas enteras, solo el vídeo
-                "--extractor-args", "youtube:player_client=android,ios", # Clientes más difíciles de bloquear
-                "--no-check-certificate", # Evitar problemas de SSL en algunos VPS
-                "--download-archive", archive_path, # No bajar si ya está en el archivo
-                "-o", f"{dest_path}/%(title)s.%(ext)s", # Guardar con título del vídeo
+                "--no-playlist",            # No bajar listas enteras
+                "--no-check-certificate", 
+                "--download-archive", archive_path,
+                "-o", f"{dest_path}/%(title)s.%(ext)s",
+                "--format", "bestaudio/best", # Asegurar que busca el mejor audio disponible
                 video_url
             ]
 
-            # Si existe el archivo cookies.txt en la raíz, usarlo
+            # Si existe el archivo cookies.txt, usarlo y cambiar el cliente
             cookie_path = os.path.join(base_path, "cookies.txt")
             if os.path.exists(cookie_path):
                 print("Usando archivo de cookies detectado...")
                 cmd.insert(1, "--cookies")
                 cmd.insert(2, cookie_path)
+                # Al usar cookies, usamos clientes que las soportan mejor
+                cmd.insert(3, "--extractor-args")
+                cmd.insert(4, "youtube:player_client=web_embedded,tv")
+            else:
+                # Sin cookies, usamos clientes móviles que suelen ser más permisivos
+                cmd.insert(1, "--extractor-args")
+                cmd.insert(2, "youtube:player_client=android,ios")
             
             # Ejecutar yt-dlp
             subprocess.run(cmd)
