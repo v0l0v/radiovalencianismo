@@ -936,6 +936,17 @@
 
                             data.items.forEach(item => {
                                 const rawDate = item.pubDate ? new Date(item.pubDate) : new Date();
+                                
+                                let itemImg = item.thumbnail || item.enclosure?.link;
+                                if (!itemImg && (item.content || item.description)) {
+                                    const content = item.content || item.description;
+                                    const imgMatch = content.match(/<img[^>]+src="([^">]+)"/);
+                                    if (imgMatch) itemImg = imgMatch[1];
+                                }
+                                if (!itemImg) {
+                                    itemImg = `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(item.title)}`;
+                                }
+
                                 allNews.push({
                                     title: makeLongerTitle(item.title, item.description || item.content),
                                     link: item.link,
@@ -944,7 +955,7 @@
                                     date: rawDate.toLocaleDateString('es-ES'),
                                     tag: item.categories?.[0] || "Actualidad",
                                     desc: stripEmojis(item.description || item.content || "No hay descripción disponible para esta noticia."),
-                                    img: item.thumbnail || item.enclosure?.link || `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(item.title)}`,
+                                    img: itemImg,
                                     feedImage: data.feed.image || ""
                                 });
                             });
@@ -992,14 +1003,17 @@
             card.setAttribute('data-source-img', sourceIcon);
             
             card.innerHTML = `
-                <div class="news-card-bg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url('${item.img}'); background-size: cover; background-position: center; filter: blur(3px) brightness(0.4); z-index: 1; transform: scale(1.15); transition: transform 0.3s ease;"></div>
-                <h4 class="news-title" style="position: relative; z-index: 2; margin-top: 5px; margin-bottom: 10px;">${item.title}</h4>
-                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; position: relative; z-index: 2; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 8px;">
+                <div class="news-card-img-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; overflow: hidden;">
+                    <img src="${item.img}" style="width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s ease;" onerror="this.src='https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(item.title)}'">
+                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to bottom, rgba(10,10,15,0.2) 0%, rgba(10,10,15,0.9) 100%);"></div>
+                </div>
+                <h4 class="news-title" style="position: relative; z-index: 2; margin-top: 5px; margin-bottom: 10px; font-size: 0.95rem; line-height: 1.3; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">${item.title}</h4>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; position: relative; z-index: 2; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 10px;">
                     <div style="display: flex; align-items: center; gap: 8px;">
-                        <img src="${sourceIcon}" class="news-source-img" style="width: 20px; height: 20px; border-radius: 50%; border: 1px solid rgba(255,255,255,0.2);" alt="Source Icon">
-                        <div class="news-source" style="text-shadow: 0 1px 3px rgba(0,0,0,0.8); font-size: 0.8rem; font-weight: 600; color: #ffd700;">${item.source}</div>
+                        <img src="${sourceIcon}" class="news-source-img" style="width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.3); background: #fff;" alt="Source Icon">
+                        <div class="news-source" style="text-shadow: 0 1px 4px rgba(0,0,0,0.9); font-size: 0.8rem; font-weight: 700; color: #ffd700;">${item.source}</div>
                     </div>
-                    <div class="news-date" style="font-size: 0.75rem; color: rgba(255,255,255,0.7); font-weight: 500; text-shadow: 0 1px 2px rgba(0,0,0,0.8);">${item.date}</div>
+                    <div class="news-date" style="font-size: 0.7rem; color: rgba(255,255,255,0.8); font-weight: 600; text-shadow: 0 1px 3px rgba(0,0,0,0.9);">${item.date}</div>
                 </div>
             `;
             return card;
