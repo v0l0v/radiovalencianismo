@@ -884,6 +884,9 @@
             <div id="planes-container" style="height: 65vh !important; max-height: 65vh !important; overflow-y: scroll !important; overflow-x: hidden !important; scrollbar-width: none !important; -ms-overflow-style: none !important; padding: 10px 5px !important; display: grid !important; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)) !important; gap: 20px !important;">
                 <!-- Se poblará dinámicamente -->
             </div>
+            <div style="display: flex; justify-content: center; margin-top: 15px;">
+                <button id="load-more-planes-btn" onclick="loadNextPlanesChunk()" style="background: linear-gradient(135deg, #ff7eb3, #ff758c); color: #0a0a0f; border: none; padding: 12px 36px; border-radius: 50px; cursor: pointer; font-weight: 700; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(255,126,179,0.4); font-size: 0.95rem; text-transform: uppercase; letter-spacing: 1px;">Cargar más planes</button>
+            </div>
         </div>
     </div>
 
@@ -1468,26 +1471,25 @@
                 if (isFetchingNextPlanesChunk) return;
                 isFetchingNextPlanesChunk = true;
 
-                const nextChunk = allPlanes.slice(planesIndex, planesIndex + 12);
+                const nextChunk = allPlanes.slice(planesIndex, planesIndex + 8);
                 if (nextChunk.length === 0) {
+                    planesIndex = 0;
                     isFetchingNextPlanesChunk = false;
+                    loadNextPlanesChunk();
                     return;
                 }
 
-                nextChunk.forEach((item, index) => {
+                // Vaciamos el contenedor para ser igual que noticias
+                container.innerHTML = '';
+
+                nextChunk.forEach(item => {
                     const card = createNewsCard(item);
-                    card.style.opacity = '0';
-                    card.style.transform = 'translateY(20px)';
                     container.appendChild(card);
-                    setTimeout(() => {
-                        card.style.opacity = '1';
-                        card.style.transform = 'translateY(0)';
-                        card.style.transition = 'all 0.4s ease';
-                    }, index * 50);
                 });
 
-                planesIndex += 12;
+                planesIndex += 8;
                 isFetchingNextPlanesChunk = false;
+                container.scrollTop = 0;
             }
 
             window.loadNextPlanesChunk = loadNextPlanesChunk;
