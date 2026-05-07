@@ -28,13 +28,17 @@
         <admin-password>hackme</admin-password>
     </authentication>
 
-    <hostname>localhost</hostname>
+    <hostname>valencianismo.com</hostname>
+    <directory>
+        <yp>dir.xiph.org</yp>
+    </directory>
     <listen-socket>
         <port>8000</port>
     </listen-socket>
 
     <mount type="normal">
         <mount-name>/stream</mount-name>
+        <public>1</public>
         <charset>UTF-8</charset>
     </mount>
 

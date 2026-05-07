@@ -26,5 +26,8 @@ radio = mksafe(fallback(track_sensitive=false, [live, parrilla]))
 
 output.icecast(%mp3(bitrate=128),
   host="icecast", port=8000, password="hackme",
-  mount="stream", name="Radio Valencianismo", description="Emisión 24/7",
+  mount="stream", name="Radio Valencianismo", 
+  description="Noticiero y Agenda de eventos de Radio Valencianismo",
+  genre="News, Talk, Society", url="https://valencianismo.com",
+  public=true,
   radio)

@@ -56,16 +56,23 @@ services:
       - NODES_EXCLUDE=[]
       # Quitado N8N_NODES_INCLUDE para permitir que carguen todos los nodos
     volumes:
-      - ./n8n_data:/home/node/.n8n
+      - n8n_data:/home/node/.n8n
       - /var/run/docker.sock:/var/run/docker.sock
-      - .:/home/node/radiovalencianismo
-    deploy:
-      resources:
-        limits:
-          memory: 450M
+      - .:/home/node/radiovalencianismo:rw
 
+  portainer:
+    image: portainer/portainer-ce:latest
+    container_name: portainer
+    restart: always
+    ports:
+      - "9000:9000"
+      - "9443:9443"
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
 
 volumes:
   caddy_data:
   caddy_config:
-  n8n_data: # Añadimos volumen persistente para n8n
+  n8n_data:
+  portainer_data:
