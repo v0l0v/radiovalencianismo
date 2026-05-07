@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Directorio base de los programas de Don Pío
-BASE_DIR="/home/victor/proyectos/RadioValencianismomasmas/backend/mp3/programas/La hora Don Pio"
+BASE_DIR="/home/victor/proyectos/RadioValencianismomasmas/backend/mp3/programas/horaDonPio"
 HISTORIAL="$BASE_DIR/historial.txt"
 ACTUAL_LINK="$BASE_DIR/actual"
 
