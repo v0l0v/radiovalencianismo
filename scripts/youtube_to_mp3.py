@@ -7,6 +7,11 @@ import time
 
 # La carpeta base para las descargas de audios
 BASE_DEST_DIR = "backend/mp3/programas"
+# Ruta de yt-dlp (ajustada para el servidor privado)
+YT_DLP_PATH = os.path.expanduser("~/.local/bin/yt-dlp")
+# Configuración del puente de envío (rsync)
+RSYNC_ENABLED = True
+RSYNC_TARGET = "debian@100.79.188.3:/home/debian/radiovalencianismo/backend/mp3/programas/"
 
 def download_videos(feed_filename):
     """
@@ -78,7 +83,7 @@ def download_videos(feed_filename):
             
             # Comando de yt-dlp optimizado
             cmd = [
-                "yt-dlp",
+                YT_DLP_PATH,
                 "-x",                      # Extraer audio
                 "--audio-format", "mp3",    # Formato mp3
                 "--no-playlist",            # No bajar listas enteras
@@ -99,6 +104,7 @@ def download_videos(feed_filename):
                 cmd.extend([
                     "--extractor-args", "youtube:player_client=web_embedded,tv",
                     "--js-runtimes", "node",
+                    "--remote-components", "ejs:github",
                     "--user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"
                 ])
             else:
@@ -107,6 +113,7 @@ def download_videos(feed_filename):
                 cmd.insert(2, "youtube:player_client=android,ios")
                 cmd.insert(3, "--js-runtimes")
                 cmd.insert(4, "node")
+                cmd.extend(["--remote-components", "ejs:github"])
             
             # Ejecutar yt-dlp
             subprocess.run(cmd)
@@ -114,6 +121,12 @@ def download_videos(feed_filename):
             time.sleep(2)
 
         print(f"\n=== Tarea finalizada para {program_folder} ===")
+
+        if RSYNC_ENABLED:
+            print(f"Iniciando sincronización con el servidor de la radio...")
+            sync_cmd = ["rsync", "-avz", dest_path + "/", RSYNC_TARGET + program_folder + "/"]
+            subprocess.run(sync_cmd)
+            print("✅ Sincronización completada.")
 
     except Exception as e:
         print(f"Error durante el procesamiento del feed {feed_filename}: {e}")
