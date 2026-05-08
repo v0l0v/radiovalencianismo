@@ -11,8 +11,8 @@ don_pio = playlist(mode="randomize", reload_mode="watch", loop=false, "/mp3/prog
 
 # 2. Programación de la Parrilla
 parrilla = switch(track_sensitive=false, [
-  # Si son entre las 20:00-21:00 o 00:30-01:00, suena el programa.
-  ({ 20h00-21h00 or 00h35-01h00 }, don_pio),
+  # Si son entre las 20:00-21:00 o 00:10-01:00, suena el programa.
+  ({ 20h00-21h00 or 00h10-01h00 }, don_pio),
   
   # Por defecto (siempre que no haya un programa especial), suena la música normal.
   ({ true }, musica_normal)
