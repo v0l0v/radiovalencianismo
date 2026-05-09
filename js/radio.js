@@ -161,6 +161,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 ambientBg.style.backgroundPosition = 'center';
                 ambientBg.style.opacity = '0.5';
             }
+        } else if (lowerSong.includes('gotham')) {
+            const coverPath = 'assets/gothamvcf.jpg';
+            if (coverImage) coverImage.src = coverPath;
+            if (ambientBg) {
+                ambientBg.style.backgroundImage = `url(${coverPath})`;
+                ambientBg.style.backgroundSize = 'cover';
+                ambientBg.style.backgroundPosition = 'center';
+                ambientBg.style.opacity = '0.5';
+            }
         } else {
             setRandomCover();
         }
