@@ -115,11 +115,35 @@ def download_videos(feed_filename):
             # Las cookies están deshabilitadas físicamente en el servidor
             
             res = subprocess.run(cmd)
-            if res.returncode == 0 and program_folder == "gothamvcf":
-                # Buscamos el archivo que acabamos de bajar para pasárselo al trigger
+            if res.returncode == 0:
+                # Buscamos el archivo que acabamos de bajar
                 for f in os.listdir(dest_path):
-                    if f.endswith(".mp3"):
-                        ultimo_audio_path = f"/mp3/programas/gothamvcf/{f}"
+                    if f.endswith(".mp3") and not f.startswith("tmp_"):
+                        full_mp3_path = os.path.join(dest_path, f)
+                        
+                        # Intentar incrustar carátula si existe una imagen en la carpeta (ej: gothamvcf.jpg)
+                        # Buscamos cualquier jpg en la carpeta del programa
+                        cover_files = [cf for cf in os.listdir(dest_path) if cf.lower().endswith(".jpg")]
+                        if cover_files:
+                            cover_path = os.path.join(dest_path, cover_files[0])
+                            tmp_mp3 = os.path.join(dest_path, f"tmp_{f}")
+                            print(f"🖼️ Incrustando carátula {cover_files[0]} en {f}...")
+                            
+                            embed_cmd = [
+                                "ffmpeg", "-y", "-nostdin", "-i", full_mp3_path, "-i", cover_path,
+                                "-map", "0:a", "-map", "1:v", "-c", "copy", "-id3v2_version", "3",
+                                "-disposition:v:0", "attached_pic", tmp_mp3
+                            ]
+                            embed_res = subprocess.run(embed_cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                            if embed_res.returncode == 0:
+                                os.replace(tmp_mp3, full_mp3_path)
+                                print("✅ Carátula incrustada.")
+                            else:
+                                if os.path.exists(tmp_mp3): os.remove(tmp_mp3)
+                                print("⚠️ Error al incrustar carátula.")
+
+                        if program_folder == "gothamvcf":
+                            ultimo_audio_path = f"/mp3/programas/gothamvcf/{f}"
                         break
 
         if RSYNC_ENABLED:
