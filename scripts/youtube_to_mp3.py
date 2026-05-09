@@ -108,15 +108,11 @@ def download_videos(feed_filename):
                 YT_DLP_PATH, "-x", "--audio-format", "mp3", "--no-playlist",
                 "--no-check-certificate", "--download-archive", archive_path,
                 "-o", out_template, "--format", "bestaudio/best",
-                "--extractor-args", "youtube:player_client=android",
+                "--extractor-args", "youtube:player_client=android;player_skip=web,web_embedded,tv,ios",
                 video_url
             ]
 
-            # Saltamos las cookies por ahora porque han caducado
-            # cookie_path = os.path.join(base_path, "cookies.txt")
-            # if os.path.exists(cookie_path):
-            #     cmd.insert(1, "--cookies")
-            #     cmd.insert(2, cookie_path)
+            # Las cookies están deshabilitadas físicamente en el servidor
             
             res = subprocess.run(cmd)
             if res.returncode == 0 and program_folder == "gothamvcf":
