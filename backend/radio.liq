@@ -28,8 +28,8 @@ parrilla = switch(track_sensitive=false, [
   # Gotham en todas las horas impares
   ({ 1h or 3h or 5h or 7h or 9h or 11h or 13h or 15h or 17h or 19h or 21h or 23h }, gotham),
 
-  # Si son entre las 20:00-21:00 o 00:10-01:00, suena Don Pío.
-  ({ 20h00-21h00 or 00h10-01h00 }, don_pio),
+  # Don Pío en todas las horas pares. Como dura ~30 min y loop=false, volverá al AutoDJ al acabar.
+  ({ 0h or 2h or 4h or 6h or 8h or 10h or 12h or 14h or 16h or 18h or 20h or 22h }, don_pio),
   
   # Por defecto suena la música normal.
   ({ true }, musica_normal)
