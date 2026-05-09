@@ -13,7 +13,8 @@ emergencia = request.queue(id="emergencia")
 # AutoDJ principal (música de todo el día)
 musica_normal = playlist(mode="randomize", reload_mode="watch", "/mp3/generico")
 
-# Programa "Gotham VCF" (emisión programada a las 10:00)
+# Programa "Gotham VCF" (Solo el último descargado)
+# Se emite en las horas impares y también por el canal de emergencia
 gotham = playlist(mode="randomize", reload_mode="watch", loop=false, "/mp3/programas/gothamvcf")
 
 # Programa "La Hora Don Pío" (suena a las 20:00)
@@ -21,13 +22,13 @@ don_pio = playlist(mode="randomize", reload_mode="watch", loop=false, "/mp3/prog
 
 # 2. Programación de la Parrilla
 parrilla = switch(track_sensitive=false, [
-  # Si hay algo en la cola de emergencia, suena con prioridad absoluta
+  # Si hay algo en la cola de emergencia (estrenos), suena con prioridad absoluta
   ({ not list.is_empty(emergencia.queue()) }, emergencia),
 
-  # Gotham por la mañana
-  ({ 10h00-11h30 }, gotham),
+  # Gotham en todas las horas impares
+  ({ 1h or 3h or 5h or 7h or 9h or 11h or 13h or 15h or 17h or 19h or 21h or 23h }, gotham),
 
-  # Si son entre las 20:00-21:00 o 00:10-01:00, suena el programa.
+  # Si son entre las 20:00-21:00 o 00:10-01:00, suena Don Pío.
   ({ 20h00-21h00 or 00h10-01h00 }, don_pio),
   
   # Por defecto suena la música normal.

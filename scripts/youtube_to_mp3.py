@@ -90,12 +90,19 @@ def download_videos(feed_filename):
         if not os.path.exists(dest_path):
             os.makedirs(dest_path, exist_ok=True)
 
+        # --- NOVEDAD: Limpieza total para Gotham (Solo queremos el último) ---
+        if program_folder == "gothamvcf":
+            print("🧹 Limpiando episodios antiguos de Gotham...")
+            for f in os.listdir(dest_path):
+                if f.endswith(".mp3"):
+                    os.remove(os.path.join(dest_path, f))
+
         ultimo_audio_path = ""
         for video_url in links:
             print(f"\n--- Procesando: {video_url} ---")
             
-            # Formato de nombre: "nuevo_gotham.mp3" para facilitar el trigger
-            out_template = f"{dest_path}/nuevo_gotham.mp3" if program_folder == "gothamvcf" else f"{dest_path}/%(title)s.%(ext)s"
+            # Usamos el título real del vídeo para que en la radio se vea cuál es
+            out_template = f"{dest_path}/%(title)s.%(ext)s"
             
             cmd = [
                 YT_DLP_PATH, "-x", "--audio-format", "mp3", "--no-playlist",
@@ -103,7 +110,6 @@ def download_videos(feed_filename):
                 "-o", out_template, "--format", "bestaudio/best", video_url
             ]
 
-            # (Lógica de cookies omitida por brevedad en el reemplazo, se mantiene igual)
             cookie_path = os.path.join(base_path, "cookies.txt")
             if os.path.exists(cookie_path):
                 cmd.insert(1, "--cookies")
@@ -111,14 +117,18 @@ def download_videos(feed_filename):
             
             res = subprocess.run(cmd)
             if res.returncode == 0 and program_folder == "gothamvcf":
-                ultimo_audio_path = "/mp3/programas/gothamvcf/nuevo_gotham.mp3"
+                # Buscamos el archivo que acabamos de bajar para pasárselo al trigger
+                for f in os.listdir(dest_path):
+                    if f.endswith(".mp3"):
+                        ultimo_audio_path = f"/mp3/programas/gothamvcf/{f}"
+                        break
 
         if RSYNC_ENABLED:
             print(f"Iniciando sincronización con el servidor de la radio...")
-            # Sincronizamos todo el backend (incluye alertas y programas)
-            sync_cmd = ["rsync", "-avz", os.path.join(base_path, "backend/"), RSYNC_TARGET.replace("/programas/", "/")]
+            # Usamos --delete para que la radio sea un espejo exacto de lamaquina
+            sync_cmd = ["rsync", "-avz", "--delete", os.path.join(base_path, "backend/"), RSYNC_TARGET.replace("/programas/", "/")]
             subprocess.run(sync_cmd)
-            print("✅ Sincronización completa.")
+            print("✅ Sincronización completa (Espejo activado).")
 
             # --- NOVEDAD: Si hay un audio nuevo de Gotham, disparamos la secuencia en la Radio ---
             if ultimo_audio_path:
