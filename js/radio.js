@@ -150,7 +150,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     async function updateCover(songName) {
-        setRandomCover();
+        const lowerSong = songName.toLowerCase();
+        
+        if (lowerSong.includes('donpio') || lowerSong.includes('don pio')) {
+            const coverPath = 'assets/donpio.jpg';
+            if (coverImage) coverImage.src = coverPath;
+            if (ambientBg) {
+                ambientBg.style.backgroundImage = `url(${coverPath})`;
+                ambientBg.style.backgroundSize = 'cover';
+                ambientBg.style.backgroundPosition = 'center';
+                ambientBg.style.opacity = '0.5';
+            }
+        } else {
+            setRandomCover();
+        }
     }
 
     function addToHistory(songName) {
