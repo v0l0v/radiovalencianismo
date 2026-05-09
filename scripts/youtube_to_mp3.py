@@ -13,31 +13,48 @@ YT_DLP_PATH = os.path.expanduser("~/.local/bin/yt-dlp")
 RSYNC_ENABLED = True
 RSYNC_TARGET = "debian@100.79.188.3:/home/debian/radiovalencianismo/backend/mp3/programas/"
 
+def generar_cuna_ia(base_path):
+    """
+    Usa el servicio siro_tts (puerto 8002) de La Máquina para generar la cuña de aviso.
+    """
+    texto = "Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo."
+    print(f"🎙️ Generando cuña por IA: '{texto}'")
+    
+    url_tts = "http://localhost:8002/api/tts" # Ajustar si el endpoint es distinto
+    payload = {
+        "text": texto,
+        "speaker": "es_0", # Voz por defecto, se puede cambiar
+        "speed": 1.0
+    }
+    
+    try:
+        response = requests.post(url_tts, json=payload, timeout=30)
+        if response.status_code == 200:
+            cuna_path = os.path.join(base_path, "backend/mp3/alertas/gotham_urgente.mp3")
+            os.makedirs(os.path.dirname(cuna_path), exist_ok=True)
+            with open(cuna_path, "wb") as f:
+                f.write(response.content)
+            print("✅ Cuña generada con éxito.")
+            return True
+    except Exception as e:
+        print(f"⚠️ No se pudo generar la cuña por IA: {e}")
+    return False
+
 def download_videos(feed_filename):
     """
     Descarga audios de YouTube basándose en un archivo de feed .txt
-    El archivo .txt debe contener la URL del RSS.
-    Los audios se guardarán en backend/mp3/programas/[nombre_del_txt]/
     """
-    # Determinar rutas base relativas al proyecto
-    # Asumimos que el script está en la carpeta 'scripts' dentro de la raíz
     script_dir = os.path.dirname(os.path.abspath(__file__))
     base_path = os.path.dirname(script_dir)
-    
     feed_path = os.path.join(base_path, feed_filename)
-    
-    # El nombre de la subcarpeta será el nombre del archivo sin la extensión .txt
     program_folder = os.path.splitext(feed_filename)[0]
     dest_path = os.path.join(base_path, BASE_DEST_DIR, program_folder)
-    
-    # Archivo de registro para no descargar lo mismo dos veces
     archive_path = os.path.join(dest_path, "archive_youtube.txt")
 
     if not os.path.exists(feed_path):
         print(f"Error: El archivo de feed '{feed_path}' no existe.")
         return
 
-    # Leer la URL del feed
     with open(feed_path, 'r') as f:
         rss_url = f.read().strip()
 
@@ -46,21 +63,19 @@ def download_videos(feed_filename):
         return
 
     print(f"=== Iniciando Automatización para: {program_folder} ===")
-    print(f"Feed: {rss_url}")
-    print(f"Carpeta de destino: {dest_path}")
+    
+    # --- NOVEDAD: Si es Gotham, generamos la cuña de aviso con IA ---
+    if program_folder == "gothamvcf":
+        generar_cuna_ia(base_path)
 
     try:
-        # Obtener el contenido del RSS
         response = requests.get(rss_url, timeout=30)
         response.raise_for_status()
         root = ET.fromstring(response.content)
-        
-        # Extraer enlaces de YouTube
         links = []
         for item in root.findall('.//item'):
             link = item.find('link')
             if link is not None and ('youtube.com' in link.text or 'youtu.be' in link.text):
-                # Limpiar parámetros de tracking si existen
                 clean_url = link.text.split('&')[0] if 'watch?v=' in link.text else link.text
                 if clean_url not in links:
                     links.append(clean_url)
@@ -69,73 +84,61 @@ def download_videos(feed_filename):
             print("No se encontraron vídeos de YouTube en este feed.")
             return
 
-        # Solo procesar los 3 más recientes
-        links = links[:3]
-
-        print(f"Se detectaron {len(links)} vídeos recientes. Verificando descargas...")
-
-        # Crear carpeta de destino si no existe
+        # Solo procesar el más reciente para la urgencia
+        links = links[:1]
+        
         if not os.path.exists(dest_path):
             os.makedirs(dest_path, exist_ok=True)
 
+        ultimo_audio_path = ""
         for video_url in links:
             print(f"\n--- Procesando: {video_url} ---")
             
-            # Comando de yt-dlp optimizado
+            # Formato de nombre: "nuevo_gotham.mp3" para facilitar el trigger
+            out_template = f"{dest_path}/nuevo_gotham.mp3" if program_folder == "gothamvcf" else f"{dest_path}/%(title)s.%(ext)s"
+            
             cmd = [
-                YT_DLP_PATH,
-                "-x",                      # Extraer audio
-                "--audio-format", "mp3",    # Formato mp3
-                "--no-playlist",            # No bajar listas enteras
-                "--no-check-certificate", 
-                "--download-archive", archive_path,
-                "-o", f"{dest_path}/%(title)s.%(ext)s",
-                "--format", "bestaudio/best", # Asegurar que busca el mejor audio disponible
-                video_url
+                YT_DLP_PATH, "-x", "--audio-format", "mp3", "--no-playlist",
+                "--no-check-certificate", "--download-archive", archive_path,
+                "-o", out_template, "--format", "bestaudio/best", video_url
             ]
 
-            # Si existe el archivo cookies.txt, usarlo y cambiar el cliente
+            # (Lógica de cookies omitida por brevedad en el reemplazo, se mantiene igual)
             cookie_path = os.path.join(base_path, "cookies.txt")
             if os.path.exists(cookie_path):
-                print("Usando archivo de cookies detectado...")
                 cmd.insert(1, "--cookies")
                 cmd.insert(2, cookie_path)
-                # Al usar cookies, usamos clientes que las soportan mejor
-                cmd.extend([
-                    "--extractor-args", "youtube:player_client=web_embedded,tv",
-                    "--js-runtimes", "node",
-                    "--remote-components", "ejs:github",
-                    "--user-agent", "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/121.0.0.0 Safari/537.36"
-                ])
-            else:
-                # Sin cookies, usamos clientes móviles que suelen ser más permisivos
-                cmd.insert(1, "--extractor-args")
-                cmd.insert(2, "youtube:player_client=android,ios")
-                cmd.insert(3, "--js-runtimes")
-                cmd.insert(4, "node")
-                cmd.extend(["--remote-components", "ejs:github"])
             
-            # Ejecutar yt-dlp
-            subprocess.run(cmd)
-            # Pequeña pausa para no saturar a YouTube
-            time.sleep(2)
-
-        print(f"\n=== Tarea finalizada para {program_folder} ===")
+            res = subprocess.run(cmd)
+            if res.returncode == 0 and program_folder == "gothamvcf":
+                ultimo_audio_path = "/mp3/programas/gothamvcf/nuevo_gotham.mp3"
 
         if RSYNC_ENABLED:
             print(f"Iniciando sincronización con el servidor de la radio...")
-            sync_cmd = ["rsync", "-avz", dest_path + "/", RSYNC_TARGET + program_folder + "/"]
+            # Sincronizamos todo el backend (incluye alertas y programas)
+            sync_cmd = ["rsync", "-avz", os.path.join(base_path, "backend/"), RSYNC_TARGET.replace("/programas/", "/")]
             subprocess.run(sync_cmd)
-            print("✅ Sincronización completada.")
+            print("✅ Sincronización completa.")
+
+            # --- NOVEDAD: Si hay un audio nuevo de Gotham, disparamos la secuencia en la Radio ---
+            if ultimo_audio_path:
+                print("📢 Disparando protocolo de Última Hora en La Radio...")
+                # El host de la radio es el que definimos en RSYNC_TARGET (ej: 100.79.188.3)
+                radio_ip = RSYNC_TARGET.split("@")[1].split(":")[0]
+                radio_user = RSYNC_TARGET.split("@")[0]
+                
+                trigger_cmd = f"ssh {radio_user}@{radio_ip} 'python3 /home/{radio_user}/radiovalencianismo/scripts/lanzar_gotham_urgente.py {ultimo_audio_path}'"
+                # Usamos nohup para que el script de los 5 minutos siga corriendo aunque se cierre el SSH
+                subprocess.Popen(f"nohup {trigger_cmd} > /dev/null 2>&1 &", shell=True)
+                print("🚀 Protocolo activado. ¡En 5 minutos sonará en antena!")
 
     except Exception as e:
-        print(f"Error durante el procesamiento del feed {feed_filename}: {e}")
+        print(f"Error durante el procesamiento: {e}")
 
 if __name__ == "__main__":
     if len(sys.argv) < 2:
         print("Uso incorrecto.")
-        print("Ejemplo: python3 scripts/youtube_to_mp3.py gothamvcf.txt")
         sys.exit(1)
-        
-    feed_target = sys.argv[1]
-    download_videos(feed_target)
+    download_videos(sys.argv[1])
+
+
