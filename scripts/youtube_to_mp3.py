@@ -108,8 +108,7 @@ def download_videos(feed_filename):
                 YT_DLP_PATH, "-x", "--audio-format", "mp3", "--no-playlist",
                 "--no-check-certificate", "--download-archive", archive_path,
                 "-o", out_template, "--format", "bestaudio/best",
-                "--extractor-args", "youtube:player_client=android,ios,web",
-                "--js-runtimes", "node",
+                "--extractor-args", "youtube:player_client=mweb",
                 video_url
             ]
 
