@@ -149,10 +149,15 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    // Función para normalizar texto (quitar acentos)
+    function normalizeText(text) {
+        return text.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+    }
+
     async function updateCover(songName) {
-        const lowerSong = songName.toLowerCase();
+        const normalized = normalizeText(songName);
         
-        if (lowerSong.includes('donpio') || lowerSong.includes('don pio')) {
+        if (normalized.includes('don pio') || normalized.includes('donpio')) {
             const coverPath = 'assets/donpio.jpg';
             if (coverImage) coverImage.src = coverPath;
             if (ambientBg) {
@@ -161,7 +166,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ambientBg.style.backgroundPosition = 'center';
                 ambientBg.style.opacity = '0.5';
             }
-        } else if (lowerSong.includes('gotham')) {
+        } else if (normalized.includes('gotham')) {
             const coverPath = 'assets/gothamvcf.jpg';
             if (coverImage) coverImage.src = coverPath;
             if (ambientBg) {
