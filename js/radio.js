@@ -23,14 +23,48 @@ document.addEventListener('DOMContentLoaded', () => {
     let songHistory = [];
     const maxHistory = 10;
 
-    // 1. Load Refranes
+    let currentInfoMode = 'refran'; // 'refran' or 'news'
+    let newsData = [];
+
+    // 1. Load Refranes & News
+    async function fetchNews() {
+        try {
+            const res = await fetch('noticias_flash.json');
+            if (res.ok) {
+                newsData = await res.json();
+            }
+        } catch (e) {
+            console.error("Error fetching news:", e);
+        }
+    }
+
+    function rotateInfo() {
+        if (currentInfoMode === 'refran' && newsData.length > 0) {
+            showNewsFlash();
+            currentInfoMode = 'news';
+        } else {
+            loadRefran();
+            currentInfoMode = 'refran';
+        }
+    }
+
+    function showNewsFlash() {
+        if (newsData.length === 0) return loadRefran();
+        const news = newsData[Math.floor(Math.random() * newsData.length)];
+        refranText.innerHTML = `<span style="color:var(--accent); font-weight:800; font-size:0.7rem; text-transform:uppercase; letter-spacing:2px; display:block; margin-bottom:5px;">ÚLTIMA HORA</span>"${news.titulo}"<br><span style="font-size:0.7rem; opacity:0.6;">(Fuente: ${news.fuente})</span>`;
+        
+        // Efecto Mascletà suave para noticias nuevas
+        document.body.classList.add("mascleta-active");
+        setTimeout(() => document.body.classList.remove("mascleta-active"), 300);
+    }
+
     function loadRefran() {
         try {
             if (typeof REFRANES !== 'undefined' && REFRANES.length > 0) {
                 const randomRefran = REFRANES[Math.floor(Math.random() * REFRANES.length)];
                 const parts = randomRefran.split(' (');
                 if (parts.length > 1) {
-                    refranText.innerHTML = `"${parts[0]}"<br>(${parts[1]}`;
+                    refranText.innerHTML = `"${parts[0]}"<br><span style="font-size:0.7rem; opacity:0.6;">(${parts[1]}</span>`;
                 } else {
                     refranText.innerHTML = `"${randomRefran}"`;
                 }
@@ -215,11 +249,20 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // 4. Initialize
+    fetchNews();
     loadRefran();
     setRandomCover();
     updateMetadata();
     checkMarquee();
+    
+    // Rotar entre Refranes y Noticias cada 30 segundos
+    setInterval(rotateInfo, 30000);
+    
+    // Actualizar metadatos cada 15 seg
     setInterval(updateMetadata, 15000);
+    
+    // Recargar noticias cada 15 min
+    setInterval(fetchNews, 900000);
 
     // 5. Nostr & Zaps & PayPal
     const zapBtn = document.getElementById("zap-btn");

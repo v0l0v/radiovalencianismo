@@ -26,6 +26,7 @@ services:
     container_name: liquidsoap
     ports:
       - "8080:8080"
+      - "1234:1234"
     environment:
       - TZ=Europe/Madrid
     volumes:

@@ -11,7 +11,7 @@ BASE_DEST_DIR = "backend/mp3/programas"
 YT_DLP_PATH = os.path.expanduser("~/.local/bin/yt-dlp")
 # Configuración del puente de envío (rsync)
 RSYNC_ENABLED = True
-RSYNC_TARGET = "debian@100.79.188.3:/home/debian/radiovalencianismo/backend/mp3/programas/"
+RSYNC_TARGET = "debian@54.36.100.247:/home/debian/radiovalencianismo/backend/mp3/programas/"
 
 def generar_cuna_ia(base_path):
     """
@@ -121,37 +121,69 @@ def download_videos(feed_filename):
                     if f.endswith(".mp3") and not f.startswith("tmp_"):
                         full_mp3_path = os.path.join(dest_path, f)
                         
-                        # Intentar incrustar carátula si existe una imagen en la carpeta (ej: gothamvcf.jpg)
-                        # Buscamos cualquier jpg en la carpeta del programa
+                        # 1. Definir título limpio (quitar extensión y arreglar caracteres raros)
+                        clean_title = f.replace(".mp3", "")
+                        # Sustituir el carácter raro de la barra (⧸) por una barra normal (/) o guion
+                        clean_title = clean_title.replace("⧸", "/").replace("⧹", "\\")
+                        
+                        tmp_mp3 = os.path.join(dest_path, f"tmp_{f}")
+                        
+                        # 2. Preparar comando base de ffmpeg para metadatos
+                        cmd_args = ["ffmpeg", "-y", "-nostdin", "-i", full_mp3_path]
+                        
+                        # 3. Añadir carátula si existe
                         cover_files = [cf for cf in os.listdir(dest_path) if cf.lower().endswith(".jpg")]
                         if cover_files:
                             cover_path = os.path.join(dest_path, cover_files[0])
-                            tmp_mp3 = os.path.join(dest_path, f"tmp_{f}")
-                            print(f"🖼️ Incrustando carátula {cover_files[0]} en {f}...")
+                            cmd_args += ["-i", cover_path, "-map", "0:a", "-map", "1:v"]
+                            print(f"🖼️ Preparando carátula {cover_files[0]} para {f}...")
+                        else:
+                            cmd_args += ["-map", "0:a"]
                             
-                            embed_cmd = [
-                                "ffmpeg", "-y", "-nostdin", "-i", full_mp3_path, "-i", cover_path,
-                                "-map", "0:a", "-map", "1:v", "-c", "copy", "-id3v2_version", "3",
-                                "-disposition:v:0", "attached_pic", tmp_mp3
-                            ]
-                            embed_res = subprocess.run(embed_cmd, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-                            if embed_res.returncode == 0:
-                                os.replace(tmp_mp3, full_mp3_path)
-                                print("✅ Carátula incrustada.")
-                            else:
-                                if os.path.exists(tmp_mp3): os.remove(tmp_mp3)
-                                print("⚠️ Error al incrustar carátula.")
+                        # 4. Añadir etiquetas y generar salida
+                        cmd_args += [
+                            "-c", "copy", "-id3v2_version", "3",
+                            "-metadata", f"title={clean_title}",
+                            "-metadata", "artist=Radio Valencianismo"
+                        ]
+                        
+                        if cover_files:
+                            cmd_args += ["-metadata:s:v", "title=Album cover", "-metadata:s:v", "comment=Cover (Front)", "-disposition:v:0", "attached_pic"]
+                            
+                        cmd_args.append(tmp_mp3)
+                        
+                        print(f"🏷️ Etiquetando audio: {clean_title}")
+                        embed_res = subprocess.run(cmd_args, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                        
+                        if embed_res.returncode == 0:
+                            os.replace(tmp_mp3, full_mp3_path)
+                            print("✅ Metadatos y carátula aplicados correctamente.")
+                        else:
+                            if os.path.exists(tmp_mp3): os.remove(tmp_mp3)
+                            print("⚠️ Error al aplicar metadatos.")
 
                         if program_folder == "gothamvcf":
                             ultimo_audio_path = f"/mp3/programas/gothamvcf/{f}"
                         break
 
         if RSYNC_ENABLED:
-            print(f"Iniciando sincronización con el servidor de la radio...")
-            # Usamos --delete para que la radio sea un espejo exacto de lamaquina
-            sync_cmd = ["rsync", "-avz", "--delete", os.path.join(base_path, "backend/"), RSYNC_TARGET.replace("/programas/", "/")]
-            subprocess.run(sync_cmd)
-            print("✅ Sincronización completa (Espejo activado).")
+            print(f"Iniciando sincronización selectiva con el servidor de la radio...")
+            if program_folder == "gothamvcf":
+                # Sincronizar solo carpeta gotham y alertas (mucho más rápido)
+                src_gotham = os.path.join(base_path, "backend/mp3/programas/gothamvcf/")
+                dest_gotham = RSYNC_TARGET + "gothamvcf/"
+                src_alertas = os.path.join(base_path, "backend/mp3/alertas/")
+                dest_alertas = RSYNC_TARGET.replace("/programas/", "/alertas/")
+                
+                print(f"📤 Subiendo episodios de Gotham...")
+                subprocess.run(["rsync", "-avz", "--delete", "--exclude=*.txt", src_gotham, dest_gotham])
+                print(f"📤 Subiendo cuñas/alertas...")
+                subprocess.run(["rsync", "-avz", "--delete", "--exclude=*.txt", src_alertas, dest_alertas])
+            else:
+                # Espejo completo para el resto de programas
+                sync_cmd = ["rsync", "-avz", "--delete", os.path.join(base_path, "backend/"), RSYNC_TARGET.replace("/programas/", "/")]
+                subprocess.run(sync_cmd)
+            print("✅ Sincronización selectiva completa.")
 
             # --- NOVEDAD: Si hay un audio nuevo de Gotham, disparamos la secuencia en la Radio ---
             if ultimo_audio_path:

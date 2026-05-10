@@ -7,9 +7,7 @@ import xml.etree.ElementTree as ET
 # Configuración
 FEED_FILE = "gothamvcf.txt"  # Archivo que contiene la URL del feed
 ULTIMO_ID_FILE = "scripts/ultimo_id_gotham.txt"
-REMOTE_USER = "operador_ia"
-REMOTE_HOST = "100.96.253.125"
-REMOTE_SCRIPT = "/home/operador_ia/proyectos/rvalencianismo/scripts/youtube_to_mp3.py"
+# Ya no necesitamos REMOTE_HOST porque procesamos en local
 
 def comprobar_y_disparar():
     # Obtener la ruta base (un nivel arriba de 'scripts')
@@ -55,19 +53,20 @@ def comprobar_y_disparar():
         if id_nuevo != ultimo_id:
             print(f"🚀 ¡Nuevo audio detectado! '{titulo}'")
             print(f"ID: {id_nuevo}")
-            print(f"Avisando a lamaquina ({REMOTE_HOST})...")
-            
-            # Comando SSH para disparar la descarga en el worker
-            # Pasamos el nombre del archivo de feed para que el worker sepa qué bajar
-            comando = f'ssh {REMOTE_USER}@{REMOTE_HOST} "python3 {REMOTE_SCRIPT} {FEED_FILE}"'
+            # Comando local para disparar la descarga en este mismo equipo
+            script_descarga = os.path.join(base_path, "scripts", "youtube_to_mp3.py")
+            comando = f'python3 {script_descarga} {FEED_FILE}'
             
             try:
-                subprocess.run(comando, shell=True, check=True)
+                print(f"📥 Iniciando descarga y procesamiento local...")
+                # Ejecutamos desde la raíz del proyecto para que las rutas coincidan
+                subprocess.run(comando, shell=True, check=True, cwd=base_path)
+                
                 with open(ultimo_id_path, 'w') as f:
                     f.write(id_nuevo)
-                print("✅ Orden enviada y registro actualizado.")
+                print("✅ Proceso completado y registro actualizado.")
             except subprocess.CalledProcessError as e:
-                print(f"❌ Error al enviar la orden por SSH: {e}")
+                print(f"❌ Error en el procesamiento local: {e}")
         else:
             print("😴 No hay novedades. Todo al día.")
 

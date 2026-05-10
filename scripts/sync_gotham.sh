@@ -1,4 +1,4 @@
-#!/usr/bin/env bash
+ls#!/usr/bin/env bash
 # --------------------------------------------------------------
 # sync_gotham.sh (Para ejecutar en LA MÁQUINA)
 # Sincroniza los MP3 descargados desde lamaquina a laradio.
@@ -12,9 +12,9 @@ SRC_DIR="/home/operador_ia/proyectos/rvalencianismo/backend/mp3/programas/gotham
 
 # Datos de Laradio (VPS)
 # NOTA: Cambia 'radio_user' por tu usuario real (ej: 'victor' o 'debian')
-DEST_USER="radio_user"                     
-DEST_HOST="100.79.188.3"
-DEST_DIR="/home/radio_user/mp3/gothamvcf"
+DEST_USER="debian"                     
+DEST_HOST="54.36.100.247"
+DEST_DIR="/home/debian/radiovalencianismo/backend/mp3/gothamvcf"
 
 # Opciones de rsync: -a (archive), -z (comprimir), --remove-source-files (limpiar al terminar)
 RSYNC_OPTS="-az --partial --remove-source-files"
