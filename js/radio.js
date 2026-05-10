@@ -102,16 +102,20 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (data.icestats && data.icestats.source) {
                         const source = Array.isArray(data.icestats.source) ? data.icestats.source[0] : data.icestats.source;
                         if (source && source.title) {
-                            songName = source.title;
+                            songName = source.title.trim();
                         }
                     }
                 }
             } catch(e) {}
 
+            // Actualizar carátula SIEMPRE que no sea el nombre de la radio por defecto
+            if (songName !== "Radio Valencianismo 24/7") {
+                updateCover(songName);
+            }
+
             if (currentSongEl.textContent !== songName && songName !== "Radio Valencianismo 24/7") {
                 currentSongEl.textContent = songName;
                 checkMarquee();
-                updateCover(songName);
                 addToHistory(songName);
             }
         } catch (error) {
@@ -156,9 +160,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     async function updateCover(songName) {
         const normalized = normalizeText(songName);
+        const cacheBuster = Date.now();
         
-        if (normalized.includes('don pio') || normalized.includes('donpio')) {
-            const coverPath = 'assets/donpio.jpg';
+        if (normalized.includes('don pio') || normalized.includes('donpio') || normalized.includes('don pio')) {
+            const coverPath = `assets/donpio.jpg?v=${cacheBuster}`;
             if (coverImage) coverImage.src = coverPath;
             if (ambientBg) {
                 ambientBg.style.backgroundImage = `url(${coverPath})`;
@@ -167,7 +172,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ambientBg.style.opacity = '0.5';
             }
         } else if (normalized.includes('gotham')) {
-            const coverPath = 'assets/gothamvcf.jpg';
+            const coverPath = `assets/gothamvcf.jpg?v=${cacheBuster}`;
             if (coverImage) coverImage.src = coverPath;
             if (ambientBg) {
                 ambientBg.style.backgroundImage = `url(${coverPath})`;
