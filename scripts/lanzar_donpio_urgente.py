@@ -11,15 +11,16 @@ LIQUIDSOAP_PORT = 1234
 def obtener_ultimo_audio():
     # 1. Intentar localmente primero (si estamos en el VPS)
     import glob
-    files = glob.glob(PROGRAMA_FOLDER_LOCAL + "*.mp3")
+    # Buscamos dentro de la carpeta 'actual' que es donde el selector pone el volumen vigente
+    files = glob.glob(PROGRAMA_FOLDER_LOCAL + "actual/*.mp3")
     if files:
         # Ordenar por fecha de modificación
         files.sort(key=os.path.getmtime, reverse=True)
         return files[0]
     
     # 2. Si no hay archivos locales, intentar por SSH (si estamos en otro equipo)
-    print("🌐 No se encontraron archivos locales, probando vía SSH...")
-    ssh_cmd = f"ssh -o StrictHostKeyChecking=no debian@{VPS_IP} 'ls -t {PROGRAMA_FOLDER_REMOTO}*.mp3 | head -1'"
+    print("🌐 No se encontraron archivos locales en 'actual/', probando vía SSH...")
+    ssh_cmd = f"ssh -o StrictHostKeyChecking=no debian@{VPS_IP} 'ls -t {PROGRAMA_FOLDER_REMOTO}actual/*.mp3 | head -1'"
     import subprocess
     result = subprocess.run(ssh_cmd, shell=True, capture_output=True, text=True)
     if result.returncode == 0 and result.stdout.strip():
