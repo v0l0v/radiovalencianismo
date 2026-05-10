@@ -61,6 +61,17 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - .:/home/node/radiovalencianismo:rw
 
+  control-api:
+    image: python:3.11-slim
+    container_name: control-api
+    ports:
+      - "8003:8003"
+    volumes:
+      - .:/home/debian/radiovalencianismo
+    working_dir: /home/debian/radiovalencianismo
+    command: python3 scripts/api_control.py
+    restart: unless-stopped
+
   portainer:
     image: portainer/portainer-ce:latest
     container_name: portainer
