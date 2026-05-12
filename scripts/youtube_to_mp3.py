@@ -7,8 +7,9 @@ import time
 
 # La carpeta base para las descargas de audios
 BASE_DEST_DIR = "backend/mp3/programas"
-# Ruta de yt-dlp (se busca en el PATH del sistema)
-YT_DLP_PATH = "yt-dlp"
+# Ruta de yt-dlp (se usa ruta absoluta para evitar problemas en cron)
+YT_DLP_PATH = "/usr/local/bin/yt-dlp"
+FFMPEG_PATH = "/usr/bin/ffmpeg"
 # Configuración del puente de envío (rsync)
 RSYNC_ENABLED = True
 RSYNC_TARGET = "debian@54.36.100.247:/home/debian/radiovalencianismo/backend/mp3/programas/"
@@ -128,7 +129,7 @@ def download_videos(feed_filename):
                         tmp_mp3 = os.path.join(dest_path, f"tmp_{f}")
                         
                         # 2. Preparar comando base de ffmpeg para metadatos
-                        cmd_args = ["ffmpeg", "-y", "-nostdin", "-i", full_mp3_path]
+                        cmd_args = [FFMPEG_PATH, "-y", "-nostdin", "-i", full_mp3_path]
                         
                         # 3. Añadir carátula si existe
                         cover_files = [cf for cf in os.listdir(dest_path) if cf.lower().endswith((".jpg", ".png"))]
