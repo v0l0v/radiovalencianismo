@@ -698,7 +698,7 @@
     </audio>
 
     <script src="js/refranes.js"></script>
-    <script src="js/radio.js?v=9"></script></script></script></script></script>
+    <script src="js/radio.js?v=9"></script>
     <!-- Modal de Noticia (Pantalla completa al 90%) -->
     <div id="news-modal" class="news-modal" onclick="closeNewsModal()">
         <div class="news-modal-content" onclick="event.stopPropagation()" style="position: relative; overflow: hidden; border: 2.5px solid rgba(255,255,255,0.45); border-radius: 14px; display: flex; flex-direction: column; justify-content: space-between;">
@@ -916,8 +916,17 @@
             card.setAttribute('data-img', item.img);
             card.setAttribute('data-date', item.date);
             card.setAttribute('data-desc', item.desc);
-            card.setAttribute('data-feed-img', item.feedImage || '');
-            let sourceIcon = item.feedImage || `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(item.source)}&fontSize=45`;
+            // Intentar obtener el logo real del dominio antes que las iniciales
+            let domain = "";
+            try { domain = new URL(item.link).hostname; } catch(e) { domain = ""; }
+            
+            let sourceIcon = item.feedImage;
+            if (!sourceIcon && domain) {
+                sourceIcon = `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
+            } else if (!sourceIcon) {
+                sourceIcon = `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(item.source)}&fontSize=45`;
+            }
+            
             card.setAttribute('data-source-img', sourceIcon);
             
             card.innerHTML = `
