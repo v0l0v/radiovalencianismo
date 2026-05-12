@@ -411,16 +411,21 @@
                 // Mejora Especial: Si es Facebook, intentamos sacar la foto de perfil real del medio
                 if (item.link.includes("facebook.com")) {
                     try {
-                        const fbPath = item.link.split("facebook.com/")[1] || "";
-                        const fbUser = fbPath.split("/")[0];
-                        if (fbUser && !["groups", "events", "reel", "share"].includes(fbUser)) {
+                        let fbUser = "";
+                        if (item.link.includes("/posts/")) fbUser = item.link.split("/posts/")[0].split("/").pop();
+                        else if (item.link.includes("/photos/")) fbUser = item.link.split("/photos/")[0].split("/").pop();
+                        else if (item.link.includes("/videos/")) fbUser = item.link.split("/videos/")[0].split("/").pop();
+                        else if (item.link.includes("/reel/")) fbUser = item.link.split("/reel/")[0].split("/").pop();
+                        else if (item.link.includes("facebook.com/")) fbUser = item.link.split("facebook.com/")[1].split("/")[0];
+
+                        if (fbUser && !["groups", "events", "reel", "share", "profile.php"].includes(fbUser)) {
                             sourceIcon = `https://unavatar.io/facebook/${fbUser}`;
                         }
                     } catch(e) {}
                 }
                 
-                // Prioridad 2: Google Favicon si no hay imagen
-                if (!sourceIcon && domain) {
+                // Prioridad 2: Google Favicon si no hay imagen y NO es Facebook
+                if (!sourceIcon && domain && !domain.includes("facebook.com")) {
                     sourceIcon = `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
                 }
                 
