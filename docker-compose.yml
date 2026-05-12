@@ -32,7 +32,7 @@ services:
     volumes:
       - ./backend/radio.liq:/etc/liquidsoap/radio.liq:ro
       - ./backend/mp3:/mp3:ro
-    command: ["liquidsoap", "/etc/liquidsoap/radio.liq"]
+    command: [ "liquidsoap", "/etc/liquidsoap/radio.liq" ]
     depends_on:
       - icecast
     restart: unless-stopped
@@ -50,7 +50,7 @@ services:
       - TZ=Europe/Madrid
       # Mantengo estos por si decides activarlos en el panel más adelante
       - N8N_BASIC_AUTH_ACTIVE=true
-      - N8N_BASIC_AUTH_USER=v0l0v 
+      - N8N_BASIC_AUTH_USER=v0l0v
       - N8N_BASIC_AUTH_PASSWORD=D26VmLg3791+
       - N8N_BLOCK_EXECV=false
       - N8N_COMMAND_TIMEOUT=30000
@@ -76,4 +76,3 @@ volumes:
   caddy_data:
   caddy_config:
   n8n_data:
-  portainer_data:

@@ -44,4 +44,7 @@ ln -sfn "$SELECTED" "actual"
 # Guardar la elegida en el historial
 echo "$SELECTED" >> "$HISTORIAL"
 
-echo "Cambiado programa Don Pío a: $SELECTED"
+# Guardar registro detallado con fecha y hora para observar
+echo "$(date '+%Y-%m-%d %H:%M:%S') - Seleccionado: $SELECTED" >> "$BASE_DIR/historial_detallado.txt"
+
+echo "$(date '+%Y-%m-%d %H:%M:%S') - Cambiado programa Don Pío a: $SELECTED"

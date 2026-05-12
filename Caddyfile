@@ -11,3 +11,11 @@ valencianismo.com {
 n8n.valencianismo.com {
     reverse_proxy n8n:5678
 }
+biblioteca.valencianismo.com {
+
+    basicauth {
+        admin $2a$14$hXGsqSBCxLEdpdiW4TQEte1IA67IbH4Fkg3kBv.rUtWyIrFdHI4R6
+    }
+
+    reverse_proxy abelujo:5000
+}
