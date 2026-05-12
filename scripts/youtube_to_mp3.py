@@ -71,6 +71,7 @@ def download_videos(feed_filename):
         # Recorrer el feed buscando el más reciente que podamos bajar
         # Si encontramos uno ya archivado, paramos (ya estamos al día)
         ultimo_audio_path = ""
+        success = False
         for video_url in links:
             video_id = video_url.split("v=")[-1] if "v=" in video_url else video_url.split("/")[-1]
             
@@ -160,7 +161,11 @@ def download_videos(feed_filename):
                             if os.path.exists(tmp_mp3): os.remove(tmp_mp3)
                             print("⚠️ Error al aplicar metadatos.")
 
+                        success = True
                         break
+                
+                if success:
+                    break
 
         if RSYNC_ENABLED:
             print(f"Iniciando sincronización selectiva con el servidor de la radio...")
