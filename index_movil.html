@@ -361,7 +361,7 @@
                 const card = document.createElement("div");
                 card.style.cssText = "background:rgba(255,255,255,0.05); border-radius:12px; padding:10px; cursor:pointer; display:flex; gap:10px; align-items:center; margin-bottom:10px;";
                 card.onclick = () => openNewsModalFromItem(item);
-                card.innerHTML = `<img src="${item.img}" style="width:50px; height:50px; border-radius:8px; object-fit:cover;"><div style="flex:1; min-width:0;"><div style="font-size:0.85rem; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${item.title}</div><div style="font-size:0.7rem; color:#ffd700;">${item.source} • ${item.date}</div></div>`;
+                card.innerHTML = `<img src="${item.img}" style="width:50px; height:50px; border-radius:8px; object-fit:cover;" onerror="this.onerror=null; this.src='https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(item.title)}';"><div style="flex:1; min-width:0;"><div style="font-size:0.85rem; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${item.title}</div><div style="font-size:0.7rem; color:#ffd700;">${item.source} • ${item.date}</div></div>`;
                 container.appendChild(card);
             });
             controlPanelNewsIndex += 10;
