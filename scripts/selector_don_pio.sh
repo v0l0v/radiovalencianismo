@@ -41,6 +41,12 @@ SELECTED="${AVAILABLE[$RANDOM % ${#AVAILABLE[@]}]}"
 # Usamos ln -sfn para forzar el cambio si ya existe
 ln -sfn "$SELECTED" "actual"
 
+# ACTUALIZACIÓN REMOTA: Cambiar también el enlace en el servidor "laradio"
+VPS_IP="54.36.100.247"
+REMOTE_DIR="/home/debian/radiovalencianismo/backend/mp3/programas/horaDonPio"
+ssh debian@$VPS_IP "cd \"$REMOTE_DIR\" && ln -sfn \"$SELECTED\" \"actual\""
+
+
 # Guardar la elegida en el historial
 echo "$SELECTED" >> "$HISTORIAL"
 

@@ -5,3 +5,6 @@ node_modules/
 n8n_data/*.sqlite-shm
 n8n_data/*.sqlite-wal
 noticia_actual.txt
+.env
+*.save
+*.tmp
