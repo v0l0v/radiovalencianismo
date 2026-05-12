@@ -16,7 +16,7 @@ musica_normal = playlist(mode="randomize", reload_mode="watch", "/mp3/generico")
 # Programa "Gotham VCF" (Solo el último descargado)
 # Se emite en las horas impares y también por el canal de emergencia
 # Filtramos explícitamente para que solo lea archivos mp3
-gotham = playlist(mode="randomize", reload_mode="watch", loop=true, "/mp3/programas/gothamvcf/*.mp3")
+gotham = playlist(mode="randomize", reload_mode="watch", loop=true, "/mp3/programas/gothamvcf")
 
 # Programa "La Hora Don Pío" (suena a las horas pares)
 don_pio = playlist(mode="randomize", reload=600, reload_mode="watch", loop=false, "/mp3/programas/horaDonPio/actual/*.mp3")
