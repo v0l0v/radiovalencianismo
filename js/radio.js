@@ -32,13 +32,13 @@ document.addEventListener('DOMContentLoaded', () => {
             if (typeof REFRANES !== 'undefined' && REFRANES.length > 0) {
                 const randomRefran = REFRANES[Math.floor(Math.random() * REFRANES.length)];
                 const parts = randomRefran.split(' (');
-                refranText.innerHTML = `"${parts[0]}"`;
+                refranText.innerHTML = `"${parts[0]}"<br><span style="font-size:0.8rem; opacity:0.6; font-style: normal;">(refrán valenciano)</span>`;
             } else {
-                refranText.innerHTML = '"A poc a poc s\'ompli la gerra"';
+                refranText.innerHTML = '"A poc a poc s\'ompli la gerra"<br><span style="font-size:0.8rem; opacity:0.6; font-style: normal;">(refrán valenciano)</span>';
             }
         } catch (error) {
             console.error("Error loading refranes:", error);
-            refranText.innerHTML = '"A poc a poc s\'ompli la gerra"';
+            refranText.innerHTML = '"A poc a poc s\'ompli la gerra"<br><span style="font-size:0.8rem; opacity:0.6; font-style: normal;">(refrán valenciano)</span>';
         }
     }
 
