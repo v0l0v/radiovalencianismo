@@ -76,3 +76,4 @@ volumes:
   caddy_data:
   caddy_config:
   n8n_data:
+  portainer_data:
