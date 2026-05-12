@@ -955,16 +955,32 @@
             const cleanSource = (item.source || "Noticia").replace(/'/g, "\\'");
             
             let sourceIcon = (item.feedImage || "").replace(/&amp;/g, '&');
+            // Mejora Especial: Si es Facebook, intentamos sacar la foto de perfil real del medio
             if (item.link.includes("facebook.com")) {
                 try {
                     let fbUser = "";
-                    if (item.link.includes("/posts/")) fbUser = item.link.split("/posts/")[0].split("/").pop();
-                    else if (item.link.includes("/photos/")) fbUser = item.link.split("/photos/")[0].split("/").pop();
-                    else if (item.link.includes("/videos/")) fbUser = item.link.split("/videos/")[0].split("/").pop();
-                    else if (item.link.includes("/reel/")) fbUser = item.link.split("/reel/")[0].split("/").pop();
-                    else if (item.link.includes("facebook.com/")) fbUser = item.link.split("facebook.com/")[1].split("/")[0];
+                    
+                    // Diccionario de emergencia para fuentes con enlaces numéricos
+                    const sourceToFbMap = {
+                        "Lo Rat Penat": "LoRatPenatSocietat",
+                        "Real Acadèmia de Cultura Valenciana": "RACV",
+                        "RACV": "RACV",
+                        "Cátedra de Eméritos de la RACV": "RACV"
+                    };
 
-                    if (fbUser && !["groups", "events", "reel", "share", "profile.php"].includes(fbUser)) {
+                    // Si la fuente está en nuestro diccionario, usamos ese usuario directamente
+                    if (sourceToFbMap[item.source]) {
+                        fbUser = sourceToFbMap[item.source];
+                    } else {
+                        // Si no, intentamos extraerlo de la URL de forma robusta
+                        if (item.link.includes("/posts/")) fbUser = item.link.split("/posts/")[0].split("/").pop();
+                        else if (item.link.includes("/photos/")) fbUser = item.link.split("/photos/")[0].split("/").pop();
+                        else if (item.link.includes("/videos/")) fbUser = item.link.split("/videos/")[0].split("/").pop();
+                        else if (item.link.includes("/reel/")) fbUser = item.link.split("/reel/")[0].split("/").pop();
+                        else if (item.link.includes("facebook.com/")) fbUser = item.link.split("facebook.com/")[1].split("/")[0];
+                    }
+
+                    if (fbUser && !["groups", "events", "reel", "share", "profile.php", "photo", "photo.php"].includes(fbUser)) {
                         sourceIcon = `https://unavatar.io/facebook/${fbUser}`;
                     }
                 } catch(e) {}
