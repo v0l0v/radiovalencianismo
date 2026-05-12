@@ -301,7 +301,7 @@
     </audio>
 
     <script src="js/refranes.js"></script>
-    <script src="js/radio.js?v=9"></script></script></script></script></script>
+    <script src="js/radio.js?v=9"></script>
     <script>
         // Lógica de paridad exacta
         let allNews = [], allPlanes = [], controlPanelNewsIndex = 0, currentModalSourceType = 'news';
@@ -330,7 +330,19 @@
                     try {
                         const r = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`);
                         const d = await r.json();
-                        if(d.status==='ok') d.items.forEach(i => allNews.push({title:i.title, link:i.link, source:d.feed.title, date:new Date(i.pubDate).toLocaleDateString('es-ES'), img:i.thumbnail||i.enclosure?.link||'assets/default-cover.png', desc:i.description||i.content||''}));
+                        if(d.status==='ok') {
+                            d.items.forEach(i => {
+                                allNews.push({
+                                    title: i.title, 
+                                    link: i.link, 
+                                    source: d.feed.title || "Noticia", 
+                                    date: new Date(i.pubDate).toLocaleDateString('es-ES'), 
+                                    img: i.thumbnail || i.enclosure?.link || 'assets/default-cover.png', 
+                                    desc: i.description || i.content || '',
+                                    feedImage: d.feed.image || ""
+                                });
+                            });
+                        }
                     } catch(e){}
                 }
                 allNews.sort((a,b) => new Date(b.date)-new Date(a.date));
@@ -346,7 +358,19 @@
                     try {
                         const r = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`);
                         const d = await r.json();
-                        if(d.status==='ok') d.items.forEach(i => allPlanes.push({title:i.title, link:i.link, source:d.feed.title, date:new Date(i.pubDate).toLocaleDateString('es-ES'), img:i.thumbnail||i.enclosure?.link||'assets/default-cover.png', desc:i.description||i.content||''}));
+                        if(d.status==='ok') {
+                            d.items.forEach(i => {
+                                allPlanes.push({
+                                    title: i.title, 
+                                    link: i.link, 
+                                    source: d.feed.title || "Planes", 
+                                    date: new Date(i.pubDate).toLocaleDateString('es-ES'), 
+                                    img: i.thumbnail || i.enclosure?.link || 'assets/default-cover.png', 
+                                    desc: i.description || i.content || '',
+                                    feedImage: d.feed.image || ""
+                                });
+                            });
+                        }
                     } catch(e){}
                 }
                 allPlanes.sort((a,b) => new Date(b.date)-new Date(a.date));
@@ -361,7 +385,24 @@
                 const card = document.createElement("div");
                 card.style.cssText = "background:rgba(255,255,255,0.05); border-radius:12px; padding:10px; cursor:pointer; display:flex; gap:10px; align-items:center; margin-bottom:10px;";
                 card.onclick = () => openNewsModalFromItem(item);
-                card.innerHTML = `<img src="${item.img}" style="width:50px; height:50px; border-radius:8px; object-fit:cover;" onerror="this.onerror=null; this.src='https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(item.title)}';"><div style="flex:1; min-width:0;"><div style="font-size:0.85rem; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${item.title}</div><div style="font-size:0.7rem; color:#ffd700;">${item.source} • ${item.date}</div></div>`;
+                
+                let domain = "";
+                try { domain = new URL(item.link).hostname; } catch(e) {}
+                
+                const safeImg = (item.img || "").replace(/&amp;/g, '&');
+                const rawIcon = item.feedImage || (domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=64` : "");
+                const safeIcon = (rawIcon || "").replace(/&amp;/g, '&');
+                const fallbackInitials = `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(item.source)}&fontSize=45`;
+
+                card.innerHTML = `
+                    <div style="position: relative; width: 50px; height: 50px; flex-shrink: 0;">
+                        <img src="${safeImg}" style="width:50px; height:50px; border-radius:8px; object-fit:cover;" onerror="this.onerror=null; this.src='https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(item.title)}';">
+                        <img src="${safeIcon || fallbackInitials}" style="position: absolute; bottom: -2px; right: -2px; width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid #000; background: #fff;" onerror="if(this.src.indexOf('google.com') === -1 && '${domain}') { this.src='https://www.google.com/s2/favicons?domain=${domain}&sz=64'; } else { this.onerror=null; this.src='${fallbackInitials}'; }">
+                    </div>
+                    <div style="flex:1; min-width:0;">
+                        <div style="font-size:0.85rem; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${item.title}</div>
+                        <div style="font-size:0.7rem; color:#ffd700;">${item.source} • ${item.date}</div>
+                    </div>`;
                 container.appendChild(card);
             });
             controlPanelNewsIndex += 10;
