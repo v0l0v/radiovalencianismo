@@ -967,66 +967,15 @@
 
         document.addEventListener('DOMContentLoaded', () => {
             loadFeeds();
-            loadPlanesFeeds();
             
             // Auto-actualizar noticias cada 5 minutos
             setInterval(() => {
                 console.log("Actualizando noticias automáticamente...");
                 loadFeeds();
-                loadPlanesFeeds();
             }, 300000); 
         });
 
-        let allPlanes = [];
-        let planesIndex = 0;
-        let isFetchingNextPlanesChunk = false;
 
-        async function loadPlanesFeeds() {
-            try {
-                const response = await fetch(`feedsvalenciaplanes.txt?v=${Date.now()}`);
-                if (!response.ok) throw new Error("No se pudo cargar feedsvalenciaplanes.txt");
-                const text = await response.text();
-                const urls = text.split('\n').map(u => u.trim()).filter(u => u.length > 0);
-                
-                allPlanes = [];
-                
-                for (const url of urls) {
-                    try {
-                        const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`);
-                        const data = await res.json();
-                        if (data.status === 'ok' && data.items) {
-                            let cleanSource = data.feed.title || "PLANES CV";
-                            cleanSource = cleanSource.replace(/[\-\|•].*/g, '').trim();
-                            cleanSource = cleanSource.replace(/\bPage\b/gi, '').replace(/\bFeed\b/gi, '').replace(/\bRSS\b/gi, '').replace(/\bPosts\b/gi, '').replace(/\s+/g, ' ').trim();
-                            if (!cleanSource) cleanSource = "PLANES CV";
-
-                            data.items.forEach(item => {
-                                const rawDate = item.pubDate ? new Date(item.pubDate) : new Date();
-                                allPlanes.push({
-                                    title: makeLongerTitle(item.title, item.description || item.content),
-                                    link: item.link,
-                                    source: cleanSource,
-                                    rawDate: rawDate,
-                                    date: rawDate.toLocaleDateString('es-ES'),
-                                    tag: item.categories?.[0] || "Planes",
-                                    desc: stripEmojis(item.description || item.content || "No hay descripción disponible para esta noticia."),
-                                    img: item.thumbnail || item.enclosure?.link || `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(item.title)}`,
-                                    feedImage: data.feed.image || ""
-                                });
-                            });
-                        }
-                    } catch (err) {
-                        console.error("Error fetching planes feed: " + url, err);
-                    }
-                }
-                
-                if (allPlanes.length > 0) {
-                    allPlanes.sort((a, b) => b.rawDate - a.rawDate);
-                }
-            } catch (error) {
-                console.error("Error loading feedsvalenciaplanes.txt:", error);
-            }
-        }
 
         function redirectNews(card) {
             const url = card.getAttribute('data-url');
