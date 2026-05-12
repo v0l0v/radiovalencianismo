@@ -13,32 +13,7 @@ YT_DLP_PATH = "yt-dlp"
 RSYNC_ENABLED = True
 RSYNC_TARGET = "debian@54.36.100.247:/home/debian/radiovalencianismo/backend/mp3/programas/"
 
-def generar_cuna_ia(base_path):
-    """
-    Usa el servicio siro_tts (puerto 8002) de La Máquina para generar la cuña de aviso.
-    """
-    texto = "Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo."
-    print(f"🎙️ Generando cuña por IA: '{texto}'")
-    
-    url_tts = "http://localhost:8002/api/tts" # Ajustar si el endpoint es distinto
-    payload = {
-        "text": texto,
-        "speaker": "es_0", # Voz por defecto, se puede cambiar
-        "speed": 1.0
-    }
-    
-    try:
-        response = requests.post(url_tts, json=payload, timeout=30)
-        if response.status_code == 200:
-            cuna_path = os.path.join(base_path, "backend/mp3/alertas/gotham_urgente.mp3")
-            os.makedirs(os.path.dirname(cuna_path), exist_ok=True)
-            with open(cuna_path, "wb") as f:
-                f.write(response.content)
-            print("✅ Cuña generada con éxito.")
-            return True
-    except Exception as e:
-        print(f"⚠️ No se pudo generar la cuña por IA: {e}")
-    return False
+
 
 def download_videos(feed_filename):
     """
@@ -64,9 +39,7 @@ def download_videos(feed_filename):
 
     print(f"=== Iniciando Automatización para: {program_folder} ===")
     
-    # --- NOVEDAD: Si es Gotham, generamos la cuña de aviso con IA ---
-    if program_folder == "gothamvcf":
-        generar_cuna_ia(base_path)
+    # El sistema ahora usa el archivo alerta.mp3 estático que debe estar en la carpeta del programa.
 
     try:
         response = requests.get(rss_url, timeout=30)
