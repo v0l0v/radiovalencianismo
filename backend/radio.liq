@@ -19,7 +19,7 @@ musica_normal = playlist(mode="randomize", reload_mode="watch", "/mp3/generico")
 gotham = playlist(mode="randomize", reload_mode="watch", loop=true, "/mp3/programas/gothamvcf")
 
 # Programa "La Hora Don Pío" (suena a las horas pares)
-don_pio = playlist(mode="randomize", reload=600, reload_mode="watch", loop=false, "/mp3/programas/horaDonPio/actual/*.mp3")
+don_pio = playlist(mode="randomize", reload=600, reload_mode="watch", loop=false, "/mp3/programas/horaDonPio/")
 
 # 2. Programación de la Parrilla
 parrilla = switch(track_sensitive=false, [

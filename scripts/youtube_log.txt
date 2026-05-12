@@ -1,0 +1,1143 @@
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=bSsGXB3yc9s ---
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=bSsGXB3yc9s ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=bSsGXB3yc9s ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=bSsGXB3yc9s ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=bSsGXB3yc9s ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=bSsGXB3yc9s ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=bSsGXB3yc9s ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=bSsGXB3yc9s ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=bSsGXB3yc9s ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=gicQO_LJ8Ds ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=gicQO_LJ8Ds ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=gicQO_LJ8Ds ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=gicQO_LJ8Ds ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=gicQO_LJ8Ds ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=gicQO_LJ8Ds ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=gicQO_LJ8Ds ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=gicQO_LJ8Ds ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=gicQO_LJ8Ds ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=gicQO_LJ8Ds ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=gicQO_LJ8Ds ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=gicQO_LJ8Ds ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=gicQO_LJ8Ds ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=gicQO_LJ8Ds ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=gicQO_LJ8Ds ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=RZSUDhmli4g ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=RZSUDhmli4g ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=RZSUDhmli4g ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=RZSUDhmli4g ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=RZSUDhmli4g ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=RZSUDhmli4g ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=RZSUDhmli4g ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=RZSUDhmli4g ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=RZSUDhmli4g ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=RZSUDhmli4g ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=RZSUDhmli4g ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=RZSUDhmli4g ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=RZSUDhmli4g ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=RZSUDhmli4g ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=RZSUDhmli4g ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=RZSUDhmli4g ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=RZSUDhmli4g ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=RZSUDhmli4g ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=RZSUDhmli4g ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=RZSUDhmli4g ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=RZSUDhmli4g ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=RZSUDhmli4g ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=RZSUDhmli4g ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=RZSUDhmli4g ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=Sfdc0n0Fx_M ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=Sfdc0n0Fx_M ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=Sfdc0n0Fx_M ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=Sfdc0n0Fx_M ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=Sfdc0n0Fx_M ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=Sfdc0n0Fx_M ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=Sfdc0n0Fx_M ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=Sfdc0n0Fx_M ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=Sfdc0n0Fx_M ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=Sfdc0n0Fx_M ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=Sfdc0n0Fx_M ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=Sfdc0n0Fx_M ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=Sfdc0n0Fx_M ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=Sfdc0n0Fx_M ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=Sfdc0n0Fx_M ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=Sfdc0n0Fx_M ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=Sfdc0n0Fx_M ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=Sfdc0n0Fx_M ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=Sfdc0n0Fx_M ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=Sfdc0n0Fx_M ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=Sfdc0n0Fx_M ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=Sfdc0n0Fx_M ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=Sfdc0n0Fx_M ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=Sfdc0n0Fx_M ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+Feed: https://rss.app/feeds/NOCHjF1aw4cHciyE.xml
+Carpeta de destino: /home/debian/radiovalencianismo/backend/mp3/programas/gothamvcf
+Se detectaron 3 vídeos recientes. Verificando descargas...
+
+--- Procesando: https://www.youtube.com/watch?v=Sfdc0n0Fx_M ---
+Usando archivo de cookies detectado...
+Error durante el procesamiento del feed gothamvcf.txt: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f3bffc56a90>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=_jFJNSy3KJg ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f7abfaeebd0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=_jFJNSy3KJg ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f041365ebd0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=_jFJNSy3KJg ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f02e30eeb10>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=_jFJNSy3KJg ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f6cc9627e10>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=_jFJNSy3KJg ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fc233836b10>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=_jFJNSy3KJg ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f58272c2bd0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=_jFJNSy3KJg ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fbe8a827110>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=_jFJNSy3KJg ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f0ff715e950>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=_jFJNSy3KJg ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f3004a4a910>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=_jFJNSy3KJg ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f1e0b436790>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=_jFJNSy3KJg ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7ff0d1c5ebd0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=_jFJNSy3KJg ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f401d7b2a50>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=_jFJNSy3KJg ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f3441c5e710>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=_jFJNSy3KJg ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f89703be8d0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=_jFJNSy3KJg ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f96e28e29d0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=_jFJNSy3KJg ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f13913eeb50>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=_jFJNSy3KJg ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f26f5fe6d90>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=_jFJNSy3KJg ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f1a9a7be950>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=_jFJNSy3KJg ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f3d7a6eebd0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=_jFJNSy3KJg ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f016e236790>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=_jFJNSy3KJg ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f8f861eeb50>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=_jFJNSy3KJg ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fc4973c6b50>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=_jFJNSy3KJg ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fe2b7f4ea50>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=gufQmhHVmdQ ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f1906e56c10>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=gufQmhHVmdQ ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7ff338656a90>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=gufQmhHVmdQ ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7ff1600ee7d0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=gufQmhHVmdQ ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f5bd0256990>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=gufQmhHVmdQ ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f46776e6990>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=gufQmhHVmdQ ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f2e7e13ed90>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=gufQmhHVmdQ ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f8e2daeaa90>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=gufQmhHVmdQ ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f1955feeb50>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=gufQmhHVmdQ ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f147488e710>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=qhaNQwvaNC8 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f58e6cf7750>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=qhaNQwvaNC8 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f231c6a99d0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=qhaNQwvaNC8 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f0b9da099d0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=qhaNQwvaNC8 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f8d873b9d10>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=qhaNQwvaNC8 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fca407b1990>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=qhaNQwvaNC8 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f178fd59ad0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=qhaNQwvaNC8 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fd4b68dd910>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=qhaNQwvaNC8 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f18b2169990>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=qhaNQwvaNC8 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f30d34619d0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=qhaNQwvaNC8 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f4ca6afda90>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=qhaNQwvaNC8 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f171c1d1ad0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=qhaNQwvaNC8 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f6efcfa5b50>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=qhaNQwvaNC8 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fea2be62950>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=qhaNQwvaNC8 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7ff9e7905d50>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=qhaNQwvaNC8 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f9334f71ad0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=TMbzt-u7DX4 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fb61b7fdd90>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=TMbzt-u7DX4 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fba87ffda90>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=TMbzt-u7DX4 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fe8806f5d50>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=TMbzt-u7DX4 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f01766c1c50>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=TMbzt-u7DX4 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f7fbbd81990>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=TMbzt-u7DX4 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fbc0c059990>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=TMbzt-u7DX4 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f127e5a5b50>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=TMbzt-u7DX4 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f94cd179990>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=TMbzt-u7DX4 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fb3cd8099d0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=TMbzt-u7DX4 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f02a7d79990>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=TMbzt-u7DX4 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7ffb2473f7d0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=TMbzt-u7DX4 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f297deddc90>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=TMbzt-u7DX4 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f722aed9a90>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=TMbzt-u7DX4 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f5a8db81990>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=TMbzt-u7DX4 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f8d25a099d0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=TMbzt-u7DX4 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fe763d577d0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=TMbzt-u7DX4 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fc7c3e71ed0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=TMbzt-u7DX4 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fa5d54177d0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=TMbzt-u7DX4 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f2fd1aca950>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=TMbzt-u7DX4 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f92480099d0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=TMbzt-u7DX4 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f4cfd0a1e10>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=TMbzt-u7DX4 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f9c5adfda90>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=TMbzt-u7DX4 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f772a4d5d50>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=TMbzt-u7DX4 ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7feb90fd9a50>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=ULvLI-45eWE ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fb1e3f05a50>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=ULvLI-45eWE ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7ff1ba901a10>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=ULvLI-45eWE ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f27cfd81990>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=ULvLI-45eWE ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fdd6fa55c10>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=ULvLI-45eWE ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f32de9cebd0>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=ULvLI-45eWE ---
+Error durante el procesamiento: [Errno 2] No such file or directory: '/home/debian/.local/bin/yt-dlp'
+[download] ULvLI-45eWE: has already been recorded in the archive
+Permission denied, please try again.
+Permission denied, please try again.
+debian@54.36.100.247: Permission denied (publickey,password).
+rsync: connection unexpectedly closed (0 bytes received so far) [sender]
+rsync error: error in rsync protocol data stream (code 12) at io.c(232) [sender=3.2.7]
+Permission denied, please try again.
+Permission denied, please try again.
+debian@54.36.100.247: Permission denied (publickey,password).
+rsync: connection unexpectedly closed (0 bytes received so far) [sender]
+rsync error: error in rsync protocol data stream (code 12) at io.c(232) [sender=3.2.7]
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7f1b78b01b90>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=ULvLI-45eWE ---
+Iniciando sincronización selectiva con el servidor de la radio...
+📤 Subiendo episodios de Gotham...
+📤 Subiendo cuñas/alertas...
+✅ Sincronización selectiva completa.
