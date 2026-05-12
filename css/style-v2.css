@@ -205,10 +205,12 @@ body {
 }
 
 .record-player {
-    width: min(280px, 70vw);
-    height: min(280px, 70vw);
+    width: min(300px, 70vw);
+    height: min(300px, 70vw);
+    aspect-ratio: 1 / 1; /* Forzar proporción circular */
+    flex-shrink: 0; /* No permitir que se aplaste */
     position: relative;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
 }
 
 .vinyl-wrapper {
