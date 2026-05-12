@@ -8,7 +8,7 @@ import time
 # La carpeta base para las descargas de audios
 BASE_DEST_DIR = "backend/mp3/programas"
 # Ruta de yt-dlp (ajustada para el servidor privado)
-YT_DLP_PATH = os.path.expanduser("~/.local/bin/yt-dlp")
+YT_DLP_PATH = "/usr/local/bin/yt-dlp"
 # Configuración del puente de envío (rsync)
 RSYNC_ENABLED = True
 RSYNC_TARGET = "debian@54.36.100.247:/home/debian/radiovalencianismo/backend/mp3/programas/"
