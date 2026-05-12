@@ -914,18 +914,21 @@
             card.setAttribute('data-date', item.date);
             card.setAttribute('data-desc', item.desc);
             
-            // 1. Extraer dominio para el Favicon de Google
             let domain = "";
             try { domain = new URL(item.link).hostname; } catch(e) { domain = ""; }
             
-            // 2. Limpiar URLs de entidades HTML (&amp;)
+            // Lógica de logo ultra-robusta (Nivel 1: Original / CDN)
             const safeItemImg = (item.img || "").replace(/&amp;/g, '&');
-            const rawSourceIcon = item.feedImage || (domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=64` : "");
-            const safeSourceIcon = (rawSourceIcon || "").replace(/&amp;/g, '&');
+            const cleanSource = (item.source || "Noticia").replace(/'/g, "\\'");
             
-            // 3. Escapar comillas para el onerror
-            const cleanSourceForJS = (item.source || "Noticia").replace(/'/g, "\\'");
-            const fallbackInitials = `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(cleanSourceForJS)}&fontSize=45`;
+            let initialLogo = item.feedImage || "";
+            // Si es un logo de Facebook/CDN que suele caducar, saltamos directamente a Google Favicon
+            if (!initialLogo || initialLogo.includes("fbcdn.net") || initialLogo.includes("fb.com")) {
+                initialLogo = domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=64` : "";
+            }
+            
+            // Limpieza final de la URL
+            const finalLogo = initialLogo.replace(/&amp;/g, '&') || `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(cleanSource)}&fontSize=45`;
             
             card.innerHTML = `
                 <div class="news-card-img-container" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 1; overflow: hidden;">
@@ -935,7 +938,7 @@
                 <h4 class="news-title" style="position: relative; z-index: 2; margin-top: 5px; margin-bottom: 10px; font-size: 0.95rem; line-height: 1.3; font-weight: 700; text-shadow: 0 2px 4px rgba(0,0,0,0.5);">${item.title}</h4>
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-top: auto; position: relative; z-index: 2; border-top: 1px solid rgba(255,255,255,0.15); padding-top: 10px;">
                     <div style="display: flex; align-items: center; gap: 8px;">
-                        <img src="${safeSourceIcon || fallbackInitials}" class="news-source-img" style="width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.3); background: #fff;" onerror="if(this.src.indexOf('google.com') === -1 && '${domain}') { this.src='https://www.google.com/s2/favicons?domain=${domain}&sz=64'; } else { this.onerror=null; this.src='${fallbackInitials}'; }" alt="Source Icon">
+                        <img src="${finalLogo}" class="news-source-img" style="width: 22px; height: 22px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.3); background: #fff;" onerror="this.onerror=null; this.src='https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(cleanSource)}&fontSize=45';" alt="Source Icon">
                         <div class="news-source" style="text-shadow: 0 1px 4px rgba(0,0,0,0.9); font-size: 0.8rem; font-weight: 700; color: #ffd700;">${item.source}</div>
                     </div>
                     <div class="news-date" style="font-size: 0.7rem; color: rgba(255,255,255,0.8); font-weight: 600; text-shadow: 0 1px 3px rgba(0,0,0,0.9);">${item.date}</div>

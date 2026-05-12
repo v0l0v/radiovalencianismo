@@ -136,7 +136,7 @@ def download_videos(feed_filename):
                         cmd_args = ["ffmpeg", "-y", "-nostdin", "-i", full_mp3_path]
                         
                         # 3. Añadir carátula si existe
-                        cover_files = [cf for cf in os.listdir(dest_path) if cf.lower().endswith(".jpg")]
+                        cover_files = [cf for cf in os.listdir(dest_path) if cf.lower().endswith((".jpg", ".png"))]
                         if cover_files:
                             cover_path = os.path.join(dest_path, cover_files[0])
                             cmd_args += ["-i", cover_path, "-map", "0:a", "-map", "1:v"]
