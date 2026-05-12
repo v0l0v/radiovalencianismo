@@ -866,7 +866,7 @@
 
         async function loadFeeds() {
             try {
-                const response = await fetch('feeds.txt');
+                const response = await fetch(`feeds.txt?v=${Date.now()}`);
                 if (!response.ok) throw new Error("No se pudo cargar feeds.txt");
                 const text = await response.text();
                 const urls = text.split('\n').map(u => u.trim()).filter(u => u.length > 0);
@@ -983,7 +983,7 @@
 
         async function loadPlanesFeeds() {
             try {
-                const response = await fetch('feedsvalenciaplanes.txt');
+                const response = await fetch(`feedsvalenciaplanes.txt?v=${Date.now()}`);
                 if (!response.ok) throw new Error("No se pudo cargar feedsvalenciaplanes.txt");
                 const text = await response.text();
                 const urls = text.split('\n').map(u => u.trim()).filter(u => u.length > 0);
