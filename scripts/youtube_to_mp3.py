@@ -7,8 +7,8 @@ import time
 
 # La carpeta base para las descargas de audios
 BASE_DEST_DIR = "backend/mp3/programas"
-# Ruta de yt-dlp (ajustada para el servidor privado)
-YT_DLP_PATH = "/usr/local/bin/yt-dlp"
+# Ruta de yt-dlp (se busca en el PATH del sistema)
+YT_DLP_PATH = "yt-dlp"
 # Configuración del puente de envío (rsync)
 RSYNC_ENABLED = True
 RSYNC_TARGET = "debian@54.36.100.247:/home/debian/radiovalencianismo/backend/mp3/programas/"
@@ -180,9 +180,9 @@ def download_videos(feed_filename):
                 dest_alertas = RSYNC_TARGET.replace("/programas/", "/alertas/")
                 
                 print(f"📤 Subiendo episodios de Gotham...")
-                subprocess.run(["rsync", "-avz", "--delete", "--exclude=*.txt", src_gotham, dest_gotham])
+                subprocess.run(["rsync", "-avz", "--exclude=*.txt", src_gotham, dest_gotham])
                 print(f"📤 Subiendo cuñas/alertas...")
-                subprocess.run(["rsync", "-avz", "--delete", "--exclude=*.txt", src_alertas, dest_alertas])
+                subprocess.run(["rsync", "-avz", "--exclude=*.txt", src_alertas, dest_alertas])
             else:
                 # Espejo completo para el resto de programas
                 sync_cmd = ["rsync", "-avz", "--delete", os.path.join(base_path, "backend/"), RSYNC_TARGET.replace("/programas/", "/")]
