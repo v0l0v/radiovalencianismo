@@ -940,7 +940,18 @@
             // Prioridad 1: Imagen directa del feed (limpia de &amp;)
             let sourceIcon = (item.feedImage || "").replace(/&amp;/g, '&');
             
-            // Prioridad 2: Si no hay imagen en el feed, probamos Google Favicon
+            // Mejora Especial: Si es Facebook, intentamos sacar la foto de perfil real del medio
+            if (item.link.includes("facebook.com")) {
+                try {
+                    const fbPath = item.link.split("facebook.com/")[1] || "";
+                    const fbUser = fbPath.split("/")[0];
+                    if (fbUser && !["groups", "events", "reel", "share"].includes(fbUser)) {
+                        sourceIcon = `https://unavatar.io/facebook/${fbUser}`;
+                    }
+                } catch(e) {}
+            }
+            
+            // Prioridad 2: Si no hay imagen o no es de red social, probamos Google Favicon
             if (!sourceIcon && domain) {
                 sourceIcon = `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
             }
