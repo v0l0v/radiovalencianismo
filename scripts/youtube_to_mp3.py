@@ -126,6 +126,10 @@ def download_videos(feed_filename):
                         # Sustituir el carácter raro de la barra (⧸) por una barra normal (/) o guion
                         clean_title = clean_title.replace("⧸", "/").replace("⧹", "\\")
                         
+                        # Asegurar que el título contiene el nombre del programa para que el frontend cargue la carátula
+                        if program_folder == "gothamvcf" and "gotham" not in clean_title.lower():
+                            clean_title = f"Gotham VCF - {clean_title}"
+                        
                         tmp_mp3 = os.path.join(dest_path, f"tmp_{f}")
                         
                         # 2. Preparar comando base de ffmpeg para metadatos
