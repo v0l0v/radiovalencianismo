@@ -403,38 +403,10 @@
                 try { domain = new URL(item.link).hostname; } catch(e) {}
                 
                 const safeImg = (item.img || "").replace(/&amp;/g, '&');
-                const cleanSource = (item.source || "Noticia").replace(/'/g, "\\'");
-                
-                // Prioridad 1: Imagen directa del feed
-                let sourceIcon = (item.feedImage || "").replace(/&amp;/g, '&');
-                
-                // Mejora Especial: Si es Facebook, intentamos sacar la foto de perfil real del medio
-                if (item.link.includes("facebook.com")) {
-                    try {
-                        let fbUser = "";
-                        if (item.link.includes("/posts/")) fbUser = item.link.split("/posts/")[0].split("/").pop();
-                        else if (item.link.includes("/photos/")) fbUser = item.link.split("/photos/")[0].split("/").pop();
-                        else if (item.link.includes("/videos/")) fbUser = item.link.split("/videos/")[0].split("/").pop();
-                        else if (item.link.includes("/reel/")) fbUser = item.link.split("/reel/")[0].split("/").pop();
-                        else if (item.link.includes("facebook.com/")) fbUser = item.link.split("facebook.com/")[1].split("/")[0];
-
-                        if (fbUser && !["groups", "events", "reel", "share", "profile.php"].includes(fbUser)) {
-                            sourceIcon = `https://unavatar.io/facebook/${fbUser}`;
-                        }
-                    } catch(e) {}
-                }
-                
-                // Prioridad 2: Google Favicon si no hay imagen y NO es Facebook
-                if (!sourceIcon && domain && !domain.includes("facebook.com")) {
-                    sourceIcon = `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
-                }
-                
-                const fallbackLogo = `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(cleanSource)}&fontSize=45`;
 
                 card.innerHTML = `
                     <div style="position: relative; width: 50px; height: 50px; flex-shrink: 0;">
                         <img src="${safeImg}" style="width:50px; height:50px; border-radius:8px; object-fit:cover;" onerror="this.onerror=null; this.src='https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(item.title)}';">
-                        <img src="${sourceIcon || fallbackLogo}" style="position: absolute; bottom: -2px; right: -2px; width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid #000; background: #fff;" onerror="if(this.src.indexOf('google.com') === -1 && '${domain}') { this.src='https://www.google.com/s2/favicons?domain=${domain}&sz=64'; } else { this.onerror=null; this.src='${fallbackLogo}'; }">
                     </div>
                     <div style="flex:1; min-width:0;">
                         <div style="font-size:0.85rem; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${item.title}</div>
