@@ -57,8 +57,7 @@ def download_videos(feed_filename):
             print("No se encontraron vídeos de YouTube en este feed.")
             return
 
-        # Revisar los últimos 5 para encontrar el más reciente que sea público y no hayamos bajado
-        links = links[:5]
+        # Buscamos el más reciente que sea público y no hayamos bajado
         
         # Leer el archivo de archivo una sola vez para comparar rápido
         archived_ids = []
@@ -69,22 +68,20 @@ def download_videos(feed_filename):
         if not os.path.exists(dest_path):
             os.makedirs(dest_path, exist_ok=True)
             
-        # --- NOVEDAD: Limpieza total para Gotham (Solo queremos el último) ---
-        if program_folder == "gothamvcf":
-            print("🧹 Limpiando episodios antiguos de Gotham...")
-            for f in os.listdir(dest_path):
-                if f.endswith(".mp3"):
-                    os.remove(os.path.join(dest_path, f))
-
+        # Recorrer el feed buscando el más reciente que podamos bajar
+        # Si encontramos uno ya archivado, paramos (ya estamos al día)
         ultimo_audio_path = ""
         for video_url in links:
             video_id = video_url.split("v=")[-1] if "v=" in video_url else video_url.split("/")[-1]
             
             if video_id in archived_ids:
-                print(f"⏭️ El vídeo {video_id} ya está en el archivo. Saltando...")
-                continue
+                print(f"🛑 El vídeo {video_id} ya ha sido procesado. Estamos al día. Finalizando.")
+                break
 
-            print(f"\n--- Procesando: {video_url} ---")
+            print(f"\n--- Procesando novedad: {video_url} ---")
+            
+            # Memorizar archivos antes de descargar para identificar el nuevo
+            files_before = set(os.listdir(dest_path))
             
             # Usamos el título real del vídeo para que en la radio se vea cuál es
             out_template = f"{dest_path}/%(title)s.%(ext)s"
@@ -96,15 +93,27 @@ def download_videos(feed_filename):
                 "--extractor-args", "youtube:player_client=android;player_skip=web,web_embedded,tv,ios",
                 video_url
             ]
-
-            # Las cookies están deshabilitadas físicamente en el servidor
             
             res = subprocess.run(cmd)
             if res.returncode == 0:
-                # Buscamos el archivo que acabamos de bajar
-                for f in os.listdir(dest_path):
-                    if f.endswith(".mp3") and not f.startswith("tmp_"):
-                        full_mp3_path = os.path.join(dest_path, f)
+                files_after = set(os.listdir(dest_path))
+                new_files = [f for f in (files_after - files_before) if f.endswith(".mp3") and not f.startswith("tmp_")]
+                
+                if not new_files:
+                    # Probablemente ya existía el archivo o yt-dlp no descargó nada nuevo
+                    print("ℹ️ No se detectó un archivo nuevo (posiblemente ya existía).")
+                    continue
+
+                f = new_files[0]
+                full_mp3_path = os.path.join(dest_path, f)
+
+                # --- LIMPIEZA: Ahora sí, borramos los viejos si es Gotham ---
+                if program_folder == "gothamvcf":
+                    print(f"🧹 Sustituyendo episodio antiguo por: {f}")
+                    for f_old in files_before:
+                        if f_old.endswith(".mp3") and f_old != f:
+                            try: os.remove(os.path.join(dest_path, f_old))
+                            except: pass
                         
                         # 1. Definir título limpio (quitar extensión y arreglar caracteres raros)
                         clean_title = f.replace(".mp3", "")
@@ -151,40 +160,22 @@ def download_videos(feed_filename):
                             if os.path.exists(tmp_mp3): os.remove(tmp_mp3)
                             print("⚠️ Error al aplicar metadatos.")
 
-                        if program_folder == "gothamvcf":
-                            ultimo_audio_path = f"/mp3/programas/gothamvcf/{f}"
                         break
 
         if RSYNC_ENABLED:
             print(f"Iniciando sincronización selectiva con el servidor de la radio...")
             if program_folder == "gothamvcf":
-                # Sincronizar solo carpeta gotham y alertas (mucho más rápido)
+                # Sincronizar solo carpeta gotham (mucho más rápido)
                 src_gotham = os.path.join(base_path, "backend/mp3/programas/gothamvcf/")
                 dest_gotham = RSYNC_TARGET + "gothamvcf/"
-                src_alertas = os.path.join(base_path, "backend/mp3/alertas/")
-                dest_alertas = RSYNC_TARGET.replace("/programas/", "/alertas/")
                 
                 print(f"📤 Subiendo episodios de Gotham...")
                 subprocess.run(["rsync", "-avz", "--exclude=*.txt", src_gotham, dest_gotham])
-                print(f"📤 Subiendo cuñas/alertas...")
-                subprocess.run(["rsync", "-avz", "--exclude=*.txt", src_alertas, dest_alertas])
             else:
                 # Espejo completo para el resto de programas
                 sync_cmd = ["rsync", "-avz", "--delete", os.path.join(base_path, "backend/"), RSYNC_TARGET.replace("/programas/", "/")]
                 subprocess.run(sync_cmd)
-            print("✅ Sincronización selectiva completa.")
-
-            # --- NOVEDAD: Si hay un audio nuevo de Gotham, disparamos la secuencia en la Radio ---
-            if ultimo_audio_path:
-                print("📢 Disparando protocolo de Última Hora en La Radio...")
-                # El host de la radio es el que definimos en RSYNC_TARGET (ej: 100.79.188.3)
-                radio_ip = RSYNC_TARGET.split("@")[1].split(":")[0]
-                radio_user = RSYNC_TARGET.split("@")[0]
-                
-                trigger_cmd = f"ssh {radio_user}@{radio_ip} 'python3 /home/{radio_user}/radiovalencianismo/scripts/lanzar_gotham_urgente.py {ultimo_audio_path}'"
-                # Usamos nohup para que el script de los 5 minutos siga corriendo aunque se cierre el SSH
-                subprocess.Popen(f"nohup {trigger_cmd} > /dev/null 2>&1 &", shell=True)
-                print("🚀 Protocolo activado. ¡En 5 minutos sonará en antena!")
+            print("✅ Sincronización completa.")
 
     except Exception as e:
         print(f"Error durante el procesamiento: {e}")
