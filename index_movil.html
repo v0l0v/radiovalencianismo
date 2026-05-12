@@ -174,84 +174,6 @@
             min-height: 140px !important;
             padding: 15px !important;
         }
-
-        /* Noticias Portada Móvil */
-        .home-news-section {
-            margin-top: 35px;
-            padding: 0 5px 50px 5px;
-        }
-        .home-news-header {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin-bottom: 20px;
-            padding: 0 10px;
-        }
-        .home-news-header h3 {
-            color: #ffd700;
-            font-size: 1.2rem;
-            font-weight: 800;
-            margin: 0;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-        .home-news-card {
-            position: relative;
-            height: 160px;
-            border-radius: 20px;
-            margin-bottom: 18px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.3);
-            display: flex;
-            flex-direction: column;
-            justify-content: flex-end;
-            padding: 15px;
-        }
-        .home-news-card img.bg {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            object-fit: cover;
-            z-index: 0;
-        }
-        .home-news-card .overlay {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: linear-gradient(to bottom, rgba(0,0,0,0.2) 0%, rgba(0,0,0,0.85) 100%);
-            z-index: 1;
-        }
-        .home-news-card .content {
-            position: relative;
-            z-index: 2;
-        }
-        .home-news-card h4 {
-            font-size: 0.95rem;
-            font-weight: 700;
-            color: #fff;
-            margin: 0 0 8px 0;
-            line-height: 1.3;
-            display: -webkit-box;
-            -webkit-line-clamp: 3;
-            -webkit-box-orient: vertical;
-            overflow: hidden;
-        }
-        .home-news-meta {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        .home-news-meta img {
-            width: 18px; height: 18px;
-            border-radius: 50%;
-            background: #fff;
-        }
-        .home-news-meta span {
-            font-size: 0.7rem;
-            font-weight: 600;
-            color: #ffd700;
-        }
     </style>
 </head>
 
@@ -333,18 +255,6 @@
                 </div>
             </div>
         </main>
-
-        <!-- Noticias en Portada (Solo las 8 últimas) -->
-        <section class="home-news-section">
-            <div class="home-news-header">
-                <svg viewBox="0 0 24 24" style="width: 20px; height: 20px; fill: #ffd700;"><path d="M19 5v14H5V5h14m0-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 14H7v-2h7v2zm3-4H7v-2h10v2zm0-4H7V7h10v2z"/></svg>
-                <h3>Últimas Noticias</h3>
-            </div>
-            <div id="home-news-container">
-                <!-- Se cargará dinámicamente -->
-                <div style="text-align: center; padding: 20px; color: #ccc; font-size: 0.9rem; opacity: 0.6;">Cargando actualidad...</div>
-            </div>
-        </section>
 
         <!-- Historial idéntico a index.html -->
         <div class="history-panel" id="history-panel">
@@ -449,54 +359,7 @@
                     } catch(e){}
                 }
                 allNews.sort((a,b) => new Date(b.date)-new Date(a.date));
-                renderHomeNews();
             } catch(e){}
-        }
-
-        function renderHomeNews() {
-            const container = document.getElementById('home-news-container');
-            if (!container) return;
-            container.innerHTML = '';
-            
-            const top8 = allNews.slice(0, 8);
-            top8.forEach(item => {
-                const card = document.createElement('div');
-                card.className = 'home-news-card';
-                card.onclick = () => openNewsModalFromItem(item);
-                
-                let domain = "";
-                try { domain = new URL(item.link).hostname; } catch(e) {}
-                
-                const safeImg = (item.img || "").replace(/&amp;/g, '&');
-                const cleanSource = (item.source || "Noticia").replace(/'/g, "\\'");
-                
-                let sourceIcon = (item.feedImage || "").replace(/&amp;/g, '&');
-                if (item.link.includes("facebook.com")) {
-                    try {
-                        const fbUser = item.link.split("facebook.com/")[1].split("/")[0];
-                        if (fbUser && !["groups", "events", "reel", "share"].includes(fbUser)) {
-                            sourceIcon = `https://unavatar.io/facebook/${fbUser}`;
-                        }
-                    } catch(e) {}
-                }
-                if (!sourceIcon && domain) {
-                    sourceIcon = `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
-                }
-                const fallback = `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(cleanSource)}&fontSize=45`;
-
-                card.innerHTML = `
-                    <img class="bg" src="${safeImg}" onerror="this.src='https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(item.title)}'">
-                    <div class="overlay"></div>
-                    <div class="content">
-                        <h4>${item.title}</h4>
-                        <div class="home-news-meta">
-                            <img src="${sourceIcon || fallback}" onerror="this.src='${fallback}'">
-                            <span>${item.source} • ${item.date}</span>
-                        </div>
-                    </div>
-                `;
-                container.appendChild(card);
-            });
         }
 
         async function loadPlanesFeeds() {
