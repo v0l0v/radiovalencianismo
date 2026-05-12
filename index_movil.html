@@ -392,18 +392,20 @@
                 const safeImg = (item.img || "").replace(/&amp;/g, '&');
                 const cleanSource = (item.source || "Noticia").replace(/'/g, "\\'");
                 
-                let initialLogo = item.feedImage || "";
-                if (!initialLogo || initialLogo.includes("fbcdn.net") || initialLogo.includes("fb.com")) {
-                    initialLogo = domain ? `https://www.google.com/s2/favicons?domain=${domain}&sz=64` : "";
+                // Prioridad 1: Imagen directa del feed
+                let sourceIcon = (item.feedImage || "").replace(/&amp;/g, '&');
+                
+                // Prioridad 2: Google Favicon si no hay imagen
+                if (!sourceIcon && domain) {
+                    sourceIcon = `https://www.google.com/s2/favicons?domain=${domain}&sz=64`;
                 }
                 
-                const safeIcon = (initialLogo || "").replace(/&amp;/g, '&');
-                const fallbackInitials = `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(cleanSource)}&fontSize=45`;
+                const fallbackLogo = `https://api.dicebear.com/7.x/initials/svg?seed=${encodeURIComponent(cleanSource)}&fontSize=45`;
 
                 card.innerHTML = `
                     <div style="position: relative; width: 50px; height: 50px; flex-shrink: 0;">
                         <img src="${safeImg}" style="width:50px; height:50px; border-radius:8px; object-fit:cover;" onerror="this.onerror=null; this.src='https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(item.title)}';">
-                        <img src="${safeIcon || fallbackInitials}" style="position: absolute; bottom: -2px; right: -2px; width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid #000; background: #fff;" onerror="this.onerror=null; this.src='${fallbackInitials}';">
+                        <img src="${sourceIcon || fallbackLogo}" style="position: absolute; bottom: -2px; right: -2px; width: 18px; height: 18px; border-radius: 50%; border: 1.5px solid #000; background: #fff;" onerror="if(this.src.indexOf('google.com') === -1 && '${domain}') { this.src='https://www.google.com/s2/favicons?domain=${domain}&sz=64'; } else { this.onerror=null; this.src='${fallbackLogo}'; }">
                     </div>
                     <div style="flex:1; min-width:0;">
                         <div style="font-size:0.85rem; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis;">${item.title}</div>
