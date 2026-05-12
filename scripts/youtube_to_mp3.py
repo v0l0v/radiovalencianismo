@@ -57,12 +57,18 @@ def download_videos(feed_filename):
             print("No se encontraron vídeos de YouTube en este feed.")
             return
 
-        # Solo procesar el más reciente para la urgencia
-        links = links[:1]
+        # Revisar los últimos 5 para encontrar el más reciente que sea público y no hayamos bajado
+        links = links[:5]
         
+        # Leer el archivo de archivo una sola vez para comparar rápido
+        archived_ids = []
+        if os.path.exists(archive_path):
+            with open(archive_path, 'r') as arch:
+                archived_ids = arch.read()
+
         if not os.path.exists(dest_path):
             os.makedirs(dest_path, exist_ok=True)
-
+            
         # --- NOVEDAD: Limpieza total para Gotham (Solo queremos el último) ---
         if program_folder == "gothamvcf":
             print("🧹 Limpiando episodios antiguos de Gotham...")
@@ -72,6 +78,12 @@ def download_videos(feed_filename):
 
         ultimo_audio_path = ""
         for video_url in links:
+            video_id = video_url.split("v=")[-1] if "v=" in video_url else video_url.split("/")[-1]
+            
+            if video_id in archived_ids:
+                print(f"⏭️ El vídeo {video_id} ya está en el archivo. Saltando...")
+                continue
+
             print(f"\n--- Procesando: {video_url} ---")
             
             # Usamos el título real del vídeo para que en la radio se vea cuál es
