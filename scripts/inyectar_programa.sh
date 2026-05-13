@@ -42,7 +42,7 @@ fi
 
 echo "Inyectando programa: $INTERNAL_PATH"
 
-# Comando directo al contenedor de Liquidsoap
-docker exec liquidsoap liquidsoap-client "emergencia.push $INTERNAL_PATH"
+# Comando directo al contenedor de Liquidsoap vía socket
+docker exec liquidsoap sh -c "echo 'emergencia.push $INTERNAL_PATH' | nc localhost 1234"
 
 echo "✅ Inyección completada. Sonará al finalizar la canción actual."
