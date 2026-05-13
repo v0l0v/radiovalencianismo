@@ -172,6 +172,14 @@ def download_videos(feed_filename):
                 
                 if success:
                     break
+            else:
+                # Si llegamos aquí es porque yt-dlp falló (video privado, miembros, etc.)
+                print(f"⚠️ No se pudo descargar el vídeo {video_id} (posiblemente privado o bloqueado).")
+                print(f"📝 Anotando {video_id} en el archivo para saltarlo en el futuro.")
+                with open(archive_path, 'a') as arch:
+                    arch.write(f"youtube {video_id}\n")
+                # Continuamos con el siguiente vídeo del feed
+                continue
 
         if RSYNC_ENABLED:
             print(f"Iniciando sincronización selectiva con el servidor de la radio...")
