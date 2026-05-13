@@ -646,43 +646,46 @@
 
         async function loadFeeds() {
             try {
-                const res = await fetch('feeds.txt'); const text = await res.text();
+                const res = await fetch('feeds.txt'); 
+                const text = await res.text();
                 const urls = text.split('\n').filter(u => u.trim());
-                allNews = [];
-                for(let url of urls) {
-                    try {
-                        const r = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`);
-                        const d = await r.json();
-                        if(d.status==='ok') {
-                            d.items.forEach(i => {
-                                    let itemImg = i.thumbnail || i.enclosure?.link;
-                                    if (!itemImg && (i.content || i.description)) {
-                                        const match = (i.content || i.description).match(/<img[^>]+src="([^">]+)"/);
-                                        if (match) itemImg = match[1];
-                                    }
-                                    if (!itemImg) {
-                                        if (url.includes("valenciabonita.es")) {
-                                            itemImg = "https://www.valenciabonita.es/wp-content/uploads/2020/12/ValenciaBonita.jpg";
-                                        } else {
-                                            itemImg = `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(i.title)}`;
-                                        }
-                                    }
+                
+                // Carga en paralelo para máxima velocidad
+                const promises = urls.map(url => 
+                    fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`)
+                    .then(r => r.json())
+                    .catch(e => null)
+                );
 
-                                    allNews.push({
-                                        title: i.title, 
-                                        link: i.link, 
-                                        source: d.feed.title || "Noticia", 
-                                        date: new Date(i.pubDate).toLocaleDateString('es-ES'), 
-                                        img: itemImg, 
-                                    desc: i.description || i.content || '',
-                                    feedImage: d.feed.image || ""
-                                });
+                const results = await Promise.all(promises);
+                allNews = [];
+                
+                results.forEach(d => {
+                    if (d && d.status === 'ok') {
+                        d.items.forEach(i => {
+                            let itemImg = i.thumbnail || i.enclosure?.link;
+                            if (!itemImg && (i.content || i.description)) {
+                                const match = (i.content || i.description).match(/<img[^>]+src="([^">]+)"/);
+                                if (match) itemImg = match[1];
+                            }
+                            if (!itemImg) {
+                                itemImg = i.description?.includes("valenciabonita.es") ? "https://www.valenciabonita.es/wp-content/uploads/2020/12/ValenciaBonita.jpg" : `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(i.title)}`;
+                            }
+
+                            allNews.push({
+                                title: i.title, 
+                                link: i.link, 
+                                source: d.feed.title || "Noticia", 
+                                date: new Date(i.pubDate).toLocaleDateString('es-ES'), 
+                                img: itemImg, 
+                                desc: i.description || i.content || '',
+                                feedImage: d.feed.image || ""
                             });
-                        }
-                    } catch(e){}
-                }
+                        });
+                    }
+                });
                 allNews.sort((a,b) => new Date(b.date)-new Date(a.date));
-            } catch(e){}
+            } catch(e){ console.error("Error en loadFeeds:", e); }
         }
 
         async function loadPlanesFeeds() {
@@ -725,14 +728,22 @@
         function loadNextChunk() {
             const container = document.getElementById('all-rss-news-container');
             const source = currentModalSourceType === 'planes' ? allPlanes : allNews;
+            
+            if (source.length === 0) {
+                container.innerHTML = '<div style="text-align:center; padding:40px; color:rgba(255,255,255,0.5);">Cargando noticias... Por favor, espera un momento.</div>';
+                // Reintentar en 1 segundo si aún no hay noticias
+                setTimeout(loadNextChunk, 1000);
+                return;
+            }
+
+            // Si es la primera carga y hay mensaje de "cargando", limpiar
+            if (controlPanelNewsIndex === 0) container.innerHTML = '';
+
             const next = source.slice(controlPanelNewsIndex, controlPanelNewsIndex + 10);
             next.forEach(item => {
                 const card = document.createElement("div");
-                card.style.cssText = "background:rgba(255,255,255,0.05); border-radius:12px; padding:10px; cursor:pointer; display:flex; gap:10px; align-items:center; margin-bottom:10px;";
+                card.style.cssText = "background:rgba(255,255,255,0.05); border-radius:12px; padding:10px; cursor:pointer; display:flex; gap:10px; align-items:center; margin-bottom:10px; border:1px solid rgba(255,255,255,0.1);";
                 card.onclick = () => openNewsModalFromItem(item);
-                
-                let domain = "";
-                try { domain = new URL(item.link).hostname; } catch(e) {}
                 
                 const safeImg = (item.img || "").replace(/&amp;/g, '&');
 

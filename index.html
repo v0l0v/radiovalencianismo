@@ -1131,73 +1131,72 @@
                 const text = await response.text();
                 const urls = text.split('\n').map(u => u.trim()).filter(u => u.length > 0);
                 
+                // Descarga paralela
+                const promises = urls.map(url => 
+                    fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`)
+                    .then(res => res.json())
+                    .catch(() => null)
+                );
+
+                const results = await Promise.all(promises);
                 allNews = [];
-                
-                for (const url of urls) {
-                    try {
-                        const res = await fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`);
-                        const data = await res.json();
-                        if (data.status === 'ok' && data.items) {
-                            let cleanSource = data.feed.title || "NOTICIAS CV";
-                            cleanSource = cleanSource.replace(/[\-\|•].*/g, '').trim();
-                            cleanSource = cleanSource.replace(/\bPage\b/gi, '').replace(/\bFeed\b/gi, '').replace(/\bRSS\b/gi, '').replace(/\bPosts\b/gi, '').replace(/\s+/g, ' ').trim();
-                            if (!cleanSource) cleanSource = "NOTICIAS CV";
 
-                            data.items.forEach(item => {
-                                const rawDate = item.pubDate ? new Date(item.pubDate) : new Date();
-                                
-                                let itemImg = item.thumbnail || item.enclosure?.link;
-                                if (!itemImg && (item.content || item.description)) {
-                                    const content = item.content || item.description;
-                                    const imgMatch = content.match(/<img[^>]+src="([^">]+)"/);
-                                    if (imgMatch) itemImg = imgMatch[1];
-                                }
-                                if (!itemImg) {
-                                    // Solución Premium para Valencia Bonita (feed sin fotos)
-                                    if (url.includes("valenciabonita.es")) {
-                                        itemImg = "https://www.valenciabonita.es/wp-content/uploads/2020/12/ValenciaBonita.jpg";
-                                    } else {
-                                        itemImg = `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(item.title)}`;
-                                    }
-                                }
+                results.forEach(data => {
+                    if (data && data.status === 'ok' && data.items) {
+                        let cleanSource = data.feed.title || "NOTICIAS CV";
+                        cleanSource = cleanSource.replace(/[\-\|•].*/g, '').trim();
+                        cleanSource = cleanSource.replace(/\bPage\b/gi, '').replace(/\bFeed\b/gi, '').replace(/\bRSS\b/gi, '').replace(/\bPosts\b/gi, '').replace(/\s+/g, ' ').trim();
+                        if (!cleanSource) cleanSource = "NOTICIAS CV";
 
-                                allNews.push({
-                                    title: makeLongerTitle(item.title, item.description || item.content),
-                                    link: item.link,
-                                    source: cleanSource,
-                                    rawDate: rawDate,
-                                    date: rawDate.toLocaleDateString('es-ES'),
-                                    tag: item.categories?.[0] || "Actualidad",
-                                    desc: stripEmojis(item.description || item.content || "No hay descripción disponible para esta noticia."),
-                                    img: itemImg,
-                                    feedImage: data.feed.image || ""
-                                });
+                        data.items.forEach(item => {
+                            const rawDate = item.pubDate ? new Date(item.pubDate) : new Date();
+                            let itemImg = item.thumbnail || item.enclosure?.link;
+                            
+                            if (!itemImg && (item.content || item.description)) {
+                                const content = item.content || item.description;
+                                const imgMatch = content.match(/<img[^>]+src="([^">]+)"/);
+                                if (imgMatch) itemImg = imgMatch[1];
+                            }
+                            if (!itemImg) {
+                                itemImg = item.description?.includes("valenciabonita.es") ? "https://www.valenciabonita.es/wp-content/uploads/2020/12/ValenciaBonita.jpg" : `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(item.title)}`;
+                            }
+
+                            allNews.push({
+                                title: makeLongerTitle(item.title, item.description || item.content),
+                                link: item.link,
+                                source: cleanSource,
+                                rawDate: rawDate,
+                                date: rawDate.toLocaleDateString('es-ES'),
+                                tag: item.categories?.[0] || "Actualidad",
+                                desc: stripEmojis(item.description || item.content || "No hay descripción disponible para esta noticia."),
+                                img: itemImg,
+                                feedImage: data.feed.image || ""
                             });
-                        }
-                    } catch (err) {
-                        console.error("Error fetching feed: " + url, err);
+                        });
                     }
-                }
+                });
                 
                 if (allNews.length > 0) {
                     allNews.sort((a, b) => b.rawDate - a.rawDate);
                     
                     const leftCol = document.getElementById("news-left");
-                    leftCol.innerHTML = "";
-                    for (let i = 0; i < Math.min(4, allNews.length); i++) {
-                        const item = allNews[i];
-                        leftCol.appendChild(createNewsCard(item));
+                    if (leftCol) {
+                        leftCol.innerHTML = "";
+                        for (let i = 0; i < Math.min(4, allNews.length); i++) {
+                            leftCol.appendChild(createNewsCard(allNews[i]));
+                        }
                     }
                     
                     const rightCol = document.getElementById("news-right");
-                    rightCol.innerHTML = "";
-                    for (let i = 4; i < Math.min(8, allNews.length); i++) {
-                        const item = allNews[i];
-                        rightCol.appendChild(createNewsCard(item));
+                    if (rightCol) {
+                        rightCol.innerHTML = "";
+                        for (let i = 4; i < Math.min(8, allNews.length); i++) {
+                            rightCol.appendChild(createNewsCard(allNews[i]));
+                        }
                     }
                 }
             } catch (error) {
-                console.error("Error loading feeds.txt:", error);
+                console.error("Error loading feeds:", error);
             }
         }
 
@@ -1494,6 +1493,18 @@
                     isFetchingNextChunk = true;
 
                     const source = (currentModalSourceType === 'planes' ? allPlanes : allNews);
+                    
+                    if (source.length === 0) {
+                        container.innerHTML = '<div style="text-align:center; padding:40px; color:rgba(255,255,255,0.5); font-size:1.1rem;">Cargando contenido... Por favor, espera un momento.</div>';
+                        isFetchingNextChunk = false;
+                        setTimeout(loadNextChunk, 1000);
+                        return;
+                    }
+
+                    if (controlPanelNewsIndex === 0 || controlPanelNewsIndex === 8) {
+                        if (container.innerHTML.includes("Cargando")) container.innerHTML = '';
+                    }
+
                     const nextChunk = source.slice(controlPanelNewsIndex, controlPanelNewsIndex + 8);
                     
                     if (nextChunk.length === 0 && controlPanelNewsIndex > 0) {
