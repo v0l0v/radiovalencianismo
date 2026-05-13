@@ -627,10 +627,18 @@
         function openControlPanelNewsModal(type = 'news') {
             const modal = document.getElementById('control-panel-news-modal');
             const titleEl = modal.querySelector('h3');
-            currentModalSourceType = type; controlPanelNewsIndex = 0;
+            currentModalSourceType = type; 
+            controlPanelNewsIndex = 0;
+            
             titleEl.innerText = type === 'planes' ? 'PLANES' : 'NOTICIAS';
             titleEl.style.color = type === 'planes' ? '#ff7eb3' : '#00d2ff';
-            modal.style.display = 'flex'; setTimeout(() => modal.classList.add('active'), 10);
+            
+            // Primero mostramos el modal para que el usuario vea respuesta inmediata
+            modal.style.display = 'flex'; 
+            modal.style.zIndex = '9999';
+            setTimeout(() => modal.classList.add('active'), 5);
+            
+            // Luego limpiamos y cargamos el contenido
             document.getElementById('all-rss-news-container').innerHTML = '';
             loadNextChunk();
         }

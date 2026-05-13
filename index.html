@@ -1451,6 +1451,8 @@
 
         function openControlPanelNewsModal(type = 'news') {
             const modal = document.getElementById('control-panel-news-modal');
+            if (!modal) return;
+            
             const titleEl = modal.querySelector('h3');
             const container = document.getElementById('all-rss-news-container');
             const loadMoreBtn = document.getElementById('load-more-news-btn');
@@ -1476,8 +1478,10 @@
                 loadMoreBtn.style.boxShadow = '0 4px 15px rgba(0,210,255,0.4)';
             }
 
+            // Respuesta visual instantánea
             modal.style.display = 'flex';
-            setTimeout(() => { modal.classList.add('active'); }, 10);
+            modal.style.zIndex = '9999';
+            setTimeout(() => { modal.classList.add('active'); }, 5);
 
             container.innerHTML = '';
             isFetchingNextChunk = false;
