@@ -1703,6 +1703,50 @@
             }
         });
 
+        function openOptionsModal() {
+            const modal = document.getElementById('options-modal');
+            if (modal) {
+                modal.style.display = 'flex';
+                setTimeout(() => modal.classList.add('active'), 10);
+            }
+        }
+
+        function closeOptionsModal() {
+            const modal = document.getElementById('options-modal');
+            if (modal) {
+                modal.classList.remove('active');
+                setTimeout(() => modal.style.display = 'none', 300);
+            }
+        }
+
+        function openScheduleModal() {
+            const modal = document.getElementById('schedule-modal');
+            if (modal) {
+                modal.style.display = 'flex';
+                setTimeout(() => modal.classList.add('active'), 10);
+                
+                // Actualizar hora actual en el modal
+                const now = new Date();
+                const hour = now.getHours();
+                const items = modal.querySelectorAll('.schedule-item');
+                items.forEach(item => {
+                    item.classList.remove('active-now');
+                    const itemHour = parseInt(item.querySelector('.sch-time').innerText.split(':')[0]);
+                    if (hour === itemHour) {
+                        item.classList.add('active-now');
+                    }
+                });
+            }
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            if (modal) {
+                modal.classList.remove('active');
+                setTimeout(() => modal.style.display = 'none', 300);
+            }
+        }
+
         const programData = {
             'gotham': {
                 title: 'Gotham VCF',
