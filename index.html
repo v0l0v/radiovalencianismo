@@ -828,7 +828,7 @@
             
             <div class="schedule-list">
                 <!-- 00:00 - Ateneo -->
-                <div class="schedule-item" data-hour="0" id="item-ateneo">
+                <div class="schedule-item" data-hour="0" id="item-ateneo" onclick="openProgramDetail('ateneo')" style="cursor: pointer;">
                     <div class="sch-time">00:00</div>
                     <div class="sch-icon"><i class="fas fa-landmark"></i></div>
                     <div class="sch-info">
@@ -848,7 +848,7 @@
                 </div>
                 
                 <!-- 08:00 - Don Pío -->
-                <div class="schedule-item" data-hour="8">
+                <div class="schedule-item" data-hour="8" onclick="openProgramDetail('donpio')" style="cursor: pointer;">
                     <div class="sch-time">08:00</div>
                     <div class="sch-icon"><i class="fas fa-sun"></i></div>
                     <div class="sch-info">
@@ -868,7 +868,7 @@
                 </div>
                 
                 <!-- 10:00 - Gotham -->
-                <div class="schedule-item" data-hour="10" id="item-gotham">
+                <div class="schedule-item" data-hour="10" id="item-gotham" onclick="openProgramDetail('gotham')" style="cursor: pointer;">
                     <div class="sch-time">10:00</div>
                     <div class="sch-icon"><i class="fas fa-futbol"></i></div>
                     <div class="sch-info">
@@ -958,7 +958,7 @@
                 </div>
 
                 <!-- 23:30 - Música del Regne -->
-                <div class="schedule-item" data-hour="23" style="opacity: 0.7;">
+                <div class="schedule-item" data-hour="23" style="opacity: 0.7; cursor: pointer;" onclick="openProgramDetail('musica')">
                     <div class="sch-time">23:30</div>
                     <div class="sch-icon"><i class="fas fa-music"></i></div>
                     <div class="sch-info">
@@ -968,7 +968,25 @@
                 </div>
             </div>
             
-            <button class="close-modal" onclick="closeModal('schedule-modal')" style="margin-top: 25px; background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); padding: 10px 30px; border-radius: 50px; cursor: pointer;">CERRAR</button>
+    <!-- Modal Detalle de Programa -->
+    <div id="program-detail-modal" class="modern-modal" onclick="closeModal('program-detail-modal')">
+        <div class="modal-content" onclick="event.stopPropagation()" style="max-width: 700px; padding: 0; border: none; overflow: hidden; border-radius: 20px;">
+            <div id="prog-header-img" style="height: 200px; background-size: cover; background-position: center; position: relative;">
+                <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(10,10,15,1), transparent);"></div>
+                <div id="prog-tag" style="position: absolute; top: 20px; left: 20px; background: var(--secondary); color: #000; padding: 5px 15px; border-radius: 50px; font-weight: 800; font-size: 0.7rem; text-transform: uppercase;">PROGRAMA</div>
+                <button onclick="closeModal('program-detail-modal')" style="position: absolute; top: 20px; right: 20px; background: rgba(255,255,255,0.1); border: none; color: #fff; width: 35px; height: 35px; border-radius: 50%; cursor: pointer;"><i class="fas fa-times"></i></button>
+            </div>
+            <div style="padding: 30px; background: #0a0a0f;">
+                <h2 id="prog-title" style="color: var(--secondary); margin-bottom: 10px; font-weight: 800; font-size: 2rem;"></h2>
+                <div id="prog-last-ep" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 15px; border-radius: 12px; margin-bottom: 20px; display: none;">
+                    <div style="font-size: 0.7rem; color: var(--secondary); font-weight: 700; text-transform: uppercase; margin-bottom: 5px;">Último episodio emitido:</div>
+                    <div id="prog-last-title" style="font-weight: 600; color: #fff;"></div>
+                </div>
+                <p id="prog-description" style="color: #ccc; line-height: 1.6; margin-bottom: 25px; font-size: 1.1rem;"></p>
+                <div style="display: flex; gap: 15px;">
+                    <button onclick="closeModal('program-detail-modal')" style="flex: 1; padding: 15px; border-radius: 50px; background: var(--secondary); color: #000; border: none; font-weight: 800; cursor: pointer; text-transform: uppercase;">Aceptar</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -1692,6 +1710,67 @@
                     console.log('No hay metadatos aún para ' + prog.id);
                 }
             }
+        }
+
+        }
+
+        const programData = {
+            'gotham': {
+                title: 'Gotham VCF',
+                desc: 'La referencia informativa sobre el Valencia CF. Análisis profundo, opinión sin censura y toda la actualidad del conjunto che. Dirigido a los valencianistas que buscan la verdad detrás de la noticia.',
+                img: 'https://i.ytimg.com/vi/2C5y7R1icG4/maxresdefault.jpg',
+                path: 'backend/mp3/programas/gothamvcf/ultimo_programa.json'
+            },
+            'donpio': {
+                title: 'La Hora Don Pío',
+                desc: 'El humor más auténtico de nuestra tierra. Un espacio dedicado a la tradición valenciana, las anécdotas y el ingenio de Don Pío. Risas aseguradas para toda la familia.',
+                img: 'https://i.ytimg.com/vi/w-HheUwKmio/maxresdefault.jpg',
+                path: 'backend/mp3/programas/donpio/ultimo_programa.json'
+            },
+            'ateneo': {
+                title: 'Ateneo',
+                desc: 'Cultura, historia y patrimonio valenciano. Un viaje por nuestras raíces, monumentos y personajes ilustres. La radio con más solera de nuestro Reino.',
+                img: 'https://i.ytimg.com/vi/n5RyeO8Gk7c/maxresdefault.jpg',
+                path: 'backend/mp3/programas/ateneo/ultimo_programa.json'
+            },
+            'musica': {
+                title: 'Música del Regne',
+                desc: 'Nuestra selección musical ininterrumpida. Desde clásicos valencianos hasta las novedades más actuales. La banda sonora perfecta para tu día a día en el Reino de Valencia.',
+                img: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=800',
+                path: null
+            }
+        };
+
+        async function openProgramDetail(id) {
+            const data = programData[id];
+            if (!data) return;
+
+            document.getElementById('prog-title').innerText = data.title;
+            document.getElementById('prog-description').innerText = data.desc;
+            document.getElementById('prog-header-img').style.backgroundImage = `url('${data.img}')`;
+            
+            const lastEpBox = document.getElementById('prog-last-ep');
+            lastEpBox.style.display = 'none';
+
+            if (data.path) {
+                try {
+                    const response = await fetch(data.path + '?v=' + Date.now());
+                    if (response.ok) {
+                        const meta = await response.json();
+                        if (meta.title) {
+                            document.getElementById('prog-last-title').innerText = meta.title;
+                            lastEpBox.style.display = 'block';
+                            if (meta.thumbnail) {
+                                document.getElementById('prog-header-img').style.backgroundImage = `url('${meta.thumbnail}')`;
+                            }
+                        }
+                    }
+                } catch (e) {}
+            }
+
+            const modal = document.getElementById('program-detail-modal');
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('active'), 10);
         }
 
         function openAgendaModal() {

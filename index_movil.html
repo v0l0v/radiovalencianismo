@@ -425,22 +425,37 @@
             <h3 style="color: var(--secondary); margin-bottom: 5px; font-weight: 800; text-transform: uppercase; font-size: 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">Programación</h3>
             <div id="schedule-date-mobile" style="font-size: 0.8rem; color: #aaa; margin-bottom: 15px; font-weight: 500;"></div>
             <div class="schedule-list">
-                <div class="schedule-item" data-hour="0"><div class="sch-time">00:00</div><div class="sch-icon"><i class="fas fa-landmark"></i></div><div class="sch-info"><div class="sch-title">Ateneo</div><div class="sch-desc" id="desc-ateneo-mobile">Cultura y Patrimonio</div></div></div>
-                <div class="schedule-item" data-hour="2" style="opacity: 0.7;"><div class="sch-time">02:00</div><div class="sch-icon"><i class="fas fa-music"></i></div><div class="sch-info"><div class="sch-title">Música del Regne</div><div class="sch-desc">Sesión nocturna</div></div></div>
-                <div class="schedule-item" data-hour="8"><div class="sch-time">08:00</div><div class="sch-icon"><i class="fas fa-sun"></i></div><div class="sch-info"><div class="sch-title">La Hora Don Pío</div><div class="sch-desc">Humor valenciano</div></div></div>
-                <div class="schedule-item" data-hour="9" style="opacity: 0.7;"><div class="sch-time">09:30</div><div class="sch-icon"><i class="fas fa-music"></i></div><div class="sch-info"><div class="sch-title">Música del Regne</div><div class="sch-desc">Sesión mañana</div></div></div>
-                <div class="schedule-item" data-hour="10"><div class="sch-time">10:00</div><div class="sch-icon"><i class="fas fa-futbol"></i></div><div class="sch-info"><div class="sch-title">Gotham VCF</div><div class="sch-desc" id="desc-gotham-mobile">Deporte y actualidad</div></div></div>
-                <div class="schedule-item" data-hour="12" style="opacity: 0.7;"><div class="sch-time">12:00</div><div class="sch-icon"><i class="fas fa-music"></i></div><div class="sch-info"><div class="sch-title">Música del Regne</div><div class="sch-desc">Sesión mediodía</div></div></div>
-                <div class="schedule-item" data-hour="14"><div class="sch-time">14:00</div><div class="sch-icon"><i class="fas fa-utensils"></i></div><div class="sch-info"><div class="sch-title">Don Pío</div><div class="sch-desc">Humor de sobremesa</div></div></div>
-                <div class="schedule-item" data-hour="15" style="opacity: 0.7;"><div class="sch-time">15:30</div><div class="sch-icon"><i class="fas fa-music"></i></div><div class="sch-info"><div class="sch-title">Música del Regne</div><div class="sch-desc">Sesión tarde</div></div></div>
-                <div class="schedule-item" data-hour="16"><div class="sch-time">16:00</div><div class="sch-icon"><i class="fas fa-microphone-alt"></i></div><div class="sch-info"><div class="sch-title">Gotham</div><div class="sch-desc">Segunda edición</div></div></div>
-                <div class="schedule-item" data-hour="18" style="opacity: 0.7;"><div class="sch-time">18:00</div><div class="sch-icon"><i class="fas fa-music"></i></div><div class="sch-info"><div class="sch-title">Música del Regne</div><div class="sch-desc">Sesión atardecer</div></div></div>
-                <div class="schedule-item" data-hour="20"><div class="sch-time">20:00</div><div class="sch-icon"><i class="fas fa-moon"></i></div><div class="sch-info"><div class="sch-title">Don Pío</div><div class="sch-desc">Repaso nocturno</div></div></div>
-                <div class="schedule-item" data-hour="21" style="opacity: 0.7;"><div class="sch-time">21:30</div><div class="sch-icon"><i class="fas fa-music"></i></div><div class="sch-info"><div class="sch-title">Música del Regne</div><div class="sch-desc">Sesión noche</div></div></div>
-                <div class="schedule-item" data-hour="22"><div class="sch-time">22:00</div><div class="sch-icon"><i class="fas fa-flag"></i></div><div class="sch-info"><div class="sch-title">Gotham</div><div class="sch-desc">Cierre del día</div></div></div>
-                <div class="schedule-item" data-hour="23" style="opacity: 0.7;"><div class="sch-time">23:30</div><div class="sch-icon"><i class="fas fa-music"></i></div><div class="sch-info"><div class="sch-title">Música del Regne</div><div class="sch-desc">Cierre nocturno</div></div></div>
+                <div class="schedule-item" data-hour="0" onclick="openProgramDetail('ateneo')"><div class="sch-time">00:00</div><div class="sch-icon"><i class="fas fa-landmark"></i></div><div class="sch-info"><div class="sch-title">Ateneo</div><div class="sch-desc" id="desc-ateneo-mobile">Cultura y Patrimonio</div></div></div>
+                <div class="schedule-item" data-hour="2" style="opacity: 0.7;" onclick="openProgramDetail('musica')"><div class="sch-time">02:00</div><div class="sch-icon"><i class="fas fa-music"></i></div><div class="sch-info"><div class="sch-title">Música del Regne</div><div class="sch-desc">Sesión nocturna</div></div></div>
+                <div class="schedule-item" data-hour="8" onclick="openProgramDetail('donpio')"><div class="sch-time">08:00</div><div class="sch-icon"><i class="fas fa-sun"></i></div><div class="sch-info"><div class="sch-title">La Hora Don Pío</div><div class="sch-desc">Humor valenciano</div></div></div>
+                <div class="schedule-item" data-hour="9" style="opacity: 0.7;" onclick="openProgramDetail('musica')"><div class="sch-time">09:30</div><div class="sch-icon"><i class="fas fa-music"></i></div><div class="sch-info"><div class="sch-title">Música del Regne</div><div class="sch-desc">Sesión mañana</div></div></div>
+                <div class="schedule-item" data-hour="10" onclick="openProgramDetail('gotham')"><div class="sch-time">10:00</div><div class="sch-icon"><i class="fas fa-futbol"></i></div><div class="sch-info"><div class="sch-title">Gotham VCF</div><div class="sch-desc" id="desc-gotham-mobile">Deporte y actualidad</div></div></div>
+                <div class="schedule-item" data-hour="12" style="opacity: 0.7;" onclick="openProgramDetail('musica')"><div class="sch-time">12:00</div><div class="sch-icon"><i class="fas fa-music"></i></div><div class="sch-info"><div class="sch-title">Música del Regne</div><div class="sch-desc">Sesión mediodía</div></div></div>
+                <div class="schedule-item" data-hour="14" onclick="openProgramDetail('donpio')"><div class="sch-time">14:00</div><div class="sch-icon"><i class="fas fa-utensils"></i></div><div class="sch-info"><div class="sch-title">Don Pío</div><div class="sch-desc">Humor de sobremesa</div></div></div>
+                <div class="schedule-item" data-hour="15" style="opacity: 0.7;" onclick="openProgramDetail('musica')"><div class="sch-time">15:30</div><div class="sch-icon"><i class="fas fa-music"></i></div><div class="sch-info"><div class="sch-title">Música del Regne</div><div class="sch-desc">Sesión tarde</div></div></div>
+                <div class="schedule-item" data-hour="16" onclick="openProgramDetail('gotham')"><div class="sch-time">16:00</div><div class="sch-icon"><i class="fas fa-microphone-alt"></i></div><div class="sch-info"><div class="sch-title">Gotham</div><div class="sch-desc">Segunda edición</div></div></div>
+                <div class="schedule-item" data-hour="18" style="opacity: 0.7;" onclick="openProgramDetail('musica')"><div class="sch-time">18:00</div><div class="sch-icon"><i class="fas fa-music"></i></div><div class="sch-info"><div class="sch-title">Música del Regne</div><div class="sch-desc">Sesión atardecer</div></div></div>
+                <div class="schedule-item" data-hour="20" onclick="openProgramDetail('donpio')"><div class="sch-time">20:00</div><div class="sch-icon"><i class="fas fa-moon"></i></div><div class="sch-info"><div class="sch-title">Don Pío</div><div class="sch-desc">Repaso nocturno</div></div></div>
+                <div class="schedule-item" data-hour="21" style="opacity: 0.7;" onclick="openProgramDetail('musica')"><div class="sch-time">21:30</div><div class="sch-icon"><i class="fas fa-music"></i></div><div class="sch-info"><div class="sch-title">Música del Regne</div><div class="sch-desc">Sesión noche</div></div></div>
+                <div class="schedule-item" data-hour="22" onclick="openProgramDetail('gotham')"><div class="sch-time">22:00</div><div class="sch-icon"><i class="fas fa-flag"></i></div><div class="sch-info"><div class="sch-title">Gotham</div><div class="sch-desc">Cierre del día</div></div></div>
+                <div class="schedule-item" data-hour="23" style="opacity: 0.7;" onclick="openProgramDetail('musica')"><div class="sch-time">23:30</div><div class="sch-icon"><i class="fas fa-music"></i></div><div class="sch-info"><div class="sch-title">Música del Regne</div><div class="sch-desc">Cierre nocturno</div></div></div>
             </div>
-            <button class="close-modal" onclick="closeModal('schedule-modal')" style="background: var(--secondary); color: #0a0a0f; border: none; padding: 12px; border-radius: 50px; width: 100%; margin-top: 15px; font-weight: 700;">CERRAR</button>
+    <!-- Modal Detalle de Programa -->
+    <div id="program-detail-modal" class="modern-modal" onclick="closeModal('program-detail-modal')">
+        <div class="modal-content" onclick="event.stopPropagation()" style="width: 90vw; padding: 0; border: none; overflow: hidden; border-radius: 20px;">
+            <div id="prog-header-img" style="height: 180px; background-size: cover; background-position: center; position: relative;">
+                <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(10,10,15,1), transparent);"></div>
+                <button onclick="closeModal('program-detail-modal')" style="position: absolute; top: 15px; right: 15px; background: rgba(255,255,255,0.1); border: none; color: #fff; width: 35px; height: 35px; border-radius: 50%;"><i class="fas fa-times"></i></button>
+            </div>
+            <div style="padding: 20px; background: #0a0a0f;">
+                <h2 id="prog-title" style="color: var(--secondary); margin-bottom: 10px; font-weight: 800; font-size: 1.5rem;"></h2>
+                <div id="prog-last-ep" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 12px; margin-bottom: 15px; display: none;">
+                    <div style="font-size: 0.65rem; color: var(--secondary); font-weight: 700; text-transform: uppercase; margin-bottom: 3px;">Último programa:</div>
+                    <div id="prog-last-title" style="font-weight: 600; color: #fff; font-size: 0.9rem;"></div>
+                </div>
+                <p id="prog-description" style="color: #ccc; line-height: 1.5; margin-bottom: 20px; font-size: 0.95rem;"></p>
+                <button onclick="closeModal('program-detail-modal')" style="width: 100%; padding: 12px; border-radius: 50px; background: var(--secondary); color: #000; border: none; font-weight: 800;">VOLVER</button>
+            </div>
         </div>
     </div>
 
@@ -539,6 +554,61 @@
                     }
                 } catch (e) { console.log('Sin metadatos'); }
             }
+        }
+
+        }
+
+        const programData = {
+            'gotham': {
+                title: 'Gotham VCF',
+                desc: 'La referencia informativa sobre el Valencia CF. Análisis profundo y opinión sin censura.',
+                img: 'https://i.ytimg.com/vi/2C5y7R1icG4/maxresdefault.jpg',
+                path: 'backend/mp3/programas/gothamvcf/ultimo_programa.json'
+            },
+            'donpio': {
+                title: 'La Hora Don Pío',
+                desc: 'El humor más auténtico de nuestra tierra con el ingenio de Don Pío.',
+                img: 'https://i.ytimg.com/vi/w-HheUwKmio/maxresdefault.jpg',
+                path: 'backend/mp3/programas/donpio/ultimo_programa.json'
+            },
+            'ateneo': {
+                title: 'Ateneo',
+                desc: 'Cultura, historia y patrimonio valenciano. Nuestras raíces en formato radio.',
+                img: 'https://i.ytimg.com/vi/n5RyeO8Gk7c/maxresdefault.jpg',
+                path: 'backend/mp3/programas/ateneo/ultimo_programa.json'
+            },
+            'musica': {
+                title: 'Música del Regne',
+                desc: 'Selección musical ininterrumpida con lo mejor del Reino de Valencia.',
+                img: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=800',
+                path: null
+            }
+        };
+
+        async function openProgramDetail(id) {
+            const data = programData[id];
+            if (!data) return;
+            document.getElementById('prog-title').innerText = data.title;
+            document.getElementById('prog-description').innerText = data.desc;
+            document.getElementById('prog-header-img').style.backgroundImage = `url('${data.img}')`;
+            const lastEpBox = document.getElementById('prog-last-ep');
+            lastEpBox.style.display = 'none';
+            if (data.path) {
+                try {
+                    const response = await fetch(data.path + '?v=' + Date.now());
+                    if (response.ok) {
+                        const meta = await response.json();
+                        if (meta.title) {
+                            document.getElementById('prog-last-title').innerText = meta.title;
+                            lastEpBox.style.display = 'block';
+                            if (meta.thumbnail) document.getElementById('prog-header-img').style.backgroundImage = `url('${meta.thumbnail}')`;
+                        }
+                    }
+                } catch (e) {}
+            }
+            const modal = document.getElementById('program-detail-modal');
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('active'), 10);
         }
 
         function openControlPanelNewsModal(type = 'news') {
