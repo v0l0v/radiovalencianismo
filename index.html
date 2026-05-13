@@ -838,7 +838,7 @@
                 </div>
 
                 <!-- 02:00 - Música del Regne -->
-                <div class="schedule-item" data-hour="2" style="opacity: 0.7;">
+                <div class="schedule-item" data-hour="2" style="opacity: 0.7; cursor: pointer;" onclick="openProgramDetail('musica')">
                     <div class="sch-time">02:00</div>
                     <div class="sch-icon"><i class="fas fa-music"></i></div>
                     <div class="sch-info">
@@ -858,7 +858,7 @@
                 </div>
 
                 <!-- 09:30 - Música del Regne -->
-                <div class="schedule-item" data-hour="9" style="opacity: 0.7;">
+                <div class="schedule-item" data-hour="9" style="opacity: 0.7; cursor: pointer;" onclick="openProgramDetail('musica')">
                     <div class="sch-time">09:30</div>
                     <div class="sch-icon"><i class="fas fa-music"></i></div>
                     <div class="sch-info">
@@ -878,7 +878,7 @@
                 </div>
 
                 <!-- 12:00 - Música del Regne -->
-                <div class="schedule-item" data-hour="12" style="opacity: 0.7;">
+                <div class="schedule-item" data-hour="12" style="opacity: 0.7; cursor: pointer;" onclick="openProgramDetail('musica')">
                     <div class="sch-time">12:00</div>
                     <div class="sch-icon"><i class="fas fa-music"></i></div>
                     <div class="sch-info">
@@ -888,7 +888,7 @@
                 </div>
                 
                 <!-- 14:00 - Don Pío -->
-                <div class="schedule-item" data-hour="14">
+                <div class="schedule-item" data-hour="14" style="cursor: pointer;" onclick="openProgramDetail('donpio')">
                     <div class="sch-time">14:00</div>
                     <div class="sch-icon"><i class="fas fa-utensils"></i></div>
                     <div class="sch-info">
@@ -898,7 +898,7 @@
                 </div>
 
                 <!-- 15:30 - Música del Regne -->
-                <div class="schedule-item" data-hour="15" style="opacity: 0.7;">
+                <div class="schedule-item" data-hour="15" style="opacity: 0.7; cursor: pointer;" onclick="openProgramDetail('musica')">
                     <div class="sch-time">15:30</div>
                     <div class="sch-icon"><i class="fas fa-music"></i></div>
                     <div class="sch-info">
@@ -908,7 +908,7 @@
                 </div>
                 
                 <!-- 16:00 - Gotham -->
-                <div class="schedule-item" data-hour="16">
+                <div class="schedule-item" data-hour="16" style="cursor: pointer;" onclick="openProgramDetail('gotham')">
                     <div class="sch-time">16:00</div>
                     <div class="sch-icon"><i class="fas fa-microphone-alt"></i></div>
                     <div class="sch-info">
@@ -918,7 +918,7 @@
                 </div>
 
                 <!-- 18:00 - Música del Regne -->
-                <div class="schedule-item" data-hour="18" style="opacity: 0.7;">
+                <div class="schedule-item" data-hour="18" style="opacity: 0.7; cursor: pointer;" onclick="openProgramDetail('musica')">
                     <div class="sch-time">18:00</div>
                     <div class="sch-icon"><i class="fas fa-music"></i></div>
                     <div class="sch-info">
@@ -928,7 +928,7 @@
                 </div>
                 
                 <!-- 20:00 - Don Pío -->
-                <div class="schedule-item" data-hour="20">
+                <div class="schedule-item" data-hour="20" style="cursor: pointer;" onclick="openProgramDetail('donpio')">
                     <div class="sch-time">20:00</div>
                     <div class="sch-icon"><i class="fas fa-moon"></i></div>
                     <div class="sch-info">
@@ -938,7 +938,7 @@
                 </div>
 
                 <!-- 21:30 - Música del Regne -->
-                <div class="schedule-item" data-hour="21" style="opacity: 0.7;">
+                <div class="schedule-item" data-hour="21" style="opacity: 0.7; cursor: pointer;" onclick="openProgramDetail('musica')">
                     <div class="sch-time">21:30</div>
                     <div class="sch-icon"><i class="fas fa-music"></i></div>
                     <div class="sch-info">
@@ -948,7 +948,7 @@
                 </div>
                 
                 <!-- 22:00 - Gotham -->
-                <div class="schedule-item" data-hour="22">
+                <div class="schedule-item" data-hour="22" style="cursor: pointer;" onclick="openProgramDetail('gotham')">
                     <div class="sch-time">22:00</div>
                     <div class="sch-icon"><i class="fas fa-flag"></i></div>
                     <div class="sch-info">
@@ -1240,57 +1240,29 @@
             }, 300000); 
         });
 
-
-
         function redirectNews(card) {
-            const url = card.getAttribute('data-url');
-            if (!url) return;
-            
-            // Añadir clase de animación
-            card.classList.add('redirecting');
-            
-            // Si es Facebook, crear el portal visual al final
-            if (url.includes('facebook.com')) {
-                const rect = card.getBoundingClientRect();
-                const fbLogo = document.createElement('div');
-                fbLogo.style.position = 'fixed';
-                fbLogo.style.left = (rect.left + rect.width / 2) + 'px';
-                fbLogo.style.top = (rect.top + rect.height / 2) + 'px';
-                fbLogo.style.transform = 'translate(-50%, -50%) scale(0)';
-                fbLogo.style.zIndex = '2000';
-                fbLogo.style.pointerEvents = 'none';
-                fbLogo.innerHTML = `
-                    <div style="background: #1877F2; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 0 40px #1877F2, 0 0 80px rgba(24, 119, 242, 0.5);">
-                        <svg viewBox="0 0 24 24" style="width: 36px; height: 36px; fill: white;">
-                            <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
-                        </svg>
-                    </div>
-                `;
-                document.body.appendChild(fbLogo);
-                
-                // Animación sincronizada con el colapso de la tarjeta
-                fbLogo.animate([
-                    { transform: 'translate(-50%, -50%) scale(0)', opacity: 0 },
-                    { transform: 'translate(-50%, -50%) scale(0)', opacity: 0, offset: 0.6 },
-                    { transform: 'translate(-50%, -50%) scale(1.6)', opacity: 1, offset: 0.85 },
-                    { transform: 'translate(-50%, -50%) scale(2.5) rotate(15deg)', opacity: 0, filter: 'blur(15px)' }
-                ], {
-                    duration: 1000,
-                    easing: 'ease-out'
-                });
-                
-                setTimeout(() => fbLogo.remove(), 1000);
+            // Abrir el modal de noticia detallada pasando el elemento tarjeta
+            if (typeof openNewsModal === "function") {
+                openNewsModal(card);
+            } else {
+                const url = card.getAttribute('data-url');
+                if (url) window.open(url, '_blank');
             }
-
-            // Esperar a que la animación termine (800ms) y luego abrir
-            setTimeout(() => {
-                window.open(url, '_blank');
-                // Restaurar estado visual de la tarjeta
-                setTimeout(() => {
-                    card.classList.remove('redirecting');
-                }, 200);
-            }, 800);
         }
+
+        // Cierre global con tecla Escape
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                if (typeof closeAgendaModal === "function") closeAgendaModal();
+                if (typeof closeModal === "function") {
+                    closeModal('schedule-modal');
+                    closeModal('program-detail-modal');
+                    closeModal('control-panel-news-modal');
+                }
+                if (typeof closeNewsModal === "function") closeNewsModal();
+                if (typeof closeOptionsModal === "function") closeOptionsModal();
+            }
+        });
 
         function openNewsModal(card) {
             const title = card.querySelector('.news-title').innerText;
@@ -1711,6 +1683,18 @@
                 }
             }
         }
+
+        // Cierre global con tecla Escape
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                if (typeof closeAgendaModal === "function") closeAgendaModal();
+                if (typeof closeModal === "function") {
+                    closeModal('schedule-modal');
+                    closeModal('program-detail-modal');
+                }
+                if (typeof closeNewsModal === "function") closeNewsModal();
+            }
+        });
 
         const programData = {
             'gotham': {

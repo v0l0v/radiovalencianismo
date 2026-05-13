@@ -545,16 +545,31 @@
                     const response = await fetch(prog.path + '?v=' + Date.now());
                     if (response.ok) {
                         const data = await response.json();
-                        // En móvil los IDs tienen el sufijo -mobile
                         const descEl = document.getElementById('desc-' + prog.id + '-mobile');
                         if (descEl && data.title) {
                             descEl.innerHTML = `<span style="color:var(--secondary); font-weight:700;">Último:</span> ${data.title}`;
                             descEl.style.color = "#fff";
                         }
                     }
-                } catch (e) { console.log('Sin metadatos'); }
+                } catch (e) {
+                    console.log('No hay metadatos aún para ' + prog.id);
+                }
             }
         }
+
+        // Cierre global con tecla Escape
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                if (typeof closeAgendaModal === "function") closeAgendaModal();
+                if (typeof closeModal === "function") {
+                    closeModal('schedule-modal');
+                    closeModal('program-detail-modal');
+                }
+                if (typeof closeNewsModal === "function") closeNewsModal();
+                if (typeof closeOptionsModal === "function") closeOptionsModal();
+                if (typeof closeControlPanelNewsModal === "function") closeControlPanelNewsModal();
+            }
+        });
 
         const programData = {
             'gotham': {
