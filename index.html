@@ -1571,6 +1571,9 @@
         function openScheduleModal() {
             const modal = document.getElementById('schedule-modal');
             modal.style.display = 'flex';
+            setTimeout(() => {
+                modal.classList.add('active');
+            }, 10);
             
             // Resaltar programa actual
             const now = new Date();
