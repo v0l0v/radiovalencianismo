@@ -99,8 +99,8 @@ body {
 /* Pantallas muy pequeñas (hasta 360px - Android pequeño) */
 @media (max-width: 360px) {
     .record-player {
-        width: min(220px, 65vw) !important;
-        height: min(220px, 65vw) !important;
+        width: min(190px, 55vw) !important;
+        height: min(190px, 55vw) !important;
     }
     .glass-btn.primary {
         width: 65px !important;
@@ -224,8 +224,8 @@ body {
 }
 
 .record-player {
-    width: min(250px, 65vw); /* Reducido para que quepa todo */
-    height: min(250px, 65vw);
+    width: min(210px, 55vw); /* Reducido para que quepa todo */
+    height: min(210px, 55vw);
     aspect-ratio: 1 / 1; 
     flex-shrink: 0; 
     position: relative;
