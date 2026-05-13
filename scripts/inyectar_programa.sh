@@ -42,7 +42,7 @@ fi
 
 echo "Inyectando programa: $INTERNAL_PATH"
 
-# Comando vía Python (mensajero telnet) para inyectar en la cola real
-docker exec liquidsoap python3 -c "import socket; s = socket.socket(socket.AF_INET, socket.SOCK_STREAM); s.connect(('localhost', 1234)); s.sendall(b'emergencia.push $INTERNAL_PATH\nexit\n'); s.close()"
+# Comando vía Perl (mensajero telnet) para inyectar en la cola real
+docker exec liquidsoap perl -e 'use IO::Socket; my $s = IO::Socket::INET->new(PeerAddr => "localhost", PeerPort => 1234) or die "Socket error"; print $s "emergencia.push '"$INTERNAL_PATH"'\nexit\n"; close($s);'
 
 echo "✅ Inyección completada. Sonará al finalizar la canción actual."
