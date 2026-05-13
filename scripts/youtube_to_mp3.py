@@ -91,8 +91,7 @@ def download_videos(feed_filename):
             cmd = [
                 YT_DLP_PATH, "-x", "--audio-format", "mp3", "--no-playlist",
                 "--no-check-certificate", "--download-archive", archive_path,
-                "-o", out_template, "--format", "bestaudio/best",
-                "--extractor-args", "youtube:player_client=android;player_skip=web,web_embedded,tv,ios"
+                "-o", out_template, "--format", "bestaudio/best"
             ]
             
             # Añadir cookies si el archivo existe
