@@ -473,6 +473,14 @@
         function openOptionsModal() { document.getElementById('options-modal').style.display = 'flex'; setTimeout(() => document.getElementById('options-modal').classList.add('active'), 10); }
         function closeOptionsModal() { document.getElementById('options-modal').classList.remove('active'); setTimeout(() => document.getElementById('options-modal').style.display = 'none', 300); }
 
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('active');
+                setTimeout(() => modal.style.display = 'none', 300);
+            }
+        }
+
         function openScheduleModal() {
             const modal = document.getElementById('schedule-modal');
             modal.style.display = 'flex';
