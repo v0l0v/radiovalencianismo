@@ -10,7 +10,7 @@ musica_normal = playlist(mode="randomize", reload_mode="watch", "/mp3/generico")
 
 # Programas
 gotham = playlist(mode="randomize", reload_mode="watch", "/mp3/programas/gothamvcf")
-don_pio = playlist(mode="randomize", reload_mode="watch", "/mp3/programas/horaDonPio")
+don_pio = playlist(mode="randomize", reload_mode="watch", "/mp3/programas/horaDonPio/seleccion")
 ateneo = playlist(mode="randomize", reload_mode="watch", "/mp3/programas/ateneo")
 
 # 2. Lógica de Parrilla (Nuevos Horarios)
