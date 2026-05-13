@@ -42,8 +42,7 @@ fi
 
 echo "Inyectando programa: $INTERNAL_PATH"
 
-# Comando Telnet para Liquidsoap
-# Usamos 'emergencia.push' para meterlo en la cola que tiene prioridad sobre la música
-echo "emergencia.push $INTERNAL_PATH" | nc -w 2 $LSO_HOST $LSO_PORT
+# Comando directo al contenedor de Liquidsoap
+docker exec liquidsoap liquidsoap-client "emergencia.push $INTERNAL_PATH"
 
 echo "✅ Inyección completada. Sonará al finalizar la canción actual."
