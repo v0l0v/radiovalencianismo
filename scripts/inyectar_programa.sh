@@ -42,7 +42,7 @@ fi
 
 echo "Inyectando programa: $INTERNAL_PATH"
 
-# Comando nativo de Liquidsoap para inyectar en la cola
-docker exec liquidsoap liquidsoap 'server.execute("emergencia.push '"$INTERNAL_PATH"'")'
+# Comando vía Python (mensajero telnet) para inyectar en la cola real
+docker exec liquidsoap python3 -c "import socket; s = socket.socket(socket.AF_INET, socket.SOCK_STREAM); s.connect(('localhost', 1234)); s.sendall(b'emergencia.push $INTERNAL_PATH\nexit\n'); s.close()"
 
 echo "✅ Inyección completada. Sonará al finalizar la canción actual."
