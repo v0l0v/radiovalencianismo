@@ -196,6 +196,40 @@
             transition: transform 0.2s ease;
         }
         .option-card-slot:active { transform: scale(0.98); }
+
+        /* Estilos Programación */
+        .schedule-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 5px;
+            max-height: 55vh;
+            overflow-y: auto;
+        }
+        .schedule-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 14px;
+            padding: 15px;
+            border-left: 4px solid rgba(255,255,255,0.1);
+            text-align: left;
+        }
+        .schedule-item.active-now {
+            background: rgba(255, 215, 0, 0.1);
+            border-left-color: #00f2fe;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.1);
+        }
+        .sch-time {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--secondary);
+            min-width: 60px;
+        }
+        .sch-icon { font-size: 1.3rem; color: #fff; width: 35px; text-align: center; }
+        .sch-title { font-size: 1rem; font-weight: 700; color: #fff; }
+        .sch-desc { font-size: 0.75rem; opacity: 0.6; color: #ccc; }
     </style>
 </head>
 
@@ -370,12 +404,38 @@
                     </div>
                     <button style="background: #a8ff78; color: #0a0a0f; border: none; padding: 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; cursor: pointer;">Ver Planes</button>
                 </div>
+
+                <!-- Opción 5: Programación -->
+                <div class="option-card-slot" data-id="opt-horarios" onclick="openScheduleModal()" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 15px; display: flex; flex-direction: column; justify-content: space-between; text-align: left; border-left: 4px solid var(--secondary); min-height: 140px; cursor: pointer;">
+                    <div>
+                        <div style="font-weight: 700; margin-bottom: 6px; color: var(--secondary); font-size: 0.95rem;">Programación:</div>
+                        <div style="font-size: 0.8rem; color: #ccc;">Horarios de emisión.</div>
+                    </div>
+                    <button style="background: var(--secondary); color: #0a0a0f; border: none; padding: 10px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; cursor: pointer;">Ver Horarios</button>
+                </div>
             </div>
             <button class="close-modal" onclick="closeOptionsModal()" style="background: var(--secondary); color: #0a0a0f; border: none; padding: 15px; border-radius: 50px; width: 100%; margin-top: 15px; font-weight: 700; font-size: 0.9rem; text-transform: uppercase;">CERRAR</button>
         </div>
     </div>
 
     <!-- Otros modales necesarios -->
+    <!-- Modal Programación -->
+    <div id="schedule-modal" class="modern-modal" onclick="closeModal('schedule-modal')">
+        <div class="modal-content" onclick="event.stopPropagation()" style="width: 90vw; padding: 25px; border: 2px solid rgba(255,255,255,0.2);">
+            <h3 style="color: var(--secondary); margin-bottom: 15px; font-weight: 800; text-transform: uppercase; font-size: 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">Programación</h3>
+            <div class="schedule-list">
+                <div class="schedule-item" data-hour="0"><div class="sch-time">00:00</div><div class="sch-icon"><i class="fas fa-landmark"></i></div><div class="sch-info"><div class="sch-title">Ateneo</div><div class="sch-desc">Cultura y Patrimonio</div></div></div>
+                <div class="schedule-item" data-hour="8"><div class="sch-time">08:00</div><div class="sch-icon"><i class="fas fa-sun"></i></div><div class="sch-info"><div class="sch-title">La Hora Don Pío</div><div class="sch-desc">Humor valenciano</div></div></div>
+                <div class="schedule-item" data-hour="10"><div class="sch-time">10:00</div><div class="sch-icon"><i class="fas fa-futbol"></i></div><div class="sch-info"><div class="sch-title">Gotham VCF</div><div class="sch-desc">Deporte y actualidad</div></div></div>
+                <div class="schedule-item" data-hour="14"><div class="sch-time">14:00</div><div class="sch-icon"><i class="fas fa-utensils"></i></div><div class="sch-info"><div class="sch-title">Don Pío (R)</div><div class="sch-desc">Humor de sobremesa</div></div></div>
+                <div class="schedule-item" data-hour="16"><div class="sch-time">16:00</div><div class="sch-icon"><i class="fas fa-microphone-alt"></i></div><div class="sch-info"><div class="sch-title">Gotham (R)</div><div class="sch-desc">Segunda edición</div></div></div>
+                <div class="schedule-item" data-hour="20"><div class="sch-time">20:00</div><div class="sch-icon"><i class="fas fa-moon"></i></div><div class="sch-info"><div class="sch-title">Don Pío (R)</div><div class="sch-desc">Repaso nocturno</div></div></div>
+                <div class="schedule-item" data-hour="22"><div class="sch-time">22:00</div><div class="sch-icon"><i class="fas fa-flag"></i></div><div class="sch-info"><div class="sch-title">Gotham (R)</div><div class="sch-desc">Cierre del día</div></div></div>
+            </div>
+            <button class="close-modal" onclick="closeModal('schedule-modal')" style="background: var(--secondary); color: #0a0a0f; border: none; padding: 12px; border-radius: 50px; width: 100%; margin-top: 15px; font-weight: 700;">CERRAR</button>
+        </div>
+    </div>
+
     <!-- Modal de Noticia (Pantalla completa al 90%) -->
     <div id="news-modal" class="news-modal" onclick="closeNewsModal()">
         <div class="news-modal-content" onclick="event.stopPropagation()" style="position: relative; overflow: hidden; border: 2.5px solid rgba(255,255,255,0.45); border-radius: 14px; display: flex; flex-direction: column; justify-content: space-between;">
@@ -412,6 +472,28 @@
 
         function openOptionsModal() { document.getElementById('options-modal').style.display = 'flex'; setTimeout(() => document.getElementById('options-modal').classList.add('active'), 10); }
         function closeOptionsModal() { document.getElementById('options-modal').classList.remove('active'); setTimeout(() => document.getElementById('options-modal').style.display = 'none', 300); }
+
+        function openScheduleModal() {
+            const modal = document.getElementById('schedule-modal');
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('active'), 10);
+            
+            const now = new Date();
+            const hour = now.getHours();
+            const items = modal.querySelectorAll('.schedule-item[data-hour]');
+            let activeItem = null;
+            
+            items.forEach(item => {
+                item.classList.remove('active-now');
+                const itemHour = parseInt(item.getAttribute('data-hour'));
+                if (hour >= itemHour) activeItem = item;
+            });
+            
+            if (activeItem) {
+                activeItem.classList.add('active-now');
+                setTimeout(() => { activeItem.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 400);
+            }
+        }
 
         function openControlPanelNewsModal(type = 'news') {
             const modal = document.getElementById('control-panel-news-modal');

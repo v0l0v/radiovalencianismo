@@ -298,6 +298,80 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* Estilos Programación */
+        .schedule-list {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            padding: 10px 5px;
+            max-height: 500px;
+            overflow-y: auto;
+            scrollbar-width: thin;
+            scrollbar-color: var(--secondary) transparent;
+        }
+        .schedule-list::-webkit-scrollbar { width: 6px; }
+        .schedule-list::-webkit-scrollbar-thumb { background: var(--secondary); border-radius: 10px; }
+        
+        .schedule-item {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 16px;
+            padding: 18px;
+            border-left: 4px solid rgba(255,255,255,0.1);
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            text-align: left;
+        }
+        .schedule-item.active-now {
+            background: rgba(255, 215, 0, 0.08);
+            border-left-color: #00f2fe;
+            box-shadow: 0 0 25px rgba(0, 242, 254, 0.15);
+            transform: scale(1.01);
+            position: relative;
+        }
+        .schedule-item.active-now::after {
+            content: 'AHORA';
+            position: absolute;
+            top: 10px; right: 15px;
+            font-size: 0.6rem;
+            font-weight: 900;
+            background: #00f2fe;
+            color: #0a0a0f;
+            padding: 2px 8px;
+            border-radius: 10px;
+            letter-spacing: 1px;
+        }
+        .sch-time {
+            font-size: 1.3rem;
+            font-weight: 800;
+            color: var(--secondary);
+            min-width: 75px;
+            font-family: 'Outfit', sans-serif;
+        }
+        .sch-icon {
+            font-size: 1.6rem;
+            color: #fff;
+            width: 45px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            opacity: 0.9;
+        }
+        .sch-info { flex: 1; }
+        .sch-title {
+            font-size: 1.15rem;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 2px;
+        }
+        .sch-desc {
+            font-size: 0.85rem;
+            opacity: 0.6;
+            color: #ccc;
+            line-height: 1.4;
+        }
+
         /* EFECTO MASCLETÀ */
         .mascleta-active {
             animation: screen-shake 0.1s infinite;
@@ -704,11 +778,21 @@
 
 
 
-                <!-- Opción 7: Placeholder -->
-                <div class="option-card-slot" data-id="opt-7" draggable="true" style="background: rgba(255, 255, 255, 0.02); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 180px; color: rgba(255, 255, 255, 0.25); font-size: 0.9rem; cursor: grab;">
-                    <div style="font-weight: 700; font-size: 1.5rem; margin-bottom: 8px; opacity: 0.4;">+</div>
-                    <div>Próxima Opción</div>
+                <!-- Opción 7: Programación -->
+                <div class="option-card-slot" data-id="opt-horarios" draggable="true" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; text-align: left; border-left: 4px solid var(--secondary); min-height: 180px; cursor: grab;">
+                    <div>
+                        <div style="font-weight: 700; margin-bottom: 6px; color: var(--secondary); font-size: 1rem;">Programación Semanal:</div>
+                        <div style="margin-bottom: 12px; font-size: 0.85rem; color: #ccc;">Consulta los horarios de todos nuestros programas.</div>
+                    </div>
+                    <div>
+                        <button onclick="openScheduleModal()" style="background: var(--secondary); color: #0a0a0f; border: none; padding: 10px 20px; border-radius: 25px; font-size: 0.85rem; cursor: pointer; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3); transition: transform 0.2s ease;">
+                            <i class="fas fa-clock"></i>
+                            Ver Horarios
+                        </button>
+                    </div>
                 </div>
+
+                <!-- Opción 8: Placeholder -->
 
                 <!-- Opción 8: Placeholder -->
                 <div class="option-card-slot" data-id="opt-8" draggable="true" style="background: rgba(255, 255, 255, 0.02); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 180px; color: rgba(255, 255, 255, 0.25); font-size: 0.9rem; cursor: grab;">
@@ -730,6 +814,99 @@
 
     <script src="js/refranes.js"></script>
     <script src="js/radio.js?v=10"></script>
+    <!-- Modal Programación -->
+    <div id="schedule-modal" class="modern-modal" onclick="closeModal('schedule-modal')">
+        <div class="modal-content" onclick="event.stopPropagation()" style="max-width: 600px; padding: 35px; border: 2px solid rgba(255,255,255,0.2);">
+            <h3 style="color: var(--secondary); margin-bottom: 20px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px;">
+                <i class="fas fa-calendar-alt"></i> Parrilla de Programación
+            </h3>
+            
+            <div class="schedule-list">
+                <!-- 00:00 - Ateneo -->
+                <div class="schedule-item" data-hour="0">
+                    <div class="sch-time">00:00</div>
+                    <div class="sch-icon"><i class="fas fa-landmark"></i></div>
+                    <div class="sch-info">
+                        <div class="sch-title">Ateneo</div>
+                        <div class="sch-desc">Cultura y Patrimonio Valenciano</div>
+                    </div>
+                </div>
+                
+                <!-- 08:00 - Don Pío -->
+                <div class="schedule-item" data-hour="8">
+                    <div class="sch-time">08:00</div>
+                    <div class="sch-icon"><i class="fas fa-sun"></i></div>
+                    <div class="sch-info">
+                        <div class="sch-title">La Hora Don Pío</div>
+                        <div class="sch-desc">Humor y tradición valenciana</div>
+                    </div>
+                </div>
+                
+                <!-- 10:00 - Gotham -->
+                <div class="schedule-item" data-hour="10">
+                    <div class="sch-time">10:00</div>
+                    <div class="sch-icon"><i class="fas fa-futbol"></i></div>
+                    <div class="sch-info">
+                        <div class="sch-title">Gotham VCF</div>
+                        <div class="sch-desc">Actualidad deportiva del Valencia CF</div>
+                    </div>
+                </div>
+                
+                <!-- 14:00 - Don Pío -->
+                <div class="schedule-item" data-hour="14">
+                    <div class="sch-time">14:00</div>
+                    <div class="sch-icon"><i class="fas fa-utensils"></i></div>
+                    <div class="sch-info">
+                        <div class="sch-title">La Hora Don Pío (R)</div>
+                        <div class="sch-desc">Emisión de sobremesa</div>
+                    </div>
+                </div>
+                
+                <!-- 16:00 - Gotham -->
+                <div class="schedule-item" data-hour="16">
+                    <div class="sch-time">16:00</div>
+                    <div class="sch-icon"><i class="fas fa-microphone-alt"></i></div>
+                    <div class="sch-info">
+                        <div class="sch-title">Gotham VCF (R)</div>
+                        <div class="sch-desc">Segunda vuelta del día</div>
+                    </div>
+                </div>
+                
+                <!-- 20:00 - Don Pío -->
+                <div class="schedule-item" data-hour="20">
+                    <div class="sch-time">20:00</div>
+                    <div class="sch-icon"><i class="fas fa-moon"></i></div>
+                    <div class="sch-info">
+                        <div class="sch-title">La Hora Don Pío (R)</div>
+                        <div class="sch-desc">Repaso nocturno</div>
+                    </div>
+                </div>
+                
+                <!-- 22:00 - Gotham -->
+                <div class="schedule-item" data-hour="22">
+                    <div class="sch-time">22:00</div>
+                    <div class="sch-icon"><i class="fas fa-flag"></i></div>
+                    <div class="sch-info">
+                        <div class="sch-title">Gotham VCF (R)</div>
+                        <div class="sch-desc">Cierre de la jornada</div>
+                    </div>
+                </div>
+
+                <!-- AutoDJ -->
+                <div class="schedule-item" style="opacity: 0.5;">
+                    <div class="sch-time">Resto</div>
+                    <div class="sch-icon"><i class="fas fa-music"></i></div>
+                    <div class="sch-info">
+                        <div class="sch-title">Radio AutoDJ</div>
+                        <div class="sch-desc">Música valenciana 24/7</div>
+                    </div>
+                </div>
+            </div>
+            
+            <button class="close-modal" onclick="closeModal('schedule-modal')" style="margin-top: 25px; background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); padding: 10px 30px; border-radius: 50px; cursor: pointer;">CERRAR</button>
+        </div>
+    </div>
+
     <!-- Modal de Noticia (Pantalla completa al 90%) -->
     <div id="news-modal" class="news-modal" onclick="closeNewsModal()">
         <div class="news-modal-content" onclick="event.stopPropagation()" style="position: relative; overflow: hidden; border: 2.5px solid rgba(255,255,255,0.45); border-radius: 14px; display: flex; flex-direction: column; justify-content: space-between;">
@@ -1383,6 +1560,32 @@
                 }
             }
         });
+
+        function openScheduleModal() {
+            const modal = document.getElementById('schedule-modal');
+            modal.style.display = 'flex';
+            
+            // Resaltar programa actual
+            const now = new Date();
+            const hour = now.getHours();
+            const items = modal.querySelectorAll('.schedule-item[data-hour]');
+            let activeItem = null;
+            
+            items.forEach(item => {
+                item.classList.remove('active-now');
+                const itemHour = parseInt(item.getAttribute('data-hour'));
+                if (hour >= itemHour) {
+                    activeItem = item;
+                }
+            });
+            
+            if (activeItem) {
+                activeItem.classList.add('active-now');
+                setTimeout(() => {
+                    activeItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
+                }, 300);
+            }
+        }
 
         function openAgendaModal() {
             const modal = document.getElementById('agenda-modal');
