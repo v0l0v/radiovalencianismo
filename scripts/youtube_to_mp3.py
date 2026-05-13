@@ -167,11 +167,37 @@ def download_videos(feed_filename):
                             if os.path.exists(tmp_mp3): os.remove(tmp_mp3)
                             print("⚠️ Error al aplicar metadatos.")
 
-                        success = True
-                        break
+                success = True
                 
-                if success:
-                    break
+                # --- NUEVO: Exportar metadatos para la web ---
+                import json
+                try:
+                    # Intentar obtener la miniatura también
+                    meta_cmd = [YT_DLP_PATH, "--get-title", "--get-thumbnail", "--no-playlist"]
+                    if os.path.exists(cookies_file): meta_cmd.extend(["--cookies", cookies_file])
+                    meta_cmd.append(video_url)
+                    meta_res = subprocess.run(meta_cmd, capture_output=True, text=True)
+                    
+                    video_title = clean_title
+                    video_thumb = ""
+                    if meta_res.returncode == 0:
+                        meta_lines = meta_res.stdout.strip().split("\n")
+                        if len(meta_lines) >= 2:
+                            video_title = meta_lines[0]
+                            video_thumb = meta_lines[1]
+                    
+                    with open(os.path.join(dest_path, "ultimo_programa.json"), "w") as jf:
+                        json.dump({
+                            "title": video_title, 
+                            "thumbnail": video_thumb, 
+                            "url": video_url,
+                            "date": time.strftime("%Y-%m-%d %H:%M:%S")
+                        }, jf, indent=4)
+                    print(f"📊 Metadatos exportados a ultimo_programa.json")
+                except Exception as je:
+                    print(f"⚠️ Error exportando JSON: {je}")
+
+                break
             else:
                 # Si llegamos aquí es porque yt-dlp falló (video privado, miembros, etc.)
                 print(f"⚠️ No se pudo descargar el vídeo {video_id} (posiblemente privado o bloqueado).")

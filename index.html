@@ -828,12 +828,12 @@
             
             <div class="schedule-list">
                 <!-- 00:00 - Ateneo -->
-                <div class="schedule-item" data-hour="0">
+                <div class="schedule-item" data-hour="0" id="item-ateneo">
                     <div class="sch-time">00:00</div>
                     <div class="sch-icon"><i class="fas fa-landmark"></i></div>
                     <div class="sch-info">
                         <div class="sch-title">Ateneo</div>
-                        <div class="sch-desc">Cultura y Patrimonio Valenciano</div>
+                        <div class="sch-desc" id="desc-ateneo">Cultura y Patrimonio Valenciano</div>
                     </div>
                 </div>
 
@@ -868,12 +868,12 @@
                 </div>
                 
                 <!-- 10:00 - Gotham -->
-                <div class="schedule-item" data-hour="10">
+                <div class="schedule-item" data-hour="10" id="item-gotham">
                     <div class="sch-time">10:00</div>
                     <div class="sch-icon"><i class="fas fa-futbol"></i></div>
                     <div class="sch-info">
                         <div class="sch-title">Gotham VCF</div>
-                        <div class="sch-desc">Actualidad deportiva del Valencia CF</div>
+                        <div class="sch-desc" id="desc-gotham">Actualidad deportiva del Valencia CF</div>
                     </div>
                 </div>
 
@@ -1665,6 +1665,32 @@
                 setTimeout(() => {
                     activeItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
                 }, 300);
+            }
+
+            // Cargar metadatos reales de los programas
+            loadProgramMetadata();
+        }
+
+        async function loadProgramMetadata() {
+            const programs = [
+                { id: 'gotham', path: 'backend/mp3/programas/gothamvcf/ultimo_programa.json' },
+                { id: 'ateneo', path: 'backend/mp3/programas/ateneo/ultimo_programa.json' }
+            ];
+
+            for (const prog of programs) {
+                try {
+                    const response = await fetch(prog.path + '?v=' + Date.now());
+                    if (response.ok) {
+                        const data = await response.json();
+                        const descEl = document.getElementById('desc-' + prog.id);
+                        if (descEl && data.title) {
+                            descEl.innerHTML = `<span style="color:var(--secondary); font-weight:700;">Último:</span> ${data.title}`;
+                            descEl.style.color = "#fff";
+                        }
+                    }
+                } catch (e) {
+                    console.log('No hay metadatos aún para ' + prog.id);
+                }
             }
         }
 
