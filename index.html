@@ -817,9 +817,14 @@
     <!-- Modal Programación -->
     <div id="schedule-modal" class="modern-modal" onclick="closeModal('schedule-modal')">
         <div class="modal-content" onclick="event.stopPropagation()" style="max-width: 600px; padding: 35px; border: 2px solid rgba(255,255,255,0.2);">
-            <h3 style="color: var(--secondary); margin-bottom: 20px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 15px;">
+            <h3 style="color: var(--secondary); margin-bottom: 5px; font-weight: 800; text-transform: uppercase; letter-spacing: 2px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">
                 <i class="fas fa-calendar-alt"></i> Parrilla de Programación
             </h3>
+            <div id="schedule-date" style="font-size: 0.9rem; color: #aaa; margin-bottom: 20px; font-weight: 500;"></div>
+            
+            <div class="schedule-days-tabs" style="display: flex; justify-content: space-between; margin-bottom: 20px; background: rgba(255,255,255,0.05); padding: 5px; border-radius: 50px;">
+                <div class="day-tab active" style="flex: 1; padding: 8px; font-size: 0.75rem; font-weight: 700; cursor: pointer; border-radius: 50px; background: var(--secondary); color: #0a0a0f; transition: all 0.3s ease;">L-D</div>
+            </div>
             
             <div class="schedule-list">
                 <!-- 00:00 - Ateneo -->
@@ -893,12 +898,12 @@
                 </div>
 
                 <!-- AutoDJ -->
-                <div class="schedule-item" style="opacity: 0.5;">
-                    <div class="sch-time">Resto</div>
+                <div class="schedule-item" style="opacity: 0.8; border-left-color: #666;">
+                    <div class="sch-time">Hilo</div>
                     <div class="sch-icon"><i class="fas fa-music"></i></div>
                     <div class="sch-info">
-                        <div class="sch-title">Radio AutoDJ</div>
-                        <div class="sch-desc">Música valenciana 24/7</div>
+                        <div class="sch-title">Música del Regne</div>
+                        <div class="sch-desc">La mejor selección musical valenciana 24h</div>
                     </div>
                 </div>
             </div>
@@ -1575,8 +1580,14 @@
                 modal.classList.add('active');
             }, 10);
             
-            // Resaltar programa actual
+            // Poner fecha actual
+            const dateEl = document.getElementById('schedule-date');
             const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const dateStr = now.toLocaleDateString('es-ES', options);
+            dateEl.innerText = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
+
+            // Resaltar programa actual
             const hour = now.getHours();
             const items = modal.querySelectorAll('.schedule-item[data-hour]');
             let activeItem = null;

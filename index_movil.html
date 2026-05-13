@@ -422,7 +422,8 @@
     <!-- Modal Programación -->
     <div id="schedule-modal" class="modern-modal" onclick="closeModal('schedule-modal')">
         <div class="modal-content" onclick="event.stopPropagation()" style="width: 90vw; padding: 25px; border: 2px solid rgba(255,255,255,0.2);">
-            <h3 style="color: var(--secondary); margin-bottom: 15px; font-weight: 800; text-transform: uppercase; font-size: 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">Programación</h3>
+            <h3 style="color: var(--secondary); margin-bottom: 5px; font-weight: 800; text-transform: uppercase; font-size: 1.1rem; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 10px;">Programación</h3>
+            <div id="schedule-date-mobile" style="font-size: 0.8rem; color: #aaa; margin-bottom: 15px; font-weight: 500;"></div>
             <div class="schedule-list">
                 <div class="schedule-item" data-hour="0"><div class="sch-time">00:00</div><div class="sch-icon"><i class="fas fa-landmark"></i></div><div class="sch-info"><div class="sch-title">Ateneo</div><div class="sch-desc">Cultura y Patrimonio</div></div></div>
                 <div class="schedule-item" data-hour="8"><div class="sch-time">08:00</div><div class="sch-icon"><i class="fas fa-sun"></i></div><div class="sch-info"><div class="sch-title">La Hora Don Pío</div><div class="sch-desc">Humor valenciano</div></div></div>
@@ -431,6 +432,7 @@
                 <div class="schedule-item" data-hour="16"><div class="sch-time">16:00</div><div class="sch-icon"><i class="fas fa-microphone-alt"></i></div><div class="sch-info"><div class="sch-title">Gotham (R)</div><div class="sch-desc">Segunda edición</div></div></div>
                 <div class="schedule-item" data-hour="20"><div class="sch-time">20:00</div><div class="sch-icon"><i class="fas fa-moon"></i></div><div class="sch-info"><div class="sch-title">Don Pío (R)</div><div class="sch-desc">Repaso nocturno</div></div></div>
                 <div class="schedule-item" data-hour="22"><div class="sch-time">22:00</div><div class="sch-icon"><i class="fas fa-flag"></i></div><div class="sch-info"><div class="sch-title">Gotham (R)</div><div class="sch-desc">Cierre del día</div></div></div>
+                <div class="schedule-item" style="opacity: 0.8;"><div class="sch-time">Hilo</div><div class="sch-icon"><i class="fas fa-music"></i></div><div class="sch-info"><div class="sch-title">Música del Regne</div><div class="sch-desc">Música valenciana 24h</div></div></div>
             </div>
             <button class="close-modal" onclick="closeModal('schedule-modal')" style="background: var(--secondary); color: #0a0a0f; border: none; padding: 12px; border-radius: 50px; width: 100%; margin-top: 15px; font-weight: 700;">CERRAR</button>
         </div>
@@ -486,7 +488,13 @@
             modal.style.display = 'flex';
             setTimeout(() => modal.classList.add('active'), 10);
             
+            // Poner fecha actual
+            const dateEl = document.getElementById('schedule-date-mobile');
             const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const dateStr = now.toLocaleDateString('es-ES', options);
+            dateEl.innerText = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
+
             const hour = now.getHours();
             const items = modal.querySelectorAll('.schedule-item[data-hour]');
             let activeItem = null;
