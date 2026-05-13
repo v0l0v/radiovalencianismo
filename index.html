@@ -1459,29 +1459,37 @@
 
             if (type === 'planes') {
                 controlPanelNewsIndex = 0;
-                titleEl.innerText = 'Últimos 100 Planes en Valencia';
-                titleEl.style.color = '#ff7eb3';
-                modalContent.style.border = '2.5px solid rgba(255, 126, 179, 0.4)';
-                loadMoreBtn.innerText = 'Cargar más planes';
-                loadMoreBtn.style.background = 'linear-gradient(135deg, #ff7eb3, #ff758c)';
-                loadMoreBtn.style.boxShadow = '0 4px 15px rgba(255,126,179,0.4)';
+                if (titleEl) titleEl.innerText = 'Últimos 100 Planes en Valencia';
+                if (titleEl) titleEl.style.color = '#ff7eb3';
+                if (modalContent) modalContent.style.border = '2.5px solid rgba(255, 126, 179, 0.4)';
+                if (loadMoreBtn) {
+                    loadMoreBtn.innerText = 'Cargar más planes';
+                    loadMoreBtn.style.background = 'linear-gradient(135deg, #ff7eb3, #ff758c)';
+                    loadMoreBtn.style.boxShadow = '0 4px 15px rgba(255,126,179,0.4)';
+                }
             } else {
                 controlPanelNewsIndex = 8;
-                titleEl.innerText = 'Últimas 100 noticias';
-                titleEl.style.color = '#00d2ff';
-                modalContent.style.border = '2.5px solid rgba(0, 210, 255, 0.4)';
-                loadMoreBtn.innerText = 'Cargar más noticias';
-                loadMoreBtn.style.background = 'linear-gradient(135deg, #00d2ff, #00f2fe)';
-                loadMoreBtn.style.boxShadow = '0 4px 15px rgba(0,210,255,0.4)';
+                if (titleEl) titleEl.innerText = 'Últimas 100 noticias';
+                if (titleEl) titleEl.style.color = '#00d2ff';
+                if (modalContent) modalContent.style.border = '2.5px solid rgba(0, 210, 255, 0.4)';
+                if (loadMoreBtn) {
+                    loadMoreBtn.innerText = 'Cargar más noticias';
+                    loadMoreBtn.style.background = 'linear-gradient(135deg, #00d2ff, #00f2fe)';
+                    loadMoreBtn.style.boxShadow = '0 4px 15px rgba(0,210,255,0.4)';
+                }
             }
 
             // Respuesta visual instantánea
             modal.style.display = 'flex';
-            modal.style.zIndex = '9999';
+            modal.style.zIndex = '99999'; // Prioridad máxima
             setTimeout(() => { modal.classList.add('active'); }, 5);
 
-            container.innerHTML = '';
-            isFetchingNextChunk = false;
+            if (container) {
+                container.innerHTML = '';
+                isFetchingNextChunk = false;
+                loadNextChunk(); // Forzamos la carga inicial
+            }
+        }
 
             const sourceArray = (type === 'planes' ? allPlanes : allNews);
 
