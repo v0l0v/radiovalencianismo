@@ -74,6 +74,10 @@ services:
 
 volumes:
   caddy_data:
+    driver: local
   caddy_config:
+    driver: local
   n8n_data:
+    driver: local
   portainer_data:
+    driver: local

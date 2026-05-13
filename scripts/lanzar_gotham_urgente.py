@@ -6,7 +6,7 @@ import sys
 # Configuración
 LIQUIDSOAP_HOST = "localhost"
 LIQUIDSOAP_PORT = 1234
-CUNA_PATH = "/mp3/alertas/gotham_urgente.mp3"
+CUNA_PATH = "/mp3/programas/gothamvcf/alerta.mp3"
 ESPERA_MINUTOS = 5
 
 def enviar_comando(comando):

@@ -1141,3 +1141,94 @@ Iniciando sincronización selectiva con el servidor de la radio...
 📤 Subiendo episodios de Gotham...
 📤 Subiendo cuñas/alertas...
 ✅ Sincronización selectiva completa.
+[youtube] Extracting URL: https://www.youtube.com/watch?v=ULvLI-45eWE
+[youtube] ULvLI-45eWE: Downloading webpage
+WARNING: [youtube] Unable to download webpage: HTTP Error 429: Too Many Requests (caused by <HTTPError 429: Too Many Requests>)
+[youtube] ULvLI-45eWE: Downloading initial data API JSON
+[youtube] ULvLI-45eWE: Downloading android player API JSON
+WARNING: [youtube] No title found in player responses; falling back to title from initial data. Other metadata may also be missing
+ERROR: [youtube] ULvLI-45eWE: Sign in to confirm you’re not a bot. Use --cookies-from-browser or --cookies for the authentication. See  https://github.com/yt-dlp/yt-dlp/wiki/FAQ#how-do-i-pass-cookies-to-yt-dlp  for how to manually pass cookies. Also see  https://github.com/yt-dlp/yt-dlp/wiki/Extractors#exporting-youtube-cookies  for tips on effectively exporting YouTube cookies
+Permission denied, please try again.
+Permission denied, please try again.
+debian@54.36.100.247: Permission denied (publickey,password).
+rsync: connection unexpectedly closed (0 bytes received so far) [sender]
+rsync error: error in rsync protocol data stream (code 12) at io.c(232) [sender=3.2.7]
+Permission denied, please try again.
+Permission denied, please try again.
+debian@54.36.100.247: Permission denied (publickey,password).
+rsync: connection unexpectedly closed (0 bytes received so far) [sender]
+rsync error: error in rsync protocol data stream (code 12) at io.c(232) [sender=3.2.7]
+=== Iniciando Automatización para: gothamvcf ===
+🎙️ Generando cuña por IA: 'Atención, en 5 minutos, Gotham tiene noticias frescas que contarnos. No se muevan de la sintonía de Radio Valencianismo.'
+⚠️ No se pudo generar la cuña por IA: HTTPConnectionPool(host='localhost', port=8002): Max retries exceeded with url: /api/tts (Caused by NewConnectionError('<urllib3.connection.HTTPConnection object at 0x7fb868d5d890>: Failed to establish a new connection: [Errno 111] Connection refused'))
+🧹 Limpiando episodios antiguos de Gotham...
+
+--- Procesando: https://www.youtube.com/watch?v=ULvLI-45eWE ---
+Iniciando sincronización selectiva con el servidor de la radio...
+📤 Subiendo episodios de Gotham...
+📤 Subiendo cuñas/alertas...
+✅ Sincronización selectiva completa.
+=== Iniciando Automatización para: gothamvcf ===
+
+--- Procesando novedad: https://www.youtube.com/watch?v=ULvLI-45eWE ---
+Error durante el procesamiento: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+
+--- Procesando novedad: https://www.youtube.com/watch?v=w-HheUwKmio ---
+Error durante el procesamiento: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+
+--- Procesando novedad: https://www.youtube.com/watch?v=w-HheUwKmio ---
+Error durante el procesamiento: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+
+--- Procesando novedad: https://www.youtube.com/watch?v=w-HheUwKmio ---
+Error durante el procesamiento: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+
+--- Procesando novedad: https://www.youtube.com/watch?v=w-HheUwKmio ---
+Error durante el procesamiento: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+
+--- Procesando novedad: https://www.youtube.com/watch?v=w-HheUwKmio ---
+Error durante el procesamiento: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+
+--- Procesando novedad: https://www.youtube.com/watch?v=w-HheUwKmio ---
+Error durante el procesamiento: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+
+--- Procesando novedad: https://www.youtube.com/watch?v=w-HheUwKmio ---
+Error durante el procesamiento: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+
+--- Procesando novedad: https://www.youtube.com/watch?v=w-HheUwKmio ---
+Error durante el procesamiento: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+
+--- Procesando novedad: https://www.youtube.com/watch?v=w-HheUwKmio ---
+Error durante el procesamiento: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+
+--- Procesando novedad: https://www.youtube.com/watch?v=w-HheUwKmio ---
+Error durante el procesamiento: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+
+--- Procesando novedad: https://www.youtube.com/watch?v=w-HheUwKmio ---
+Error durante el procesamiento: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+
+--- Procesando novedad: https://www.youtube.com/watch?v=w-HheUwKmio ---
+Error durante el procesamiento: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+
+--- Procesando novedad: https://www.youtube.com/watch?v=w-HheUwKmio ---
+Error durante el procesamiento: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+
+--- Procesando novedad: https://www.youtube.com/watch?v=w-HheUwKmio ---
+Error durante el procesamiento: [Errno 2] No such file or directory: 'yt-dlp'
+=== Iniciando Automatización para: gothamvcf ===
+
+--- Procesando novedad: https://www.youtube.com/watch?v=w-HheUwKmio ---
+Error durante el procesamiento: [Errno 2] No such file or directory: 'yt-dlp'
