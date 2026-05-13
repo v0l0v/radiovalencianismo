@@ -1481,55 +1481,42 @@
 
             // Respuesta visual instantánea
             modal.style.display = 'flex';
-            modal.style.zIndex = '99999'; // Prioridad máxima
+            modal.style.zIndex = '99999';
             setTimeout(() => { modal.classList.add('active'); }, 5);
 
             if (container) {
                 container.innerHTML = '';
                 isFetchingNextChunk = false;
-                loadNextChunk(); // Forzamos la carga inicial
-            }
-        }
-
-            const sourceArray = (type === 'planes' ? allPlanes : allNews);
-
-            if (sourceArray.length <= controlPanelNewsIndex) {
-                container.innerHTML = `<div style="grid-column: 1/-1; text-align: center; color: rgba(255,255,255,0.4); font-size: 1.1rem; padding: 40px 0;">No hay más elementos cargados todavía.</div>`;
-                return;
-            }
-
-            function loadNextChunk() {
-                if (isFetchingNextChunk) return;
-                isFetchingNextChunk = true;
-
-                const source = (currentModalSourceType === 'planes' ? allPlanes : allNews);
-                const nextChunk = source.slice(controlPanelNewsIndex, controlPanelNewsIndex + 8);
                 
-                if (nextChunk.length === 0) {
-                    controlPanelNewsIndex = (currentModalSourceType === 'planes' ? 0 : 8);
+                // Función interna para cargar trozos de noticias
+                window.loadNextChunk = function() {
+                    if (isFetchingNextChunk) return;
+                    isFetchingNextChunk = true;
+
+                    const source = (currentModalSourceType === 'planes' ? allPlanes : allNews);
+                    const nextChunk = source.slice(controlPanelNewsIndex, controlPanelNewsIndex + 8);
+                    
+                    if (nextChunk.length === 0 && controlPanelNewsIndex > 0) {
+                        isFetchingNextChunk = false;
+                        return;
+                    }
+                    
+                    nextChunk.forEach(item => {
+                        const card = createNewsCard(item);
+                        container.appendChild(card);
+                    });
+                    controlPanelNewsIndex += 8;
                     isFetchingNextChunk = false;
-                    loadNextChunk();
-                    return;
-                }
-                
-                container.innerHTML = '';
-                nextChunk.forEach(item => {
-                    const card = createNewsCard(item);
-                    container.appendChild(card);
-                });
-                controlPanelNewsIndex += 8;
-                isFetchingNextChunk = false;
-                container.scrollTop = 0;
+                };
+
+                loadNextChunk();
+
+                container.onscroll = () => {
+                    if (container.scrollTop + container.clientHeight >= container.scrollHeight - 250) {
+                        loadNextChunk();
+                    }
+                };
             }
-
-            window.loadNextChunk = loadNextChunk;
-            loadNextChunk();
-
-            container.onscroll = () => {
-                if (container.scrollTop + container.clientHeight >= container.scrollHeight - 250) {
-                    loadNextChunk();
-                }
-            };
         }
 
         function closeControlPanelNewsModal() {
