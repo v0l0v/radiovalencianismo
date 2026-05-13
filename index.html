@@ -1241,12 +1241,9 @@
         });
 
         function redirectNews(card) {
-            // Abrir el modal de noticia detallada pasando el elemento tarjeta
-            if (typeof openNewsModal === "function") {
-                openNewsModal(card);
-            } else {
-                const url = card.getAttribute('data-url');
-                if (url) window.open(url, '_blank');
+            const url = card.getAttribute('data-url');
+            if (url) {
+                window.open(url, '_blank');
             }
         }
 
