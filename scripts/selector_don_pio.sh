@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Directorio base de los programas de Don Pío
-BASE_DIR="/home/victor/proyectos/RadioValencianismomasmas/backend/mp3/programas/horaDonPio"
+BASE_DIR="/home/debian/radiovalencianismo/backend/mp3/programas/horaDonPio"
 HISTORIAL="$BASE_DIR/historial.txt"
 ACTUAL_LINK="$BASE_DIR/actual"
 
@@ -16,8 +16,9 @@ mapfile -t FOLDERS < <(ls -d Don\ Pío* 2>/dev/null | grep -v "actual")
 
 # Si no hay carpetas, salir
 if [ ${#FOLDERS[@]} -eq 0 ]; then
-    echo "No se encontraron carpetas de Don Pío en $BASE_DIR"
-    exit 1
+    # Fallback: si no hay carpetas, pero hay archivos mp3, no hacemos nada (el playlist los pillará todos)
+    echo "No se encontraron carpetas específicas. Usando archivos mp3 directos."
+    exit 0
 fi
 
 # Si el historial ya tiene todas las carpetas, lo reseteamos para empezar el ciclo
@@ -41,10 +42,10 @@ SELECTED="${AVAILABLE[$RANDOM % ${#AVAILABLE[@]}]}"
 # Usamos ln -sfn para forzar el cambio si ya existe
 ln -sfn "$SELECTED" "actual"
 
-# ACTUALIZACIÓN REMOTA: Cambiar también el enlace en el servidor "laradio"
-VPS_IP="54.36.100.247"
-REMOTE_DIR="/home/debian/radiovalencianismo/backend/mp3/programas/horaDonPio"
-ssh debian@$VPS_IP "cd \"$REMOTE_DIR\" && ln -sfn \"$SELECTED\" \"actual\""
+# ACTUALIZACIÓN REMOTA: Desactivado (mismo servidor)
+# VPS_IP="54.36.100.247"
+# REMOTE_DIR="/home/debian/radiovalencianismo/backend/mp3/programas/horaDonPio"
+# ssh debian@$VPS_IP "cd \"$REMOTE_DIR\" && ln -sfn \"$SELECTED\" \"actual\""
 
 
 # Guardar la elegida en el historial

@@ -11,7 +11,7 @@ BASE_DEST_DIR = "backend/mp3/programas"
 YT_DLP_PATH = "/usr/local/bin/yt-dlp"
 FFMPEG_PATH = "/usr/bin/ffmpeg"
 # Configuración del puente de envío (rsync)
-RSYNC_ENABLED = True
+RSYNC_ENABLED = False
 RSYNC_TARGET = "debian@54.36.100.247:/home/debian/radiovalencianismo/backend/mp3/programas/"
 
 
