@@ -436,12 +436,25 @@
                         const d = await r.json();
                         if(d.status==='ok') {
                             d.items.forEach(i => {
-                                allNews.push({
-                                    title: i.title, 
-                                    link: i.link, 
-                                    source: d.feed.title || "Noticia", 
-                                    date: new Date(i.pubDate).toLocaleDateString('es-ES'), 
-                                    img: i.thumbnail || i.enclosure?.link || 'assets/default-cover.png', 
+                                    let itemImg = i.thumbnail || i.enclosure?.link;
+                                    if (!itemImg && (i.content || i.description)) {
+                                        const match = (i.content || i.description).match(/<img[^>]+src="([^">]+)"/);
+                                        if (match) itemImg = match[1];
+                                    }
+                                    if (!itemImg) {
+                                        if (url.includes("valenciabonita.es")) {
+                                            itemImg = "https://www.valenciabonita.es/wp-content/uploads/2020/12/ValenciaBonita.jpg";
+                                        } else {
+                                            itemImg = `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(i.title)}`;
+                                        }
+                                    }
+
+                                    allNews.push({
+                                        title: i.title, 
+                                        link: i.link, 
+                                        source: d.feed.title || "Noticia", 
+                                        date: new Date(i.pubDate).toLocaleDateString('es-ES'), 
+                                        img: itemImg, 
                                     desc: i.description || i.content || '',
                                     feedImage: d.feed.image || ""
                                 });
@@ -464,12 +477,21 @@
                         const d = await r.json();
                         if(d.status==='ok') {
                             d.items.forEach(i => {
-                                allPlanes.push({
-                                    title: i.title, 
-                                    link: i.link, 
-                                    source: d.feed.title || "Planes", 
-                                    date: new Date(i.pubDate).toLocaleDateString('es-ES'), 
-                                    img: i.thumbnail || i.enclosure?.link || 'assets/default-cover.png', 
+                                    let itemImg = i.thumbnail || i.enclosure?.link;
+                                    if (!itemImg && (i.content || i.description)) {
+                                        const match = (i.content || i.description).match(/<img[^>]+src="([^">]+)"/);
+                                        if (match) itemImg = match[1];
+                                    }
+                                    if (!itemImg) {
+                                        itemImg = `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(i.title)}`;
+                                    }
+
+                                    allPlanes.push({
+                                        title: i.title, 
+                                        link: i.link, 
+                                        source: d.feed.title || "Planes", 
+                                        date: new Date(i.pubDate).toLocaleDateString('es-ES'), 
+                                        img: itemImg, 
                                     desc: i.description || i.content || '',
                                     feedImage: d.feed.image || ""
                                 });
