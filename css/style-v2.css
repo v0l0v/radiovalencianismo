@@ -180,7 +180,7 @@ body {
     background-size: 300% auto;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
-    animation: seaShine 6s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+    animation: seaShine 12s cubic-bezier(0.4, 0, 0.2, 1) infinite;
     
     filter: drop-shadow(0 2px 10px rgba(0,0,0,0.5));
 }
