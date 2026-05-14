@@ -7,9 +7,10 @@
 
 set -e  # Parar si hay cualquier error
 
-VPS_HOST="lamaquina.tail7ad269.ts.net"
-VPS_USER="victor"
-VPS_PATH="/home/victor/proyectos/RadioValencianismomasmas"
+VPS_HOST="54.36.100.247"
+VPS_USER="debian"
+VPS_PATH="/home/debian/radiovalencianismo"
+VPS_KEY="$HOME/.ssh/id_ed25519"
 
 CYAN='\033[0;36m'
 GREEN='\033[0;32m'
@@ -28,7 +29,7 @@ echo -e "${GREEN}      ✓ GitHub actualizado${NC}\n"
 
 # 2. SSH al VPS y git pull
 echo -e "${YELLOW}[2/2] Actualizando servidor de producción (${VPS_HOST})...${NC}"
-ssh "${VPS_USER}@${VPS_HOST}" "
+ssh -i "$VPS_KEY" "${VPS_USER}@${VPS_HOST}" "
     cd ${VPS_PATH} &&
     git pull --ff-only &&
     echo '✓ Servidor actualizado correctamente'
