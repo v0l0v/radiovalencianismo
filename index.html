@@ -1047,60 +1047,12 @@
         </div>
     </div>
 
-    <!-- Modal de Agenda -->
-    <div id="agenda-modal" class="modern-modal" onclick="closeAgendaModal()">
-        <style>
-            #agenda-modal-content {
-                width: 85vw !important;
-                max-width: 1000px !important;
-                height: 80vh !important;
-                max-height: 80vh !important;
-                padding: 30px !important;
-                display: flex !important;
-                flex-direction: column !important;
-                border: 2.5px solid rgba(168, 255, 120, 0.4) !important;
-                box-shadow: 0 30px 60px rgba(0,0,0,0.8) !important;
-                overflow: hidden !important;
-                background: rgba(10, 10, 15, 0.85) !important;
-                backdrop-filter: blur(25px) !important;
-                -webkit-backdrop-filter: blur(25px) !important;
-                border-radius: 24px !important;
-            }
-            #agenda-container {
-                height: 65vh !important; 
-                overflow-y: auto !important; 
-                padding: 10px 5px !important;
-                display: flex;
-                flex-direction: column;
-                gap: 15px;
-            }
-            .agenda-item {
-                background: rgba(255, 255, 255, 0.05);
-                border: 1px solid rgba(168, 255, 120, 0.2);
-                border-radius: 12px;
-                padding: 20px;
-                transition: all 0.2s ease;
-            }
-            .agenda-item:hover {
-                background: rgba(255, 255, 255, 0.1);
-                border-color: rgba(168, 255, 120, 0.5);
-            }
-        </style>
-        <div id="agenda-modal-content" class="modal-content" onclick="event.stopPropagation()">
-            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 15px;">
-                <h3 style="color: #a8ff78; margin: 0; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; font-size: 1.3rem;">Agenda / Eventos Próximos</h3>
-                <button onclick="closeAgendaModal()" style="background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.2); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease;">✕</button>
-            </div>
-            <div id="agenda-container">
-                <div style="text-align: center; color: rgba(255,255,255,0.5); padding: 40px 0;">Cargando agenda...</div>
-            </div>
-        </div>
-    </div>
 
     </div>
 
     <script>
         let allNews = [];
+
         let newsIndex = 8; // Empezamos a partir de las 8 mostradas inicialmente
 
         function stripEmojis(text) {
@@ -1200,6 +1152,7 @@
             }
         }
 
+
         function createNewsCard(item) {
             const card = document.createElement("div");
             card.className = "news-card";
@@ -1249,7 +1202,7 @@
         // Cierre global con tecla Escape
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
-                if (typeof closeAgendaModal === "function") closeAgendaModal();
+
                 if (typeof closeModal === "function") {
                     closeModal('schedule-modal');
                     closeModal('program-detail-modal');
@@ -1441,40 +1394,16 @@
             });
         }
 
-        let controlPanelNewsIndex = 8;
+        let controlPanelNewsIndex = 0;
         let isFetchingNextChunk = false;
-        let currentModalSourceType = 'news';
 
-        async function openControlPanelNewsModal(type = 'news') {
+        async function openControlPanelNewsModal() {
             const modal = document.getElementById('control-panel-news-modal');
             if (!modal) return;
             
-            const titleEl = modal.querySelector('h3');
             const container = document.getElementById('all-rss-news-container');
-            const loadMoreBtn = document.getElementById('load-more-news-btn');
-            const modalContent = modal.querySelector('.modal-content');
-            
-            currentModalSourceType = type;
             controlPanelNewsIndex = 0;
             isFetchingNextChunk = false;
-
-            if (type === 'planes') {
-                if (titleEl) titleEl.innerText = 'Últimos 100 Planes en Valencia';
-                if (titleEl) titleEl.style.color = '#ff7eb3';
-                if (modalContent) modalContent.style.border = '2.5px solid rgba(255, 126, 179, 0.4)';
-                if (loadMoreBtn) {
-                    loadMoreBtn.innerText = 'Cargar más planes';
-                    loadMoreBtn.style.background = 'linear-gradient(135deg, #ff7eb3, #ff758c)';
-                }
-            } else {
-                if (titleEl) titleEl.innerText = 'Últimas 100 noticias';
-                if (titleEl) titleEl.style.color = '#00d2ff';
-                if (modalContent) modalContent.style.border = '2.5px solid rgba(0, 210, 255, 0.4)';
-                if (loadMoreBtn) {
-                    loadMoreBtn.innerText = 'Cargar más noticias';
-                    loadMoreBtn.style.background = 'linear-gradient(135deg, #00d2ff, #00f2fe)';
-                }
-            }
 
             // Mostrar modal inmediatamente con spinner
             modal.style.display = 'flex';
@@ -1485,15 +1414,14 @@
                 container.innerHTML = '<div style="text-align:center; padding:40px; color:rgba(255,255,255,0.5);">Cargando noticias...</div>';
 
                 // Esperar feeds si aún no han cargado
-                if (type === 'news' && allNews.length === 0) await loadFeeds();
-                if (type === 'planes' && allPlanes.length === 0) await loadPlanesFeeds();
+                if (allNews.length === 0) await loadFeeds();
 
                 // Definir loadNextChunk: limpia y muestra el siguiente bloque
                 window.loadNextChunk = function() {
                     if (isFetchingNextChunk) return;
                     isFetchingNextChunk = true;
 
-                    const source = (currentModalSourceType === 'planes' ? allPlanes : allNews);
+                    const source = allNews;
 
                     if (source.length === 0) {
                         container.innerHTML = '<div style="text-align:center; padding:40px; color:rgba(255,255,255,0.5);">No hay noticias disponibles.</div>';
@@ -1711,47 +1639,7 @@
             setTimeout(() => modal.classList.add('active'), 10);
         }
 
-        function openAgendaModal() {
-            const modal = document.getElementById('agenda-modal');
-            modal.style.display = 'flex';
-            setTimeout(() => { modal.classList.add('active'); }, 10);
-            loadAgenda();
-        }
 
-        function closeAgendaModal() {
-            const modal = document.getElementById('agenda-modal');
-            modal.classList.remove('active');
-            setTimeout(() => { modal.style.display = 'none'; }, 300);
-        }
-
-        async function loadAgenda() {
-            const container = document.getElementById('agenda-container');
-            try {
-                // n8n guardará los datos limpios en un archivo 'agenda.json' en la raíz de tu proyecto web
-                const res = await fetch('agenda.json?t=' + Date.now());
-                if (!res.ok) throw new Error("No se pudo cargar agenda.json");
-                const data = await res.json();
-                
-                container.innerHTML = '';
-                if (!data || data.length === 0) {
-                    container.innerHTML = '<div style="text-align: center; color: rgba(255,255,255,0.5); padding: 40px 0;">No hay eventos programados.</div>';
-                    return;
-                }
-                
-                data.forEach(item => {
-                    const el = document.createElement('div');
-                    el.className = 'agenda-item';
-                    el.innerHTML = `
-                        <div style="color: #a8ff78; font-size: 0.85rem; font-weight: 700; margin-bottom: 8px;">${item.date || 'Reciente'}</div>
-                        <div style="font-size: 1.1rem; color: #fff; font-weight: 500; line-height: 1.4;">${item.title}</div>
-                        ${item.link ? "<a href='" + item.link + "' target='_blank' style='display: inline-block; margin-top: 10px; color: #00d2ff; text-decoration: none; font-size: 0.9rem;'>Más información →</a>" : ''}
-                    `;
-                    container.appendChild(el);
-                });
-            } catch (err) {
-                container.innerHTML = '<div style="text-align: center; color: rgba(255,255,255,0.5); padding: 40px 0;">Actualmente no hay datos en la agenda o el archivo agenda.json no existe aún.</div>';
-            }
-        }
     </script>
 </body>
 </html>
