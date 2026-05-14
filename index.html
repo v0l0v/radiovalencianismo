@@ -1464,7 +1464,6 @@
                 if (loadMoreBtn) {
                     loadMoreBtn.innerText = 'Cargar más planes';
                     loadMoreBtn.style.background = 'linear-gradient(135deg, #ff7eb3, #ff758c)';
-                    loadMoreBtn.style.boxShadow = '0 4px 15px rgba(255,126,179,0.4)';
                 }
             } else {
                 controlPanelNewsIndex = 8;
@@ -1474,11 +1473,9 @@
                 if (loadMoreBtn) {
                     loadMoreBtn.innerText = 'Cargar más noticias';
                     loadMoreBtn.style.background = 'linear-gradient(135deg, #00d2ff, #00f2fe)';
-                    loadMoreBtn.style.boxShadow = '0 4px 15px rgba(0,210,255,0.4)';
                 }
             }
 
-            // Respuesta visual instantánea
             modal.style.display = 'flex';
             modal.style.zIndex = '99999';
             setTimeout(() => { modal.classList.add('active'); }, 5);
@@ -1487,41 +1484,31 @@
                 container.innerHTML = '';
                 isFetchingNextChunk = false;
                 
-                // Función interna para cargar trozos de noticias
                 window.loadNextChunk = function() {
                     if (isFetchingNextChunk) return;
                     isFetchingNextChunk = true;
-
                     const source = (currentModalSourceType === 'planes' ? allPlanes : allNews);
                     
                     if (source.length === 0) {
-                        container.innerHTML = '<div style="text-align:center; padding:40px; color:rgba(255,255,255,0.5); font-size:1.1rem;">Cargando contenido... Por favor, espera un momento.</div>';
+                        container.innerHTML = '<div style="text-align:center; padding:40px; color:rgba(255,255,255,0.5);">Cargando contenido...</div>';
                         isFetchingNextChunk = false;
                         setTimeout(loadNextChunk, 1000);
                         return;
                     }
 
-                    if (controlPanelNewsIndex === 0 || controlPanelNewsIndex === 8) {
-                        if (container.innerHTML.includes("Cargando")) container.innerHTML = '';
-                    }
-
                     const nextChunk = source.slice(controlPanelNewsIndex, controlPanelNewsIndex + 8);
                     
-                    if (nextChunk.length === 0 && controlPanelNewsIndex > 0) {
+                    if (nextChunk.length === 0) {
                         isFetchingNextChunk = false;
                         return;
                     }
                     
-                    nextChunk.forEach(item => {
-                        const card = createNewsCard(item);
-                        container.appendChild(card);
-                    });
+                    nextChunk.forEach(item => { container.appendChild(createNewsCard(item)); });
                     controlPanelNewsIndex += 8;
                     isFetchingNextChunk = false;
                 };
 
                 loadNextChunk();
-
                 container.onscroll = () => {
                     if (container.scrollTop + container.clientHeight >= container.scrollHeight - 250) {
                         loadNextChunk();
@@ -1532,11 +1519,12 @@
 
         function closeControlPanelNewsModal() {
             const modal = document.getElementById('control-panel-news-modal');
-            modal.classList.remove('active');
-            setTimeout(() => { modal.style.display = 'none'; }, 300);
+            if (modal) {
+                modal.classList.remove('active');
+                setTimeout(() => { modal.style.display = 'none'; }, 300);
+            }
         }
 
-        // Lógica de arrastrar y soltar para reordenar bloques de opciones
         const grid = document.getElementById('options-grid');
         let dragSource = null;
 
@@ -1601,70 +1589,26 @@
             }
         }
 
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                const optionsModal = document.getElementById('options-modal');
-                if (optionsModal && optionsModal.style.display === 'flex') {
-                    closeOptionsModal();
-                }
-                const newsModal = document.getElementById('news-modal');
-                if (newsModal && newsModal.style.display === 'flex') {
-                    closeNewsModal();
-                }
-                const historyPanel = document.getElementById('history-panel');
-                if (historyPanel && historyPanel.classList.contains('active')) {
-                    historyPanel.classList.remove('active');
-                }
-                const cpModal = document.getElementById('control-panel-news-modal');
-                if (cpModal && cpModal.style.display === 'flex') {
-                    closeControlPanelNewsModal();
-                }
-                const agendaModal = document.getElementById('agenda-modal');
-                if (agendaModal && agendaModal.style.display === 'flex') {
-                    closeAgendaModal();
-                }
-                const planesModal = document.getElementById('planes-modal');
-                if (planesModal && planesModal.style.display === 'flex') {
-                    closePlanesModal();
-                }
-            }
-        });
-
         function openScheduleModal() {
             const modal = document.getElementById('schedule-modal');
-            modal.style.display = 'flex';
-            setTimeout(() => {
-                modal.classList.add('active');
-            }, 10);
-            
-            // Poner fecha actual
-            const dateEl = document.getElementById('schedule-date');
-            const now = new Date();
-            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
-            const dateStr = now.toLocaleDateString('es-ES', options);
-            dateEl.innerText = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
-
-            // Resaltar programa actual
-            const hour = now.getHours();
-            const items = modal.querySelectorAll('.schedule-item[data-hour]');
-            let activeItem = null;
-            
-            items.forEach(item => {
-                item.classList.remove('active-now');
-                const itemHour = parseInt(item.getAttribute('data-hour'));
-                if (hour >= itemHour) {
-                    activeItem = item;
-                }
-            });
-            
-            if (activeItem) {
-                activeItem.classList.add('active-now');
-                setTimeout(() => {
-                    activeItem.scrollIntoView({ behavior: 'smooth', block: 'center' });
-                }, 300);
+            if (modal) {
+                modal.style.display = 'flex';
+                setTimeout(() => modal.classList.add('active'), 10);
+                
+                const now = new Date();
+                const hour = now.getHours();
+                const items = modal.querySelectorAll('.schedule-item');
+                items.forEach(item => {
+                    item.classList.remove('active-now');
+                    const timeEl = item.querySelector('.sch-time');
+                    if (timeEl) {
+                        const itemHour = parseInt(timeEl.innerText.split(':')[0]);
+                        if (hour === itemHour) {
+                            item.classList.add('active-now');
+                        }
+                    }
+                });
             }
-
-            // Cargar metadatos reales de los programas
             loadProgramMetadata();
         }
 
@@ -1688,62 +1632,6 @@
                 } catch (e) {
                     console.log('No hay metadatos aún para ' + prog.id);
                 }
-            }
-        }
-
-        // Cierre global con tecla Escape
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                if (typeof closeAgendaModal === "function") closeAgendaModal();
-                if (typeof closeModal === "function") {
-                    closeModal('schedule-modal');
-                    closeModal('program-detail-modal');
-                }
-                if (typeof closeNewsModal === "function") closeNewsModal();
-            }
-        });
-
-        function openOptionsModal() {
-            const modal = document.getElementById('options-modal');
-            if (modal) {
-                modal.style.display = 'flex';
-                setTimeout(() => modal.classList.add('active'), 10);
-            }
-        }
-
-        function closeOptionsModal() {
-            const modal = document.getElementById('options-modal');
-            if (modal) {
-                modal.classList.remove('active');
-                setTimeout(() => modal.style.display = 'none', 300);
-            }
-        }
-
-        function openScheduleModal() {
-            const modal = document.getElementById('schedule-modal');
-            if (modal) {
-                modal.style.display = 'flex';
-                setTimeout(() => modal.classList.add('active'), 10);
-                
-                // Actualizar hora actual en el modal
-                const now = new Date();
-                const hour = now.getHours();
-                const items = modal.querySelectorAll('.schedule-item');
-                items.forEach(item => {
-                    item.classList.remove('active-now');
-                    const itemHour = parseInt(item.querySelector('.sch-time').innerText.split(':')[0]);
-                    if (hour === itemHour) {
-                        item.classList.add('active-now');
-                    }
-                });
-            }
-        }
-
-        function closeModal(id) {
-            const modal = document.getElementById(id);
-            if (modal) {
-                modal.classList.remove('active');
-                setTimeout(() => modal.style.display = 'none', 300);
             }
         }
 
@@ -1774,38 +1662,6 @@
             }
         };
 
-        function openControlPanelNewsModal(type = 'news') {
-            const modal = document.getElementById('control-panel-news-modal');
-            if (!modal) return;
-            
-            const titleEl = modal.querySelector('h3');
-            const container = document.getElementById('all-rss-news-container');
-            const loadMoreBtn = document.getElementById('load-more-news-btn');
-            const modalContent = modal.querySelector('.modal-content');
-            
-            currentModalSourceType = type;
-
-            if (type === 'planes') {
-                controlPanelNewsIndex = 0;
-                if (titleEl) titleEl.innerText = 'Últimos 100 Planes en Valencia';
-                if (titleEl) titleEl.style.color = '#ff7eb3';
-                if (modalContent) modalContent.style.border = '2.5px solid rgba(255, 126, 179, 0.4)';
-                if (loadMoreBtn) {
-                    loadMoreBtn.innerText = 'Cargar más planes';
-                    loadMoreBtn.style.background = 'linear-gradient(135deg, #ff7eb3, #ff758c)';
-                }
-            } else {
-                controlPanelNewsIndex = 8;
-                if (titleEl) titleEl.innerText = 'Últimas 100 noticias';
-                if (titleEl) titleEl.style.color = '#00d2ff';
-                if (modalContent) modalContent.style.border = '2.5px solid rgba(0, 210, 255, 0.4)';
-                if (loadMoreBtn) {
-                    loadMoreBtn.innerText = 'Cargar más noticias';
-                    loadMoreBtn.style.background = 'linear-gradient(135deg, #00d2ff, #00f2fe)';
-                }
-            }
-
-            modal.style.display = 'flex';
             modal.style.zIndex = '99999';
             setTimeout(() => { modal.classList.add('active'); }, 5);
 
@@ -1825,12 +1681,17 @@
                         return;
                     }
 
-                    if (controlPanelNewsIndex === 0 || controlPanelNewsIndex === 8) {
-                        if (container.innerHTML.includes("Cargando")) container.innerHTML = '';
-                    }
+                    // Limpiar contenedor para paginación (eliminar anteriores)
+                    container.innerHTML = '';
 
                     const nextChunk = source.slice(controlPanelNewsIndex, controlPanelNewsIndex + 8);
-                    if (nextChunk.length === 0 && controlPanelNewsIndex > 0) { isFetchingNextChunk = false; return; }
+                    
+                    if (nextChunk.length === 0 && controlPanelNewsIndex > 0) {
+                        // Volver al principio si no hay más
+                        controlPanelNewsIndex = (currentModalSourceType === 'planes' ? 0 : 8);
+                        loadNextChunk();
+                        return;
+                    }
                     
                     nextChunk.forEach(item => { container.appendChild(createNewsCard(item)); });
                     controlPanelNewsIndex += 8;
