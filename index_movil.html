@@ -766,7 +766,7 @@
             next.forEach(item => {
                 const card = document.createElement("div");
                 card.style.cssText = "background:rgba(255,255,255,0.05); border-radius:12px; padding:12px; cursor:pointer; display:flex; gap:12px; align-items:center; margin-bottom:12px; border:1px solid rgba(255,255,255,0.1); transition: transform 0.2s ease;";
-                card.onclick = () => openNewsModalFromItem(item);
+                card.onclick = () => openNewsWithAnimation(card, item.link);
                 
                 const safeImg = (item.img || "").replace(/&amp;/g, '&');
 
@@ -783,13 +783,63 @@
             controlPanelNewsIndex += 12;
         }
 
-        function openNewsModalFromItem(item) {
-            document.getElementById('modal-source-text').innerText = `${item.source} • ${item.date}`;
-            document.getElementById('modal-body').innerHTML = item.desc;
-            document.getElementById('modal-link').href = item.link;
-            document.getElementById('modal-bg').style.backgroundImage = `url('${item.img}')`;
-            document.getElementById('news-modal').style.display = 'flex'; setTimeout(() => document.getElementById('news-modal').classList.add('active'), 10);
+        // Animaciones aleatorias al abrir noticia
+        const NEWS_ANIMATIONS = [
+            // 1. Zoom y desvanecimiento
+            (el) => {
+                el.style.transition = 'transform 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.35s ease';
+                el.style.transform = 'scale(1.08)';
+                el.style.opacity = '0';
+            },
+            // 2. Deslizar a la derecha
+            (el) => {
+                el.style.transition = 'transform 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease';
+                el.style.transform = 'translateX(60px)';
+                el.style.opacity = '0';
+            },
+            // 3. Flip horizontal
+            (el) => {
+                el.style.transition = 'transform 0.4s ease, opacity 0.35s ease';
+                el.style.transform = 'perspective(400px) rotateY(90deg)';
+                el.style.opacity = '0';
+            },
+            // 4. Destello de luz (brillo)
+            (el) => {
+                el.style.transition = 'filter 0.15s ease, opacity 0.3s ease 0.15s';
+                el.style.filter = 'brightness(4) saturate(0)';
+                setTimeout(() => { el.style.opacity = '0'; }, 150);
+            },
+            // 5. Encogerse
+            (el) => {
+                el.style.transition = 'transform 0.3s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease';
+                el.style.transform = 'scale(0.85)';
+                el.style.opacity = '0';
+            },
+            // 6. Deslizar hacia arriba
+            (el) => {
+                el.style.transition = 'transform 0.35s ease, opacity 0.3s ease';
+                el.style.transform = 'translateY(-30px)';
+                el.style.opacity = '0';
+            },
+        ];
+
+        function openNewsWithAnimation(cardEl, url) {
+            // Elegir animación aleatoria
+            const anim = NEWS_ANIMATIONS[Math.floor(Math.random() * NEWS_ANIMATIONS.length)];
+            anim(cardEl);
+            // Abrir la URL tras la animación
+            setTimeout(() => {
+                window.open(url, '_blank', 'noopener,noreferrer');
+                // Restaurar la tarjeta por si el usuario vuelve
+                setTimeout(() => {
+                    cardEl.style.transition = 'transform 0.3s ease, opacity 0.3s ease, filter 0.3s ease';
+                    cardEl.style.transform = '';
+                    cardEl.style.opacity = '1';
+                    cardEl.style.filter = '';
+                }, 300);
+            }, 380);
         }
+
         function closeNewsModal() { document.getElementById('news-modal').classList.remove('active'); setTimeout(() => document.getElementById('news-modal').style.display = 'none', 300); }
 
         function openAgendaModal() { document.getElementById('agenda-modal').style.display = 'flex'; setTimeout(() => document.getElementById('agenda-modal').classList.add('active'), 10); loadAgenda(); }
