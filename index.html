@@ -707,7 +707,10 @@
     <!-- Modal Opciones Extra -->
     <div id="options-modal" class="modern-modal" onclick="closeOptionsModal()">
         <div class="modal-content" onclick="event.stopPropagation()" style="width: 85vw; max-width: 1300px; height: auto; min-height: 560px; padding: 40px; text-align: center; display: flex; flex-direction: column; justify-content: space-between; overflow: hidden; border: 2px solid rgba(255, 255, 255, 0.2); box-shadow: 0 30px 60px rgba(0,0,0,0.8);">
-            <h3 style="color: #ffd700; margin-bottom: 25px; font-weight: 800; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 12px; text-transform: uppercase; letter-spacing: 1px; font-size: 1.4rem;">PANEL DE CONTROL / OPCIONES</h3>
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 25px; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 12px;">
+                <h3 style="color: #ffd700; margin: 0; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; font-size: 1.4rem;">PANEL DE CONTROL / OPCIONES</h3>
+                <button onclick="closeOptionsModal()" style="background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.2); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease;">✕</button>
+            </div>
             
             <div id="options-grid" style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-bottom: 30px;">
                 <!-- Opción 1: Compartir enlace -->
@@ -1279,16 +1282,27 @@
         }
 
         // Cierre global con tecla Escape
+        // Cierre global con tecla Escape
         document.addEventListener('keydown', function(event) {
             if (event.key === 'Escape') {
+                const newsRSSModal = document.getElementById('control-panel-news-modal');
+                const detailModal = document.getElementById('program-detail-modal');
+                const scheduleModal = document.getElementById('schedule-modal');
+                const singleNewsModal = document.getElementById('news-modal');
+                const optionsModal = document.getElementById('options-modal');
 
-                if (typeof closeModal === "function") {
-                    closeModal('schedule-modal');
+                // Orden de prioridad de cierre (de más "superficial" a más profundo)
+                if (detailModal && detailModal.classList.contains('active')) {
                     closeModal('program-detail-modal');
-                    closeModal('control-panel-news-modal');
+                } else if (newsRSSModal && newsRSSModal.classList.contains('active')) {
+                    closeControlPanelNewsModal();
+                } else if (scheduleModal && scheduleModal.classList.contains('active')) {
+                    closeModal('schedule-modal');
+                } else if (singleNewsModal && singleNewsModal.classList.contains('active')) {
+                    closeNewsModal();
+                } else if (optionsModal && optionsModal.classList.contains('active')) {
+                    closeOptionsModal();
                 }
-                if (typeof closeNewsModal === "function") closeNewsModal();
-                if (typeof closeOptionsModal === "function") closeOptionsModal();
             }
         });
 
