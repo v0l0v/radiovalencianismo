@@ -627,9 +627,10 @@
             setTimeout(() => modal.classList.add('active'), 10);
         }
 
-        function openControlPanelNewsModal(type = 'news') {
+        async function openControlPanelNewsModal(type = 'news') {
             const modal = document.getElementById('control-panel-news-modal');
             const titleEl = modal.querySelector('h3');
+            const container = document.getElementById('all-rss-news-container');
             currentModalSourceType = type; 
             controlPanelNewsIndex = 0;
             
@@ -641,13 +642,17 @@
             modal.style.zIndex = '99999';
             setTimeout(() => modal.classList.add('active'), 10);
             
-            // Si por alguna razón allNews está vacío, intentar cargar de nuevo
-            if (type === 'news' && allNews.length === 0) loadFeeds();
-            if (type === 'planes' && allPlanes.length === 0) loadPlanesFeeds();
+            // Limpiar y mostrar spinner de carga
+            container.innerHTML = '<div style="text-align:center; padding:40px; color:rgba(255,255,255,0.5);">Cargando noticias...</div>';
             
-            // Luego limpiamos y cargamos el contenido
-            document.getElementById('all-rss-news-container').innerHTML = '';
-            loadNextChunk(true);
+            // Esperar a que los feeds carguen si aún no están disponibles
+            if (type === 'news' && allNews.length === 0) await loadFeeds();
+            if (type === 'planes' && allPlanes.length === 0) await loadPlanesFeeds();
+            
+            // Ahora sí: limpiar spinner y mostrar noticias
+            container.innerHTML = '';
+            controlPanelNewsIndex = 0;
+            loadNextChunk();
         }
         function closeControlPanelNewsModal() { document.getElementById('control-panel-news-modal').classList.remove('active'); setTimeout(() => document.getElementById('control-panel-news-modal').style.display = 'none', 300); }
 
