@@ -1445,7 +1445,7 @@
         let isFetchingNextChunk = false;
         let currentModalSourceType = 'news';
 
-        function openControlPanelNewsModal(type = 'news') {
+        async function openControlPanelNewsModal(type = 'news') {
             const modal = document.getElementById('control-panel-news-modal');
             if (!modal) return;
             
@@ -1455,9 +1455,10 @@
             const modalContent = modal.querySelector('.modal-content');
             
             currentModalSourceType = type;
+            controlPanelNewsIndex = 0;
+            isFetchingNextChunk = false;
 
             if (type === 'planes') {
-                controlPanelNewsIndex = 0;
                 if (titleEl) titleEl.innerText = 'Últimos 100 Planes en Valencia';
                 if (titleEl) titleEl.style.color = '#ff7eb3';
                 if (modalContent) modalContent.style.border = '2.5px solid rgba(255, 126, 179, 0.4)';
@@ -1466,7 +1467,6 @@
                     loadMoreBtn.style.background = 'linear-gradient(135deg, #ff7eb3, #ff758c)';
                 }
             } else {
-                controlPanelNewsIndex = 0;
                 if (titleEl) titleEl.innerText = 'Últimas 100 noticias';
                 if (titleEl) titleEl.style.color = '#00d2ff';
                 if (modalContent) modalContent.style.border = '2.5px solid rgba(0, 210, 255, 0.4)';
@@ -1476,44 +1476,51 @@
                 }
             }
 
+            // Mostrar modal inmediatamente con spinner
             modal.style.display = 'flex';
             modal.style.zIndex = '99999';
             setTimeout(() => { modal.classList.add('active'); }, 5);
 
             if (container) {
-                container.innerHTML = '';
-                isFetchingNextChunk = false;
-                
+                container.innerHTML = '<div style="text-align:center; padding:40px; color:rgba(255,255,255,0.5);">Cargando noticias...</div>';
+
+                // Esperar feeds si aún no han cargado
+                if (type === 'news' && allNews.length === 0) await loadFeeds();
+                if (type === 'planes' && allPlanes.length === 0) await loadPlanesFeeds();
+
+                // Definir loadNextChunk: limpia y muestra el siguiente bloque
                 window.loadNextChunk = function() {
                     if (isFetchingNextChunk) return;
                     isFetchingNextChunk = true;
+
                     const source = (currentModalSourceType === 'planes' ? allPlanes : allNews);
-                    
+
                     if (source.length === 0) {
-                        container.innerHTML = '<div style="text-align:center; padding:40px; color:rgba(255,255,255,0.5);">Cargando contenido...</div>';
+                        container.innerHTML = '<div style="text-align:center; padding:40px; color:rgba(255,255,255,0.5);">No hay noticias disponibles.</div>';
                         isFetchingNextChunk = false;
-                        setTimeout(loadNextChunk, 1000);
                         return;
                     }
 
+                    // LIMPIAR antes de mostrar las nuevas (paginación, no acumulación)
+                    container.innerHTML = '';
+                    container.scrollTop = 0;
+
                     const nextChunk = source.slice(controlPanelNewsIndex, controlPanelNewsIndex + 8);
-                    
+
                     if (nextChunk.length === 0) {
+                        // Llegamos al final: volver al inicio
+                        controlPanelNewsIndex = 0;
                         isFetchingNextChunk = false;
+                        window.loadNextChunk();
                         return;
                     }
-                    
+
                     nextChunk.forEach(item => { container.appendChild(createNewsCard(item)); });
                     controlPanelNewsIndex += 8;
                     isFetchingNextChunk = false;
                 };
 
                 loadNextChunk();
-                container.onscroll = () => {
-                    if (container.scrollTop + container.clientHeight >= container.scrollHeight - 250) {
-                        loadNextChunk();
-                    }
-                };
             }
         }
 
