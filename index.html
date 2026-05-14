@@ -1466,7 +1466,7 @@
                     loadMoreBtn.style.background = 'linear-gradient(135deg, #ff7eb3, #ff758c)';
                 }
             } else {
-                controlPanelNewsIndex = 8;
+                controlPanelNewsIndex = 0;
                 if (titleEl) titleEl.innerText = 'Últimas 100 noticias';
                 if (titleEl) titleEl.style.color = '#00d2ff';
                 if (modalContent) modalContent.style.border = '2.5px solid rgba(0, 210, 255, 0.4)';
@@ -1662,50 +1662,7 @@
             }
         };
 
-            modal.style.zIndex = '99999';
-            setTimeout(() => { modal.classList.add('active'); }, 5);
 
-            if (container) {
-                container.innerHTML = '';
-                isFetchingNextChunk = false;
-                
-                window.loadNextChunk = function() {
-                    if (isFetchingNextChunk) return;
-                    isFetchingNextChunk = true;
-                    const source = (currentModalSourceType === 'planes' ? allPlanes : allNews);
-                    
-                    if (source.length === 0) {
-                        container.innerHTML = '<div style="text-align:center; padding:40px; color:rgba(255,255,255,0.5);">Cargando contenido...</div>';
-                        isFetchingNextChunk = false;
-                        setTimeout(loadNextChunk, 1000);
-                        return;
-                    }
-
-                    // Limpiar contenedor para paginación (eliminar anteriores)
-                    container.innerHTML = '';
-
-                    const nextChunk = source.slice(controlPanelNewsIndex, controlPanelNewsIndex + 8);
-                    
-                    if (nextChunk.length === 0 && controlPanelNewsIndex > 0) {
-                        // Volver al principio si no hay más
-                        controlPanelNewsIndex = (currentModalSourceType === 'planes' ? 0 : 8);
-                        loadNextChunk();
-                        return;
-                    }
-                    
-                    nextChunk.forEach(item => { container.appendChild(createNewsCard(item)); });
-                    controlPanelNewsIndex += 8;
-                    isFetchingNextChunk = false;
-                };
-
-                loadNextChunk();
-                container.onscroll = () => {
-                    if (container.scrollTop + container.clientHeight >= container.scrollHeight - 250) {
-                        loadNextChunk();
-                    }
-                };
-            }
-        }
 
         function closeControlPanelNewsModal() {
             const modal = document.getElementById('control-panel-news-modal');
