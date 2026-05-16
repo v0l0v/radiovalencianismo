@@ -9,10 +9,11 @@ emergencia = request.queue(id="emergencia")
 musica_normal = playlist(mode="randomize", reload_mode="watch", "/mp3/generico")
 
 # Fuentes de Programas (usando carpetas de selección para control total)
-gotham = playlist(mode="randomize", reload_mode="watch", "/mp3/programas/gothamvcf/seleccion")
-don_pio = playlist(mode="randomize", reload_mode="watch", "/mp3/programas/horaDonPio/seleccion")
-ateneo = playlist(mode="randomize", reload_mode="watch", "/mp3/programas/ateneo/seleccion")
-juan_y_patri = playlist(mode="randomize", reload_mode="watch", "/mp3/programas/juan_y_patri/seleccion")
+# loop=false asegura que el programa suene una vez y no se repita
+gotham = playlist(mode="normal", loop=false, reload_mode="watch", "/mp3/programas/gothamvcf/seleccion")
+don_pio = playlist(mode="normal", loop=false, reload_mode="watch", "/mp3/programas/horaDonPio/seleccion")
+ateneo = playlist(mode="normal", loop=false, reload_mode="watch", "/mp3/programas/ateneo/seleccion")
+juan_y_patri = playlist(mode="normal", loop=false, reload_mode="watch", "/mp3/programas/juan_y_patri/seleccion")
 
 # 2. Lógica de Audio (Horario Maestro)
 
