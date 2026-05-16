@@ -8,27 +8,39 @@ live = input.harbor("live", port=8080, password="D26VmLg3791+")
 emergencia = request.queue(id="emergencia")
 musica_normal = playlist(mode="randomize", reload_mode="watch", "/mp3/generico")
 
-# Programas
-gotham = playlist(mode="randomize", reload_mode="watch", "/mp3/programas/gothamvcf")
+# Fuentes de Programas (usando carpetas de selección para control total)
+gotham = playlist(mode="randomize", reload_mode="watch", "/mp3/programas/gothamvcf/seleccion")
 don_pio = playlist(mode="randomize", reload_mode="watch", "/mp3/programas/horaDonPio/seleccion")
-ateneo = playlist(mode="randomize", reload_mode="watch", "/mp3/programas/ateneo")
+ateneo = playlist(mode="randomize", reload_mode="watch", "/mp3/programas/ateneo/seleccion")
 juan_y_patri = playlist(mode="randomize", reload_mode="watch", "/mp3/programas/juan_y_patri/seleccion")
 
-# 2. Lógica de Audio (Horarios)
-# Bloque de programas con horario fijo
-programas_con_horario = switch([
-  ({ 09h00-10h00 }, juan_y_patri),
-  ({ 15h00-16h00 }, juan_y_patri),
-  ({ 21h00-22h00 }, juan_y_patri),
-  # La Hora Don Pío (Bloques impares por ejemplo)
-  ({ 11h00-12h00 or 13h00-14h00 or 17h00-18h00 or 19h00-20h00 or 23h00-00h00 }, don_pio)
+# 2. Lógica de Audio (Horario Maestro)
+
+# Bloque de Píldoras Horarias (A las :00 de cada hora)
+pildoras = switch(track_sensitive=true, [
+  ({ 0m-1m }, juan_y_patri)
 ])
 
+# Bloque de Programas Principales (A las :30 según horario)
+# track_sensitive=true garantiza que NUNCA se corte un programa a mitad
+programas = switch(track_sensitive=true, [
+  ({ 09h30-10h30 }, gotham),
+  ({ 11h30-12h30 }, don_pio),
+  ({ 13h30-14h30 }, ateneo),
+  ({ 15h30-16h30 }, gotham),
+  ({ 17h30-18h30 }, don_pio),
+  ({ 19h30-20h30 }, ateneo),
+  ({ 21h30-22h30 }, gotham),
+  ({ 23h30-00h30 }, ateneo)
+])
+
+# Mezcla Final
 radio = fallback(track_sensitive=false, [
   live, 
   emergencia, 
-  programas_con_horario, # Prioridad a programas sobre la música
-  musica_normal          # Música genérica de fondo
+  pildoras,   # Prioridad 1: Píldora a en punto
+  programas,  # Prioridad 2: Programas a y media
+  musica_normal # Prioridad 3: Música genérica todo el día
 ])
 radio = mksafe(radio)
 

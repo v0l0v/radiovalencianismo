@@ -1,0 +1,43 @@
+#!/bin/bash
+
+# Detectar la ruta base
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" &> /dev/null && pwd)"
+BASE_DIR="$SCRIPT_DIR/../backend/mp3/programas/ateneo"
+HISTORIAL="$BASE_DIR/historial.txt"
+SELECCION_DIR="$BASE_DIR/seleccion"
+
+mkdir -p "$SELECCION_DIR"
+cd "$BASE_DIR"
+
+# Obtener MP3s de los últimos 7 días
+mapfile -t FILES < <(ls *.mp3 2>/dev/null)
+
+if [ ${#FILES[@]} -eq 0 ]; then
+    echo "No hay archivos en $BASE_DIR"
+    exit 1
+fi
+
+# Rotación sin repetir
+if [ -f "$HISTORIAL" ] && [ $(wc -l < "$HISTORIAL") -ge ${#FILES[@]} ]; then
+    > "$HISTORIAL"
+fi
+
+AVAILABLE=()
+for f in "${FILES[@]}"; do
+    if ! grep -qxF "$f" "$HISTORIAL" 2>/dev/null; then
+        AVAILABLE+=("$f")
+    fi
+done
+
+if [ ${#AVAILABLE[@]} -eq 0 ]; then
+    > "$HISTORIAL"
+    AVAILABLE=("${FILES[@]}")
+fi
+
+SELECTED="${AVAILABLE[$RANDOM % ${#AVAILABLE[@]}]}"
+
+rm -f "$SELECCION_DIR"/*
+ln -s "../$SELECTED" "$SELECCION_DIR/$SELECTED"
+
+echo "$SELECTED" >> "$HISTORIAL"
+echo "$(date '+%Y-%m-%d %H:%M:%S') - Seleccionado Ateneo: $SELECTED" >> "$BASE_DIR/selector_log.txt"

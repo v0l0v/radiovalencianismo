@@ -136,13 +136,27 @@ def download_videos(feed_filename):
                 # Sustituir el carácter raro de la barra (⧸) por una barra normal (/) o guion
                 clean_title = clean_title.replace("⧸", "/").replace("⧹", "\\")
 
-                # --- LIMPIEZA: Ahora sí, borramos los viejos si es Gotham ---
+                # --- LIMPIEZA: Lógica diferenciada por programa ---
                 if program_folder == "gothamvcf":
-                    print(f"🧹 Sustituyendo episodio antiguo por: {f}")
+                    print(f"🧹 Gotham: Sustituyendo episodio antiguo por: {f}")
                     for f_old in files_before:
                         if f_old.endswith(".mp3") and f_old != f:
                             try: os.remove(os.path.join(dest_path, f_old))
                             except: pass
+                elif program_folder == "ateneo":
+                    print(f"🧹 Ateneo: Limpiando archivos con más de 7 días...")
+                    import time as t_lib
+                    ahora = t_lib.time()
+                    siete_dias = 7 * 24 * 60 * 60
+                    for f_old in os.listdir(dest_path):
+                        if f_old.endswith(".mp3"):
+                            f_path = os.path.join(dest_path, f_old)
+                            mtime = os.path.getmtime(f_path)
+                            if (ahora - mtime) > siete_dias:
+                                try: 
+                                    os.remove(f_path)
+                                    print(f"🗑️ Borrado por antigüedad: {f_old}")
+                                except: pass
                         
                     # Asegurar que el título contiene el nombre del programa para que el frontend cargue la carátula
                     if "gotham" not in clean_title.lower():
