@@ -24,14 +24,14 @@ pildoras = switch(track_sensitive=true, [
 # Bloque de Programas Principales (A las :30 según horario)
 # track_sensitive=true garantiza que NUNCA se corte un programa a mitad
 programas = switch(track_sensitive=true, [
-  ({ 09h30-10h30 }, gotham),
-  ({ 11h30-12h30 }, don_pio),
-  ({ 13h30-14h30 }, ateneo),
-  ({ 15h30-16h30 }, gotham),
-  ({ 17h30-18h30 }, don_pio),
-  ({ 19h30-20h30 }, ateneo),
-  ({ 21h30-22h30 }, gotham),
-  ({ 23h30-00h30 }, ateneo)
+  ({ 09h30m-10h30m }, gotham),
+  ({ 11h30m-12h30m }, don_pio),
+  ({ 13h30m-14h30m }, ateneo),
+  ({ 15h30m-16h30m }, gotham),
+  ({ 17h30m-18h30m }, don_pio),
+  ({ 19h30m-20h30m }, ateneo),
+  ({ 21h30m-22h30m }, gotham),
+  ({ 23h30m-00h30m }, ateneo)
 ])
 
 # Mezcla Final

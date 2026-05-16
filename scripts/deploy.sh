@@ -32,7 +32,8 @@ echo -e "${YELLOW}[2/2] Actualizando servidor de producción (${VPS_HOST})...${N
 ssh -i "$VPS_KEY" "${VPS_USER}@${VPS_HOST}" "
     cd ${VPS_PATH} &&
     git pull --ff-only &&
-    echo '✓ Servidor actualizado correctamente'
+    docker restart liquidsoap &&
+    echo '✓ Servidor actualizado y Radio reiniciada correctamente'
 "
 
 echo -e "\n${GREEN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
