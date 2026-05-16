@@ -1,9 +1,7 @@
 https://yosocche.com/rss
-https://rss.app/feeds/Wv9a8QxPiVSziSSk.xml
-https://rss.app/feeds/TOQGqZCW5sz7nEHs.xml
-https://rss.app/feeds/ETpjkYJpGtj35Ue7.xml
-https://rss.app/feeds/aBXhFp07Fp6NKQlJ.xml
 https://ricartgarciamoya.com/feed
-https://rss.app/feeds/3USBSrYzwNVeSGN7.xml
-https://rss.app/feeds/E44FVEfAQoXBTzYj.xml
 https://www.valenciabonita.es/feed
+https://rss.app/feeds/_VSgeyNXSUmSeLO1M.xml
+https://www.lasprovincias.es/rss/2.0/valencia-cf
+https://www.levante-emv.com/rss/vcf/
+https://valenciaplaza.com/rss
