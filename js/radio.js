@@ -89,10 +89,42 @@ document.addEventListener('DOMContentLoaded', () => {
         updatePlayState();
     });
 
+    // Horario para anuncios de "Próximamente"
+    const SCHEDULE = [
+        { h: 9, m: 30, name: "GOTHAM VCF" },
+        { h: 11, m: 30, name: "LA HORA DON PÍO" },
+        { h: 13, m: 30, name: "ATENEO" },
+        { h: 15, m: 30, name: "GOTHAM VCF" },
+        { h: 17, m: 30, name: "LA HORA DON PÍO" },
+        { h: 19, m: 30, name: "ATENEO" },
+        { h: 21, m: 30, name: "GOTHAM VCF" },
+        { h: 23, m: 30, name: "ATENEO" }
+    ];
+
+    function getComingNextMessage() {
+        const now = new Date();
+        const curH = now.getHours();
+        const curM = now.getMinutes();
+        const totalMinutesNow = curH * 60 + curM;
+
+        for (const prog of SCHEDULE) {
+            const progTotalMinutes = prog.h * 60 + prog.m;
+            const diff = progTotalMinutes - totalMinutesNow;
+            if (diff > 0 && diff <= 5) {
+                return `PRÓXIMAMENTE (${prog.h}:${prog.m.toString().padStart(2,'0')}h): ${prog.name}`;
+            }
+        }
+        if (curM >= 57 && curM < 60) {
+            return `A LAS EN PUNTO: EL MÓN DE JUAN Y PATRI`;
+        }
+        return null;
+    }
+
     // 3. Metadata & Cover Logic
     async function updateMetadata() {
         try {
             let songName = "Radio Valencianismo 24/7";
+            const comingNext = getComingNextMessage();
 
             try {
                 const metaRes = await fetch(ICECAST_JSON_URL);
@@ -106,6 +138,11 @@ document.addEventListener('DOMContentLoaded', () => {
                     }
                 }
             } catch(e) {}
+
+            // Prioridad al aviso si estamos en música genérica
+            if (comingNext && (songName === "Radio Valencianismo 24/7" || !songName.includes(':'))) {
+                songName = comingNext;
+            }
 
             // Actualizar carátula SIEMPRE que no sea el nombre de la radio por defecto
             if (songName !== "Radio Valencianismo 24/7") {
