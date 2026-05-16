@@ -8,10 +8,10 @@ import time
 # La carpeta base para las descargas de audios
 BASE_DEST_DIR = "backend/mp3/programas"
 # Ruta de yt-dlp (se usa ruta absoluta para evitar problemas en cron)
-YT_DLP_PATH = "/usr/local/bin/yt-dlp"
+YT_DLP_PATH = "/home/victor/.local/bin/yt-dlp"
 FFMPEG_PATH = "/usr/bin/ffmpeg"
 # Configuración del puente de envío (rsync)
-RSYNC_ENABLED = False
+RSYNC_ENABLED = True
 RSYNC_TARGET = "debian@54.36.100.247:/home/debian/radiovalencianismo/backend/mp3/programas/"
 
 
