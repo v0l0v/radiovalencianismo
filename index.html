@@ -1687,7 +1687,37 @@
             setTimeout(() => modal.classList.add('active'), 10);
         }
 
+        async function loadProgramMetadata() {
+            const programs = [
+                { id: 'gotham', path: 'backend/mp3/programas/gothamvcf/seleccion/ultimo_programa.json' },
+                { id: 'donpio', path: 'backend/mp3/programas/horaDonPio/seleccion/ultimo_programa.json' },
+                { id: 'ateneo', path: 'backend/mp3/programas/ateneo/seleccion/ultimo_programa.json' },
+                { id: 'juanpatri', path: 'backend/mp3/programas/juan_y_patri/seleccion/ultimo_programa.json' }
+            ];
 
+            for (const prog of programs) {
+                try {
+                    const response = await fetch(prog.path + '?v=' + Date.now());
+                    if (response.ok) {
+                        const data = await response.json();
+                        // Actualizar todas las ocurrencias de este programa en la parrilla
+                        const items = document.querySelectorAll(`.schedule-item[onclick*="openProgramDetail('${prog.id}')"]`);
+                        items.forEach(item => {
+                            const descEl = item.querySelector('.sch-desc');
+                            if (descEl && data.title) {
+                                descEl.innerHTML = `<span style="color:var(--secondary); font-weight:700;">Hoy:</span> ${data.title}`;
+                                descEl.style.color = "#fff";
+                            }
+                        });
+                    }
+                } catch (e) {}
+            }
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadFeeds();
+            loadProgramMetadata();
+        });
     </script>
 </body>
 </html>
