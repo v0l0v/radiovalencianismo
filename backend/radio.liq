@@ -15,34 +15,31 @@ don_pio = playlist(mode="normal", loop=false, reload_mode="watch", "/mp3/program
 ateneo = playlist(mode="normal", loop=false, reload_mode="watch", "/mp3/programas/ateneo/seleccion")
 juan_y_patri = playlist(mode="normal", loop=false, reload_mode="watch", "/mp3/programas/juan_y_patri/seleccion")
 
-# 2. Lógica de Audio (Horario Maestro)
+# 2. Lógica de Audio (Horario Maestro Unificado)
+# Usamos ventanas de 5 minutos para "disparar" el programa. 
+# track_sensitive=true asegura que una vez empieza, NO SE CORTA hasta el final.
 
-# Bloque de Píldoras Horarias (A las :00 de cada hora)
-pildoras = switch(track_sensitive=true, [
-  ({ 0m-1m }, juan_y_patri)
+radio = switch(track_sensitive=true, [
+  # 1. Píldoras de Juan y Patri (Cada hora en punto :00)
+  ({ 0m-5m }, juan_y_patri),
+
+  # 2. Programas Principales (A las :30 según el grid)
+  ({ 9h30m-9h35m }, gotham),
+  ({ 11h30m-11h35m }, don_pio),
+  ({ 13h30m-13h35m }, ateneo),
+  ({ 15h30m-15h35m }, gotham),
+  ({ 17h30m-17h35m }, don_pio),
+  ({ 19h30m-19h35m }, ateneo),
+  ({ 21h30m-21h35m }, gotham),
+  ({ 23h30m-23h35m }, ateneo),
+
+  # 3. Live (Si alguien se conecta por Harbor, tiene prioridad total si no hay programa sonando)
+  ({ 1h-23h }, fallback(track_sensitive=false, [live, musica_normal])),
+
+  # 4. Música genérica (Failsafe)
+  ({ true }, musica_normal)
 ])
 
-# Bloque de Programas Principales (A las :30 según horario)
-# track_sensitive=true garantiza que NUNCA se corte un programa a mitad
-programas = switch(track_sensitive=true, [
-  ({ 09h30m-10h30m }, gotham),
-  ({ 11h30m-12h30m }, don_pio),
-  ({ 13h30m-14h30m }, ateneo),
-  ({ 15h30m-16h30m }, gotham),
-  ({ 17h30m-18h30m }, don_pio),
-  ({ 19h30m-20h30m }, ateneo),
-  ({ 21h30m-22h30m }, gotham),
-  ({ 23h30m-00h30m }, ateneo)
-])
-
-# Mezcla Final
-radio = fallback(track_sensitive=false, [
-  live, 
-  emergencia, 
-  pildoras,   # Prioridad 1: Píldora a en punto
-  programas,  # Prioridad 2: Programas a y media
-  musica_normal # Prioridad 3: Música genérica todo el día
-])
 radio = mksafe(radio)
 
 output.icecast(%mp3(bitrate=128),
