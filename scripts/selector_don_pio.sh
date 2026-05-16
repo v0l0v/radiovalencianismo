@@ -38,7 +38,7 @@ SELECTED="${AVAILABLE[$RANDOM % ${#AVAILABLE[@]}]}"
 
 # Limpiar selección y crear ENLACE RELATIVO (muy importante para el rsync)
 rm -f "$SELECCION_DIR"/*
-ln -s "../$SELECTED" "$SELECCION_DIR/$SELECTED"
+cp "$SELECTED" "$SELECCION_DIR/programa_actual.mp3"
 
 echo "$SELECTED" >> "$HISTORIAL"
 # Generar JSON para la web

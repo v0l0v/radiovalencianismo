@@ -39,9 +39,9 @@ fi
 # Seleccionar uno al azar
 SELECTED="${AVAILABLE[$RANDOM % ${#AVAILABLE[@]}]}"
 
-# Crear el enlace en la carpeta de selección usando enlace RELATIVO
+# Crear el archivo en la carpeta de selección con nombre limpio
 rm -f "$SELECCION_DIR"/*
-ln -s "../$SELECTED" "$SELECCION_DIR/$SELECTED"
+cp "$SELECTED" "$SELECCION_DIR/pildora_actual.mp3"
 
 # Guardar en historial
 echo "$SELECTED" >> "$HISTORIAL"

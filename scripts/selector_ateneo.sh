@@ -37,7 +37,7 @@ fi
 SELECTED="${AVAILABLE[$RANDOM % ${#AVAILABLE[@]}]}"
 
 rm -f "$SELECCION_DIR"/*
-ln -s "../$SELECTED" "$SELECCION_DIR/$SELECTED"
+cp "$SELECTED" "$SELECCION_DIR/programa_actual.mp3"
 
 echo "$SELECTED" >> "$HISTORIAL"
 # Generar JSON para la web
