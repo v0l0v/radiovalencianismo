@@ -19,7 +19,11 @@ fi
 rm -f "$SELECCION_DIR"/*
 ln -s "../$SELECTED" "$SELECCION_DIR/$SELECTED"
 
-# Generar JSON para la web
-echo "{\"title\": \"$SELECTED\"}" > "$BASE_DIR/seleccion/ultimo_programa.json"
+# Generar JSON para la web (intentar copiar el original con carátula)
+if [ -f "ultimo_programa.json" ]; then
+    cp "ultimo_programa.json" "$SELECCION_DIR/ultimo_programa.json"
+else
+    echo "{\"title\": \"$SELECTED\"}" > "$SELECCION_DIR/ultimo_programa.json"
+fi
 
 echo "$(date '+%Y-%m-%d %H:%M:%S') - Seleccionado Gotham (Último): $SELECTED" >> "$BASE_DIR/selector_log.txt"
