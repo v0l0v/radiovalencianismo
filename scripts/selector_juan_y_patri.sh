@@ -46,5 +46,8 @@ ln -s "../$SELECTED" "$SELECCION_DIR/$SELECTED"
 # Guardar en historial
 echo "$SELECTED" >> "$HISTORIAL"
 
+# Generar JSON para la web
+echo "{\"title\": \"$SELECTED\", \"type\": \"pildora\"}" > "$BASE_DIR/seleccion/ultimo_programa.json"
+
 echo "$(date '+%Y-%m-%d %H:%M:%S') - Seleccionado Juan y Patri: $SELECTED" >> "$BASE_DIR/selector_log.txt"
 echo "Cambio completado: $SELECTED"

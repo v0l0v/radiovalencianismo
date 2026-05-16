@@ -40,4 +40,7 @@ rm -f "$SELECCION_DIR"/*
 ln -s "../$SELECTED" "$SELECCION_DIR/$SELECTED"
 
 echo "$SELECTED" >> "$HISTORIAL"
+# Generar JSON para la web
+echo "{\"title\": \"$SELECTED\"}" > "$BASE_DIR/seleccion/ultimo_programa.json"
+
 echo "$(date '+%Y-%m-%d %H:%M:%S') - Seleccionado Ateneo: $SELECTED" >> "$BASE_DIR/selector_log.txt"

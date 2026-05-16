@@ -426,20 +426,87 @@
             </div>
             <div id="schedule-date-mobile" style="font-size: 0.8rem; color: #aaa; margin-bottom: 15px; font-weight: 500;"></div>
             <div class="schedule-list">
-                <div class="schedule-item" data-hour="0" onclick="openProgramDetail('ateneo')"><div class="sch-time">00:00</div><div class="sch-icon"><i class="fas fa-landmark"></i></div><div class="sch-info"><div class="sch-title">Ateneo</div><div class="sch-desc" id="desc-ateneo-mobile">Cultura y Patrimonio</div></div></div>
-                <div class="schedule-item" data-hour="2" style="opacity: 0.7;" onclick="openProgramDetail('musica')"><div class="sch-time">02:00</div><div class="sch-icon"><i class="fas fa-music"></i></div><div class="sch-info"><div class="sch-title">Música del Regne</div><div class="sch-desc">Sesión nocturna</div></div></div>
-                <div class="schedule-item" data-hour="8" onclick="openProgramDetail('donpio')"><div class="sch-time">08:00</div><div class="sch-icon"><i class="fas fa-sun"></i></div><div class="sch-info"><div class="sch-title">La Hora Don Pío</div><div class="sch-desc">Humor valenciano</div></div></div>
-                <div class="schedule-item" data-hour="9" style="opacity: 0.7;" onclick="openProgramDetail('musica')"><div class="sch-time">09:30</div><div class="sch-icon"><i class="fas fa-music"></i></div><div class="sch-info"><div class="sch-title">Música del Regne</div><div class="sch-desc">Sesión mañana</div></div></div>
-                <div class="schedule-item" data-hour="10" onclick="openProgramDetail('gotham')"><div class="sch-time">10:00</div><div class="sch-icon"><i class="fas fa-futbol"></i></div><div class="sch-info"><div class="sch-title">Gotham VCF</div><div class="sch-desc" id="desc-gotham-mobile">Deporte y actualidad</div></div></div>
-                <div class="schedule-item" data-hour="12" style="opacity: 0.7;" onclick="openProgramDetail('musica')"><div class="sch-time">12:00</div><div class="sch-icon"><i class="fas fa-music"></i></div><div class="sch-info"><div class="sch-title">Música del Regne</div><div class="sch-desc">Sesión mediodía</div></div></div>
-                <div class="schedule-item" data-hour="14" onclick="openProgramDetail('donpio')"><div class="sch-time">14:00</div><div class="sch-icon"><i class="fas fa-utensils"></i></div><div class="sch-info"><div class="sch-title">Don Pío</div><div class="sch-desc">Humor de sobremesa</div></div></div>
-                <div class="schedule-item" data-hour="15" style="opacity: 0.7;" onclick="openProgramDetail('musica')"><div class="sch-time">15:30</div><div class="sch-icon"><i class="fas fa-music"></i></div><div class="sch-info"><div class="sch-title">Música del Regne</div><div class="sch-desc">Sesión tarde</div></div></div>
-                <div class="schedule-item" data-hour="16" onclick="openProgramDetail('gotham')"><div class="sch-time">16:00</div><div class="sch-icon"><i class="fas fa-microphone-alt"></i></div><div class="sch-info"><div class="sch-title">Gotham</div><div class="sch-desc">Segunda edición</div></div></div>
-                <div class="schedule-item" data-hour="18" style="opacity: 0.7;" onclick="openProgramDetail('musica')"><div class="sch-time">18:00</div><div class="sch-icon"><i class="fas fa-music"></i></div><div class="sch-info"><div class="sch-title">Música del Regne</div><div class="sch-desc">Sesión atardecer</div></div></div>
-                <div class="schedule-item" data-hour="20" onclick="openProgramDetail('donpio')"><div class="sch-time">20:00</div><div class="sch-icon"><i class="fas fa-moon"></i></div><div class="sch-info"><div class="sch-title">Don Pío</div><div class="sch-desc">Repaso nocturno</div></div></div>
-                <div class="schedule-item" data-hour="21" style="opacity: 0.7;" onclick="openProgramDetail('musica')"><div class="sch-time">21:30</div><div class="sch-icon"><i class="fas fa-music"></i></div><div class="sch-info"><div class="sch-title">Música del Regne</div><div class="sch-desc">Sesión noche</div></div></div>
-                <div class="schedule-item" data-hour="22" onclick="openProgramDetail('gotham')"><div class="sch-time">22:00</div><div class="sch-icon"><i class="fas fa-flag"></i></div><div class="sch-info"><div class="sch-title">Gotham</div><div class="sch-desc">Cierre del día</div></div></div>
-                <div class="schedule-item" data-hour="23" style="opacity: 0.7;" onclick="openProgramDetail('musica')"><div class="sch-time">23:30</div><div class="sch-icon"><i class="fas fa-music"></i></div><div class="sch-info"><div class="sch-title">Música del Regne</div><div class="sch-desc">Cierre nocturno</div></div></div>
+                <!-- Horario Dinámico Móvil -->
+                <div class="schedule-item" onclick="openProgramDetail('juanpatri')" style="background: rgba(255,193,7,0.05);">
+                    <div class="sch-time">Cada :00</div>
+                    <div class="sch-icon"><i class="fas fa-bolt"></i></div>
+                    <div class="sch-info">
+                        <div class="sch-title">Juan y Patri (Píldora)</div>
+                        <div class="sch-desc" id="desc-juanpatri-mobile">Breves apuntes de historia</div>
+                    </div>
+                </div>
+
+                <div class="schedule-item" onclick="openProgramDetail('gotham')">
+                    <div class="sch-time">09:30</div>
+                    <div class="sch-icon"><i class="fas fa-microphone-alt"></i></div>
+                    <div class="sch-info">
+                        <div class="sch-title">Gotham VCF</div>
+                        <div class="sch-desc" id="desc-gotham-mobile">Actualidad che</div>
+                    </div>
+                </div>
+
+                <div class="schedule-item" onclick="openProgramDetail('donpio')">
+                    <div class="sch-time">11:30</div>
+                    <div class="sch-icon"><i class="fas fa-laugh"></i></div>
+                    <div class="sch-info">
+                        <div class="sch-title">Don Pío</div>
+                        <div class="sch-desc" id="desc-donpio-mobile">Humor valenciano</div>
+                    </div>
+                </div>
+
+                <div class="schedule-item" onclick="openProgramDetail('ateneo')">
+                    <div class="sch-time">13:30</div>
+                    <div class="sch-icon"><i class="fas fa-university"></i></div>
+                    <div class="sch-info">
+                        <div class="sch-title">Ateneo</div>
+                        <div class="sch-desc" id="desc-ateneo-mobile">Tertulia de fondo</div>
+                    </div>
+                </div>
+
+                <div class="schedule-item" onclick="openProgramDetail('gotham')">
+                    <div class="sch-time">15:30</div>
+                    <div class="sch-icon"><i class="fas fa-microphone-alt"></i></div>
+                    <div class="sch-info">
+                        <div class="sch-title">Gotham VCF</div>
+                        <div class="sch-desc" id="desc-gotham-2-mobile">Actualidad che</div>
+                    </div>
+                </div>
+
+                <div class="schedule-item" onclick="openProgramDetail('donpio')">
+                    <div class="sch-time">17:30</div>
+                    <div class="sch-icon"><i class="fas fa-laugh"></i></div>
+                    <div class="sch-info">
+                        <div class="sch-title">Don Pío</div>
+                        <div class="sch-desc" id="desc-donpio-2-mobile">Humor valenciano</div>
+                    </div>
+                </div>
+
+                <div class="schedule-item" onclick="openProgramDetail('ateneo')">
+                    <div class="sch-time">19:30</div>
+                    <div class="sch-icon"><i class="fas fa-university"></i></div>
+                    <div class="sch-info">
+                        <div class="sch-title">Ateneo</div>
+                        <div class="sch-desc" id="desc-ateneo-2-mobile">Tertulia de fondo</div>
+                    </div>
+                </div>
+
+                <div class="schedule-item" onclick="openProgramDetail('gotham')">
+                    <div class="sch-time">21:30</div>
+                    <div class="sch-icon"><i class="fas fa-moon"></i></div>
+                    <div class="sch-info">
+                        <div class="sch-title">Gotham VCF</div>
+                        <div class="sch-desc" id="desc-gotham-3-mobile">Actualidad che</div>
+                    </div>
+                </div>
+
+                <div class="schedule-item" onclick="openProgramDetail('ateneo')">
+                    <div class="sch-time">23:30</div>
+                    <div class="sch-icon"><i class="fas fa-star"></i></div>
+                    <div class="sch-info">
+                        <div class="sch-title">Ateneo</div>
+                        <div class="sch-desc" id="desc-ateneo-3-mobile">Cierre jornada</div>
+                    </div>
+                </div>
             </div>
             <button onclick="closeModal('schedule-modal')" style="width: 100%; padding: 12px; border-radius: 50px; background: var(--secondary); color: #000; border: none; font-weight: 800; margin-top: 15px;">VOLVER</button>
         </div>
@@ -539,8 +606,10 @@
 
         async function loadProgramMetadata() {
             const programs = [
-                { id: 'gotham', path: 'backend/mp3/programas/gothamvcf/ultimo_programa.json' },
-                { id: 'ateneo', path: 'backend/mp3/programas/ateneo/ultimo_programa.json' }
+                { id: 'gotham', path: 'backend/mp3/programas/gothamvcf/seleccion/ultimo_programa.json' },
+                { id: 'donpio', path: 'backend/mp3/programas/horaDonPio/seleccion/ultimo_programa.json' },
+                { id: 'ateneo', path: 'backend/mp3/programas/ateneo/seleccion/ultimo_programa.json' },
+                { id: 'juanpatri', path: 'backend/mp3/programas/juan_y_patri/seleccion/ultimo_programa.json' }
             ];
 
             for (const prog of programs) {
@@ -577,25 +646,31 @@
         const programData = {
             'gotham': {
                 title: 'Gotham VCF',
-                desc: 'La referencia informativa sobre el Valencia CF. Análisis profundo y opinión sin censura.',
+                desc: 'Análisis profundo y toda la actualidad del conjunto che.',
                 img: 'https://i.ytimg.com/vi/2C5y7R1icG4/maxresdefault.jpg',
-                path: 'backend/mp3/programas/gothamvcf/ultimo_programa.json'
+                path: 'backend/mp3/programas/gothamvcf/seleccion/ultimo_programa.json'
             },
             'donpio': {
                 title: 'La Hora Don Pío',
-                desc: 'El humor más auténtico de nuestra tierra con el ingenio de Don Pío.',
+                desc: 'El humor más auténtico con el ingenio de Don Pío.',
                 img: 'https://i.ytimg.com/vi/w-HheUwKmio/maxresdefault.jpg',
-                path: 'backend/mp3/programas/donpio/ultimo_programa.json'
+                path: 'backend/mp3/programas/horaDonPio/seleccion/ultimo_programa.json'
             },
             'ateneo': {
                 title: 'Ateneo',
-                desc: 'Cultura, historia y patrimonio valenciano. Nuestras raíces en formato radio.',
+                desc: 'Cultura, historia y patrimonio valenciano.',
                 img: 'https://i.ytimg.com/vi/n5RyeO8Gk7c/maxresdefault.jpg',
-                path: 'backend/mp3/programas/ateneo/ultimo_programa.json'
+                path: 'backend/mp3/programas/ateneo/seleccion/ultimo_programa.json'
+            },
+            'juanpatri': {
+                title: 'Juan y Patri',
+                desc: 'Historia y valencianismo con Juan y Patri.',
+                img: 'https://i.ytimg.com/vi/ofSlu6WelIA/maxresdefault.jpg',
+                path: 'backend/mp3/programas/juan_y_patri/seleccion/ultimo_programa.json'
             },
             'musica': {
                 title: 'Música del Regne',
-                desc: 'Selección musical ininterrumpida con lo mejor del Reino de Valencia.',
+                desc: 'Selección musical ininterrumpida.',
                 img: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=800',
                 path: null
             }
