@@ -105,7 +105,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const now = new Date();
         const curH = now.getHours();
         const curM = now.getMinutes();
+        const curS = now.getSeconds();
         const totalMinutesNow = curH * 60 + curM;
+
+        // Si estamos en los últimos 15 segundos del minuto, no mostrar aviso (para que rote la canción)
+        if (curS >= 45) return null;
 
         for (const prog of SCHEDULE) {
             const progTotalMinutes = prog.h * 60 + prog.m;
