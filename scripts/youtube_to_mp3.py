@@ -7,12 +7,29 @@ import time
 
 # La carpeta base para las descargas de audios
 BASE_DEST_DIR = "backend/mp3/programas"
-# Ruta de yt-dlp (se usa ruta absoluta para evitar problemas en cron)
-YT_DLP_PATH = "/home/victor/.local/bin/yt-dlp"
-FFMPEG_PATH = "/usr/bin/ffmpeg"
+# Rutas automáticas para yt-dlp y ffmpeg
+def get_binary_path(binary_name):
+    # Buscar en el PATH del sistema
+    import shutil
+    path = shutil.which(binary_name)
+    if path: return path
+    # Rutas comunes por si acaso (local y vps)
+    common_paths = [
+        os.path.expanduser(f"~/.local/bin/{binary_name}"),
+        f"/usr/bin/{binary_name}",
+        f"/usr/local/bin/{binary_name}"
+    ]
+    for p in common_paths:
+        if os.path.exists(p): return p
+    return binary_name # Fallback al nombre a secas
+
+YT_DLP_PATH = get_binary_path("yt-dlp")
+FFMPEG_PATH = get_binary_path("ffmpeg")
+
 # Configuración del puente de envío (rsync)
 RSYNC_ENABLED = True
 RSYNC_TARGET = "debian@54.36.100.247:/home/debian/radiovalencianismo/backend/mp3/programas/"
+SSH_KEY_PATH = os.path.expanduser("~/.ssh/id_ed25519")
 
 
 
@@ -114,6 +131,11 @@ def download_videos(feed_filename):
                 f = new_files[0]
                 full_mp3_path = os.path.join(dest_path, f)
 
+                # 1. Definir título limpio (quitar extensión y arreglar caracteres raros)
+                clean_title = f.replace(".mp3", "")
+                # Sustituir el carácter raro de la barra (⧸) por una barra normal (/) o guion
+                clean_title = clean_title.replace("⧸", "/").replace("⧹", "\\")
+
                 # --- LIMPIEZA: Ahora sí, borramos los viejos si es Gotham ---
                 if program_folder == "gothamvcf":
                     print(f"🧹 Sustituyendo episodio antiguo por: {f}")
@@ -122,50 +144,45 @@ def download_videos(feed_filename):
                             try: os.remove(os.path.join(dest_path, f_old))
                             except: pass
                         
-                        # 1. Definir título limpio (quitar extensión y arreglar caracteres raros)
-                        clean_title = f.replace(".mp3", "")
-                        # Sustituir el carácter raro de la barra (⧸) por una barra normal (/) o guion
-                        clean_title = clean_title.replace("⧸", "/").replace("⧹", "\\")
+                    # Asegurar que el título contiene el nombre del programa para que el frontend cargue la carátula
+                    if "gotham" not in clean_title.lower():
+                        clean_title = f"Gotham VCF - {clean_title}"
                         
-                        # Asegurar que el título contiene el nombre del programa para que el frontend cargue la carátula
-                        if program_folder == "gothamvcf" and "gotham" not in clean_title.lower():
-                            clean_title = f"Gotham VCF - {clean_title}"
-                        
-                        tmp_mp3 = os.path.join(dest_path, f"tmp_{f}")
-                        
-                        # 2. Preparar comando base de ffmpeg para metadatos
-                        cmd_args = [FFMPEG_PATH, "-y", "-nostdin", "-i", full_mp3_path]
-                        
-                        # 3. Añadir carátula si existe
-                        cover_files = [cf for cf in os.listdir(dest_path) if cf.lower().endswith((".jpg", ".png"))]
-                        if cover_files:
-                            cover_path = os.path.join(dest_path, cover_files[0])
-                            cmd_args += ["-i", cover_path, "-map", "0:a", "-map", "1:v"]
-                            print(f"🖼️ Preparando carátula {cover_files[0]} para {f}...")
-                        else:
-                            cmd_args += ["-map", "0:a"]
-                            
-                        # 4. Añadir etiquetas y generar salida
-                        cmd_args += [
-                            "-c", "copy", "-id3v2_version", "3",
-                            "-metadata", f"title={clean_title}",
-                            "-metadata", "artist=Radio Valencianismo"
-                        ]
-                        
-                        if cover_files:
-                            cmd_args += ["-metadata:s:v", "title=Album cover", "-metadata:s:v", "comment=Cover (Front)", "-disposition:v:0", "attached_pic"]
-                            
-                        cmd_args.append(tmp_mp3)
-                        
-                        print(f"🏷️ Etiquetando audio: {clean_title}")
-                        embed_res = subprocess.run(cmd_args, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-                        
-                        if embed_res.returncode == 0:
-                            os.replace(tmp_mp3, full_mp3_path)
-                            print("✅ Metadatos y carátula aplicados correctamente.")
-                        else:
-                            if os.path.exists(tmp_mp3): os.remove(tmp_mp3)
-                            print("⚠️ Error al aplicar metadatos.")
+                tmp_mp3 = os.path.join(dest_path, f"tmp_{f}")
+                
+                # 2. Preparar comando base de ffmpeg para metadatos
+                cmd_args = [FFMPEG_PATH, "-y", "-nostdin", "-i", full_mp3_path]
+                
+                # 3. Añadir carátula si existe
+                cover_files = [cf for cf in os.listdir(dest_path) if cf.lower().endswith((".jpg", ".png"))]
+                if cover_files:
+                    cover_path = os.path.join(dest_path, cover_files[0])
+                    cmd_args += ["-i", cover_path, "-map", "0:a", "-map", "1:v"]
+                    print(f"🖼️ Preparando carátula {cover_files[0]} para {f}...")
+                else:
+                    cmd_args += ["-map", "0:a"]
+                    
+                # 4. Añadir etiquetas y generar salida
+                cmd_args += [
+                    "-c", "copy", "-id3v2_version", "3",
+                    "-metadata", f"title={clean_title}",
+                    "-metadata", "artist=Radio Valencianismo"
+                ]
+                
+                if cover_files:
+                    cmd_args += ["-metadata:s:v", "title=Album cover", "-metadata:s:v", "comment=Cover (Front)", "-disposition:v:0", "attached_pic"]
+                    
+                cmd_args.append(tmp_mp3)
+                
+                print(f"🏷️ Etiquetando audio: {clean_title}")
+                embed_res = subprocess.run(cmd_args, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
+                
+                if embed_res.returncode == 0:
+                    os.replace(tmp_mp3, full_mp3_path)
+                    print("✅ Metadatos y carátula aplicados correctamente.")
+                else:
+                    if os.path.exists(tmp_mp3): os.remove(tmp_mp3)
+                    print("⚠️ Error al aplicar metadatos.")
 
                 success = True
                 
@@ -207,20 +224,23 @@ def download_videos(feed_filename):
                 # Continuamos con el siguiente vídeo del feed
                 continue
 
-        if RSYNC_ENABLED:
-            print(f"Iniciando sincronización selectiva con el servidor de la radio...")
-            if program_folder == "gothamvcf":
-                # Sincronizar solo carpeta gotham (mucho más rápido)
-                src_gotham = os.path.join(base_path, "backend/mp3/programas/gothamvcf/")
-                dest_gotham = RSYNC_TARGET + "gothamvcf/"
-                
-                print(f"📤 Subiendo episodios de Gotham...")
-                subprocess.run(["rsync", "-avz", "--exclude=*.txt", src_gotham, dest_gotham])
-            else:
-                # Espejo completo para el resto de programas
-                sync_cmd = ["rsync", "-avz", "--delete", os.path.join(base_path, "backend/"), RSYNC_TARGET.replace("/programas/", "/")]
-                subprocess.run(sync_cmd)
-            print("✅ Sincronización completa.")
+        # Mover rsync fuera del bucle para que se ejecute siempre
+        # Usar rsync con la llave SSH específica y --delete para limpiar el servidor
+        rsync_base_cmd = ["rsync", "-avz", "--delete", "--exclude=*.txt"]
+        if os.path.exists(SSH_KEY_PATH):
+            rsync_base_cmd += ["-e", f"ssh -i {SSH_KEY_PATH} -o StrictHostKeyChecking=no"]
+        
+        if program_folder == "gothamvcf":
+            src_gotham = os.path.join(base_path, "backend/mp3/programas/gothamvcf/")
+            dest_gotham = RSYNC_TARGET + "gothamvcf/"
+            print(f"📤 Sincronizando Gotham (con limpieza)...")
+            subprocess.run(rsync_base_cmd + [src_gotham, dest_gotham])
+        else:
+            # Espejo completo para el resto
+            src_all = os.path.join(base_path, "backend/mp3/programas/")
+            subprocess.run(rsync_base_cmd + [src_all, RSYNC_TARGET])
+        print("✅ Sincronización completa.")
+
 
     except Exception as e:
         print(f"Error durante el procesamiento: {e}")
