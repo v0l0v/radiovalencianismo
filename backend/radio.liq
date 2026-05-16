@@ -21,7 +21,7 @@ juan_y_patri = playlist(mode="normal", loop=false, reload_mode="watch", "/mp3/pr
 
 radio = switch(track_sensitive=true, [
   # 1. Píldoras de Juan y Patri (Cada hora en punto :00)
-  ({ 0m-5m }, juan_y_patri),
+  ({ 0m-10m }, juan_y_patri),
 
   # 2. Programas Principales (A las :30 según el grid)
   ({ 9h30m-9h35m }, gotham),
