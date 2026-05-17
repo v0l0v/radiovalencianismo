@@ -6,7 +6,15 @@ set("server.telnet.port", 1234)
 # 1. Fuentes de audio
 live = input.harbor("live", port=8080, password="D26VmLg3791+")
 emergencia = request.queue(id="emergencia")
-musica_normal = playlist(mode="randomize", reload_mode="watch", "/mp3/generico")
+musica_normal = rotate([
+  playlist(mode="randomize", reload_mode="watch", "/mp3/generico/Bandas"),
+  playlist(mode="randomize", reload_mode="watch", "/mp3/generico/Cancons de Nadal"),
+  playlist(mode="randomize", reload_mode="watch", "/mp3/generico/Cants i Himnes patriotics"),
+  playlist(mode="randomize", reload_mode="watch", "/mp3/generico/Fa dosmil anys"),
+  playlist(mode="randomize", reload_mode="watch", "/mp3/generico/Fallas"),
+  playlist(mode="randomize", reload_mode="watch", "/mp3/generico/Vicent Saball"),
+  playlist(mode="randomize", reload_mode="watch", "/mp3/generico/otras")
+])
 
 # Fuentes de Programas (usando carpetas de selección para control total)
 # loop=false asegura que el programa suene una vez y no se repita
