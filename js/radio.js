@@ -124,6 +124,13 @@ document.addEventListener('DOMContentLoaded', () => {
         return null;
     }
 
+    function decodeHTMLEntities(text) {
+        if (!text) return "";
+        const textArea = document.createElement('textarea');
+        textArea.innerHTML = text;
+        return textArea.value;
+    }
+
     // 3. Metadata & Cover Logic
     async function updateMetadata() {
         try {
@@ -137,7 +144,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     if (data.icestats && data.icestats.source) {
                         const source = Array.isArray(data.icestats.source) ? data.icestats.source[0] : data.icestats.source;
                         if (source && source.title) {
-                            songName = source.title.trim();
+                            songName = decodeHTMLEntities(source.title.trim());
                         }
                     }
                 }
