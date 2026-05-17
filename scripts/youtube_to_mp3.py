@@ -143,6 +143,9 @@ def download_videos(feed_filename):
                         if f_old.endswith(".mp3") and f_old != f:
                             try: os.remove(os.path.join(dest_path, f_old))
                             except: pass
+                    # Asegurar que el título contiene el nombre del programa para que el frontend cargue la carátula
+                    if "gotham" not in clean_title.lower():
+                        clean_title = f"Gotham VCF - {clean_title}"
                 elif program_folder == "ateneo":
                     print(f"🧹 Ateneo: Limpiando archivos con más de 7 días...")
                     import time as t_lib
@@ -159,8 +162,8 @@ def download_videos(feed_filename):
                                 except: pass
                         
                     # Asegurar que el título contiene el nombre del programa para que el frontend cargue la carátula
-                    if "gotham" not in clean_title.lower():
-                        clean_title = f"Gotham VCF - {clean_title}"
+                    if "ateneo" not in clean_title.lower():
+                        clean_title = f"Ateneo - {clean_title}"
                         
                 tmp_mp3 = os.path.join(dest_path, f"tmp_{f}")
                 
