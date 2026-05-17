@@ -8,3 +8,5 @@ noticia_actual.txt
 .env
 *.save
 *.tmp
+cookies.txt
+scripts/ultimo_id_*.txt
