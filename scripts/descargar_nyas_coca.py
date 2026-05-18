@@ -7,13 +7,29 @@ import xml.etree.ElementTree as ET
 
 # Configuración
 RSS_URL = "https://rss.app/feeds/7vARajiOaO8zJO76.xml"
-BASE_PATH = "/home/victor/proyectos/RadioValencianismomasmas"
-DEST_DIR = os.path.join(BASE_PATH, "backend/mp3/generico/nyas_coca")
-ARCHIVE_PATH = os.path.join(DEST_DIR, "archive_nyas_coca.txt")
 SSH_KEY_PATH = os.path.expanduser("~/.ssh/id_ed25519")
 
-# Destino remoto de producción
+# Destino remoto de producción para rsync (desde local)
 RSYNC_TARGET = "debian@54.36.100.247:/home/debian/radiovalencianismo/backend/mp3/generico/nyas_coca/"
+
+# Detección inteligente de entorno (VPS de producción o máquina local)
+VPS_BASE_PATH = "/home/debian/radiovalencianismo"
+LOCAL_BASE_PATH = "/home/victor/proyectos/RadioValencianismomasmas"
+
+if os.path.exists(VPS_BASE_PATH):
+    # Estamos en el VPS de producción
+    BASE_PATH = VPS_BASE_PATH
+    DEST_DIR = os.path.join(BASE_PATH, "backend/mp3/generico/nyas_coca")
+    IS_VPS = True
+    print("🖥️ Entorno detectado: VPS de Producción")
+else:
+    # Estamos en la máquina local de Víctor
+    BASE_PATH = LOCAL_BASE_PATH
+    DEST_DIR = os.path.join(BASE_PATH, "backend/mp3/generico/nyas_coca")
+    IS_VPS = False
+    print("💻 Entorno detectado: Máquina Local (Víctor)")
+
+ARCHIVE_PATH = os.path.join(DEST_DIR, "archive_nyas_coca.txt")
 
 def get_binary_path(binary_name):
     import shutil
@@ -31,7 +47,7 @@ def get_binary_path(binary_name):
 YT_DLP_PATH = get_binary_path("yt-dlp")
 
 def descargar():
-    print("=== Iniciando descarga de canciones para Nyas Coca ===")
+    print(f"=== Iniciando descarga de canciones para Nyas Coca ===")
     if not os.path.exists(DEST_DIR):
         os.makedirs(DEST_DIR, exist_ok=True)
 
@@ -58,6 +74,7 @@ def descargar():
         print(f"🎵 Se encontraron {len(links)} canciones potenciales en la lista.")
         
         # Descargar cada canción usando yt-dlp de forma incremental con el archive file
+        descargadas_nuevas = 0
         for index, video_url in enumerate(links, 1):
             video_id = video_url.split("v=")[-1] if "v=" in video_url else video_url.split("/")[-1]
             print(f"\n📥 [{index}/{len(links)}] Procesando: {video_url}")
@@ -78,24 +95,28 @@ def descargar():
             res = subprocess.run(cmd)
             if res.returncode == 0:
                 print(f"✅ Descargado / Ya archivado con éxito.")
+                descargadas_nuevas += 1
             else:
                 print(f"⚠️ Error al descargar o saltado: {video_url}")
 
-        # Sincronizar carpeta local con producción usando rsync
-        print("\n📤 Sincronizando con el servidor de producción (VPS)...")
-        rsync_cmd = ["rsync", "-avz", "--delete", "--exclude=*.txt"]
-        if os.path.exists(SSH_KEY_PATH):
-            rsync_cmd += ["-e", f"ssh -i {SSH_KEY_PATH} -o StrictHostKeyChecking=no"]
-        
-        # Origen local y destino remoto
-        src_dir = DEST_DIR + "/"
-        rsync_cmd += [src_dir, RSYNC_TARGET]
-        
-        sync_res = subprocess.run(rsync_cmd)
-        if sync_res.returncode == 0:
-            print("✅ Sincronización con el servidor de producción completada con éxito.")
+        # Sincronización rsync (Solo si estamos en local)
+        if not IS_VPS:
+            print("\n📤 Sincronizando con el servidor de producción (VPS) via rsync...")
+            rsync_cmd = ["rsync", "-avz", "--delete", "--exclude=*.txt"]
+            if os.path.exists(SSH_KEY_PATH):
+                rsync_cmd += ["-e", f"ssh -i {SSH_KEY_PATH} -o StrictHostKeyChecking=no"]
+            
+            # Origen local y destino remoto
+            src_dir = DEST_DIR + "/"
+            rsync_cmd += [src_dir, RSYNC_TARGET]
+            
+            sync_res = subprocess.run(rsync_cmd)
+            if sync_res.returncode == 0:
+                print("✅ Sincronización con el servidor de producción completada con éxito.")
+            else:
+                print("⚠️ Advertencia: Error durante la sincronización rsync con producción.")
         else:
-            print("⚠️ Advertencia: Error durante la sincronización rsync con producción.")
+            print("\nℹ️ Ejecución directa en VPS: Archivos depositados localmente. Sincronización rsync omitida.")
 
         print("\n🎉 ¡Proceso de descarga y actualización completado!")
 
