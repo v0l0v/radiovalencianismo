@@ -2,6 +2,7 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
+    <meta name="referrer" content="no-referrer">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 
     <!-- SEO Principal -->
@@ -878,7 +879,7 @@
                                     if (imgMatch) itemImg = imgMatch[1];
                                 }
                                 if (!itemImg) {
-                                    itemImg = `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(item.title)}`;
+                                    itemImg = item.link?.includes("valenciabonita.es") ? "https://www.valenciabonita.es/wp-content/uploads/2020/12/ValenciaBonita.jpg" : `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(item.title)}`;
                                 }
 
                                 allNews.push({
