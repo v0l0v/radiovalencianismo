@@ -14,6 +14,7 @@ musica_normal = rotate([
   playlist(mode="randomize", reload_mode="watch", "/mp3/generico/Fa dosmil anys"),
   playlist(mode="randomize", reload_mode="watch", "/mp3/generico/Fallas"),
   playlist(mode="randomize", reload_mode="watch", "/mp3/generico/nyas_coca"),
+  playlist(mode="randomize", reload_mode="watch", "/mp3/generico/Pep Marcos"),
   playlist(mode="randomize", reload_mode="watch", "/mp3/generico/Vicent Saball"),
   playlist(mode="randomize", reload_mode="watch", "/mp3/generico/otras")
 ])
