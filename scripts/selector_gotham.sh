@@ -17,8 +17,9 @@ if [ -z "$SELECTED" ]; then
 fi
 
 rm -f "$SELECCION_DIR"/*
-# Copiar a un nombre "limpio" para evitar errores de tildes/espacios en Liquidsoap
-cp "$SELECTED" "$SELECCION_DIR/programa_actual.mp3"
+# Copiar con un nombre único (timestamp) para que Liquidsoap no use la caché
+TIMESTAMP=$(date +%s)
+cp "$SELECTED" "$SELECCION_DIR/programa_${TIMESTAMP}.mp3"
 
 # Generar JSON para la web (intentar copiar el original con carátula)
 if [ -f "ultimo_programa.json" ]; then

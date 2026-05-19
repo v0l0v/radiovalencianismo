@@ -39,9 +39,10 @@ fi
 # Seleccionar uno al azar
 SELECTED="${AVAILABLE[$RANDOM % ${#AVAILABLE[@]}]}"
 
-# Crear el archivo en la carpeta de selección con nombre limpio
+# Crear el archivo en la carpeta de selección con nombre único (timestamp)
 rm -f "$SELECCION_DIR"/*
-cp "$SELECTED" "$SELECCION_DIR/pildora_actual.mp3"
+TIMESTAMP=$(date +%s)
+cp "$SELECTED" "$SELECCION_DIR/pildora_${TIMESTAMP}.mp3"
 
 # Guardar en historial
 echo "$SELECTED" >> "$HISTORIAL"

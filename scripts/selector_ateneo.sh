@@ -37,7 +37,9 @@ fi
 SELECTED="${AVAILABLE[$RANDOM % ${#AVAILABLE[@]}]}"
 
 rm -f "$SELECCION_DIR"/*
-cp "$SELECTED" "$SELECCION_DIR/programa_actual.mp3"
+# Usar nombre único para evitar caché en Liquidsoap
+TIMESTAMP=$(date +%s)
+cp "$SELECTED" "$SELECCION_DIR/programa_${TIMESTAMP}.mp3"
 
 echo "$SELECTED" >> "$HISTORIAL"
 # Generar JSON para la web

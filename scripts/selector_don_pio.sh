@@ -36,9 +36,10 @@ fi
 
 SELECTED="${AVAILABLE[$RANDOM % ${#AVAILABLE[@]}]}"
 
-# Limpiar selección y crear ENLACE RELATIVO (muy importante para el rsync)
+# Limpiar selección y crear archivo con nombre único para evitar caché de Liquidsoap
 rm -f "$SELECCION_DIR"/*
-cp "$SELECTED" "$SELECCION_DIR/programa_actual.mp3"
+TIMESTAMP=$(date +%s)
+cp "$SELECTED" "$SELECCION_DIR/programa_${TIMESTAMP}.mp3"
 
 echo "$SELECTED" >> "$HISTORIAL"
 # Generar JSON para la web
