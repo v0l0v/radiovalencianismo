@@ -185,10 +185,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function setRandomCover() {
         const defaultCovers = [
-            'assets/default-cover.png',
-            'assets/default-cover-2.png',
-            'assets/default-cover-3.png',
-            'assets/default-cover-4.png'
+            'assets/default-cover.webp',
+            'assets/default-cover-2.webp',
+            'assets/default-cover-3.webp',
+            'assets/default-cover-4.webp'
         ];
         const randomCover = defaultCovers[Math.floor(Math.random() * defaultCovers.length)];
         if (coverImage) coverImage.src = randomCover;
