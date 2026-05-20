@@ -3,6 +3,13 @@ valencianismo.com {
     file_server
     encode gzip
 
+    # Cache headers para recursos estáticos
+    @static {
+        file
+        path *.png *.jpg *.jpeg *.ico *.gif *.svg *.css *.js *.json *.ttf *.woff2
+    }
+    header @static Cache-Control "public, max-age=31536000"
+
     # Proxy del stream de audio
     reverse_proxy /stream icecast:8000
     reverse_proxy /status-json.xsl icecast:8000

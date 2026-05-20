@@ -277,7 +277,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     const LIGHTNING_ADDRESS = "boss@coinos.io";
     const NOSTR_PUBKEY = "72bdbc57bdd6dfc4e62685051de8041d148c3c68fe42bf301f71aa6cf53e52fb";
-    const RELAYS = ["wss://relay.coinos.io", "wss://relay.damus.io", "wss://nos.lol"];
+    const RELAYS = ["wss://relay.coinos.io", "wss://relay.damus.io", "wss://relay.primal.net"];
 
     const zapModal = document.getElementById("zap-modal");
     const zapQrImg = document.getElementById("zap-qr");

@@ -909,7 +909,7 @@ La Real Acadèmia de Cultura Valenciana reafirma, una volta més, el seu comprom
 
                 card.innerHTML = `
                     <div style="position: relative; width: 60px; height: 60px; flex-shrink: 0;">
-                        <img src="${safeImg}" style="width:60px; height:60px; border-radius:10px; object-fit:cover;" onerror="this.onerror=null; this.src='https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(item.title)}';">
+                        <img src="${safeImg}" alt="${item.title.replace(/"/g, '&quot;')}" style="width:60px; height:60px; border-radius:10px; object-fit:cover;" onerror="this.onerror=null; this.src='https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(item.title)}';">
                     </div>
                     <div style="flex:1; min-width:0;">
                         <div style="font-size:0.9rem; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-bottom:4px;">${item.title}</div>
