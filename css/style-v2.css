@@ -581,6 +581,16 @@ body {
     border-color: #FFD700;
 }
 
+.nostr-btn svg {
+    filter: drop-shadow(0 0 5px rgba(121, 40, 202, 0.6));
+}
+
+.nostr-btn:hover {
+    background: rgba(121, 40, 202, 0.2);
+    border-color: #9f40ff;
+    color: #c99cff;
+}
+
 /* PayPal Styles */
 .glass-btn.paypal:hover {
     background: rgba(0, 112, 186, 0.1);
