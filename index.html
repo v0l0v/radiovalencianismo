@@ -1137,12 +1137,10 @@ La Real Acadèmia de Cultura Valenciana reafirma, una volta més, el seu comprom
                     allNews.push(comunicatItem);
                     allNews.sort((a, b) => b.rawDate - a.rawDate);
                     
-                    if (!comunicatVisited) {
-                        const idx = allNews.findIndex(n => n.isComunicat);
-                        if (idx > 0) {
-                            allNews.splice(idx, 1);
-                            allNews.unshift(comunicatItem);
-                        }
+                    const idx = allNews.findIndex(n => n.isComunicat);
+                    if (idx > 0) {
+                        allNews.splice(idx, 1);
+                        allNews.unshift(comunicatItem);
                     }
                     
                     const leftCol = document.getElementById("news-left");
@@ -1450,7 +1448,7 @@ La Real Acadèmia de Cultura Valenciana reafirma, una volta més, el seu comprom
                 // Esperamos el tiempo de la animación de desplazamiento hacia la derecha
                 setTimeout(() => {
                     // Prepend de la nueva noticia en la izquierda, respetando el comunicat fijado
-                    if (leftCards.length > 0 && leftCards[0].id === "comunicat-racv-card" && !localStorage.getItem('comunicat_racv_visited')) {
+                    if (leftCards.length > 0 && leftCards[0].id === "comunicat-racv-card") {
                         leftCards[0].after(breakingCard);
                     } else {
                         leftCol.prepend(breakingCard);
@@ -1479,7 +1477,7 @@ La Real Acadèmia de Cultura Valenciana reafirma, una volta més, el seu comprom
                     }
                 }, 450);
             } else {
-                if (leftCards.length > 0 && leftCards[0].id === "comunicat-racv-card" && !localStorage.getItem('comunicat_racv_visited')) {
+                if (leftCards.length > 0 && leftCards[0].id === "comunicat-racv-card") {
                     leftCards[0].after(breakingCard);
                 } else {
                     leftCol.prepend(breakingCard);
