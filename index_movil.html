@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="referrer" content="no-referrer">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- SEO Principal -->
     <title>Valencianismo Radio | Ràdio en directe 24/7 - Música i Cultura Valenciana</title>
@@ -254,7 +254,7 @@
             <!-- Player idéntico a index.html -->
             <div class="record-player" id="record-player-btn" style="position: relative;">
                 <div class="vinyl-wrapper" id="vinyl-wrapper">
-                    <img id="cover-image" src="assets/default-cover.png" alt="Cover" class="vinyl-cover" onerror="this.src='assets/default-cover.png'">
+                    <img id="cover-image" src="assets/default-cover.png" alt="Cover" class="vinyl-cover" width="300" height="300" onerror="this.src='assets/default-cover.png'">
                     <div class="vinyl-hole"></div>
                 </div>
                 <!-- Tooltip premium personalizado -->
@@ -272,14 +272,14 @@
 
             <!-- Controles idénticos a index.html -->
             <div class="modern-controls">
-                <button id="zap-btn" class="glass-btn secondary" title="Enviar Zap (Lightning)">
+                <button id="zap-btn" class="glass-btn secondary" title="Enviar Zap (Lightning)" aria-label="Enviar Zap (Lightning)">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
                 </button>
-                <button id="play-btn" class="glass-btn primary" title="Reproducir / Pausar">
+                <button id="play-btn" class="glass-btn primary" title="Reproducir / Pausar" aria-label="Reproducir / Pausar">
                     <svg viewBox="0 0 24 24" class="icon-play" id="icon-play" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
                     <svg viewBox="0 0 24 24" class="icon-pause" id="icon-pause" style="display:none;" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" /></svg>
                 </button>
-                <button id="options-btn" class="glass-btn secondary" onclick="openOptionsModal()" title="Opciones Extra / Panel de Control">
+                <button id="options-btn" class="glass-btn secondary" onclick="openOptionsModal()" title="Opciones Extra / Panel de Control" aria-label="Opciones Extra / Panel de Control">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20m10-10H2"/></svg>
                 </button>
             </div>
@@ -339,7 +339,7 @@
                 3. Introduce la cantidad de sats que desees enviar y confirma el pago.
             </p>
             <div id="qrcode-container" style="margin: 15px auto;">
-                <img id="zap-qr" src="" alt="QR Zap" style="border-radius: 8px;">
+                <img id="zap-qr" src="" alt="QR Zap" style="border-radius: 8px;" width="250" height="250">
             </div>
             <p class="zap-address" style="color: #ffd700; font-weight: 700; font-family: monospace; font-size: 1.1rem; margin-bottom: 15px;">boss@coinos.io</p>
             <button class="close-modal" id="close-zap" style="background: var(--secondary); color: #0a0a0f; border: none; padding: 10px 30px; border-radius: 50px; cursor: pointer; font-weight: 700; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(255,215,0,0.3);">CERRAR</button>
@@ -354,7 +354,7 @@
                 Tu apoyo nos ayuda a mantener la radio libre de publicidad y con la mejor calidad. ¡Muchas gracias por tu colaboración!
             </p>
             <div class="paypal-container" style="margin: 20px 0;">
-                <a href="https://www.paypal.com/pools/c/9oOuJpSJJR" target="_blank" class="paypal-link-btn" style="background: #ffd700; color: #0a0a0f; font-weight: 700; padding: 12px 30px; border-radius: 50px; text-decoration: none; display: inline-block; box-shadow: 0 4px 15px rgba(255,215,0,0.3); transition: all 0.3s ease;">
+                <a href="https://www.paypal.com/pools/c/9oOuJpSJJR" target="_blank" rel="noopener noreferrer" class="paypal-link-btn" style="background: #ffd700; color: #0a0a0f; font-weight: 700; padding: 12px 30px; border-radius: 50px; text-decoration: none; display: inline-block; box-shadow: 0 4px 15px rgba(255,215,0,0.3); transition: all 0.3s ease;">
                     Ir a la Campaña de PayPal
                 </a>
             </div>
@@ -377,10 +377,10 @@
                         <div style="margin-bottom: 12px; font-size: 0.8rem; color: #ccc;">¡Estoy escuchando Valencianismo Radio! 📻🎶</div>
                     </div>
                     <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-                        <a href="https://twitter.com/intent/tweet?text=¡Estoy%20escuchando%20Radio%20Valencianismo!%20📻🎶%20Únete%20aquí:%20https://valencianismo.com" target="_blank" style="background: #1da1f2; color: #fff; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none;" title="Compartir en X"><svg viewBox="0 0 24 24" style="width: 20px; fill: currentColor;"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
-                        <a href="https://api.whatsapp.com/send?text=¡Estoy%20escuchando%20Radio%20Valencianismo!%20📻🎶%20Únete%20aquí:%20https://valencianismo.com" target="_blank" style="background: #25d366; color: #fff; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none;" title="Compartir en WhatsApp"><svg viewBox="0 0 24 24" style="width: 22px; fill: currentColor;"><path d="M12.004 2.018C6.48 2.018 2 6.495 2 12.016c0 1.831.493 3.568 1.353 5.093l-1.427 5.211 5.334-1.4c1.464.797 3.125 1.231 4.757 1.232l.004-.002c5.522 0 10.003-4.477 10.003-9.998 0-2.671-1.04-5.18-2.929-7.071A9.921 9.921 0 0012.004 2.018z"/></svg></a>
-                        <a href="https://t.me/share/url?url=https://valencianismo.com&text=¡Estoy%20escuchando%20Radio%20Valencianismo!%20📻🎶" target="_blank" style="background: #0088cc; color: #fff; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none;" title="Compartir en Telegram"><svg viewBox="0 0 24 24" style="width: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg></a>
-                        <a href="nostr:nevent1..." onclick="navigator.clipboard.writeText('¡Estoy escuchando Valencianismo Radio! 📻🎶 Únete aquí: https://valencianismo.com'); alert('¡Copiado para compartir en Nostr!'); return true;" style="background: #7928ca; color: #fff; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none;" title="Compartir en Nostr"><svg viewBox="0 0 24 24" style="width: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></a>
+                        <a href="https://twitter.com/intent/tweet?text=¡Estoy%20escuchando%20Radio%20Valencianismo!%20📻🎶%20Únete%20aquí:%20https://valencianismo.com" target="_blank" rel="noopener noreferrer" aria-label="Compartir en X" style="background: #1da1f2; color: #fff; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none;" title="Compartir en X"><svg viewBox="0 0 24 24" style="width: 20px; fill: currentColor;" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                        <a href="https://api.whatsapp.com/send?text=¡Estoy%20escuchando%20Radio%20Valencianismo!%20📻🎶%20Únete%20aquí:%20https://valencianismo.com" target="_blank" rel="noopener noreferrer" aria-label="Compartir en WhatsApp" style="background: #25d366; color: #fff; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none;" title="Compartir en WhatsApp"><svg viewBox="0 0 24 24" style="width: 22px; fill: currentColor;" aria-hidden="true"><path d="M12.004 2.018C6.48 2.018 2 6.495 2 12.016c0 1.831.493 3.568 1.353 5.093l-1.427 5.211 5.334-1.4c1.464.797 3.125 1.231 4.757 1.232l.004-.002c5.522 0 10.003-4.477 10.003-9.998 0-2.671-1.04-5.18-2.929-7.071A9.921 9.921 0 0012.004 2.018z"/></svg></a>
+                        <a href="https://t.me/share/url?url=https://valencianismo.com&text=¡Estoy%20escuchando%20Radio%20Valencianismo!%20📻🎶" target="_blank" rel="noopener noreferrer" aria-label="Compartir en Telegram" style="background: #0088cc; color: #fff; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none;" title="Compartir en Telegram"><svg viewBox="0 0 24 24" style="width: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg></a>
+                        <a href="nostr:nevent1..." onclick="navigator.clipboard.writeText('¡Estoy escuchando Valencianismo Radio! 📻🎶 Únete aquí: https://valencianismo.com'); alert('¡Copiado para compartir en Nostr!'); return true;" aria-label="Compartir en Nostr" style="background: #7928ca; color: #fff; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none;" title="Compartir en Nostr"><svg viewBox="0 0 24 24" style="width: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></a>
                     </div>
                 </div>
                 
