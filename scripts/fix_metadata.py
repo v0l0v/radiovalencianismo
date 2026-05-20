@@ -49,11 +49,11 @@ def fix_metadata(file_path):
         else:
             # Fallback: el nombre de la carpeta contenedor inmediato como artista y el archivo como título
             parent_folder = os.path.basename(os.path.dirname(file_path))
-            artist = parent_folder if parent_folder not in ["generico", "mp3"] else "Radio Valencianismo"
+            artist = parent_folder if parent_folder not in ["generico", "mp3"] else "Valencianismo Radio"
             title = clean_title
     else:
         # Comportamiento original para programas
-        artist = "Radio Valencianismo"
+        artist = "Valencianismo Radio"
         parent_folder = os.path.basename(os.path.dirname(file_path))
         if parent_folder == "gothamvcf" and "gotham" not in clean_title.lower():
             clean_title = f"Gotham VCF - {clean_title}"

@@ -134,7 +134,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // 3. Metadata & Cover Logic
     async function updateMetadata() {
         try {
-            let songName = "Radio Valencianismo 24/7";
+            let songName = "Valencianismo Radio 24/7";
             const comingNext = getComingNextMessage();
 
             try {
@@ -151,16 +151,16 @@ document.addEventListener('DOMContentLoaded', () => {
             } catch(e) {}
 
             // Prioridad al aviso si estamos en música genérica
-            if (comingNext && (songName === "Radio Valencianismo 24/7" || !songName.includes(':'))) {
+            if (comingNext && (songName === "Valencianismo Radio 24/7" || !songName.includes(':'))) {
                 songName = comingNext;
             }
 
             // Actualizar carátula SIEMPRE que no sea el nombre de la radio por defecto
-            if (songName !== "Radio Valencianismo 24/7") {
+            if (songName !== "Valencianismo Radio 24/7") {
                 updateCover(songName);
             }
 
-            if (currentSongEl.textContent !== songName && songName !== "Radio Valencianismo 24/7") {
+            if (currentSongEl.textContent !== songName && songName !== "Valencianismo Radio 24/7") {
                 currentSongEl.textContent = songName;
                 checkMarquee();
                 addToHistory(songName);

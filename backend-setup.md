@@ -1,4 +1,4 @@
-# Guía de Configuración del Servidor Backend (Radio Valencianismo)
+# Guía de Configuración del Servidor Backend (Valencianismo Radio)
 
 Esta guía explica cómo instalar y configurar Icecast2 y Liquidsoap en tu VPS Ubuntu (ej. en OVH / SpinupWP) para tener una radio 24/7 autónoma con posibilidad de interrumpir la emisión para hacer directos.
 

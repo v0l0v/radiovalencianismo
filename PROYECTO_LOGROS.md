@@ -21,7 +21,7 @@
 ---
 
 ## 🤪 5 Propuestas Locas, Locas y Atrevidas para el Futuro
-Aquí tienes 5 ideas completamente atrevidas y diferenciales para la Radio Valencianismo:
+Aquí tienes 5 ideas completamente atrevidas y diferenciales para la Valencianismo Radio:
 
 1. 🧨 **La Mascletà Visual Dinámica Sincronizada:** ¡CONSEGUIDO! La web vibra y brilla cuando entran noticias de última hora o Zaps.
 2. 🎙️ **"Terreta Virtual AI" (Locutor de la tierra en directo):** Un locutor virtual entrenado con IA que hable con acento valenciano clásico, el cual entra entre canciones para leer el santoral, el refrán del día de `refranes.txt` o la noticia más leída.

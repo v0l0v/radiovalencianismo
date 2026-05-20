@@ -183,7 +183,7 @@ def download_videos(feed_filename):
                 cmd_args += [
                     "-c", "copy", "-id3v2_version", "3",
                     "-metadata", f"title={clean_title}",
-                    "-metadata", "artist=Radio Valencianismo"
+                    "-metadata", "artist=Valencianismo Radio"
                 ]
                 
                 if cover_files:

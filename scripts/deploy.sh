@@ -1,6 +1,6 @@
 #!/bin/bash
 # =============================================================
-# deploy.sh — Radio Valencianismo
+# deploy.sh — Valencianismo Radio
 # Hace git push a GitHub y luego actualiza el servidor (VPS)
 # Uso: ./scripts/deploy.sh  o  git deploy
 # =============================================================
@@ -19,7 +19,7 @@ YELLOW='\033[1;33m'
 NC='\033[0m' # Sin color
 
 echo -e "\n${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
-echo -e "${CYAN}  🚀 Radio Valencianismo — Deploy Automático${NC}"
+echo -e "${CYAN}  🚀 Valencianismo Radio — Deploy Automático${NC}"
 echo -e "${CYAN}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}\n"
 
 # 1. Git push a GitHub

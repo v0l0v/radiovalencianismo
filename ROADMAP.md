@@ -1,4 +1,4 @@
-# 🚀 Hoja de Ruta - Radio Valencianismo Premium
+# 🚀 Hoja de Ruta - Valencianismo Radio Premium
 
 Este archivo contiene las ideas y funcionalidades pendientes para elevar la experiencia de la emisora.
 
