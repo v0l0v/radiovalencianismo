@@ -221,6 +221,16 @@
         .sch-icon { font-size: 1.3rem; color: #fff; width: 35px; text-align: center; }
         .sch-title { font-size: 1rem; font-weight: 700; color: #fff; }
         .sch-desc { font-size: 0.75rem; opacity: 0.6; color: #ccc; }
+
+        @keyframes blinkWarning {
+            0% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.8), inset 0 0 10px rgba(255, 0, 0, 0.5); border-color: red; }
+            50% { box-shadow: 0 0 30px rgba(255, 0, 0, 1), inset 0 0 20px rgba(255, 0, 0, 0.8); border-color: #ff4444; }
+            100% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.8), inset 0 0 10px rgba(255, 0, 0, 0.5); border-color: red; }
+        }
+        .blinking-warning {
+            animation: blinkWarning 1.5s infinite !important;
+            border: 2px solid red !important;
+        }
     </style>
 </head>
 
@@ -552,6 +562,39 @@
             </div>
         </div>
     </div>
+    
+    <!-- Modal Comunicat RACV -->
+    <div id="comunicat-modal" class="modern-modal" onclick="closeComunicatModal()">
+        <div class="modal-content" onclick="event.stopPropagation()" style="width: 90vw; height: 80vh; padding: 25px; display: flex; flex-direction: column; border: 2px solid #ffd700; background: rgba(10,10,15,0.95); overflow-y: auto;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,215,0,0.3); padding-bottom: 10px; margin-bottom: 15px;">
+                <h2 style="color: #ffd700; margin: 0; font-weight: 800; font-size: 1.2rem;">COMUNICAT DE LA REAL ACADÈMIA DE CULTURA VALENCIANA</h2>
+                <button onclick="closeComunicatModal()" style="background: transparent; color: #fff; border: none; font-size: 1.2rem; cursor: pointer;">✕</button>
+            </div>
+            <div style="color: #eee; font-size: 1rem; line-height: 1.5; white-space: pre-line;">
+La Real Acadèmia de Cultura Valenciana desija traslladar públicament la seua profunda preocupació davant el rumbo que estan prenent les actuals negociacions vinculades a l'àmbit educatiu valencià i les conseqüències culturals i llingüístiques que d'elles poden derivar-se.
+
+En les últimes semanes, el debat públic s'ha centrat principalment en qüestions laborals i presupostàries relacionades en el sistema educatiu. No obstant, des de diversos sectors de la societat valenciana es percep en inquietut que, baix eixe escenari, s'estan consolidant decisions que afecten directament a l'identitat llingüística i cultural del poble valencià.
+
+L'educació no pot convertir-se en un espai d'uniformisació ideològica ni en un instrument per a diluir la personalitat històrica de la nostra terra. El poble valencià posseïx una tradició cultural pròpia, una llengua pròpia i unes manifestacions identitàries que mereixen ser protegides des del respecte, la pluralitat i la convivència.
+
+Resulta especialment preocupant comprovar cóm continua marginant-se institucionalment a entitats històriques valencianes que durant décades han treballat per la defensa i dignificació de la llengua i cultura valencianes. Institucions com la pròpia Real Acadèmia de Cultura Valenciana o Lo Rat Penat formen part indiscutible del patrimoni cultural valencià i representen a mils de valencians compromesos en la conservació de les nostres senyes d'identitat.
+
+L'exclusió sistemàtica de determinades sensibilitats culturals no enfortix la convivència; al contrari, genera divisió, desafecció i una creixent sensació d'agravi entre numerosos ciutadans que consideren que la seua visió de la llengua valenciana no rep el mateix respecte institucional que atres corrents ideològiques.
+
+Des d'esta Acadèmia considerem imprescindible que el sistema educatiu valencià garantise un autèntic pluralisme cultural i llingüístic. L'escola deu ser un espai de formació, coneiximent i llibertat, mai un àmbit a on s'imponga una única interpretació identitària o filològica.
+
+Aixina mateixa, manifestem la nostra preocupació per l'utilisació política de determinats plantejaments que identifiquen qualsevol defensa diferenciada de la llengua valenciana en posicions extremes o descalificacions personals. El debat cultural deu desenrollar-se des del respecte mutu, la tolerància i el reconeiximent de la diversitat interna existent en la societat valenciana.
+
+La Comunitat Valenciana necessita institucions capaces d'unir i no de profundisar fractures socials. Per això, apelem a la responsabilitat dels poders públics per a que escolten el creixent malestar d'una part significativa de la ciutadania valenciana i actuen en sensibilitat cap a totes les corrents culturals llegítimament presents en la nostra societat.
+
+La defensa de l'identitat valenciana no deuria ser motiu de confrontació, sino un punt de trobada basada en el respecte a la nostra història, la nostra llengua i les nostres tradicions.
+
+La Real Acadèmia de Cultura Valenciana reafirma, una volta més, el seu compromís ferm en la cultura valenciana, en la llibertat intelectual i en la preservació del patrimoni llingüístic i històric del Regne de Valéncia.
+            </div>
+            <button onclick="closeComunicatModal()" style="width: 100%; padding: 12px; border-radius: 50px; background: #ffd700; color: #000; border: none; font-weight: 800; margin-top: 15px;">VOLVER</button>
+        </div>
+    </div>
+
     <div id="control-panel-news-modal" class="modern-modal" onclick="closeControlPanelNewsModal()"><div id="cp-news-modal-content" class="modal-content" onclick="event.stopPropagation()"><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 10px;"><h3 style="color: #00d2ff; margin: 0; font-size: 1.1rem; text-transform: uppercase;">Noticias</h3><button onclick="closeControlPanelNewsModal()" style="background: rgba(255,255,255,0.1); color: #fff; border: none; width: 30px; height: 30px; border-radius: 50%;">✕</button></div><div id="all-rss-news-container" style="overflow-y: auto; flex-grow: 1;"></div><div style="display: flex; justify-content: center; margin-top: 10px;"><button id="load-more-news-btn" onclick="loadNextChunk()" style="background: var(--secondary); color: #0a0a0f; border: none; padding: 8px 20px; border-radius: 20px; font-weight: 700; font-size: 0.8rem;">CARGAR MÁS</button></div></div></div>
 
 
@@ -641,8 +684,29 @@
                 if (typeof closeNewsModal === "function") closeNewsModal();
                 if (typeof closeOptionsModal === "function") closeOptionsModal();
                 if (typeof closeControlPanelNewsModal === "function") closeControlPanelNewsModal();
+                if (typeof closeComunicatModal === "function") closeComunicatModal();
             }
         });
+
+        function openComunicatModal(card) {
+            const modal = document.getElementById('comunicat-modal');
+            if (modal) {
+                modal.style.display = 'flex';
+                setTimeout(() => modal.classList.add('active'), 10);
+            }
+            localStorage.setItem('comunicat_racv_visited', 'true');
+            if (card) {
+                card.classList.remove('blinking-warning');
+            }
+        }
+
+        function closeComunicatModal() {
+            const modal = document.getElementById('comunicat-modal');
+            if (modal) {
+                modal.classList.remove('active');
+                setTimeout(() => modal.style.display = 'none', 300);
+            }
+        }
 
         const programData = {
             'gotham': {
@@ -776,7 +840,31 @@
                         });
                     }
                 });
+                
+                const comunicatVisited = localStorage.getItem('comunicat_racv_visited');
+                const comunicatItem = {
+                    title: "COMUNICAT DE LA REAL ACADÈMIA DE CULTURA VALENCIANA",
+                    link: "#comunicat-racv",
+                    source: "RACV",
+                    pubDate: new Date('2026-05-20T12:00:00Z'),
+                    date: new Date().toLocaleDateString('es-ES'),
+                    img: "assets/icon.png",
+                    desc: "Comunicat de la Real Acadèmia de Cultura Valenciana.",
+                    feedImage: "",
+                    isComunicat: true,
+                    visited: !!comunicatVisited
+                };
+                allNews.push(comunicatItem);
+                
                 allNews.sort((a,b) => b.pubDate - a.pubDate);
+                
+                if (!comunicatVisited) {
+                    const idx = allNews.findIndex(n => n.isComunicat);
+                    if (idx > 0) {
+                        allNews.splice(idx, 1);
+                        allNews.unshift(comunicatItem);
+                    }
+                }
             } catch(e){ console.error("Error en loadFeeds:", e); }
         }
 
@@ -808,7 +896,16 @@
             next.forEach(item => {
                 const card = document.createElement("div");
                 card.style.cssText = "background:rgba(255,255,255,0.05); border-radius:12px; padding:12px; cursor:pointer; display:flex; gap:12px; align-items:center; margin-bottom:12px; border:1px solid rgba(255,255,255,0.1); transition: transform 0.2s ease;";
-                card.onclick = () => openNewsWithAnimation(card, item.link);
+                
+                if (item.isComunicat) {
+                    card.id = "comunicat-racv-card-movil";
+                    if (!item.visited) {
+                        card.classList.add("blinking-warning");
+                    }
+                    card.onclick = () => openComunicatModal(card);
+                } else {
+                    card.onclick = () => openNewsWithAnimation(card, item.link);
+                }
                 
                 const safeImg = (item.img || "").replace(/&amp;/g, '&');
 
