@@ -626,34 +626,14 @@
                     <button class="glass-btn secondary" id="options-btn" onclick="openOptionsModal()" title="Opciones Extra / Panel de Control" aria-label="Opciones Extra / Panel de Control">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20m10-10H2"/></svg>
                     </button>
+                    <button class="glass-btn secondary" id="mute-btn" title="Silenciar / Activar Sonido" aria-label="Silenciar / Activar Sonido">
+                        <svg id="icon-vol-up" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path></svg>
+                        <svg id="icon-vol-mute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none;"><polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon><line x1="23" y1="9" x2="17" y2="15"></line><line x1="17" y1="9" x2="23" y2="15"></line></svg>
+                    </button>
                 </div>
+            </div>
 
-                <!-- Barra de Volumen -->
-                <div class="volume-control-wrapper" style="margin-top: 20px; width: 100%; max-width: 280px; margin-left: auto; margin-right: auto; text-align: center;">
-                    <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
-                        <span style="font-size: 0.75rem; color: rgba(255, 255, 255, 0.6); font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">VOLUMEN</span>
-                        <span id="volume-val" style="font-size: 0.85rem; color: #ffd700; font-weight: 700;">80%</span>
-                    </div>
-                    <div class="custom-volume-slider-container" style="position: relative; display: flex; align-items: center; height: 32px; background: rgba(255, 255, 255, 0.03); border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.1); padding: 0 10px; cursor: pointer; user-select: none;" id="volume-slider-track">
-                        <!-- Ticks/Vertical bars -->
-                        <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: space-between; align-items: center; padding: 0 12px; pointer-events: none; z-index: 1;">
-                            <div style="width: 2px; height: 12px; background: rgba(255, 255, 255, 0.35); border-radius: 2px;"></div>
-                            <div style="width: 2px; height: 8px; background: rgba(255, 255, 255, 0.2); border-radius: 2px;"></div>
-                            <div style="width: 2px; height: 8px; background: rgba(255, 255, 255, 0.2); border-radius: 2px;"></div>
-                            <div style="width: 2px; height: 12px; background: rgba(255, 255, 255, 0.35); border-radius: 2px;"></div>
-                            <div style="width: 2px; height: 8px; background: rgba(255, 255, 255, 0.2); border-radius: 2px;"></div>
-                            <div style="width: 2px; height: 8px; background: rgba(255, 255, 255, 0.2); border-radius: 2px;"></div>
-                            <div style="width: 2px; height: 12px; background: rgba(255, 255, 255, 0.35); border-radius: 2px;"></div>
-                            <div style="width: 2px; height: 8px; background: rgba(255, 255, 255, 0.2); border-radius: 2px;"></div>
-                            <div style="width: 2px; height: 8px; background: rgba(255, 255, 255, 0.2); border-radius: 2px;"></div>
-                            <div style="width: 2px; height: 12px; background: rgba(255, 255, 255, 0.35); border-radius: 2px;"></div>
-                        </div>
-                        <!-- Fill progress bar -->
-                        <div id="volume-fill-bar" style="position: absolute; top: 0; left: 0; height: 100%; width: 80%; background: linear-gradient(90deg, rgba(255, 215, 0, 0.2), rgba(0, 242, 254, 0.45)); border-radius: 8px; z-index: 0; transition: width 0.1s ease; border-right: 2px solid #00f2fe;"></div>
-                        <!-- Thump handler -->
-                        <div id="volume-thumb" style="position: absolute; top: 50%; left: 80%; transform: translate(-50%, -50%); width: 14px; height: 14px; background: #fff; border-radius: 50%; border: 2px solid #ffd700; z-index: 2; transition: left 0.1s ease; box-shadow: 0 0 8px rgba(0,242,254,0.6);"></div>
-                    </div>
-                </div>
+
             </div>
 
             <div class="history-panel" id="history-panel">
@@ -1490,56 +1470,30 @@ La Real Acadèmia de Cultura Valenciana reafirma, una volta més, el seu comprom
         }
 
         // Control de volumen logic
-        const volumeTrack = document.getElementById('volume-slider-track');
-        const volumeFill = document.getElementById('volume-fill-bar');
-        const volumeThumb = document.getElementById('volume-thumb');
-        const volumeVal = document.getElementById('volume-val');
+        // Control de volumen logic
+        const muteBtn = document.getElementById('mute-btn');
+        const iconVolUp = document.getElementById('icon-vol-up');
+        const iconVolMute = document.getElementById('icon-vol-mute');
         const audioStream = document.getElementById('radio-stream');
+        let isMuted = false;
 
-        let isDraggingVolume = false;
-
-        function updateVolumeFromClick(e) {
-            const rect = volumeTrack.getBoundingClientRect();
-            let clickX = e.clientX - rect.left;
-            let percent = Math.max(0, Math.min(100, (clickX / rect.width) * 100));
-            
-            volumeFill.style.width = percent + '%';
-            volumeThumb.style.left = percent + '%';
-            volumeVal.innerText = Math.round(percent) + '%';
-            
-            if (audioStream) {
-                audioStream.volume = percent / 100;
-            }
-        }
-
-        if (volumeTrack) {
-            volumeTrack.addEventListener('mousedown', (e) => {
-                isDraggingVolume = true;
-                updateVolumeFromClick(e);
-            });
-
-            document.addEventListener('mousemove', (e) => {
-                if (isDraggingVolume) {
-                    updateVolumeFromClick(e);
+        if (muteBtn && audioStream) {
+            muteBtn.addEventListener('click', () => {
+                isMuted = !isMuted;
+                audioStream.muted = isMuted;
+                if (isMuted) {
+                    iconVolUp.style.display = 'none';
+                    iconVolMute.style.display = 'block';
+                    muteBtn.classList.add('muted');
+                    muteBtn.style.color = '#ff4d4d'; // Rojo visual feedback
+                    muteBtn.style.borderColor = 'rgba(255, 77, 77, 0.4)';
+                } else {
+                    iconVolUp.style.display = 'block';
+                    iconVolMute.style.display = 'none';
+                    muteBtn.classList.remove('muted');
+                    muteBtn.style.color = '#fff';
+                    muteBtn.style.borderColor = 'rgba(255,255,255,0.1)';
                 }
-            });
-
-            document.addEventListener('mouseup', () => {
-                isDraggingVolume = false;
-            });
-            
-            // Eventos táctiles
-            volumeTrack.addEventListener('touchstart', (e) => {
-                isDraggingVolume = true;
-                updateVolumeFromClick(e.touches[0]);
-            });
-            document.addEventListener('touchmove', (e) => {
-                if (isDraggingVolume) {
-                    updateVolumeFromClick(e.touches[0]);
-                }
-            });
-            document.addEventListener('touchend', () => {
-                isDraggingVolume = false;
             });
         }
 
