@@ -272,6 +272,10 @@
 
             <!-- Controles idénticos a index.html -->
             <div class="modern-controls">
+                <!-- Botón Nostr con logo oficial -->
+                <a href="nostr:npub16t27rsqukag9udw9w0e7m36mvyw6vapqs8scrma6y4ddaavgmclq6lvl0p" class="glass-btn secondary nostr-btn" title="Seguir en Nostr" aria-label="Seguir en Nostr">
+                    <svg viewBox="0 0 256 256" fill="currentColor" style="width:22px; height:22px;"><path d="M210.8 199.4c0 3.1-2.5 5.7-5.7 5.7h-68c-3.1 0-5.7-2.5-5.7-5.7v-15.5c.3-19 2.3-37.2 6.5-45.5 2.5-5 6.7-7.7 11.5-9.1 9.1-2.7 24.9-.9 31.7-1.2 0 0 20.4.8 20.4-10.7s-9.1-8.6-9.1-8.6c-10 .3-17.7-.4-22.6-2.4-8.3-3.3-8.6-9.2-8.6-11.2-.4-23.1-34.5-25.9-64.5-20.1-32.8 6.2.4 53.3.4 116.1v8.4c0 3.1-2.6 5.6-5.7 5.6H57.7c-3.1 0-5.7-2.5-5.7-5.7v-144c0-3.1 2.5-5.7 5.7-5.7h31.7c3.1 0 5.7 2.5 5.7 5.7 0 4.7 5.2 7.2 9 4.5 11.4-8.2 26-12.5 42.4-12.5 36.6 0 64.4 21.4 64.4 68.7v83.2ZM150 99.3c0-6.7-5.4-12.1-12.1-12.1s-12.1 5.4-12.1 12.1 5.4 12.1 12.1 12.1S150 106 150 99.3Z"/></svg>
+                </a>
                 <button id="zap-btn" class="glass-btn secondary" title="Enviar Zap (Lightning)" aria-label="Enviar Zap (Lightning)">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
                 </button>
@@ -282,41 +286,20 @@
                 <button id="options-btn" class="glass-btn secondary" onclick="openOptionsModal()" title="Opciones Extra / Panel de Control" aria-label="Opciones Extra / Panel de Control">
                     <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20m10-10H2"/></svg>
                 </button>
-            </div>
-
-            <!-- Barra de Volumen idéntica a index.html -->
-            <div class="volume-control-wrapper" style="margin-top: 20px; width: 100%; max-width: 280px; margin-left: auto; margin-right: auto; text-align: center;">
-                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
-                    <span style="font-size: 0.75rem; color: rgba(255, 255, 255, 0.6); font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">VOLUMEN</span>
-                    <span id="volume-val" style="font-size: 0.85rem; color: #ffd700; font-weight: 700;">80%</span>
-                </div>
-                <div class="custom-volume-slider-container" style="position: relative; display: flex; align-items: center; height: 32px; background: rgba(255, 255, 255, 0.03); border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.1); padding: 0 10px; cursor: pointer; user-select: none;" id="volume-slider-track">
-                    <!-- Ticks/Vertical bars -->
-                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: space-between; align-items: center; padding: 0 12px; pointer-events: none; z-index: 1;">
-                        <div style="width: 2px; height: 12px; background: rgba(255, 255, 255, 0.35); border-radius: 2px;"></div>
-                        <div style="width: 2px; height: 8px; background: rgba(255, 255, 255, 0.2); border-radius: 2px;"></div>
-                        <div style="width: 2px; height: 8px; background: rgba(255, 255, 255, 0.2); border-radius: 2px;"></div>
-                        <div style="width: 2px; height: 12px; background: rgba(255, 255, 255, 0.35); border-radius: 2px;"></div>
-                        <div style="width: 2px; height: 8px; background: rgba(255, 255, 255, 0.2); border-radius: 2px;"></div>
-                        <div style="width: 2px; height: 8px; background: rgba(255, 255, 255, 0.2); border-radius: 2px;"></div>
-                        <div style="width: 2px; height: 12px; background: rgba(255, 255, 255, 0.35); border-radius: 2px;"></div>
-                        <div style="width: 2px; height: 8px; background: rgba(255, 255, 255, 0.2); border-radius: 2px;"></div>
-                        <div style="width: 2px; height: 8px; background: rgba(255, 255, 255, 0.2); border-radius: 2px;"></div>
-                        <div style="width: 2px; height: 12px; background: rgba(255, 255, 255, 0.35); border-radius: 2px;"></div>
-                    </div>
-                    <div id="volume-fill-bar" style="position: absolute; top: 0; left: 0; height: 100%; width: 80%; background: linear-gradient(90deg, rgba(255, 215, 0, 0.2), rgba(0, 242, 254, 0.45)); border-radius: 8px; z-index: 0; transition: width 0.1s ease; border-right: 2px solid #00f2fe;"></div>
-                    <div id="volume-thumb" style="position: absolute; top: 50%; left: 80%; transform: translate(-50%, -50%); width: 14px; height: 14px; background: #fff; border-radius: 50%; border: 2px solid #ffd700; z-index: 2; transition: left 0.1s ease; box-shadow: 0 0 8px rgba(0,242,254,0.6);"></div>
-                </div>
-                
-                <!-- Botón Seguir Nostr -->
-                <div style="margin-top: 15px; margin-bottom: 5px; text-align: center;">
-                    <a href="nostr:npub16t27rsqukag9udw9w0e7m36mvyw6vapqs8scrma6y4ddaavgmclq6lvl0p" title="Seguir en Nostr" aria-label="Seguir en Nostr" style="background: rgba(121, 40, 202, 0.15); border: 1px solid rgba(121, 40, 202, 0.4); color: #b67dff; padding: 8px 18px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(121, 40, 202, 0.2);" onmouseover="this.style.background='rgba(121, 40, 202, 0.3)'; this.style.color='#fff'; this.style.borderColor='rgba(121, 40, 202, 0.6)';" onmouseout="this.style.background='rgba(121, 40, 202, 0.15)'; this.style.color='#b67dff'; this.style.borderColor='rgba(121, 40, 202, 0.4)';">
-                        <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;" aria-hidden="true">
-                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
-                        </svg>
-                        Seguir en Nostr
-                    </a>
-                </div>
+                <!-- Botón de Mute/Volumen -->
+                <button class="glass-btn secondary" id="mute-btn" title="Silenciar / Activar Sonido" aria-label="Silenciar / Activar Sonido">
+                    <!-- Volume Icon -->
+                    <svg id="icon-volume" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                        <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"></path>
+                    </svg>
+                    <!-- Mute Icon -->
+                    <svg id="icon-mute" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="display:none">
+                        <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"></polygon>
+                        <line x1="23" y1="9" x2="17" y2="15"></line>
+                        <line x1="17" y1="9" x2="23" y2="15"></line>
+                    </svg>
+                </button>
             </div>
         </main>
 
@@ -991,22 +974,32 @@ La Real Acadèmia de Cultura Valenciana reafirma, una volta més, el seu comprom
 
 
 
-        // Volumen
-        const volumeTrack = document.getElementById('volume-slider-track'), volumeFill = document.getElementById('volume-fill-bar'), volumeThumb = document.getElementById('volume-thumb'), volumeVal = document.getElementById('volume-val'), audioStream = document.getElementById('radio-stream');
-        let isDraggingVolume = false;
-        function updateVolume(e) {
-            const rect = volumeTrack.getBoundingClientRect();
-            const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
-            let p = Math.max(0, Math.min(100, (x / rect.width) * 100));
-            volumeFill.style.width = p + '%'; volumeThumb.style.left = p + '%'; volumeVal.innerText = Math.round(p) + '%';
-            if (audioStream) audioStream.volume = p / 100;
+        // Lógica de Mute
+        const muteBtn = document.getElementById('mute-btn');
+        const audioStream = document.getElementById('radio-stream');
+        const iconVolume = document.getElementById('icon-volume');
+        const iconMute = document.getElementById('icon-mute');
+
+        if (muteBtn && audioStream) {
+            muteBtn.addEventListener('click', () => {
+                if (audioStream.volume > 0) {
+                    // Silenciar
+                    audioStream.dataset.oldVolume = audioStream.volume;
+                    audioStream.volume = 0;
+                    if(iconVolume) iconVolume.style.display = 'none';
+                    if(iconMute) iconMute.style.display = 'block';
+                    muteBtn.classList.add('muted');
+                    muteBtn.style.color = 'var(--accent)';
+                } else {
+                    // Restaurar
+                    audioStream.volume = audioStream.dataset.oldVolume || 1;
+                    if(iconVolume) iconVolume.style.display = 'block';
+                    if(iconMute) iconMute.style.display = 'none';
+                    muteBtn.classList.remove('muted');
+                    muteBtn.style.color = '';
+                }
+            });
         }
-        volumeTrack.addEventListener('mousedown', (e) => { isDraggingVolume = true; updateVolume(e); });
-        volumeTrack.addEventListener('touchstart', (e) => { isDraggingVolume = true; updateVolume(e); });
-        document.addEventListener('mousemove', (e) => { if (isDraggingVolume) updateVolume(e); });
-        document.addEventListener('touchmove', (e) => { if (isDraggingVolume) updateVolume(e); });
-        document.addEventListener('mouseup', () => isDraggingVolume = false);
-        document.addEventListener('touchend', () => isDraggingVolume = false);
 
         document.addEventListener('DOMContentLoaded', () => { loadFeeds(); });
     </script>
