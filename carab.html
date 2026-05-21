@@ -903,6 +903,15 @@
                 if (allNews.length > 0) {
                     allNews.sort((a, b) => b.rawDate - a.rawDate);
                     
+                    const seenTitles = new Set();
+                    allNews = allNews.filter(item => {
+                        if (item.isComunicat) return true;
+                        const cleanTitle = item.title.toLowerCase().replace(/[^a-z0-9]/g, '');
+                        if (seenTitles.has(cleanTitle)) return false;
+                        seenTitles.add(cleanTitle);
+                        return true;
+                    });
+                    
                     const leftCol = document.getElementById("news-left");
                     leftCol.innerHTML = "";
                     for (let i = 0; i < Math.min(4, allNews.length); i++) {

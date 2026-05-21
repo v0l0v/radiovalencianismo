@@ -868,6 +868,15 @@ La Real Acadèmia de Cultura Valenciana reafirma, una volta més, el seu comprom
                 
                 allNews.sort((a,b) => b.pubDate - a.pubDate);
                 
+                const seenTitles = new Set();
+                allNews = allNews.filter(item => {
+                    if (item.isComunicat) return true;
+                    const cleanTitle = item.title.toLowerCase().replace(/[^a-z0-9]/g, '');
+                    if (seenTitles.has(cleanTitle)) return false;
+                    seenTitles.add(cleanTitle);
+                    return true;
+                });
+                
                 const idx = allNews.findIndex(n => n.isComunicat);
                 if (idx > 0) {
                     allNews.splice(idx, 1);
