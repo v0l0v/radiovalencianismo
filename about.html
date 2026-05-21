@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>¿Qué es Valencianismo Radio? | Nosotros</title>
+    <meta name="description" content="Conoce la historia y los valores de Valencianismo Radio. La voz del valencianismo en internet, fiel a las Normes d'El Puig de la Real Acadèmia de Cultura Valenciana (RACV).">
+    <link rel="icon" type="image/png" href="assets/icon.png">
+    <link rel="stylesheet" href="css/style-v2.css?v=11">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+    <style>
+        .about-container {
+            max-width: 800px;
+            margin: 120px auto 40px auto;
+            padding: 40px;
+            background: var(--glass-bg);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            color: #eee;
+            line-height: 1.8;
+            font-size: 1.15rem;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.4);
+        }
+        .about-container h1 {
+            color: var(--secondary);
+            font-size: 2.5rem;
+            margin-bottom: 30px;
+            text-align: center;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+        .about-container h2 {
+            color: #00d2ff;
+            margin-top: 40px;
+            margin-bottom: 15px;
+            font-size: 1.5rem;
+            font-weight: 700;
+            border-bottom: 1px solid rgba(0, 210, 255, 0.3);
+            padding-bottom: 8px;
+        }
+        .about-container p {
+            margin-bottom: 18px;
+        }
+        .about-back-btn {
+            display: inline-block;
+            margin-top: 40px;
+            padding: 15px 40px;
+            background: var(--secondary);
+            color: #0a0a0f;
+            text-decoration: none;
+            font-weight: 800;
+            font-size: 1.1rem;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+        .about-back-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(255, 215, 0, 0.5);
+            background: #fff;
+        }
+        
+        @media (max-width: 768px) {
+            .about-container {
+                margin-top: 90px;
+                padding: 25px;
+                font-size: 1.05rem;
+                width: 90vw;
+            }
+            .about-container h1 {
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="ambient-background" style="background-image: url('assets/logoVR.png'); opacity: 0.15; filter: blur(30px);"></div>
+    
+    <div class="glass-container" style="max-width: 100vw; height: 100vh; overflow-y: auto;">
+        <div class="v2-header">
+            <div class="logo-container" onclick="window.history.back()" style="cursor: pointer;">
+                <h1>Valencianismo Radio</h1>
+            </div>
+        </div>
+
+        <div class="about-container">
+            <h1>¿Qué es Valencianismo Radio?</h1>
+            
+            <p><strong>Valencianismo Radio</strong> es un proyecto de comunicación digital libre, independiente y descentralizado, nacido con el único propósito de dar voz a la cultura, la historia y la actualidad del pueblo valenciano y del Valencia CF.</p>
+
+            <p>En un entorno mediático donde nuestras raíces a menudo quedan diluidas, nuestra emisora se erige como un bastión para la defensa de las señas de identidad del <strong>Regne de Valéncia</strong>. Emitimos ininterrumpidamente las 24 horas del día, los 7 días de la semana, ofreciendo una cuidada selección de tertulias de actualidad, programas de análisis, humor tradicional y la mejor música autóctona.</p>
+
+            <h2>Nuestro Compromiso Lingüístico</h2>
+            <p>El pilar fundamental de Valencianismo Radio es el respeto absoluto por nuestra lengua. Por ello, toda nuestra línea editorial, programación y textos escritos se rigen estrictamente por las <strong>Normes d'El Puig</strong> (ortografía oficial de la Real Acadèmia de Cultura Valenciana - RACV). Creemos firmemente que la protección y promoción de la genuina llengua valenciana pasa por su uso cotidiano, correcto y sin complejos en los nuevos formatos digitales.</p>
+
+            <h2>Tecnología y Descentralización</h2>
+            <p>No solo miramos al pasado para honrar nuestra historia, sino que lideramos el presente tecnológico. Somos pioneros en la integración de redes descentralizadas como <strong>Nostr</strong> y la red <strong>Lightning de Bitcoin</strong> (Zaps). Esto asegura que nuestro mensaje sea incensurable y que nuestra comunidad de oyentes pueda interactuar y colaborar de manera libre, directa y entre pares (P2P), sin depender de los algoritmos opacos ni la censura de las corporaciones tradicionales de internet.</p>
+
+            <div style="text-align: center;">
+                <a href="javascript:history.back()" class="about-back-btn">VOLVER A LA RADIO</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
