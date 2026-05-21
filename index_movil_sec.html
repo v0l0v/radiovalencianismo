@@ -66,9 +66,18 @@
     <link rel="apple-touch-icon" href="assets/icon.png">
     <meta name="theme-color" content="#0a0a0f">
 
+    <!-- Preloads & DNS Prefetch -->
+    <link rel="preload" href="assets/default-cover.webp" as="image" fetchpriority="high">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;800&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;800&display=swap"></noscript>
+    <link rel="dns-prefetch" href="https://api.rss2json.com">
+    <link rel="dns-prefetch" href="https://api.dicebear.com">
+    <link rel="preconnect" href="https://api.rss2json.com" crossorigin>
+
     <!-- Estilos -->
     <link rel="stylesheet" href="css/style-v2.css?v=11">
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;800&display=swap" rel="stylesheet">
     <style>
         /* Estilos de paridad exacta con index.html */
         #record-player-btn:hover .custom-vinyl-tooltip {
@@ -940,7 +949,7 @@ La Real Acadèmia de Cultura Valenciana reafirma, una volta més, el seu comprom
 
                 card.innerHTML = `
                     <div style="position: relative; width: 60px; height: 60px; flex-shrink: 0;">
-                        <img src="${safeImg}" alt="${item.title.replace(/"/g, '&quot;')}" style="width:60px; height:60px; border-radius:10px; object-fit:cover;" onerror="this.onerror=null; this.src='https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(item.title)}';">
+                        <img src="${safeImg}" alt="${item.title.replace(/"/g, '&quot;')}" width="60" height="60" loading="lazy" decoding="async" style="width:60px; height:60px; border-radius:10px; object-fit:cover;" onerror="this.onerror=null; this.src='https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(item.title)}';">
                     </div>
                     <div style="flex:1; min-width:0;">
                         <div style="font-size:0.9rem; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-bottom:4px;">${item.title}</div>
