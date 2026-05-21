@@ -1,4 +1,5 @@
-require('websocket-polyfill');
+// Polyfill de WebSocket para Node.js
+Object.assign(global, { WebSocket: require('ws') });
 const dotenv = require('dotenv');
 const { getPublicKey, nip19, finalizeEvent, verifyEvent } = require('nostr-tools');
 const { Relay } = require('nostr-tools/relay');
