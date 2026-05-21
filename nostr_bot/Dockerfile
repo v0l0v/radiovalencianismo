@@ -9,8 +9,8 @@ COPY package*.json ./
 # Instalar dependencias (solo las de producción)
 RUN npm ci --only=production
 
-# Copiar el código fuente
-COPY index.js .
+# Copiar todo el código fuente
+COPY . .
 
 # Comando por defecto al iniciar el contenedor
 CMD [ "node", "index.js" ]
