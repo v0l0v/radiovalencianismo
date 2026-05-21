@@ -219,7 +219,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ambientBg.style.opacity = '0.5';
             }
         } else if (normalized.includes('gotham')) {
-            const coverPath = `assets/gothamvcf.png?v=${cacheBuster}`;
+            const coverPath = `assets/gothamvcf.webp?v=${cacheBuster}`;
             if (coverImage) coverImage.src = coverPath;
             if (ambientBg) {
                 ambientBg.style.backgroundImage = `url(${coverPath})`;
