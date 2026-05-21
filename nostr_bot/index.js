@@ -1,8 +1,9 @@
-// Polyfill de WebSocket para Node.js
-Object.assign(global, { WebSocket: require('ws') });
-const dotenv = require('dotenv');
-const { getPublicKey, nip19, finalizeEvent, verifyEvent } = require('nostr-tools');
-const { Relay } = require('nostr-tools/relay');
+import WebSocket from 'ws';
+Object.assign(global, { WebSocket });
+
+import dotenv from 'dotenv';
+import { getPublicKey, nip19, finalizeEvent, verifyEvent } from 'nostr-tools';
+import { Relay } from 'nostr-tools/relay';
 
 // Cargar variables de entorno (el archivo .env)
 dotenv.config();
