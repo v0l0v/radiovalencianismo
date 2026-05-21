@@ -62,7 +62,10 @@ async function publishToNostr(message) {
     for (const url of RELAYS) {
         try {
             const relay = await Relay.connect(url);
-            await relay.publish(signedEvent);
+            await Promise.race([
+                relay.publish(signedEvent),
+                new Promise((_, reject) => setTimeout(() => reject(new Error('timeout')), 3000))
+            ]);
             relay.close();
             successCount++;
         } catch (error) {
