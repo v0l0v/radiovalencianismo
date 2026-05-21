@@ -456,6 +456,21 @@ body {
     transform: scale(1.05);
 }
 
+.glass-btn.secondary.nostr-btn svg {
+    color: #b67dff;
+    transition: color 0.3s ease;
+}
+
+.glass-btn.secondary.nostr-btn:hover {
+    background: rgba(121, 40, 202, 0.3);
+    border-color: rgba(121, 40, 202, 0.6);
+    box-shadow: 0 0 20px rgba(121, 40, 202, 0.6);
+}
+
+.glass-btn.secondary.nostr-btn:hover svg {
+    color: #fff;
+}
+
 .glass-btn.primary {
     width: 80px;
     height: 80px;
