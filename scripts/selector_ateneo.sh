@@ -49,3 +49,9 @@ FECHA=$(date '+%Y-%m-%d %H:%M:%S')
 printf '{\n    "title": "%s",\n    "thumbnail": "",\n    "url": "",\n    "date": "%s"\n}\n' "$TITLE" "$FECHA" > "$BASE_DIR/ultimo_programa.json"
 
 echo "$(date '+%Y-%m-%d %H:%M:%S') - Seleccionado Ateneo: $SELECTED" >> "$BASE_DIR/selector_log.txt"
+
+# Publicar avís en Nostr (Normes d'El Puig)
+BOT_DIR="$SCRIPT_DIR/../nostr_bot"
+if [ -f "$BOT_DIR/.env" ]; then
+    docker run --rm --env-file "$BOT_DIR/.env" nostr-bot node index.js "📻 En 5 minuts comença L'Ateneo en Valencianismo Radio! Connecta't ya en valencianismo.com" &
+fi

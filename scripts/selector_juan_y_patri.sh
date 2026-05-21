@@ -52,3 +52,9 @@ echo "{\"title\": \"$SELECTED\", \"type\": \"pildora\"}" > "$BASE_DIR/seleccion/
 
 echo "$(date '+%Y-%m-%d %H:%M:%S') - Seleccionado Juan y Patri: $SELECTED" >> "$BASE_DIR/selector_log.txt"
 echo "Cambio completado: $SELECTED"
+
+# Publicar avís en Nostr (Normes d'El Puig)
+BOT_DIR="$SCRIPT_DIR/../nostr_bot"
+if [ -f "$BOT_DIR/.env" ]; then
+    docker run --rm --env-file "$BOT_DIR/.env" nostr-bot node index.js "📻 En breu: nova pílula del Món de Juan i Patri en Valencianismo Radio! Connecta't ya en valencianismo.com" &
+fi
