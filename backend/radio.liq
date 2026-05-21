@@ -20,11 +20,11 @@ musica_normal = rotate([
 ])
 
 # Fuentes de Programas (usando carpetas de selección para control total)
-# loop=false asegura que el programa suene una vez y no se repita
-gotham = playlist(mode="normal", loop=false, reload_mode="watch", "/mp3/programas/gothamvcf/seleccion")
-don_pio = playlist(mode="normal", loop=false, reload_mode="watch", "/mp3/programas/horaDonPio/seleccion")
-ateneo = playlist(mode="normal", loop=false, reload_mode="watch", "/mp3/programas/ateneo/seleccion")
-juan_y_patri = playlist(mode="normal", loop=false, reload_mode="watch", "/mp3/programas/juan_y_patri/seleccion")
+# loop=true asegura que el programa suene aunque el cron falle (repite el audio anterior). No hay bucle infinito por el límite de hora y track_sensitive=true.
+gotham = playlist(mode="normal", loop=true, reload_mode="watch", "/mp3/programas/gothamvcf/seleccion")
+don_pio = playlist(mode="normal", loop=true, reload_mode="watch", "/mp3/programas/horaDonPio/seleccion")
+ateneo = playlist(mode="normal", loop=true, reload_mode="watch", "/mp3/programas/ateneo/seleccion")
+juan_y_patri = playlist(mode="normal", loop=true, reload_mode="watch", "/mp3/programas/juan_y_patri/seleccion")
 
 # 2. Lógica de Audio (Horario Maestro con Interrupción Inmediata)
 
