@@ -275,7 +275,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const paypalBtn = document.getElementById("paypal-btn");
     const vinylBtn = document.getElementById("record-player-btn");
     
-    const LIGHTNING_ADDRESS = "boss@coinos.io";
+    const LIGHTNING_ADDRESS = "valencianismo@wallet.yakihonne.com";
     const NOSTR_PUBKEY = "72bdbc57bdd6dfc4e62685051de8041d148c3c68fe42bf301f71aa6cf53e52fb";
     const RELAYS = ["wss://relay.coinos.io", "wss://relay.damus.io", "wss://relay.primal.net"];
 
