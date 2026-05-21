@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="referrer" content="no-referrer">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- SEO Principal -->
+    <title>Valencianismo Radio | Ràdio en directe 24/7 - Música i Cultura Valenciana</title>
+    <meta name="description" content="Escucha Valencianismo Radio en directo 24/7. La mejor emisora de música y cultura valenciana online. Cants, himnes, música tradicional i moderna valenciana.">
+    <meta name="keywords" content="radio valenciana, valencianismo radio, música valenciana, cultura valenciana, ràdio en directe, radio online valenciana, himnes valencians, cants populars valencians">
+    <meta name="author" content="Valencianismo Radio">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://valencianismo.com/">
+
+    <!-- Open Graph (Facebook, WhatsApp, Telegram) -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://valencianismo.com/">
+    <meta property="og:title" content="Valencianismo Radio | Ràdio en directe 24/7">
+    <meta property="og:description" content="Escucha Valencianismo Radio en directo 24/7. Música i cultura valenciana. Cants, himnes i la millor música del País Valencià.">
+    <meta property="og:image" content="https://valencianismo.com/assets/icon.png">
+    <meta property="og:locale" content="es_ES">
+    <meta property="og:locale:alternate" content="ca_ES">
+    <meta property="og:site_name" content="Valencianismo Radio">
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Valencianismo Radio | Ràdio en directe 24/7">
+    <meta name="twitter:description" content="Escucha Valencianismo Radio en directo 24/7. La millor música i cultura valenciana.">
+    <meta name="twitter:image" content="https://valencianismo.com/assets/icon.png">
+
+    <!-- Schema.org: RadioStation -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "RadioStation",
+        "name": "Valencianismo Radio",
+        "url": "https://valencianismo.com",
+        "description": "Emisora de radio online dedicada a la música y cultura valenciana, emitiendo 24/7.",
+        "logo": "https://valencianismo.com/assets/icon.png",
+        "image": "https://valencianismo.com/assets/icon.png",
+        "broadcastFrequency": "Online",
+        "broadcastAffiliateOf": {
+            "@type": "Organization",
+            "name": "Valencianismo"
+        },
+        "areaServed": {
+            "@type": "Place",
+            "name": "Comunitat Valenciana"
+        },
+        "inLanguage": ["es", "ca"]
+    }
+    </script>
+
+    <!-- PWA -->
+    <link rel="manifest" href="manifest.json">
+    <link rel="icon" type="image/png" href="assets/icon.png">
+    <link rel="apple-touch-icon" href="assets/icon.png">
+    <meta name="theme-color" content="#0a0a0f">
+
+    <!-- Estilos -->
+    <link rel="stylesheet" href="css/style-v2.css?v=11">
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;800&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos de paridad exacta con index.html */
+        #record-player-btn:hover .custom-vinyl-tooltip {
+            opacity: 1 !important;
+            visibility: visible !important;
+            bottom: -35px !important;
+        }
+
+        .btn-modal-close {
+            background: rgba(255, 255, 255, 0.15);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            color: #fff;
+            padding: 12px 25px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .btn-modal-close:hover {
+            background: #e63946 !important;
+            color: #fff !important;
+            border-color: #e63946 !important;
+            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.4);
+        }
+
+        .btn-modal-link {
+            display: inline-block;
+            background: var(--secondary);
+            color: #0a0a0f;
+            padding: 12px 25px;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3);
+        }
+        .btn-modal-link:hover {
+            background: #2a9d8f !important;
+            color: #fff !important;
+            box-shadow: 0 4px 15px rgba(42, 157, 143, 0.4);
+        }
+
+        /* Modal de Noticia 90% */
+        .news-modal {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100vw; height: 100vh;
+            background: rgba(0, 0, 0, 0.85);
+            backdrop-filter: blur(25px);
+            -webkit-backdrop-filter: blur(25px);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 2500;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        .news-modal.active { display: flex; opacity: 1; }
+
+        .news-modal-content {
+            background: var(--glass-bg);
+            backdrop-filter: blur(35px);
+            -webkit-backdrop-filter: blur(35px);
+            border: 1px solid var(--glass-border);
+            border-radius: 24px;
+            padding: 20px;
+            width: 95vw;
+            max-width: 1200px;
+            height: 85vh;
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            position: relative;
+            box-shadow: 0 30px 60px rgba(0,0,0,0.6);
+            overflow-y: auto;
+        }
+
+        .close-news-modal {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            color: #fff;
+            padding: 8px 18px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: all 0.2s ease;
+        }
+        .close-news-modal:hover {
+            background: var(--accent);
+            border-color: var(--accent);
+        }
+
+        #cp-news-modal-content {
+            width: 95vw !important;
+            height: 85vh !important;
+            padding: 20px !important;
+            border: 2.5px solid rgba(255, 255, 255, 0.4) !important;
+            background: rgba(10, 10, 15, 0.85) !important;
+            backdrop-filter: blur(25px) !important;
+            border-radius: 24px !important;
+            display: flex;
+            flex-direction: column;
+        }
+
+        #all-rss-news-container {
+            display: grid !important;
+            grid-template-columns: repeat(1, 1fr) !important;
+            gap: 15px !important;
+            overflow-y: auto;
+            flex-grow: 1;
+        }
+        #all-rss-news-container::-webkit-scrollbar { display: none; }
+
+
+
+        .option-card-slot {
+            min-height: 140px !important;
+            padding: 15px !important;
+            transition: transform 0.2s ease;
+        }
+        .option-card-slot:active { transform: scale(0.98); }
+
+        /* Estilos Programación */
+        .schedule-list {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 5px;
+            max-height: 55vh;
+            overflow-y: auto;
+        }
+        .schedule-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            background: rgba(255,255,255,0.03);
+            border-radius: 14px;
+            padding: 15px;
+            border-left: 4px solid rgba(255,255,255,0.1);
+            text-align: left;
+        }
+        .schedule-item.active-now {
+            background: rgba(255, 215, 0, 0.1);
+            border-left-color: #00f2fe;
+            box-shadow: 0 0 15px rgba(0, 242, 254, 0.1);
+        }
+        .sch-time {
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--secondary);
+            min-width: 60px;
+        }
+        .sch-icon { font-size: 1.3rem; color: #fff; width: 35px; text-align: center; }
+        .sch-title { font-size: 1rem; font-weight: 700; color: #fff; }
+        .sch-desc { font-size: 0.75rem; opacity: 0.6; color: #ccc; }
+
+        @keyframes blinkWarning {
+            0% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.8), inset 0 0 10px rgba(255, 0, 0, 0.5); border-color: red; }
+            50% { box-shadow: 0 0 30px rgba(255, 0, 0, 1), inset 0 0 20px rgba(255, 0, 0, 0.8); border-color: #ff4444; }
+            100% { box-shadow: 0 0 10px rgba(255, 0, 0, 0.8), inset 0 0 10px rgba(255, 0, 0, 0.5); border-color: red; }
+        }
+        .blinking-warning {
+            animation: blinkWarning 1.5s infinite !important;
+            border: 2px solid red !important;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="ambient-background" id="ambient-bg"></div>
+
+    <div class="glass-container">
+        <!-- Header idéntico a index.html -->
+        <div class="v2-header">
+            <div class="logo-container" onclick="window.location.href='index_movil.html'" style="cursor: pointer;" title="Ir al inicio / Recargar">
+                <h1>Valencianismo Radio</h1>
+            </div>
+        </div>
+
+        <!-- Refrán idéntico a index.html -->
+        <div class="refran-text-container" id="refran-text">
+            "A poc a poc s'ompli la gerra"<br><span style="font-size:0.8rem; opacity:0.6; font-style: normal;">(refrán valenciano)</span>
+        </div>
+
+        <main class="v2-player">
+            <!-- Player idéntico a index.html -->
+            <div class="record-player" id="record-player-btn" style="position: relative;">
+                <div class="vinyl-wrapper" id="vinyl-wrapper">
+                    <img id="cover-image" src="assets/default-cover.webp" alt="Cover" class="vinyl-cover" width="300" height="300" onerror="this.src='assets/default-cover.webp'">
+                    <div class="vinyl-hole"></div>
+                </div>
+                <!-- Tooltip premium personalizado -->
+                <div class="custom-vinyl-tooltip" style="position: absolute; bottom: -45px; left: 50%; transform: translateX(-50%); background: rgba(10, 10, 15, 0.9); backdrop-filter: blur(8px); border: 1px solid rgba(255, 215, 0, 0.45); padding: 6px 14px; border-radius: 20px; font-size: 0.75rem; color: #ffd700; font-weight: 700; white-space: nowrap; pointer-events: none; opacity: 0; visibility: hidden; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: 100; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3); text-transform: uppercase; letter-spacing: 0.5px;">
+                    Ver el historial de las últimas canciones reproducidas
+                </div>
+            </div>
+
+            <div class="song-info">
+                <div class="scrolling-text-container">
+                    <h2 id="current-song" class="song-title">Conectando...</h2>
+                </div>
+                <p class="station-name" id="status-text" style="display: none;">Escuchando en directo</p>
+            </div>
+
+            <!-- Controles idénticos a index.html -->
+            <div class="modern-controls">
+                <button id="zap-btn" class="glass-btn secondary" title="Enviar Zap (Lightning)" aria-label="Enviar Zap (Lightning)">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/></svg>
+                </button>
+                <button id="play-btn" class="glass-btn primary" title="Reproducir / Pausar" aria-label="Reproducir / Pausar">
+                    <svg viewBox="0 0 24 24" class="icon-play" id="icon-play" fill="currentColor"><path d="M8 5v14l11-7z" /></svg>
+                    <svg viewBox="0 0 24 24" class="icon-pause" id="icon-pause" style="display:none;" fill="currentColor"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z" /></svg>
+                </button>
+                <button id="options-btn" class="glass-btn secondary" onclick="openOptionsModal()" title="Opciones Extra / Panel de Control" aria-label="Opciones Extra / Panel de Control">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20m10-10H2"/></svg>
+                </button>
+            </div>
+
+            <!-- Barra de Volumen idéntica a index.html -->
+            <div class="volume-control-wrapper" style="margin-top: 20px; width: 100%; max-width: 280px; margin-left: auto; margin-right: auto; text-align: center;">
+                <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 6px;">
+                    <span style="font-size: 0.75rem; color: rgba(255, 255, 255, 0.6); font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">VOLUMEN</span>
+                    <span id="volume-val" style="font-size: 0.85rem; color: #ffd700; font-weight: 700;">80%</span>
+                </div>
+                <div class="custom-volume-slider-container" style="position: relative; display: flex; align-items: center; height: 32px; background: rgba(255, 255, 255, 0.03); border-radius: 10px; border: 1px solid rgba(255, 255, 255, 0.1); padding: 0 10px; cursor: pointer; user-select: none;" id="volume-slider-track">
+                    <!-- Ticks/Vertical bars -->
+                    <div style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; display: flex; justify-content: space-between; align-items: center; padding: 0 12px; pointer-events: none; z-index: 1;">
+                        <div style="width: 2px; height: 12px; background: rgba(255, 255, 255, 0.35); border-radius: 2px;"></div>
+                        <div style="width: 2px; height: 8px; background: rgba(255, 255, 255, 0.2); border-radius: 2px;"></div>
+                        <div style="width: 2px; height: 8px; background: rgba(255, 255, 255, 0.2); border-radius: 2px;"></div>
+                        <div style="width: 2px; height: 12px; background: rgba(255, 255, 255, 0.35); border-radius: 2px;"></div>
+                        <div style="width: 2px; height: 8px; background: rgba(255, 255, 255, 0.2); border-radius: 2px;"></div>
+                        <div style="width: 2px; height: 8px; background: rgba(255, 255, 255, 0.2); border-radius: 2px;"></div>
+                        <div style="width: 2px; height: 12px; background: rgba(255, 255, 255, 0.35); border-radius: 2px;"></div>
+                        <div style="width: 2px; height: 8px; background: rgba(255, 255, 255, 0.2); border-radius: 2px;"></div>
+                        <div style="width: 2px; height: 8px; background: rgba(255, 255, 255, 0.2); border-radius: 2px;"></div>
+                        <div style="width: 2px; height: 12px; background: rgba(255, 255, 255, 0.35); border-radius: 2px;"></div>
+                    </div>
+                    <div id="volume-fill-bar" style="position: absolute; top: 0; left: 0; height: 100%; width: 80%; background: linear-gradient(90deg, rgba(255, 215, 0, 0.2), rgba(0, 242, 254, 0.45)); border-radius: 8px; z-index: 0; transition: width 0.1s ease; border-right: 2px solid #00f2fe;"></div>
+                    <div id="volume-thumb" style="position: absolute; top: 50%; left: 80%; transform: translate(-50%, -50%); width: 14px; height: 14px; background: #fff; border-radius: 50%; border: 2px solid #ffd700; z-index: 2; transition: left 0.1s ease; box-shadow: 0 0 8px rgba(0,242,254,0.6);"></div>
+                </div>
+                
+                <!-- Botón Seguir Nostr -->
+                <div style="margin-top: 15px; margin-bottom: 5px; text-align: center;">
+                    <a href="nostr:npub16t27rsqukag9udw9w0e7m36mvyw6vapqs8scrma6y4ddaavgmclq6lvl0p" title="Seguir en Nostr" aria-label="Seguir en Nostr" style="background: rgba(121, 40, 202, 0.15); border: 1px solid rgba(121, 40, 202, 0.4); color: #b67dff; padding: 8px 18px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; text-decoration: none; display: inline-flex; align-items: center; gap: 8px; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(121, 40, 202, 0.2);" onmouseover="this.style.background='rgba(121, 40, 202, 0.3)'; this.style.color='#fff'; this.style.borderColor='rgba(121, 40, 202, 0.6)';" onmouseout="this.style.background='rgba(121, 40, 202, 0.15)'; this.style.color='#b67dff'; this.style.borderColor='rgba(121, 40, 202, 0.4)';">
+                        <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;" aria-hidden="true">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
+                        Seguir en Nostr
+                    </a>
+                </div>
+            </div>
+        </main>
+
+        <!-- Historial idéntico a index.html -->
+        <div class="history-panel" id="history-panel">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px;">
+                <h3 style="margin: 0; border: none; padding: 0; font-size: 1.1rem; color: #ffd700; font-weight: 800;">HISTORIAL</h3>
+                <div id="collapse-history-btn" style="width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; cursor: pointer;" onclick="document.querySelector('.history-panel').classList.remove('active');">
+                    <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: none; stroke: #fff; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;"><polyline points="7 13 12 18 17 13"></polyline><polyline points="7 6 12 11 17 6"></polyline></svg>
+                </div>
+            </div>
+            <ul id="history-list" class="modern-history-list"></ul>
+            <div class="history-footer" style="text-align: center; margin-top: 15px; opacity: 0.3; display: flex; justify-content: center; gap: 15px;">
+                <svg id="easter-egg-zap" viewBox="0 0 24 24" style="width: 16px; height: 16px; cursor: pointer;"><path fill="#FFD700" d="M7,2V13H10V22L17,10H13L17,2H7Z" /></svg>
+                <svg id="easter-egg-cd" viewBox="0 0 24 24" style="width: 16px; height: 16px; cursor: pointer;"><path id="cd-icon-path" fill="#ccc" d="M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2M12,16.5C9.5,16.5 7.5,14.5 7.5,12C7.5,9.5 9.5,7.5 12,7.5C14.5,7.5 16.5,9.5 16.5,12C16.5,14.5 14.5,16.5 12,16.5M12,10.5C11.17,10.5 10.5,11.17 10.5,12C10.5,12.83 11.17,13.5 12,13.5C12.83,13.5 13.5,12.83 13.5,12C13.5,11.17 12.83,10.5 12,10.5Z" /></svg>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modales -->
+    <div id="zap-modal" class="modern-modal">
+        <div class="modal-content" style="max-width: 450px; padding: 25px; text-align: center;">
+            <h3 style="color: #ffd700; margin-bottom: 10px;">ENVÍA UN ZAP ⚡</h3>
+            <p style="font-size: 0.95rem; color: #eee; line-height: 1.5; margin-bottom: 15px; text-align: left; background: rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 8px; border-left: 3px solid #ffd700;">
+                Un <strong>Zap</strong> es una micro-donación instantánea enviada a través de la red Lightning de Bitcoin. 
+                <br><br>
+                <strong>Procedimiento para colaborar:</strong><br>
+                1. Abre tu billetera Bitcoin/Lightning (por ejemplo: Wallet of Satoshi, Strike, Phoenix, etc.).<br>
+                2. Escanea el código QR inferior o copia la dirección de abajo.<br>
+                3. Introduce la cantidad de sats que desees enviar y confirma el pago.
+            </p>
+            <div id="qrcode-container" style="margin: 15px auto;">
+                <img id="zap-qr" src="" alt="QR Zap" style="border-radius: 8px;" width="250" height="250">
+            </div>
+            <p class="zap-address" style="color: #ffd700; font-weight: 700; font-family: monospace; font-size: 1.1rem; margin-bottom: 15px;">boss@coinos.io</p>
+            <button class="close-modal" id="close-zap" style="background: var(--secondary); color: #0a0a0f; border: none; padding: 10px 30px; border-radius: 50px; cursor: pointer; font-weight: 700; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(255,215,0,0.3);">CERRAR</button>
+        </div>
+    </div>
+
+    <!-- Modal Donar con PayPal -->
+    <div id="paypal-modal" class="modern-modal" onclick="document.getElementById('paypal-modal').classList.remove('active')">
+        <div class="modal-content" onclick="event.stopPropagation()" style="max-width: 450px; padding: 25px; text-align: center;">
+            <h3 style="color: #ffd700; margin-bottom: 10px;">DONAR CON PAYPAL 💙</h3>
+            <p style="font-size: 0.95rem; color: #eee; line-height: 1.5; margin-bottom: 15px; text-align: left; background: rgba(255, 255, 255, 0.05); padding: 12px; border-radius: 8px; border-left: 3px solid #ffd700;">
+                Tu apoyo nos ayuda a mantener la radio libre de publicidad y con la mejor calidad. ¡Muchas gracias por tu colaboración!
+            </p>
+            <div class="paypal-container" style="margin: 20px 0;">
+                <a href="https://www.paypal.com/pools/c/9oOuJpSJJR" target="_blank" rel="noopener noreferrer" class="paypal-link-btn" style="background: #ffd700; color: #0a0a0f; font-weight: 700; padding: 12px 30px; border-radius: 50px; text-decoration: none; display: inline-block; box-shadow: 0 4px 15px rgba(255,215,0,0.3); transition: all 0.3s ease;">
+                    Ir a la Campaña de PayPal
+                </a>
+            </div>
+            <p class="zap-address" style="color: #ffd700; font-weight: 700; font-family: monospace; font-size: 1.1rem; margin-bottom: 15px;">Valencianismo Radio</p>
+            <button class="close-modal" id="close-paypal" style="background: var(--secondary); color: #0a0a0f; border: none; padding: 10px 30px; border-radius: 50px; cursor: pointer; font-weight: 700; transition: all 0.3s ease; box-shadow: 0 4px 15px rgba(255,215,0,0.3);">CERRAR</button>
+        </div>
+    </div>
+
+    <div id="options-modal" class="modern-modal" onclick="closeOptionsModal()">
+        <div class="modal-content" onclick="event.stopPropagation()" style="width: 90vw; height: auto; padding: 25px; border: 2px solid rgba(255, 255, 255, 0.2); text-align: center;">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 10px;">
+                <h3 style="color: #ffd700; margin: 0; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; font-size: 1.1rem;">PANEL DE CONTROL / OPCIONES</h3>
+                <button onclick="closeOptionsModal()" style="background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.2); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease;">✕</button>
+            </div>
+            <div id="options-grid" style="display: grid; grid-template-columns: 1fr; gap: 15px; max-height: 65vh; overflow-y: auto; padding: 5px;">
+                <!-- Opción 1: Compartir enlace -->
+                <div class="option-card-slot" data-id="opt-compartir" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 15px; display: flex; flex-direction: column; justify-content: space-between; text-align: left; border-left: 4px solid #00f2fe; min-height: 140px;">
+                    <div>
+                        <div style="font-weight: 700; margin-bottom: 6px; color: #00f2fe; font-size: 0.95rem;">Compartir enlace:</div>
+                        <div style="margin-bottom: 12px; font-size: 0.8rem; color: #ccc;">¡Estoy escuchando Valencianismo Radio! 📻🎶</div>
+                    </div>
+                    <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+                        <a href="https://twitter.com/intent/tweet?text=¡Estoy%20escuchando%20Radio%20Valencianismo!%20📻🎶%20Únete%20aquí:%20https://valencianismo.com" target="_blank" rel="noopener noreferrer" aria-label="Compartir en X" style="background: #1da1f2; color: #fff; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none;" title="Compartir en X"><svg viewBox="0 0 24 24" style="width: 20px; fill: currentColor;" aria-hidden="true"><path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/></svg></a>
+                        <a href="https://api.whatsapp.com/send?text=¡Estoy%20escuchando%20Radio%20Valencianismo!%20📻🎶%20Únete%20aquí:%20https://valencianismo.com" target="_blank" rel="noopener noreferrer" aria-label="Compartir en WhatsApp" style="background: #25d366; color: #fff; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none;" title="Compartir en WhatsApp"><svg viewBox="0 0 24 24" style="width: 22px; fill: currentColor;" aria-hidden="true"><path d="M12.004 2.018C6.48 2.018 2 6.495 2 12.016c0 1.831.493 3.568 1.353 5.093l-1.427 5.211 5.334-1.4c1.464.797 3.125 1.231 4.757 1.232l.004-.002c5.522 0 10.003-4.477 10.003-9.998 0-2.671-1.04-5.18-2.929-7.071A9.921 9.921 0 0012.004 2.018z"/></svg></a>
+                        <a href="https://t.me/share/url?url=https://valencianismo.com&text=¡Estoy%20escuchando%20Radio%20Valencianismo!%20📻🎶" target="_blank" rel="noopener noreferrer" aria-label="Compartir en Telegram" style="background: #0088cc; color: #fff; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none;" title="Compartir en Telegram"><svg viewBox="0 0 24 24" style="width: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;" aria-hidden="true"><line x1="22" y1="2" x2="11" y2="13"></line><polygon points="22 2 15 22 11 13 2 9 22 2"></polygon></svg></a>
+                        <a href="nostr:nevent1..." onclick="navigator.clipboard.writeText('¡Estoy escuchando Valencianismo Radio! 📻🎶 Únete aquí: https://valencianismo.com'); alert('¡Copiado para compartir en Nostr!'); return true;" aria-label="Compartir en Nostr" style="background: #7928ca; color: #fff; width: 40px; height: 40px; border-radius: 50%; display: flex; align-items: center; justify-content: center; text-decoration: none;" title="Compartir en Nostr"><svg viewBox="0 0 24 24" style="width: 20px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;" aria-hidden="true"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon></svg></a>
+                    </div>
+                </div>
+                
+                <!-- Opción 2: Contacto -->
+                <div class="option-card-slot" data-id="opt-contacto" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 15px; display: flex; flex-direction: column; justify-content: space-between; text-align: left; border-left: 4px solid #ff007f; min-height: 140px;">
+                    <div>
+                        <div style="font-weight: 700; margin-bottom: 6px; color: #ff007f; font-size: 0.95rem;">Contacto / Comunidad:</div>
+                        <div style="font-size: 0.8rem; color: #ccc;">¿Tienes dudas o propuestas? ¡Escríbenos!</div>
+                    </div>
+                    <a href="mailto:comunidad@valencianismo.com" style="background: #ff007f; color: #fff; padding: 10px; border-radius: 20px; font-size: 0.8rem; text-decoration: none; font-weight: 600; text-align: center;">Enviar Correo</a>
+                </div>
+
+                <!-- Opción 3: Últimas Noticias -->
+                <div class="option-card-slot" data-id="opt-noticias" onclick="openControlPanelNewsModal()" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 15px; display: flex; flex-direction: column; justify-content: space-between; text-align: left; border-left: 4px solid #00d2ff; min-height: 140px; cursor: pointer;">
+                    <div>
+                        <div style="font-weight: 700; margin-bottom: 6px; color: #00d2ff; font-size: 0.95rem;">Últimas 100 Noticias:</div>
+                        <div style="font-size: 0.8rem; color: #ccc;">Visualiza las últimas noticias de todos los feeds.</div>
+                    </div>
+                    <button style="background: #00d2ff; color: #0a0a0f; border: none; padding: 10px 18px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+                        <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;"><rect x="2" y="3" width="20" height="14" rx="2" ry="2"></rect><line x1="8" y1="21" x2="16" y2="21"></line><line x1="12" y1="17" x2="12" y2="21"></line></svg>
+                        Ver Noticias
+                    </button>
+                </div>
+
+                <!-- Opción 4: Programación -->
+                <div class="option-card-slot" data-id="opt-horarios" onclick="openScheduleModal()" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 15px; display: flex; flex-direction: column; justify-content: space-between; text-align: left; border-left: 4px solid var(--secondary); min-height: 140px; cursor: pointer;">
+                    <div>
+                        <div style="font-weight: 700; margin-bottom: 6px; color: var(--secondary); font-size: 0.95rem;">Programación Semanal:</div>
+                        <div style="font-size: 0.8rem; color: #ccc;">Consulta los horarios de todos nuestros programas.</div>
+                    </div>
+                    <button style="background: var(--secondary); color: #0a0a0f; border: none; padding: 10px 18px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px;">
+                        <i class="fas fa-clock"></i>
+                        Ver Horarios
+                    </button>
+                </div>
+
+                <!-- Placeholder -->
+                <div class="option-card-slot" data-id="opt-placeholder" style="background: rgba(255, 255, 255, 0.02); border: 1px dashed rgba(255, 255, 255, 0.15); border-radius: 14px; padding: 15px; display: flex; flex-direction: column; justify-content: center; align-items: center; min-height: 100px; color: rgba(255, 255, 255, 0.25); font-size: 0.85rem;">
+                    <div style="font-weight: 700; font-size: 1.5rem; margin-bottom: 6px; opacity: 0.4;">+</div>
+                    <div>Próxima Opción</div>
+                </div>
+            </div>
+            <button class="close-modal" onclick="closeOptionsModal()" style="background: var(--secondary); color: #0a0a0f; border: none; padding: 15px; border-radius: 50px; width: 100%; margin-top: 15px; font-weight: 700; font-size: 0.9rem; text-transform: uppercase;">CERRAR</button>
+        </div>
+    </div>
+
+    <!-- Otros modales necesarios -->
+    <!-- Modal Programación -->
+    <div id="schedule-modal" class="modern-modal" onclick="closeModal('schedule-modal')">
+        <div class="modal-content" onclick="event.stopPropagation()" style="width: 90vw; padding: 25px; border: 2px solid rgba(255,255,255,0.2);">
+            <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 10px;">
+                <h3 style="color: var(--secondary); margin: 0; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; font-size: 1.1rem;"><i class="fas fa-calendar-alt"></i> Programación</h3>
+                <button onclick="closeModal('schedule-modal')" style="background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.2); width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.2s ease; flex-shrink: 0;">✕</button>
+            </div>
+            <div id="schedule-date-mobile" style="font-size: 0.8rem; color: #aaa; margin-bottom: 15px; font-weight: 500;"></div>
+            <div class="schedule-list">
+                <!-- Horario Dinámico Móvil -->
+                <div class="schedule-item" onclick="openProgramDetail('juanpatri')" style="background: rgba(255,193,7,0.05);">
+                    <div class="sch-time">Cada :00</div>
+                    <div class="sch-icon"><i class="fas fa-bolt"></i></div>
+                    <div class="sch-info">
+                        <div class="sch-title">Juan y Patri (Píldora)</div>
+                        <div class="sch-desc" id="desc-juanpatri-mobile">Breves apuntes de historia</div>
+                    </div>
+                </div>
+
+                <div class="schedule-item" onclick="openProgramDetail('gotham')">
+                    <div class="sch-time">09:30</div>
+                    <div class="sch-icon"><i class="fas fa-microphone-alt"></i></div>
+                    <div class="sch-info">
+                        <div class="sch-title">Gotham VCF</div>
+                        <div class="sch-desc" id="desc-gotham-mobile">Actualidad che</div>
+                    </div>
+                </div>
+
+                <div class="schedule-item" onclick="openProgramDetail('donpio')">
+                    <div class="sch-time">11:30</div>
+                    <div class="sch-icon"><i class="fas fa-laugh"></i></div>
+                    <div class="sch-info">
+                        <div class="sch-title">Don Pío</div>
+                        <div class="sch-desc" id="desc-donpio-mobile">Humor valenciano</div>
+                    </div>
+                </div>
+
+                <div class="schedule-item" onclick="openProgramDetail('ateneo')">
+                    <div class="sch-time">13:30</div>
+                    <div class="sch-icon"><i class="fas fa-university"></i></div>
+                    <div class="sch-info">
+                        <div class="sch-title">Ateneo</div>
+                        <div class="sch-desc" id="desc-ateneo-mobile">Tertulia de fondo</div>
+                    </div>
+                </div>
+
+                <div class="schedule-item" onclick="openProgramDetail('gotham')">
+                    <div class="sch-time">15:30</div>
+                    <div class="sch-icon"><i class="fas fa-microphone-alt"></i></div>
+                    <div class="sch-info">
+                        <div class="sch-title">Gotham VCF</div>
+                        <div class="sch-desc" id="desc-gotham-2-mobile">Actualidad che</div>
+                    </div>
+                </div>
+
+                <div class="schedule-item" onclick="openProgramDetail('donpio')">
+                    <div class="sch-time">17:30</div>
+                    <div class="sch-icon"><i class="fas fa-laugh"></i></div>
+                    <div class="sch-info">
+                        <div class="sch-title">Don Pío</div>
+                        <div class="sch-desc" id="desc-donpio-2-mobile">Humor valenciano</div>
+                    </div>
+                </div>
+
+                <div class="schedule-item" onclick="openProgramDetail('ateneo')">
+                    <div class="sch-time">19:30</div>
+                    <div class="sch-icon"><i class="fas fa-university"></i></div>
+                    <div class="sch-info">
+                        <div class="sch-title">Ateneo</div>
+                        <div class="sch-desc" id="desc-ateneo-2-mobile">Tertulia de fondo</div>
+                    </div>
+                </div>
+
+                <div class="schedule-item" onclick="openProgramDetail('gotham')">
+                    <div class="sch-time">21:30</div>
+                    <div class="sch-icon"><i class="fas fa-moon"></i></div>
+                    <div class="sch-info">
+                        <div class="sch-title">Gotham VCF</div>
+                        <div class="sch-desc" id="desc-gotham-3-mobile">Actualidad che</div>
+                    </div>
+                </div>
+
+                <div class="schedule-item" onclick="openProgramDetail('ateneo')">
+                    <div class="sch-time">23:30</div>
+                    <div class="sch-icon"><i class="fas fa-star"></i></div>
+                    <div class="sch-info">
+                        <div class="sch-title">Ateneo</div>
+                        <div class="sch-desc" id="desc-ateneo-3-mobile">Cierre jornada</div>
+                    </div>
+                </div>
+            </div>
+            <button onclick="closeModal('schedule-modal')" style="width: 100%; padding: 12px; border-radius: 50px; background: var(--secondary); color: #000; border: none; font-weight: 800; margin-top: 15px;">VOLVER</button>
+        </div>
+    </div>
+    <!-- Modal Detalle de Programa -->
+    <div id="program-detail-modal" class="modern-modal" onclick="closeModal('program-detail-modal')">
+        <div class="modal-content" onclick="event.stopPropagation()" style="width: 90vw; padding: 0; border: none; overflow: hidden; border-radius: 20px;">
+            <div id="prog-header-img" style="height: 180px; background-size: cover; background-position: center; position: relative;">
+                <div style="position: absolute; bottom: 0; left: 0; width: 100%; height: 100%; background: linear-gradient(to top, rgba(10,10,15,1), transparent);"></div>
+                <button onclick="closeModal('program-detail-modal')" style="position: absolute; top: 15px; right: 15px; background: rgba(255,255,255,0.2); border: 1px solid rgba(255,255,255,0.3); color: #fff; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 10;">✕</button>
+            </div>
+            <div style="padding: 20px; background: #0a0a0f;">
+                <h2 id="prog-title" style="color: var(--secondary); margin-bottom: 10px; font-weight: 800; font-size: 1.5rem;"></h2>
+                <div id="prog-last-ep" style="background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); padding: 12px; border-radius: 12px; margin-bottom: 15px; display: none;">
+                    <div style="font-size: 0.65rem; color: var(--secondary); font-weight: 700; text-transform: uppercase; margin-bottom: 3px;">Último programa:</div>
+                    <div id="prog-last-title" style="font-weight: 600; color: #fff; font-size: 0.9rem;"></div>
+                </div>
+                <p id="prog-description" style="color: #ccc; line-height: 1.5; margin-bottom: 20px; font-size: 0.95rem;"></p>
+                <button onclick="closeModal('program-detail-modal')" style="width: 100%; padding: 12px; border-radius: 50px; background: var(--secondary); color: #000; border: none; font-weight: 800;">VOLVER</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal de Noticia (Pantalla completa al 90%) -->
+    <div id="news-modal" class="news-modal" onclick="closeNewsModal()">
+        <div class="news-modal-content" onclick="event.stopPropagation()" style="position: relative; overflow: hidden; border: 2.5px solid rgba(255,255,255,0.45); border-radius: 14px; display: flex; flex-direction: column; justify-content: space-between;">
+            <div id="modal-bg" style="position: absolute; top: 0; left: 0; width: 100%; height: 100%; background-image: url(''); background-size: cover; background-position: center; filter: blur(3px) brightness(0.4); z-index: 1; transform: scale(1.15); transition: transform 0.3s ease;"></div>
+            <div style="border-bottom: 1px solid var(--glass-border); padding-bottom: 15px; margin-bottom: 10px; position: relative; z-index: 2; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 8px; text-align: center;">
+                <img id="modal-source-logo" src="" style="width: 40px; height: 40px; border-radius: 50%; border: 1.5px solid rgba(255,255,255,0.25);" alt="Logo">
+                <div id="modal-source-text" style="font-size: 1rem; font-weight: 700; color: #ffd700; text-shadow: 0 1px 3px rgba(0,0,0,0.8);"></div>
+            </div>
+            <p id="modal-body" style="font-size: 1.6rem; font-weight: 600; line-height: 1.5; color: #eee; margin: 0; position: relative; z-index: 2; text-shadow: 0 1px 2px rgba(0,0,0,0.8); flex-grow: 1; overflow: hidden;">
+                Este es el contenido completo de la noticia seleccionada. Aquí puedes leer el artículo completo, detalles técnicos y más información sobre la actualidad del valencianismo. Las mejores fuentes de información reunidas en un solo lugar.
+            </p>
+            <div style="margin-top: auto; padding-top: 15px; border-top: 1px solid var(--glass-border); display: flex; justify-content: space-between; align-items: center; position: relative; z-index: 2;">
+                <button onclick="closeNewsModal()" class="btn-modal-close">
+                    CERRAR
+                </button>
+                <a id="modal-link" href="#" target="_blank" class="btn-modal-link">
+                    Seguir leyendo en la fuente original...
+                </a>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Modal Comunicat RACV -->
+    <div id="comunicat-modal" class="modern-modal" onclick="closeComunicatModal()">
+        <div class="modal-content" onclick="event.stopPropagation()" style="width: 90vw; height: 80vh; padding: 25px; display: flex; flex-direction: column; border: 2px solid #ffd700; background: rgba(10,10,15,0.95); overflow-y: auto;">
+            <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid rgba(255,215,0,0.3); padding-bottom: 10px; margin-bottom: 15px;">
+                <h2 style="color: #ffd700; margin: 0; font-weight: 800; font-size: 1.2rem;">COMUNICAT DE LA REAL ACADÈMIA DE CULTURA VALENCIANA</h2>
+                <button onclick="closeComunicatModal()" style="background: transparent; color: #fff; border: none; font-size: 1.2rem; cursor: pointer;">✕</button>
+            </div>
+            <div style="color: #eee; font-size: 1rem; line-height: 1.5; white-space: pre-line;">
+La Real Acadèmia de Cultura Valenciana desija traslladar públicament la seua profunda preocupació davant el rumbo que estan prenent les actuals negociacions vinculades a l'àmbit educatiu valencià i les conseqüències culturals i llingüístiques que d'elles poden derivar-se.
+
+En les últimes semanes, el debat públic s'ha centrat principalment en qüestions laborals i presupostàries relacionades en el sistema educatiu. No obstant, des de diversos sectors de la societat valenciana es percep en inquietut que, baix eixe escenari, s'estan consolidant decisions que afecten directament a l'identitat llingüística i cultural del poble valencià.
+
+L'educació no pot convertir-se en un espai d'uniformisació ideològica ni en un instrument per a diluir la personalitat històrica de la nostra terra. El poble valencià posseïx una tradició cultural pròpia, una llengua pròpia i unes manifestacions identitàries que mereixen ser protegides des del respecte, la pluralitat i la convivència.
+
+Resulta especialment preocupant comprovar cóm continua marginant-se institucionalment a entitats històriques valencianes que durant décades han treballat per la defensa i dignificació de la llengua i cultura valencianes. Institucions com la pròpia Real Acadèmia de Cultura Valenciana o Lo Rat Penat formen part indiscutible del patrimoni cultural valencià i representen a mils de valencians compromesos en la conservació de les nostres senyes d'identitat.
+
+L'exclusió sistemàtica de determinades sensibilitats culturals no enfortix la convivència; al contrari, genera divisió, desafecció i una creixent sensació d'agravi entre numerosos ciutadans que consideren que la seua visió de la llengua valenciana no rep el mateix respecte institucional que atres corrents ideològiques.
+
+Des d'esta Acadèmia considerem imprescindible que el sistema educatiu valencià garantise un autèntic pluralisme cultural i llingüístic. L'escola deu ser un espai de formació, coneiximent i llibertat, mai un àmbit a on s'imponga una única interpretació identitària o filològica.
+
+Aixina mateixa, manifestem la nostra preocupació per l'utilisació política de determinats plantejaments que identifiquen qualsevol defensa diferenciada de la llengua valenciana en posicions extremes o descalificacions personals. El debat cultural deu desenrollar-se des del respecte mutu, la tolerància i el reconeiximent de la diversitat interna existent en la societat valenciana.
+
+La Comunitat Valenciana necessita institucions capaces d'unir i no de profundisar fractures socials. Per això, apelem a la responsabilitat dels poders públics per a que escolten el creixent malestar d'una part significativa de la ciutadania valenciana i actuen en sensibilitat cap a totes les corrents culturals llegítimament presents en la nostra societat.
+
+La defensa de l'identitat valenciana no deuria ser motiu de confrontació, sino un punt de trobada basada en el respecte a la nostra història, la nostra llengua i les nostres tradicions.
+
+La Real Acadèmia de Cultura Valenciana reafirma, una volta més, el seu compromís ferm en la cultura valenciana, en la llibertat intelectual i en la preservació del patrimoni llingüístic i històric del Regne de Valéncia.
+            </div>
+            <button onclick="closeComunicatModal()" style="width: 100%; padding: 12px; border-radius: 50px; background: #ffd700; color: #000; border: none; font-weight: 800; margin-top: 15px;">VOLVER</button>
+        </div>
+    </div>
+
+    <div id="control-panel-news-modal" class="modern-modal" onclick="closeControlPanelNewsModal()"><div id="cp-news-modal-content" class="modal-content" onclick="event.stopPropagation()"><div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 15px; border-bottom: 1px solid rgba(255,255,255,0.15); padding-bottom: 10px;"><h3 style="color: #00d2ff; margin: 0; font-size: 1.1rem; text-transform: uppercase;">Noticias</h3><button onclick="closeControlPanelNewsModal()" style="background: rgba(255,255,255,0.1); color: #fff; border: none; width: 30px; height: 30px; border-radius: 50%;">✕</button></div><div id="all-rss-news-container" style="overflow-y: auto; flex-grow: 1;"></div><div style="display: flex; justify-content: center; margin-top: 10px;"><button id="load-more-news-btn" onclick="loadNextChunk()" style="background: var(--secondary); color: #0a0a0f; border: none; padding: 8px 20px; border-radius: 20px; font-weight: 700; font-size: 0.8rem;">CARGAR MÁS</button></div></div></div>
+
+
+    <audio id="radio-stream" preload="none" crossorigin="anonymous">
+        <source src="https://valencianismo.com/stream" type="audio/mpeg">
+    </audio>
+
+    <script src="js/refranes.js?v=10"></script>
+    <script src="js/radio.js?v=11"></script>
+    <script>
+        let allNews = [], controlPanelNewsIndex = 0;
+
+        function openOptionsModal() { document.getElementById('options-modal').style.display = 'flex'; setTimeout(() => document.getElementById('options-modal').classList.add('active'), 10); }
+        function closeOptionsModal() { document.getElementById('options-modal').classList.remove('active'); setTimeout(() => document.getElementById('options-modal').style.display = 'none', 300); }
+
+        function closeModal(modalId) {
+            const modal = document.getElementById(modalId);
+            if (modal) {
+                modal.classList.remove('active');
+                setTimeout(() => modal.style.display = 'none', 300);
+            }
+        }
+
+        function openScheduleModal() {
+            const modal = document.getElementById('schedule-modal');
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('active'), 10);
+            
+            // Poner fecha actual
+            const dateEl = document.getElementById('schedule-date-mobile');
+            const now = new Date();
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            const dateStr = now.toLocaleDateString('es-ES', options);
+            dateEl.innerText = dateStr.charAt(0).toUpperCase() + dateStr.slice(1);
+
+            const hour = now.getHours();
+            const items = modal.querySelectorAll('.schedule-item[data-hour]');
+            let activeItem = null;
+            
+            items.forEach(item => {
+                item.classList.remove('active-now');
+                const itemHour = parseInt(item.getAttribute('data-hour'));
+                if (hour >= itemHour) activeItem = item;
+            });
+            
+            if (activeItem) {
+                activeItem.classList.add('active-now');
+                setTimeout(() => { activeItem.scrollIntoView({ behavior: 'smooth', block: 'center' }); }, 400);
+            }
+            
+            loadProgramMetadata();
+        }
+
+        async function loadProgramMetadata() {
+            const programs = [
+                { id: 'gotham', path: 'backend/mp3/programas/gothamvcf/seleccion/ultimo_programa.json' },
+                { id: 'donpio', path: 'backend/mp3/programas/horaDonPio/seleccion/ultimo_programa.json' },
+                { id: 'ateneo', path: 'backend/mp3/programas/ateneo/seleccion/ultimo_programa.json' },
+                { id: 'juanpatri', path: 'backend/mp3/programas/juan_y_patri/seleccion/ultimo_programa.json' }
+            ];
+
+            for (const prog of programs) {
+                try {
+                    const response = await fetch(prog.path + '?v=' + Date.now());
+                    if (response.ok) {
+                        const data = await response.json();
+                        const descEl = document.getElementById('desc-' + prog.id + '-mobile');
+                        if (descEl && data.title) {
+                            descEl.innerHTML = `<span style="color:var(--secondary); font-weight:700;">Último:</span> ${data.title}`;
+                            descEl.style.color = "#fff";
+                        }
+                    }
+                } catch (e) {
+                    console.log('No hay metadatos aún para ' + prog.id);
+                }
+            }
+        }
+
+        // Cierre global con tecla Escape
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+
+                if (typeof closeModal === "function") {
+                    closeModal('schedule-modal');
+                    closeModal('program-detail-modal');
+                }
+                if (typeof closeNewsModal === "function") closeNewsModal();
+                if (typeof closeOptionsModal === "function") closeOptionsModal();
+                if (typeof closeControlPanelNewsModal === "function") closeControlPanelNewsModal();
+                if (typeof closeComunicatModal === "function") closeComunicatModal();
+            }
+        });
+
+        function openComunicatModal(card) {
+            const modal = document.getElementById('comunicat-modal');
+            if (modal) {
+                modal.style.display = 'flex';
+                setTimeout(() => modal.classList.add('active'), 10);
+            }
+            localStorage.setItem('comunicat_racv_visited', 'true');
+            if (card) {
+                card.classList.remove('blinking-warning');
+            }
+        }
+
+        function closeComunicatModal() {
+            const modal = document.getElementById('comunicat-modal');
+            if (modal) {
+                modal.classList.remove('active');
+                setTimeout(() => modal.style.display = 'none', 300);
+            }
+        }
+
+        const programData = {
+            'gotham': {
+                title: 'Gotham VCF',
+                desc: 'Análisis profundo y toda la actualidad del conjunto che.',
+                img: 'assets/gothamvcf.png',
+                path: 'backend/mp3/programas/gothamvcf/seleccion/ultimo_programa.json'
+            },
+            'donpio': {
+                title: 'La Hora Don Pío',
+                desc: 'El humor más auténtico con el ingenio de Don Pío.',
+                img: 'assets/donpio.jpg',
+                path: 'backend/mp3/programas/horaDonPio/seleccion/ultimo_programa.json'
+            },
+            'ateneo': {
+                title: 'Ateneo',
+                desc: 'Cultura, historia y patrimonio valenciano.',
+                img: 'assets/ateneo.png',
+                path: 'backend/mp3/programas/ateneo/seleccion/ultimo_programa.json'
+            },
+            'juanpatri': {
+                title: 'Juan y Patri',
+                desc: 'Historia y valencianismo con Juan y Patri.',
+                img: 'assets/elmondejuanypatri.jpg',
+                path: 'backend/mp3/programas/juan_y_patri/seleccion/ultimo_programa.json'
+            },
+            'musica': {
+                title: 'Música del Regne',
+                desc: 'Selección musical ininterrumpida.',
+                img: 'https://images.unsplash.com/photo-1511671782779-c97d3d27a1d4?auto=format&fit=crop&q=80&w=800',
+                path: null
+            }
+        };
+
+        async function openProgramDetail(id) {
+            const data = programData[id];
+            if (!data) return;
+            document.getElementById('prog-title').innerText = data.title;
+            document.getElementById('prog-description').innerText = data.desc;
+            document.getElementById('prog-header-img').style.backgroundImage = `url('${data.img}')`;
+            const lastEpBox = document.getElementById('prog-last-ep');
+            lastEpBox.style.display = 'none';
+            if (data.path) {
+                try {
+                    const response = await fetch(data.path + '?v=' + Date.now());
+                    if (response.ok) {
+                        const meta = await response.json();
+                        if (meta.title) {
+                            document.getElementById('prog-last-title').innerText = meta.title;
+                            lastEpBox.style.display = 'block';
+                            if (meta.thumbnail) document.getElementById('prog-header-img').style.backgroundImage = `url('${meta.thumbnail}')`;
+                        }
+                    }
+                } catch (e) {}
+            }
+            const modal = document.getElementById('program-detail-modal');
+            modal.style.display = 'flex';
+            setTimeout(() => modal.classList.add('active'), 10);
+        }
+
+        async function openControlPanelNewsModal() {
+            const modal = document.getElementById('control-panel-news-modal');
+            const container = document.getElementById('all-rss-news-container');
+            const titleEl = modal.querySelector('h3');
+            const modalContent = modal.querySelector('.modal-content');
+            
+            controlPanelNewsIndex = 0;
+            
+            if (titleEl) {
+                titleEl.innerText = 'Últimas 100 Noticias';
+                titleEl.style.color = '#00d2ff';
+            }
+            if (modalContent) modalContent.style.border = '2.5px solid rgba(0, 210, 255, 0.4)';
+
+            // Respuesta visual instantánea
+            modal.style.display = 'flex'; 
+            modal.style.zIndex = '99999';
+            setTimeout(() => modal.classList.add('active'), 10);
+            
+            // Limpiar y mostrar spinner de carga
+            container.innerHTML = '<div style="text-align:center; padding:40px; color:rgba(255,255,255,0.5);">Cargando noticias...</div>';
+            
+            // Esperar a que los feeds carguen si aún no están disponibles
+            if (allNews.length === 0) await loadFeeds();
+            
+            // Ahora sí: limpiar spinner y mostrar noticias
+            container.innerHTML = '';
+            controlPanelNewsIndex = 0;
+            loadNextChunk();
+        }
+        function closeControlPanelNewsModal() { document.getElementById('control-panel-news-modal').classList.remove('active'); setTimeout(() => document.getElementById('control-panel-news-modal').style.display = 'none', 300); }
+
+        async function loadFeeds() {
+            try {
+                const res = await fetch(`feeds.txt?v=${Date.now()}`); 
+                const text = await res.text();
+                const urls = text.split('\n').map(u => u.trim()).filter(u => u.length > 0);
+                
+                // Carga en paralelo para máxima velocidad
+                const promises = urls.map(url => 
+                    fetch(`https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(url)}`)
+                    .then(r => r.json())
+                    .catch(e => null)
+                );
+
+                const results = await Promise.all(promises);
+                allNews = [];
+                
+                results.forEach(d => {
+                    if (d && d.status === 'ok' && d.items) {
+                        d.items.forEach(i => {
+                            let itemImg = i.thumbnail || i.enclosure?.link;
+                            if (!itemImg && (i.content || i.description)) {
+                                const match = (i.content || i.description).match(/<img[^>]+src="([^">]+)"/);
+                                if (match) itemImg = match[1];
+                            }
+                            if (!itemImg) {
+                                itemImg = i.link?.includes("valenciabonita.es") ? "https://www.valenciabonita.es/wp-content/uploads/2020/12/ValenciaBonita.jpg" : `https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(i.title)}`;
+                            }
+
+                            allNews.push({
+                                title: i.title, 
+                                link: i.link, 
+                                source: d.feed.title || "Noticia", 
+                                pubDate: new Date(i.pubDate),
+                                date: new Date(i.pubDate).toLocaleDateString('es-ES'), 
+                                img: itemImg, 
+                                desc: i.description || i.content || '',
+                                feedImage: d.feed.image || ""
+                            });
+                        });
+                    }
+                });
+                
+                const comunicatVisited = localStorage.getItem('comunicat_racv_visited');
+                const comunicatItem = {
+                    title: "COMUNICAT DE LA REAL ACADÈMIA DE CULTURA VALENCIANA",
+                    link: "#comunicat-racv",
+                    source: "RACV",
+                    pubDate: new Date('2026-05-20T12:00:00Z'),
+                    date: new Date().toLocaleDateString('es-ES'),
+                    img: "assets/vrconracv.png",
+                    desc: "Comunicat de la Real Acadèmia de Cultura Valenciana.",
+                    feedImage: "",
+                    isComunicat: true,
+                    visited: !!comunicatVisited
+                };
+                allNews.push(comunicatItem);
+                
+                allNews.sort((a,b) => b.pubDate - a.pubDate);
+                
+                const idx = allNews.findIndex(n => n.isComunicat);
+                if (idx > 0) {
+                    allNews.splice(idx, 1);
+                    allNews.unshift(comunicatItem);
+                }
+            } catch(e){ console.error("Error en loadFeeds:", e); }
+        }
+
+
+        function loadNextChunk(isFirstLoad = false) {
+            const container = document.getElementById('all-rss-news-container');
+            const source = allNews;
+            
+            if (source.length === 0) {
+                container.innerHTML = '<div style="text-align:center; padding:40px; color:rgba(255,255,255,0.5);">Cargando noticias... Por favor, espera un momento.</div>';
+                setTimeout(() => loadNextChunk(isFirstLoad), 1500);
+                return;
+            }
+
+            // Paginación: Limpiar siempre para mostrar solo los siguientes
+            container.innerHTML = '';
+            // Asegurarnos de que el scroll vuelva arriba
+            container.scrollTop = 0;
+
+            const next = source.slice(controlPanelNewsIndex, controlPanelNewsIndex + 12);
+            
+            if (next.length === 0) {
+                // Si llegamos al final, reiniciamos
+                controlPanelNewsIndex = 0;
+                loadNextChunk(false);
+                return;
+            }
+
+            next.forEach(item => {
+                const card = document.createElement("div");
+                card.style.cssText = "background:rgba(255,255,255,0.05); border-radius:12px; padding:12px; cursor:pointer; display:flex; gap:12px; align-items:center; margin-bottom:12px; border:1px solid rgba(255,255,255,0.1); transition: transform 0.2s ease;";
+                
+                if (item.isComunicat) {
+                    card.id = "comunicat-racv-card-movil";
+                    if (!item.visited) {
+                        card.classList.add("blinking-warning");
+                    }
+                    card.onclick = () => openComunicatModal(card);
+                } else {
+                    card.onclick = () => openNewsWithAnimation(card, item.link);
+                }
+                
+                const safeImg = (item.img || "").replace(/&amp;/g, '&');
+
+                card.innerHTML = `
+                    <div style="position: relative; width: 60px; height: 60px; flex-shrink: 0;">
+                        <img src="${safeImg}" alt="${item.title.replace(/"/g, '&quot;')}" style="width:60px; height:60px; border-radius:10px; object-fit:cover;" onerror="this.onerror=null; this.src='https://api.dicebear.com/7.x/identicon/svg?seed=${encodeURIComponent(item.title)}';">
+                    </div>
+                    <div style="flex:1; min-width:0;">
+                        <div style="font-size:0.9rem; font-weight:700; color:#fff; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; margin-bottom:4px;">${item.title}</div>
+                        <div style="font-size:0.75rem; color:#ffd700; font-weight:600;">${item.source} • ${item.date}</div>
+                    </div>`;
+                container.appendChild(card);
+            });
+            controlPanelNewsIndex += 12;
+        }
+
+        // Animaciones aleatorias al abrir noticia
+        const NEWS_ANIMATIONS = [
+            // 1. Zoom y desvanecimiento
+            (el) => {
+                el.style.transition = 'transform 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.35s ease';
+                el.style.transform = 'scale(1.08)';
+                el.style.opacity = '0';
+            },
+            // 2. Deslizar a la derecha
+            (el) => {
+                el.style.transition = 'transform 0.35s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease';
+                el.style.transform = 'translateX(60px)';
+                el.style.opacity = '0';
+            },
+            // 3. Flip horizontal
+            (el) => {
+                el.style.transition = 'transform 0.4s ease, opacity 0.35s ease';
+                el.style.transform = 'perspective(400px) rotateY(90deg)';
+                el.style.opacity = '0';
+            },
+            // 4. Destello de luz (brillo)
+            (el) => {
+                el.style.transition = 'filter 0.15s ease, opacity 0.3s ease 0.15s';
+                el.style.filter = 'brightness(4) saturate(0)';
+                setTimeout(() => { el.style.opacity = '0'; }, 150);
+            },
+            // 5. Encogerse
+            (el) => {
+                el.style.transition = 'transform 0.3s cubic-bezier(0.4,0,0.2,1), opacity 0.3s ease';
+                el.style.transform = 'scale(0.85)';
+                el.style.opacity = '0';
+            },
+            // 6. Deslizar hacia arriba
+            (el) => {
+                el.style.transition = 'transform 0.35s ease, opacity 0.3s ease';
+                el.style.transform = 'translateY(-30px)';
+                el.style.opacity = '0';
+            },
+        ];
+
+        function openNewsWithAnimation(cardEl, url) {
+            // Elegir animación aleatoria
+            const anim = NEWS_ANIMATIONS[Math.floor(Math.random() * NEWS_ANIMATIONS.length)];
+            anim(cardEl);
+            // Abrir la URL tras la animación
+            setTimeout(() => {
+                window.open(url, '_blank', 'noopener,noreferrer');
+                // Restaurar la tarjeta por si el usuario vuelve
+                setTimeout(() => {
+                    cardEl.style.transition = 'transform 0.3s ease, opacity 0.3s ease, filter 0.3s ease';
+                    cardEl.style.transform = '';
+                    cardEl.style.opacity = '1';
+                    cardEl.style.filter = '';
+                }, 300);
+            }, 380);
+        }
+
+        function closeNewsModal() { document.getElementById('news-modal').classList.remove('active'); setTimeout(() => document.getElementById('news-modal').style.display = 'none', 300); }
+
+
+
+        // Volumen
+        const volumeTrack = document.getElementById('volume-slider-track'), volumeFill = document.getElementById('volume-fill-bar'), volumeThumb = document.getElementById('volume-thumb'), volumeVal = document.getElementById('volume-val'), audioStream = document.getElementById('radio-stream');
+        let isDraggingVolume = false;
+        function updateVolume(e) {
+            const rect = volumeTrack.getBoundingClientRect();
+            const x = (e.touches ? e.touches[0].clientX : e.clientX) - rect.left;
+            let p = Math.max(0, Math.min(100, (x / rect.width) * 100));
+            volumeFill.style.width = p + '%'; volumeThumb.style.left = p + '%'; volumeVal.innerText = Math.round(p) + '%';
+            if (audioStream) audioStream.volume = p / 100;
+        }
+        volumeTrack.addEventListener('mousedown', (e) => { isDraggingVolume = true; updateVolume(e); });
+        volumeTrack.addEventListener('touchstart', (e) => { isDraggingVolume = true; updateVolume(e); });
+        document.addEventListener('mousemove', (e) => { if (isDraggingVolume) updateVolume(e); });
+        document.addEventListener('touchmove', (e) => { if (isDraggingVolume) updateVolume(e); });
+        document.addEventListener('mouseup', () => isDraggingVolume = false);
+        document.addEventListener('touchend', () => isDraggingVolume = false);
+
+        document.addEventListener('DOMContentLoaded', () => { loadFeeds(); });
+    </script>
+</body>
+
+</html>
