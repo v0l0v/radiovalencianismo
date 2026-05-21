@@ -11,6 +11,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@getalby/sdk": "^8.0.3",
     "dotenv": "^17.4.2",
     "nostr-tools": "^2.23.5",
     "websocket-polyfill": "^1.0.0",
