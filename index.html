@@ -38,22 +38,29 @@
     <script type="application/ld+json">
     {
         "@context": "https://schema.org",
-        "@type": "RadioStation",
+        "@type": ["RadioStation", "Organization"],
         "name": "Valencianismo Radio",
         "url": "https://valencianismo.com",
-        "description": "Emisora de radio online dedicada a la música y cultura valenciana, emitiendo 24/7.",
-        "logo": "https://valencianismo.com/assets/icon.png",
-        "image": "https://valencianismo.com/assets/icon.png",
+        "description": "La única radio verdaderamente valencianista. Información, cultura y deporte bajo la normativa de la Real Acadèmia de Cultura Valenciana (RACV). Emitiendo en directo 24/7.",
+        "logo": "https://valencianismo.com/assets/logoVR.png",
+        "image": "https://valencianismo.com/assets/logoVR.png",
         "broadcastFrequency": "Online",
-        "broadcastAffiliateOf": {
-            "@type": "Organization",
-            "name": "Valencianismo"
-        },
-        "areaServed": {
+        "broadcastDisplayName": "Valencianismo Radio",
+        "sameAs": [
+            "https://yakihonne.com/profile/npub16t27rsqukag9udw9w0e7m36mvyw6vapqs8scrma6y4ddaavgmclq6lvl0p",
+            "nostr:npub16t27rsqukag9udw9w0e7m36mvyw6vapqs8scrma6y4ddaavgmclq6lvl0p",
+            "nostr:valencianismo@valencianismo.com"
+        ],
+        "knowsLanguage": ["ca-ES-valencia", "es-ES"],
+        "location": {
             "@type": "Place",
-            "name": "Comunitat Valenciana"
-        },
-        "inLanguage": ["es", "ca"]
+            "name": "Regne de Valéncia",
+            "address": {
+                "@type": "PostalAddress",
+                "addressRegion": "Valencia",
+                "addressCountry": "ES"
+            }
+        }
     }
     </script>
 
