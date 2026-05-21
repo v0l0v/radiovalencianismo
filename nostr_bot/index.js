@@ -77,5 +77,5 @@ async function publishMessage(message) {
 }
 
 // Ejecución
-const msgArg = process.argv[2] || "📻 Probant el sistema automatitzat de Valencianismo Radio en Nostr. Això és una prova de connexió.";
+const msgArg = process.argv[2] || "📻 Probant el sistema automatisat de Valencianismo Radio en Nostr. Això és una prova de conexió.";
 publishMessage(msgArg);
