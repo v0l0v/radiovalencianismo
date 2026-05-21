@@ -9,7 +9,7 @@ SELECCION_DIR="$BASE_DIR/seleccion"
 mkdir -p "$SELECCION_DIR"
 cd "$BASE_DIR"
 
-# Obtener MP3s de los últimos 7 días
+# Obtener MP3s disponibles
 mapfile -t FILES < <(ls *.mp3 2>/dev/null)
 
 if [ ${#FILES[@]} -eq 0 ]; then
@@ -42,7 +42,10 @@ TIMESTAMP=$(date +%s)
 cp "$SELECTED" "$SELECCION_DIR/programa_${TIMESTAMP}.mp3"
 
 echo "$SELECTED" >> "$HISTORIAL"
-# Generar JSON para la web
-echo "{\"title\": \"$SELECTED\"}" > "$BASE_DIR/seleccion/ultimo_programa.json"
+
+# ✅ Generar JSON bien formado en RAÍZ (sin extensión .mp3 en el título)
+TITLE="${SELECTED%.mp3}"
+FECHA=$(date '+%Y-%m-%d %H:%M:%S')
+printf '{\n    "title": "%s",\n    "thumbnail": "",\n    "url": "",\n    "date": "%s"\n}\n' "$TITLE" "$FECHA" > "$BASE_DIR/ultimo_programa.json"
 
 echo "$(date '+%Y-%m-%d %H:%M:%S') - Seleccionado Ateneo: $SELECTED" >> "$BASE_DIR/selector_log.txt"
