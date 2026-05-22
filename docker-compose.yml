@@ -77,7 +77,7 @@ services:
     container_name: opentts
     ports:
       - "5500:5500"
-    command: --voice-language ca
+    command: --language ca
     restart: unless-stopped
 
 
