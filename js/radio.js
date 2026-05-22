@@ -170,15 +170,29 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
+    let marqueeAnimationFrame = null;
     function checkMarquee() {
-        const container = document.querySelector('.scrolling-text-container');
-        const title = document.getElementById('current-song');
-        
-        if (title && container && title.scrollWidth > container.clientWidth) {
-            container.classList.add('is-long');
-        } else if (container) {
-            container.classList.remove('is-long');
+        if (marqueeAnimationFrame) {
+            cancelAnimationFrame(marqueeAnimationFrame);
         }
+        marqueeAnimationFrame = requestAnimationFrame(() => {
+            const container = document.querySelector('.scrolling-text-container');
+            const title = document.getElementById('current-song');
+            if (!container || !title) return;
+
+            const titleWidth = title.scrollWidth;
+            const containerWidth = container.clientWidth;
+
+            if (titleWidth > containerWidth) {
+                if (!container.classList.contains('is-long')) {
+                    container.classList.add('is-long');
+                }
+            } else {
+                if (container.classList.contains('is-long')) {
+                    container.classList.remove('is-long');
+                }
+            }
+        });
     }
 
     window.addEventListener('resize', checkMarquee);
@@ -264,8 +278,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // 4. Initialize
     loadRefran();
     setRandomCover();
-    updateMetadata();
-    checkMarquee();
+    // Carga de metadatos inicial diferida 1 segundo para mejorar el TBT
+    setTimeout(updateMetadata, 1000);
     
     // Actualizar metadatos cada 15 seg
     setInterval(updateMetadata, 15000);
@@ -359,7 +373,8 @@ document.addEventListener('DOMContentLoaded', () => {
         }, 5000);
     }
 
-    initNostr();
+    // Retrasar la conexión a los relays de Nostr 2.5 segundos para no bloquear el hilo principal al inicio
+    setTimeout(initNostr, 2500);
 
     // 6. Test & Simulation
     const eggZap = document.getElementById("easter-egg-zap");
