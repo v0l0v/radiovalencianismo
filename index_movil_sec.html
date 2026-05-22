@@ -269,7 +269,7 @@
             <!-- Player idéntico a index.html -->
             <div class="record-player" id="record-player-btn" style="position: relative;">
                 <div class="vinyl-wrapper" id="vinyl-wrapper">
-                    <img id="cover-image" src="assets/default-cover.webp" alt="Cover" class="vinyl-cover" width="300" height="300" onerror="this.src='assets/default-cover.webp'">
+                    <img id="cover-image" src="assets/default-cover.webp" alt="Portada Valencianismo Radio" class="vinyl-cover" width="300" height="300" loading="eager" fetchpriority="high" decoding="sync" onerror="this.src='assets/default-cover.webp'">
                     <div class="vinyl-hole"></div>
                 </div>
                 <!-- Tooltip premium personalizado -->
@@ -632,8 +632,8 @@ La Real Acadèmia de Cultura Valenciana reafirma, una volta més, el seu comprom
         <source src="https://valencianismo.com/stream" type="audio/mpeg">
     </audio>
 
-    <script src="js/refranes.js?v=10"></script>
-    <script src="js/radio.js?v=11"></script>
+    <script src="js/refranes.js?v=10" defer></script>
+    <script src="js/radio.js?v=11" defer></script>
     <script>
         let allNews = [], controlPanelNewsIndex = 0;
 
@@ -1037,7 +1037,8 @@ La Real Acadèmia de Cultura Valenciana reafirma, una volta més, el seu comprom
         document.addEventListener('mouseup', () => isDraggingVolume = false);
         document.addEventListener('touchend', () => isDraggingVolume = false);
 
-        document.addEventListener('DOMContentLoaded', () => { loadFeeds(); });
+        // Las noticias se cargan bajo demanda cuando el usuario pulsa en "Ver noticias"
+        // para evitar llamadas HTTP y procesamiento CPU innecesarios al inicio.
     </script>
 </body>
 
