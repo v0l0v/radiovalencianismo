@@ -55,6 +55,7 @@ services:
       - N8N_BLOCK_EXECV=false
       - N8N_COMMAND_TIMEOUT=30000
       - N8N_ENFORCE_SETTINGS_FILE_PERMISSIONS=false
+      - N8N_RESTRICT_FILE_ACCESS_TO=/home/node/radiovalencianismo
       - NODES_EXCLUDE=[]
       # Quitado N8N_NODES_INCLUDE para permitir que carguen todos los nodos
     volumes:
