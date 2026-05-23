@@ -74,12 +74,15 @@ services:
       - /var/run/docker.sock:/var/run/docker.sock
       - portainer_data:/data
 
-  opentts:
-    image: synesthesiam/opentts:latest
-    container_name: opentts
+  piper-tts:
+    image: artibex/piper-http:latest
+    container_name: piper-tts
     ports:
-      - "5500:5500"
-    command: --language ca
+      - "5500:5000"
+    environment:
+      - MODEL_DOWNLOAD_LINK=https://huggingface.co/rhasspy/piper-voices/resolve/main/ca/ca_ES/upc_ona/medium/ca_ES-upc_ona-medium.onnx?download=true
+    volumes:
+      - piper_data:/app/models
     restart: unless-stopped
 
 
@@ -91,4 +94,6 @@ volumes:
   n8n_data:
     driver: local
   portainer_data:
+    driver: local
+  piper_data:
     driver: local
