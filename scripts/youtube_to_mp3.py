@@ -64,12 +64,29 @@ def download_videos(feed_filename):
         response.raise_for_status()
         root = ET.fromstring(response.content)
         links = []
+        
+        # Procesar feeds RSS standard (<item>)
         for item in root.findall('.//item'):
             link = item.find('link')
-            if link is not None and ('youtube.com' in link.text or 'youtu.be' in link.text):
+            if link is not None and link.text and ('youtube.com' in link.text or 'youtu.be' in link.text):
                 clean_url = link.text.split('&')[0] if 'watch?v=' in link.text else link.text
                 if clean_url not in links:
                     links.append(clean_url)
+                    
+        # Procesar feeds Atom (<entry>), que es el nativo de YouTube
+        # Buscar tanto con namespace como sin namespace
+        entries = root.findall('.//{http://www.w3.org/2005/Atom}entry')
+        if not entries:
+            entries = root.findall('.//entry')
+            
+        for entry in entries:
+            # Buscar el elemento link. En Atom es <link rel="alternate" href="..."/>
+            for link in entry.findall('{http://www.w3.org/2005/Atom}link') + entry.findall('link'):
+                href = link.get('href')
+                if href and ('youtube.com' in href or 'youtu.be' in href):
+                    clean_url = href.split('&')[0] if 'watch?v=' in href else href
+                    if clean_url not in links:
+                        links.append(clean_url)
 
         if not links:
             print("No se encontraron vídeos de YouTube en este feed.")

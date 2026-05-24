@@ -30,15 +30,50 @@ def comprobar_y_disparar(prog):
         response.raise_for_status()
         root = ET.fromstring(response.content)
         
-        # En RSS standard, el primer <item> es el más reciente
+        # En RSS standard, el primer <item> es el más reciente, en Atom es <entry>
+        # YouTube usa Atom, que tiene namespaces en la etiqueta o se puede buscar sin namespace
+        # Pero ET.fromstring con namespaces a veces es quisquilloso. Vamos a buscar ambos ignorando namespaces si es necesario, 
+        # o buscando con el namespace de Atom.
+        
+        # Buscar item (RSS)
         first_item = root.find('.//item')
+        is_atom = False
+        if first_item is None:
+            # Buscar entry (Atom)
+            first_item = root.find('.//{http://www.w3.org/2005/Atom}entry')
+            if first_item is None:
+                # Fallback sin namespace por si acaso
+                first_item = root.find('.//entry')
+            if first_item is not None:
+                is_atom = True
+
         if first_item is None:
             print(f"⚠️ No se encontraron items en el feed {prog['feed']}.")
             return
             
         # Usamos el link o el guid como ID único
-        id_nuevo = first_item.find('link').text or first_item.find('guid').text
-        titulo = first_item.find('title').text
+        if is_atom:
+            # En Atom, el link está en <link href="..."> o <link>...</link>
+            link_el = first_item.find('{http://www.w3.org/2005/Atom}link')
+            if link_el is None:
+                link_el = first_item.find('link')
+                
+            if link_el is not None and link_el.get('href'):
+                id_nuevo = link_el.get('href')
+            else:
+                yt_vid = first_item.find('{http://www.youtube.com/xml/schemas/2015}videoId')
+                if yt_vid is not None:
+                    id_nuevo = yt_vid.text
+                else:
+                    id_nuevo = first_item.find('{http://www.w3.org/2005/Atom}id').text if first_item.find('{http://www.w3.org/2005/Atom}id') is not None else first_item.find('id').text
+            
+            titulo_el = first_item.find('{http://www.w3.org/2005/Atom}title')
+            if titulo_el is None:
+                titulo_el = first_item.find('title')
+            titulo = titulo_el.text if titulo_el is not None else "Sin título"
+        else:
+            id_nuevo = first_item.find('link').text if first_item.find('link') is not None else (first_item.find('guid').text if first_item.find('guid') is not None else None)
+            titulo = first_item.find('title').text if first_item.find('title') is not None else "Sin título"
         
         if not id_nuevo:
             print(f"⚠️ No se pudo extraer un ID válido de {prog['feed']}.")
