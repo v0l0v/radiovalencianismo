@@ -28,7 +28,7 @@ FFMPEG_PATH = get_binary_path("ffmpeg")
 
 # Configuración del puente de envío (rsync)
 RSYNC_ENABLED = True
-RSYNC_TARGET = "debian@54.36.100.247:/home/debian/radiovalencianismo/backend/mp3/programas/"
+RSYNC_TARGET = "debian@100.79.188.3:/home/debian/radiovalencianismo/backend/mp3/programas/"
 SSH_KEY_PATH = os.path.expanduser("~/.ssh/id_ed25519")
 
 

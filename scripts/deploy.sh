@@ -7,7 +7,7 @@
 
 set -e  # Parar si hay cualquier error
 
-VPS_HOST="54.36.100.247"
+VPS_HOST="100.79.188.3"
 VPS_USER="debian"
 VPS_PATH="/home/debian/radiovalencianismo"
 VPS_KEY="$HOME/.ssh/id_ed25519"

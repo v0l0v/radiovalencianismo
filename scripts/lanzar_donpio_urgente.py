@@ -5,7 +5,7 @@ import sys
 # Configuración
 PROGRAMA_FOLDER_LOCAL = "/home/debian/radiovalencianismo/backend/mp3/programas/horaDonPio/"
 PROGRAMA_FOLDER_REMOTO = "/home/debian/radiovalencianismo/backend/mp3/programas/horaDonPio/"
-VPS_IP = "54.36.100.247"
+VPS_IP = "100.79.188.3"
 LIQUIDSOAP_PORT = 1234
 
 def obtener_ultimo_audio():
