@@ -245,8 +245,27 @@ def download_videos(feed_filename):
                             "date": time.strftime("%Y-%m-%d %H:%M:%S")
                         }, jf, indent=4)
                     print(f"📊 Metadatos exportados a ultimo_programa.json")
+                    
+                    # --- NUEVO: Copiar inmediatamente a la carpeta seleccion ---
+                    import shutil
+                    seleccion_dir = os.path.join(dest_path, "seleccion")
+                    os.makedirs(seleccion_dir, exist_ok=True)
+                    
+                    # Limpiar archivos antiguos en seleccion local
+                    for old_sel in os.listdir(seleccion_dir):
+                        try: os.remove(os.path.join(seleccion_dir, old_sel))
+                        except: pass
+                        
+                    # Copiar el mp3 con timestamp para Liquidsoap
+                    timestamp = int(time.time())
+                    shutil.copy2(full_mp3_path, os.path.join(seleccion_dir, f"programa_{timestamp}.mp3"))
+                    
+                    # Copiar el json
+                    shutil.copy2(os.path.join(dest_path, "ultimo_programa.json"), os.path.join(seleccion_dir, "ultimo_programa.json"))
+                    print(f"🚀 Episodio y metadatos movidos inmediatamente a '{seleccion_dir}'")
+                    
                 except Exception as je:
-                    print(f"⚠️ Error exportando JSON: {je}")
+                    print(f"⚠️ Error exportando JSON o copiando a seleccion: {je}")
 
                 break
             else:
