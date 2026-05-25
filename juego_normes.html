@@ -80,7 +80,7 @@
     <a href="index.html" class="back-btn">← Tornar a la Ràdio</a>
 
     <div class="ui">
-        <h1 style="color: #ffd700; margin: 0 0 5px 0;">🎯 Tir a les Normes d'El Puig</h1>
+        <h1 style="color: #ffd700; margin: 0 0 5px 0;">🎯 Tir al Moniato</h1>
         <p style="margin: 0; color: #ccc;">Apunta, dispara i demostra els teus coneiximents.<br>Tens 9 intents. ¡Encerta el centre (9 punts) per a fer la màxima puntuació!</p>
         <div class="score-board" id="scoreboard">
             <!-- 9 indicators -->
@@ -167,12 +167,12 @@
                 ctx.beginPath();
                 ctx.arc(W/2, H/2, i * radiusStep, 0, Math.PI*2);
                 
-                // Color alternates: 9, 7, 5, 3, 1 are yellow. 8, 6, 4, 2 are red.
-                ctx.fillStyle = (i % 2 !== 0) ? "rgba(255,215,0,0.25)" : "rgba(255,42,42,0.35)";
+                // Color alternates: faint fill, strong borders so the face is visible
+                ctx.fillStyle = (i % 2 !== 0) ? "rgba(255,215,0,0.02)" : "rgba(255,42,42,0.03)";
                 
                 ctx.fill();
-                ctx.lineWidth = 1;
-                ctx.strokeStyle = "rgba(255,255,255,0.2)";
+                ctx.lineWidth = 1.5;
+                ctx.strokeStyle = (i % 2 !== 0) ? "rgba(255,215,0,0.6)" : "rgba(255,42,42,0.6)";
                 
                 // Highlight if it was the last scored ring (optional, removed for score mechanic)
                 ctx.stroke();
