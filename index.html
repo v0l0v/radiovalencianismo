@@ -617,7 +617,7 @@
                 </div>
             </div>
 
-            <div class="refran-text-container" id="refran-text">
+            <div class="refran-text-container" id="refran-text" onclick="document.getElementById('game-modal').classList.add('active')" style="cursor: pointer;" title="🎯 ¡Haz clic para jugar a les Normes d'El Puig!">
                 "A poc a poc s'ompli la gerra"<br><span style="font-size:0.8rem; opacity:0.6; font-style: normal;">(refrán valenciano)</span>
             </div>
 
@@ -1885,6 +1885,19 @@ La Real Acadèmia de Cultura Valenciana reafirma, una volta més, el seu comprom
                 <p>El pilar fundamental de Valencianismo Radio es el respeto absoluto por nuestra lengua. Por ello, toda nuestra línea editorial, programación y textos escritos se rigen estrictamente por las <strong>Normes d'El Puig</strong> (ortografía oficial de la Real Acadèmia de Cultura Valenciana - RACV). Creemos firmemente que la protección y promoción de la genuina llengua valenciana pasa por su uso cotidiano, correcto y sin complejos en los nuevos formatos digitales.</p>
                 <h3 style="color: #00d2ff; margin-top: 30px; border-bottom: 1px solid rgba(0,210,255,0.3); padding-bottom: 8px;">Tecnología y Descentralización</h3>
                 <p>No solo miramos al pasado para honrar nuestra historia, sino que lideramos el presente tecnológico. Somos pioners en la integración de redes descentralizadas como <strong>Nostr</strong> y la red <strong>Lightning de Bitcoin</strong> (Zaps). Esto asegura que nuestro mensaje sea incensurable y que nuestra comunidad de oyentes pueda interactuar y colaborar de manera libre, directa y entre pares (P2P), sin depender de los algoritmos opacos ni la censura de las corporaciones tradicionales de internet.</p>
+            </div>
+        </div>
+    </div>
+    </div>
+
+    <!-- Huevo de Pascua: Modal del Juego de las Normes -->
+    <div id="game-modal" class="modern-modal" onclick="document.getElementById('game-modal').classList.remove('active')">
+        <div class="modal-content" onclick="event.stopPropagation()" style="width: 95vw; max-width: 650px; height: 90vh; max-height: 850px; padding: 0; background: transparent; box-shadow: none; border: none; display: flex; flex-direction: column;">
+            <div style="background: rgba(10, 10, 15, 0.95); border: 2px solid #ffd700; border-radius: 20px; overflow: hidden; flex: 1; display: flex; flex-direction: column; box-shadow: 0 0 50px rgba(0,0,0,0.8);">
+                <div style="display: flex; justify-content: flex-end; padding: 12px; background: rgba(0,0,0,0.5); border-bottom: 1px solid rgba(255,215,0,0.3);">
+                    <button onclick="document.getElementById('game-modal').classList.remove('active')" style="background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); width: 35px; height: 35px; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; font-weight: bold; transition: all 0.2s;">✕</button>
+                </div>
+                <iframe src="juego_normes.html" style="width: 100%; height: 100%; border: none;"></iframe>
             </div>
         </div>
     </div>
