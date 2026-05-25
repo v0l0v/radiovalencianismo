@@ -99,7 +99,10 @@
     <div id="game-container">
         <canvas id="gameCanvas"></canvas>
         <div class="message" id="msg-text"></div>
-        <button id="btn-download" style="display: none; position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); background: #8a9a5b; color: #fff; border: 3px solid #4a3600; padding: 15px 30px; font-size: 1.1rem; font-weight: 800; border-radius: 50px; cursor: pointer; z-index: 100; box-shadow: 0 10px 20px rgba(0,0,0,0.8); text-transform: uppercase; transition: transform 0.2s;">📸 Descarregar Moniato Feo</button>
+        <div id="end-buttons" style="display: none; position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); z-index: 100; gap: 15px;">
+            <button id="btn-download" style="background: #8a9a5b; color: #fff; border: 3px solid #4a3600; padding: 15px 30px; font-size: 1.1rem; font-weight: 800; border-radius: 50px; cursor: pointer; box-shadow: 0 10px 20px rgba(0,0,0,0.8); text-transform: uppercase;">📸 Descarregar</button>
+            <button id="btn-share" style="background: #7928ca; color: #fff; border: 3px solid #3b0d6b; padding: 15px 30px; font-size: 1.1rem; font-weight: 800; border-radius: 50px; cursor: pointer; box-shadow: 0 10px 20px rgba(0,0,0,0.8); text-transform: uppercase;">🔗 Compartir</button>
+        </div>
     </div>
 
     <div id="q-modal">
@@ -267,7 +270,7 @@
         canvas.addEventListener('click', (e) => {
             if (gameEnded) {
                 gameEnded = false;
-                document.getElementById('btn-download').style.display = 'none';
+                document.getElementById('end-buttons').style.display = 'none';
                 const msg = document.getElementById('msg-text');
                 msg.classList.remove('blink-text');
                 msg.style.display = 'none';
@@ -400,7 +403,7 @@
             if (attempts >= maxAttempts) {
                 setTimeout(() => {
                     gameEnded = true;
-                    document.getElementById('btn-download').style.display = 'block';
+                    document.getElementById('end-buttons').style.display = 'flex';
                     const msg = document.getElementById('msg-text');
                     msg.classList.add('blink-text');
                     showMessage(`¡FI DEL JOC!\n${totalScore} / 81\n(Fes clic per jugar atra volta)`, "#000", "#ffd700", false);
@@ -451,10 +454,7 @@
         });
         resizeObserver.observe(container);
         
-        // Download Logic
-        document.getElementById('btn-download').addEventListener('click', (e) => {
-            e.stopPropagation();
-            
+        function generateMoniatoImage() {
             const offCanvas = document.createElement('canvas');
             offCanvas.width = bgImg.width || 1024;
             offCanvas.height = bgImg.height || 1024;
@@ -506,10 +506,51 @@
             octx.textBaseline = "middle";
             octx.fillText(`Puntuació al Tir al Moniato: ${totalScore} punts!`, offCanvas.width/2, offCanvas.height - 60);
 
+            return offCanvas;
+        }
+
+        // Download Logic
+        document.getElementById('btn-download').addEventListener('click', (e) => {
+            e.stopPropagation();
+            const offCanvas = generateMoniatoImage();
             const link = document.createElement('a');
             link.download = `Moniato_${totalScore}_punts.jpg`;
             link.href = offCanvas.toDataURL("image/jpeg", 0.9);
             link.click();
+        });
+
+        // Share Logic
+        document.getElementById('btn-share').addEventListener('click', async (e) => {
+            e.stopPropagation();
+            const offCanvas = generateMoniatoImage();
+            const shareText = `🎯 He fet ${totalScore} punts al "Tir al Moniato" de Valencianismo Radio! ¿Pots superar-ho? Juga ací: https://valencianismo.com`;
+            
+            if (navigator.canShare) {
+                offCanvas.toBlob(async (blob) => {
+                    const file = new File([blob], `Moniato_${totalScore}_punts.jpg`, { type: 'image/jpeg' });
+                    const shareData = {
+                        title: 'Tir al Moniato',
+                        text: shareText,
+                        files: [file]
+                    };
+                    
+                    if (navigator.canShare(shareData)) {
+                        try {
+                            await navigator.share(shareData);
+                        } catch (err) {
+                            console.log('Error compartint', err);
+                        }
+                    } else {
+                        navigator.clipboard.writeText(shareText);
+                        alert("S'ha copiat el text. Ara es descarregarà l'image.");
+                        document.getElementById('btn-download').click();
+                    }
+                }, 'image/jpeg', 0.9);
+            } else {
+                navigator.clipboard.writeText(shareText);
+                alert("S'ha copiat el text. Ara es descarregarà l'image.");
+                document.getElementById('btn-download').click();
+            }
         });
 
         startAim();
