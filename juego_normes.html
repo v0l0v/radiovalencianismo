@@ -81,14 +81,18 @@
 
     <div class="ui">
         <h1 style="color: #ffd700; margin: 0 0 5px 0;">🎯 Tir a les Normes d'El Puig</h1>
-        <p style="margin: 0; color: #ccc;">Apunta, dispara i demostra els teus coneiximents.<br>¡Clava un dard en cada un dels 5 cercles per a guanyar!</p>
+        <p style="margin: 0; color: #ccc;">Apunta, dispara i demostra els teus coneiximents.<br>¡Clava un dard en cada un dels 9 cercles per a guanyar!</p>
         <div class="score-board" id="scoreboard">
-            <!-- 5 indicators -->
-            <div class="circle-indicator" id="c1" title="Cercle Exterior">1</div>
-            <div class="circle-indicator" id="c2" title="Cercle 2">2</div>
-            <div class="circle-indicator" id="c3" title="Cercle 3">3</div>
-            <div class="circle-indicator" id="c4" title="Cercle 4">4</div>
-            <div class="circle-indicator" id="c5" title="Centre">5</div>
+            <!-- 9 indicators -->
+            <div class="circle-indicator" id="c1">1</div>
+            <div class="circle-indicator" id="c2">2</div>
+            <div class="circle-indicator" id="c3">3</div>
+            <div class="circle-indicator" id="c4">4</div>
+            <div class="circle-indicator" id="c5">5</div>
+            <div class="circle-indicator" id="c6">6</div>
+            <div class="circle-indicator" id="c7">7</div>
+            <div class="circle-indicator" id="c8">8</div>
+            <div class="circle-indicator" id="c9">9</div>
         </div>
     </div>
 
@@ -116,7 +120,7 @@
         canvas.height = H;
 
         // Target setup
-        const circles = 5;
+        const circles = 9;
         const radiusStep = (W/2) / (circles + 1);
         const maxRadius = circles * radiusStep;
         
@@ -125,7 +129,7 @@
         let time = 0;
         let isAiming = true;
         let frozenX = 0, frozenY = 0;
-        let hitRings = [false, false, false, false, false];
+        let hitRings = Array(9).fill(false);
         let darts = [];
         
         // Preguntes
@@ -160,19 +164,17 @@
                 ctx.beginPath();
                 ctx.arc(W/2, H/2, i * radiusStep, 0, Math.PI*2);
                 
-                // Color alternates
-                ctx.fillStyle = (i%2===0) ? "rgba(255,255,255,0.05)" : "rgba(255,215,0,0.15)";
-                // center is red
-                if(i === 1) ctx.fillStyle = "rgba(255,42,42,0.8)";
+                // Color alternates: 9, 7, 5, 3, 1 are yellow. 8, 6, 4, 2 are red.
+                ctx.fillStyle = (i % 2 !== 0) ? "rgba(255,215,0,0.25)" : "rgba(255,42,42,0.35)";
                 
                 ctx.fill();
-                ctx.lineWidth = 2;
-                ctx.strokeStyle = "rgba(255,255,255,0.4)";
+                ctx.lineWidth = 1;
+                ctx.strokeStyle = "rgba(255,255,255,0.2)";
                 
                 // Highlight if hit
                 const actualIndex = circles - i; // 0 is outer
                 if (hitRings[actualIndex]) {
-                    ctx.strokeStyle = "#ffd700";
+                    ctx.strokeStyle = "#00d2ff";
                     ctx.lineWidth = 4;
                     ctx.stroke();
                 } else {
@@ -321,9 +323,9 @@
                     showMessage("¡ENHORABONA! MESTRE DE LA RACV", "#ffd700");
                     // Reset game after 5 seconds
                     setTimeout(() => {
-                        hitRings = [false, false, false, false, false];
+                        hitRings = Array(9).fill(false);
                         darts = [];
-                        for(let i=1; i<=5; i++) document.getElementById('c'+i).classList.remove('hit');
+                        for(let i=1; i<=9; i++) document.getElementById('c'+i).classList.remove('hit');
                         isAiming = true;
                     }, 5000);
                 }, 1500);
