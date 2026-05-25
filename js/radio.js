@@ -198,7 +198,7 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', checkMarquee);
 
     function setRandomCover() {
-        const coverPath = 'assets/logob.png';
+        const coverPath = 'assets/logoVR.png';
         if (coverImage) coverImage.src = coverPath;
         if (ambientBg) {
             ambientBg.style.backgroundImage = `url(${coverPath})`;
