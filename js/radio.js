@@ -155,9 +155,35 @@ document.addEventListener('DOMContentLoaded', () => {
                 songName = comingNext;
             }
 
+            // Actualizar panel Info SIEMPRE
+            if (document.getElementById('info-title')) {
+                let infoTitle = "Valencianismo Radio";
+                let infoArtist = "Emisión Directo";
+                
+                if (songName !== "Valencianismo Radio 24/7" && !songName.startsWith("PRÓXIMAMENTE")) {
+                    if (songName.includes(' - ')) {
+                        const parts = songName.split(' - ');
+                        infoArtist = parts[0];
+                        infoTitle = parts.slice(1).join(' - ');
+                    } else {
+                        infoTitle = songName;
+                        infoArtist = "Valencianismo Radio";
+                    }
+                } else if (songName.startsWith("PRÓXIMAMENTE")) {
+                    infoTitle = songName;
+                    infoArtist = "Programación";
+                }
+                
+                document.getElementById('info-title').textContent = infoTitle;
+                document.getElementById('info-artist').textContent = infoArtist;
+            }
+
             // Actualizar carátula SIEMPRE que no sea el nombre de la radio por defecto
             if (songName !== "Valencianismo Radio 24/7") {
                 updateCover(songName);
+            } else {
+                const infoCover = document.getElementById('info-cover');
+                if (infoCover) infoCover.src = 'assets/logoVR.png';
             }
 
             if (currentSongEl.textContent !== songName && songName !== "Valencianismo Radio 24/7") {
@@ -210,8 +236,12 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (ambientBg) {
                     ambientBg.style.backgroundImage = `url(assets/logoVR.png)`;
                 }
+                const infoCover = document.getElementById('info-cover');
+                if (infoCover) infoCover.src = 'assets/logoVR.png';
             };
             coverImage.src = coverPath;
+            const infoCover = document.getElementById('info-cover');
+            if (infoCover) infoCover.src = coverPath;
         }
         if (ambientBg) {
             ambientBg.style.backgroundImage = `url(${coverPath})`;
@@ -230,9 +260,11 @@ document.addEventListener('DOMContentLoaded', () => {
         const normalized = normalizeText(songName);
         const cacheBuster = Date.now();
         
-        if (normalized.includes('don pio') || normalized.includes('donpio') || normalized.includes('don pio')) {
+        if (normalized.includes('don pio') || normalized.includes('donpio')) {
             const coverPath = `assets/donpio.jpg?v=${cacheBuster}`;
             if (coverImage) coverImage.src = coverPath;
+            const infoCover = document.getElementById('info-cover');
+            if (infoCover) infoCover.src = coverPath;
             if (ambientBg) {
                 ambientBg.style.backgroundImage = `url(${coverPath})`;
                 ambientBg.style.backgroundSize = 'cover';
@@ -240,8 +272,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 ambientBg.style.opacity = '0.5';
             }
         } else if (normalized.includes('gotham')) {
+            try {
+                const selRes = await fetch('seleccion/ultimo_programa.json?v=' + cacheBuster);
+                if (selRes.ok) {
+                    const selData = await selRes.json();
+                    if (selData && selData.thumbnail_url) {
+                        if (coverImage) coverImage.src = selData.thumbnail_url;
+                        const infoCover = document.getElementById('info-cover');
+                        if (infoCover) infoCover.src = selData.thumbnail_url;
+                        if (ambientBg) {
+                            ambientBg.style.backgroundImage = `url(${selData.thumbnail_url})`;
+                            ambientBg.style.backgroundSize = 'cover';
+                            ambientBg.style.opacity = '0.5';
+                        }
+                        return;
+                    }
+                }
+            } catch (e) {}
+
             const coverPath = `assets/gothamvcf.webp?v=${cacheBuster}`;
             if (coverImage) coverImage.src = coverPath;
+            const infoCover = document.getElementById('info-cover');
+            if (infoCover) infoCover.src = coverPath;
             if (ambientBg) {
                 ambientBg.style.backgroundImage = `url(${coverPath})`;
                 ambientBg.style.backgroundSize = 'cover';
