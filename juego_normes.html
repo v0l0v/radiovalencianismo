@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Joc de la Normativa RACV | Valencianismo Radio</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/png" href="assets/icon.png">
+    <style>
+        body { 
+            margin: 0; background: #0a0a0f; color: #fff; 
+            font-family: 'Outfit', sans-serif; 
+            display: flex; flex-direction: column; align-items: center; justify-content: center; 
+            height: 100vh; overflow: hidden; 
+        }
+        #game-container { 
+            position: relative; width: min(500px, 95vw); height: min(500px, 95vw); 
+            background: url('assets/logoVR.png') center/cover; 
+            border-radius: 20px; box-shadow: 0 0 40px rgba(0, 102, 204, 0.4); 
+            overflow: hidden; cursor: crosshair;
+        }
+        canvas { 
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%; z-index: 10; 
+        }
+        .ui { 
+            text-align: center; margin-bottom: 20px; z-index: 20; 
+            background: rgba(255,255,255,0.05); padding: 15px 30px; border-radius: 20px;
+            border: 1px solid rgba(255,255,255,0.1); backdrop-filter: blur(10px);
+        }
+        .score-board { 
+            display: flex; gap: 15px; justify-content: center; margin-top: 15px; 
+        }
+        .circle-indicator { 
+            width: 25px; height: 25px; border-radius: 50%; border: 2px solid #555; background: transparent; 
+            display: flex; justify-content: center; align-items: center; font-size: 0.7rem; font-weight: bold; color: #555;
+            transition: all 0.3s;
+        }
+        .circle-indicator.hit { 
+            background: #ffd700; border-color: #ffd700; box-shadow: 0 0 15px rgba(255,215,0,0.8); color: #000; 
+        }
+        
+        /* Modal Question */
+        #q-modal { 
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+            background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); 
+            z-index: 100; display: none; flex-direction: column; align-items: center; justify-content: center; 
+        }
+        .q-box { 
+            background: #1a1a24; padding: 40px; border-radius: 20px; max-width: 90%; width: 500px; 
+            text-align: center; border: 2px solid #00d2ff; box-shadow: 0 10px 40px rgba(0,210,255,0.3); 
+        }
+        .q-btn { 
+            display: block; width: 100%; padding: 15px; margin: 12px 0; 
+            background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.2); 
+            color: white; border-radius: 10px; font-size: 1.1rem; cursor: pointer; 
+            transition: all 0.2s; font-family: 'Outfit', sans-serif; font-weight: 600;
+        }
+        .q-btn:hover { 
+            background: #00d2ff; color: #000; border-color: #00d2ff; transform: scale(1.02);
+        }
+        
+        .message { 
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%); 
+            font-size: clamp(2rem, 8vw, 3.5rem); font-weight: 800; text-transform: uppercase; 
+            text-shadow: 0 5px 20px #000; z-index: 50; display: none; pointer-events: none; 
+        }
+        
+        .back-btn {
+            position: absolute; top: 20px; left: 20px;
+            background: rgba(255,255,255,0.1); color: #fff; text-decoration: none;
+            padding: 10px 20px; border-radius: 50px; font-weight: bold; border: 1px solid rgba(255,255,255,0.2);
+            transition: all 0.3s;
+        }
+        .back-btn:hover { background: #ffd700; color: #000; }
+    </style>
+</head>
+<body>
+
+    <a href="index.html" class="back-btn">← Tornar a la Ràdio</a>
+
+    <div class="ui">
+        <h1 style="color: #ffd700; margin: 0 0 5px 0;">🎯 Tir a les Normes d'El Puig</h1>
+        <p style="margin: 0; color: #ccc;">Apunta, dispara i demostra els teus coneiximents.<br>¡Clava un dard en cada un dels 5 cercles per a guanyar!</p>
+        <div class="score-board" id="scoreboard">
+            <!-- 5 indicators -->
+            <div class="circle-indicator" id="c1" title="Cercle Exterior">1</div>
+            <div class="circle-indicator" id="c2" title="Cercle 2">2</div>
+            <div class="circle-indicator" id="c3" title="Cercle 3">3</div>
+            <div class="circle-indicator" id="c4" title="Cercle 4">4</div>
+            <div class="circle-indicator" id="c5" title="Centre">5</div>
+        </div>
+    </div>
+
+    <div id="game-container">
+        <canvas id="gameCanvas"></canvas>
+        <div class="message" id="msg-text"></div>
+    </div>
+
+    <div id="q-modal">
+        <div class="q-box">
+            <h2 id="question-text" style="color:#ffd700; margin-top:0; font-size: 1.5rem; line-height: 1.4;">Pregunta</h2>
+            <div id="options"></div>
+        </div>
+    </div>
+
+    <script>
+        const container = document.getElementById('game-container');
+        const canvas = document.getElementById('gameCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        let W = container.clientWidth;
+        let H = container.clientHeight;
+        canvas.width = W;
+        canvas.height = H;
+
+        // Target setup
+        const circles = 5;
+        const radiusStep = (W/2) / (circles + 1);
+        const maxRadius = circles * radiusStep;
+        
+        // State
+        let aimX = W/2, aimY = H/2;
+        let time = 0;
+        let isAiming = true;
+        let frozenX = 0, frozenY = 0;
+        let hitRings = [false, false, false, false, false];
+        let darts = [];
+        
+        // Questions RACV
+        const questions = [
+            {q: "¿Com s'escriu la conjunció copulativa en les Normes d'El Puig?", o: ["y", "i", "hi"], a: 0},
+            {q: "¿Quin pronom de primera persona s'usa oficialment?", o: ["Jo", "Ieu", "Yo"], a: 2},
+            {q: "¿Com s'escriu la paraula per referir-se a un chiquet?", o: ["Xiquet", "Txiquet", "Chiquet"], a: 2},
+            {q: "¿Quina lletra NO existix en l'abecedari valencià de la RACV?", o: ["La 'y' grega", "La 'ç' (ce trencada)", "La 'h' intercalada"], a: 1},
+            {q: "¿Cóm s'accentua el nom de la nostra capital?", o: ["Valéncia", "València", "Valencia"], a: 0},
+            {q: "¿Quin és el demostratiu correcte de proximitat masculí?", o: ["Aquest", "Este", "Aqueste"], a: 1},
+            {q: "¿Cóm fan el plural les paraules acabaes en -a àtona?", o: ["En -es (chiquetes)", "En -as (chiquetas)", "Sense canvi"], a: 0},
+            {q: "¿Quin accent gràfic s'utilisa en les Normes per a marcar les vocals tòniques?", o: ["Obert (`)", "Tancat o agut (´)", "Cercumflex (^)"], a: 1},
+            {q: "En general, els verbs acabats en -isar s'escriuen en...", o: ["-izar (organizar)", "-isar (organisar)", "-itzar (organitzar)"], a: 1},
+            {q: "La terminació de l'imperfet d'indicatiu de la 1ª conjugació s'escriu en:", o: ["-aba (cantaba)", "-ava (cantava)", "-avva"], a: 1}
+        ];
+
+        function drawTarget() {
+            ctx.clearRect(0, 0, W, H);
+            
+            // Draw background dark tint
+            ctx.fillStyle = "rgba(0,0,0,0.7)";
+            ctx.fillRect(0,0,W,H);
+            
+            // Draw concentric circles
+            for(let i=circles; i>=1; i--) {
+                ctx.beginPath();
+                ctx.arc(W/2, H/2, i * radiusStep, 0, Math.PI*2);
+                
+                // Color alternates
+                ctx.fillStyle = (i%2===0) ? "rgba(255,255,255,0.05)" : "rgba(255,215,0,0.15)";
+                // center is red
+                if(i === 1) ctx.fillStyle = "rgba(255,42,42,0.8)";
+                
+                ctx.fill();
+                ctx.lineWidth = 2;
+                ctx.strokeStyle = "rgba(255,255,255,0.4)";
+                
+                // Highlight if hit
+                const actualIndex = circles - i; // 0 is outer
+                if (hitRings[actualIndex]) {
+                    ctx.strokeStyle = "#ffd700";
+                    ctx.lineWidth = 4;
+                    ctx.stroke();
+                } else {
+                    ctx.stroke();
+                }
+            }
+            
+            // Draw darts
+            darts.forEach(d => {
+                ctx.beginPath();
+                ctx.arc(d.x, d.y, 6, 0, Math.PI*2);
+                ctx.fillStyle = d.correct ? "#00ff00" : "#ff2a2a";
+                ctx.fill();
+                ctx.strokeStyle = "#fff";
+                ctx.lineWidth = 2;
+                ctx.stroke();
+            });
+
+            // Draw Crosshair
+            if (isAiming) {
+                // Lissajous movement
+                aimX = W/2 + Math.sin(time * 0.03) * (maxRadius * 0.9);
+                aimY = H/2 + Math.cos(time * 0.043) * (maxRadius * 0.9);
+                
+                ctx.beginPath();
+                ctx.arc(aimX, aimY, 15, 0, Math.PI*2);
+                ctx.strokeStyle = "#00d2ff";
+                ctx.lineWidth = 3;
+                ctx.stroke();
+                
+                ctx.beginPath();
+                ctx.moveTo(aimX-25, aimY); ctx.lineTo(aimX+25, aimY);
+                ctx.moveTo(aimX, aimY-25); ctx.lineTo(aimX, aimY+25);
+                ctx.stroke();
+            } else {
+                // Frozen crosshair
+                ctx.beginPath();
+                ctx.arc(frozenX, frozenY, 15, 0, Math.PI*2);
+                ctx.strokeStyle = "#ff2a2a";
+                ctx.lineWidth = 3;
+                ctx.stroke();
+                ctx.beginPath();
+                ctx.moveTo(frozenX-25, frozenY); ctx.lineTo(frozenX+25, frozenY);
+                ctx.moveTo(frozenX, frozenY-25); ctx.lineTo(frozenX, frozenY+25);
+                ctx.stroke();
+            }
+        }
+        
+        function loop() {
+            if (isAiming) time++;
+            drawTarget();
+            requestAnimationFrame(loop);
+        }
+        
+        // Interaction
+        canvas.addEventListener('click', (e) => {
+            if (!isAiming) return;
+            isAiming = false;
+            
+            // Actually, we capture exactly where the crosshair is at click time
+            frozenX = aimX;
+            frozenY = aimY;
+            
+            // Or if you want mouse aim:
+            // const rect = canvas.getBoundingClientRect();
+            // frozenX = e.clientX - rect.left;
+            // frozenY = e.clientY - rect.top;
+            
+            const q = questions[Math.floor(Math.random() * questions.length)];
+            askQuestion(q);
+        });
+        
+        function askQuestion(qObj) {
+            document.getElementById('q-modal').style.display = 'flex';
+            document.getElementById('question-text').innerText = qObj.q;
+            
+            const optsDiv = document.getElementById('options');
+            optsDiv.innerHTML = '';
+            
+            // Create a scrambled list of options
+            let opts = qObj.o.map((o, i) => ({t: o, correct: i === qObj.a}));
+            opts.sort(() => Math.random() - 0.5);
+            
+            opts.forEach((opt) => {
+                const btn = document.createElement('button');
+                btn.className = 'q-btn';
+                btn.innerText = opt.t;
+                btn.onclick = () => handleAnswer(opt.correct);
+                optsDiv.appendChild(btn);
+            });
+        }
+        
+        function handleAnswer(isCorrect) {
+            document.getElementById('q-modal').style.display = 'none';
+            
+            let dartX = frozenX;
+            let dartY = frozenY;
+            
+            if (!isCorrect) {
+                // Deviate wildly (50% to 150% of radius away)
+                const angle = Math.random() * Math.PI * 2;
+                const offset = (Math.random() * 1.0 + 0.5) * maxRadius;
+                dartX += Math.cos(angle) * offset;
+                dartY += Math.sin(angle) * offset;
+                showMessage("¡HAS FALLAT!", "#ff2a2a");
+            } else {
+                showMessage("¡DIANA PERFECTA!", "#00d2ff");
+            }
+            
+            darts.push({x: dartX, y: dartY, correct: isCorrect});
+            
+            // Calculate ring logic
+            const dist = Math.sqrt(Math.pow(dartX - W/2, 2) + Math.pow(dartY - H/2, 2));
+            if (dist <= maxRadius && isCorrect) {
+                const ringIndex = Math.floor(dist / radiusStep); 
+                if (ringIndex >= 0 && ringIndex < circles) {
+                    const actualIndex = 4 - ringIndex; // 0 is outer (C1)
+                    if (!hitRings[actualIndex]) {
+                        hitRings[actualIndex] = true;
+                        document.getElementById('c' + (actualIndex+1)).classList.add('hit');
+                    }
+                }
+            }
+            
+            // Check win
+            if (hitRings.every(r => r === true)) {
+                setTimeout(() => {
+                    showMessage("¡ENHORABONA! MESTRE DE LA RACV", "#ffd700");
+                    // Reset game after 5 seconds
+                    setTimeout(() => {
+                        hitRings = [false, false, false, false, false];
+                        darts = [];
+                        for(let i=1; i<=5; i++) document.getElementById('c'+i).classList.remove('hit');
+                        isAiming = true;
+                    }, 5000);
+                }, 1500);
+            } else {
+                setTimeout(() => {
+                    isAiming = true;
+                }, 1500);
+            }
+        }
+        
+        function showMessage(txt, color) {
+            const msg = document.getElementById('msg-text');
+            msg.innerText = txt;
+            msg.style.color = color;
+            msg.style.display = 'block';
+            setTimeout(() => { msg.style.display = 'none'; }, 1500);
+        }
+        
+        window.addEventListener('resize', () => {
+            W = container.clientWidth;
+            H = container.clientHeight;
+            canvas.width = W;
+            canvas.height = H;
+        });
+
+        loop();
+    </script>
+</body>
+</html>
