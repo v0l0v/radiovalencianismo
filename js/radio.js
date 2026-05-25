@@ -198,16 +198,10 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', checkMarquee);
 
     function setRandomCover() {
-        const defaultCovers = [
-            'assets/default-cover.webp',
-            'assets/default-cover-2.webp',
-            'assets/default-cover-3.webp',
-            'assets/default-cover-4.webp'
-        ];
-        const randomCover = defaultCovers[Math.floor(Math.random() * defaultCovers.length)];
-        if (coverImage) coverImage.src = randomCover;
+        const coverPath = 'assets/logob.png';
+        if (coverImage) coverImage.src = coverPath;
         if (ambientBg) {
-            ambientBg.style.backgroundImage = `url(${randomCover})`;
+            ambientBg.style.backgroundImage = `url(${coverPath})`;
             ambientBg.style.backgroundSize = 'cover';
             ambientBg.style.backgroundPosition = 'center';
             ambientBg.style.opacity = '0.5';
