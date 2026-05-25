@@ -623,6 +623,12 @@
                             await navigator.share(shareData);
                         } catch (err) {
                             console.log('Error compartint', err);
+                            // Fallback si la API falla por alguna restricción de seguridad o del iframe (que no sea AbortError)
+                            if (err.name !== 'AbortError') {
+                                navigator.clipboard.writeText(shareText);
+                                alert("S'ha copiat el text. Ara es descarregarà l'image.");
+                                document.getElementById('btn-download').click();
+                            }
                         }
                     } else {
                         navigator.clipboard.writeText(shareText);
