@@ -578,13 +578,17 @@
                 }
             });
             
+            const barHeight = Math.floor(offCanvas.height * 0.12);
             octx.fillStyle = "rgba(0,0,0,0.7)";
-            octx.fillRect(0, offCanvas.height - 120, offCanvas.width, 120);
+            octx.fillRect(0, offCanvas.height - barHeight, offCanvas.width, barHeight);
             octx.fillStyle = "#ffd700";
-            octx.font = "bold 50px sans-serif";
+            let fontSize = Math.floor(offCanvas.width * 0.042);
+            if (fontSize > 45) fontSize = 45;
+            if (fontSize < 16) fontSize = 16;
+            octx.font = `bold ${fontSize}px sans-serif`;
             octx.textAlign = "center";
             octx.textBaseline = "middle";
-            octx.fillText(`Puntuació al Tir al Moniato: ${totalScore} punts!`, offCanvas.width/2, offCanvas.height - 60);
+            octx.fillText(`Puntuació al Tir al Moniato: ${totalScore} punts!`, offCanvas.width/2, offCanvas.height - (barHeight / 2));
 
             return offCanvas;
         }
