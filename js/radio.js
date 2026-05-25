@@ -197,9 +197,22 @@ document.addEventListener('DOMContentLoaded', () => {
 
     window.addEventListener('resize', checkMarquee);
 
-    function setRandomCover() {
-        const coverPath = 'assets/logoVR.png';
-        if (coverImage) coverImage.src = coverPath;
+    function setRandomCover(songName) {
+        let coverPath = 'assets/logoVR.png';
+        if (songName) {
+            const cleanName = songName.replace(/\//g, '_').trim();
+            coverPath = `assets/covers/${cleanName}.jpg`;
+        }
+        
+        if (coverImage) {
+            coverImage.onerror = () => {
+                coverImage.src = 'assets/logoVR.png';
+                if (ambientBg) {
+                    ambientBg.style.backgroundImage = `url(assets/logoVR.png)`;
+                }
+            };
+            coverImage.src = coverPath;
+        }
         if (ambientBg) {
             ambientBg.style.backgroundImage = `url(${coverPath})`;
             ambientBg.style.backgroundSize = 'cover';
@@ -236,7 +249,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 ambientBg.style.opacity = '0.5';
             }
         } else {
-            setRandomCover();
+            setRandomCover(songName);
         }
     }
 
