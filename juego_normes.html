@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Joc de la Normativa RACV | Valencianismo Radio</title>
+    <title>Tir al Moniato 2 | Valencianismo Radio</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="assets/icon.png">
     <style>
@@ -40,11 +40,12 @@
         }
         
         /* Modal Question */
-        #q-modal { 
+        #q-modal, #mode-modal { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); 
             z-index: 100; display: none; flex-direction: column; align-items: center; justify-content: center; 
         }
+        #mode-modal { display: flex; z-index: 200; }
         .q-box { 
             background: #1a1a24; padding: 40px; border-radius: 20px; max-width: 90%; width: 500px; 
             text-align: center; border: 2px solid #00d2ff; box-shadow: 0 10px 40px rgba(0,210,255,0.3); 
@@ -79,7 +80,7 @@
 </head>
 <body>
     <div class="ui">
-        <h1 style="color: #ffd700; margin: 0 0 5px 0;">🪶 Tir al Moniato</h1>
+        <h1 id="title-text" style="color: #ffd700; margin: 0 0 5px 0;">🔥 Tir al Moniato 2</h1>
         <p style="margin: 0; color: #ccc;">Apunta, dispara i demostra els teus coneiximents.<br>Tens 9 intents. ¡Encerta el centre (9 punts) per a fer la màxima puntuació!</p>
         <div class="score-board" id="scoreboard">
             <!-- 9 indicators -->
@@ -109,6 +110,15 @@
         <div class="q-box">
             <h2 id="question-text" style="color:#ffd700; margin-top:0; font-size: 1.5rem; line-height: 1.4;">Pregunta</h2>
             <div id="options"></div>
+        </div>
+    </div>
+
+    <div id="mode-modal">
+        <div class="q-box">
+            <h2 style="color:#ffd700; margin-top:0; font-size: 2rem;">Tir al Moniato</h2>
+            <p style="color:#ccc; font-size: 1.1rem; margin-bottom: 20px;">Tria el teu mode de joc:</p>
+            <button class="q-btn" id="btn-mode-1" style="font-size: 1.2rem; padding: 20px; text-align: left;">🪶 Joc 1: Pluma i Tinta</button>
+            <button class="q-btn" id="btn-mode-2" style="font-size: 1.2rem; padding: 20px; text-align: left;">🔥 Joc 2: Fletxes de Foc</button>
         </div>
     </div>
 
@@ -144,6 +154,21 @@
         let hasBeenWarned = false;
         let aimStartTime = 0;
         let gameEnded = false;
+        let gameMode = 2; // Default a fuego
+        
+        document.getElementById('btn-mode-1').addEventListener('click', () => {
+            gameMode = 1;
+            document.getElementById('title-text').innerText = '🪶 Tir al Moniato 1';
+            document.getElementById('mode-modal').style.display = 'none';
+            startAim();
+        });
+        
+        document.getElementById('btn-mode-2').addEventListener('click', () => {
+            gameMode = 2;
+            document.getElementById('title-text').innerText = '🔥 Tir al Moniato 2';
+            document.getElementById('mode-modal').style.display = 'none';
+            startAim();
+        });
         
         function startAim() {
             isAiming = true;
@@ -211,9 +236,13 @@
                 ctx.stroke();
             }
             
-            // Draw plumas y tinta
+            // Draw impactos
             darts.forEach((d, idx) => {
-                drawQuillAndSplat(ctx, d.x, d.y, 22, d.correct, idx);
+                if (gameMode === 1) {
+                    drawQuillAndSplat(ctx, d.x, d.y, 22, d.correct, idx);
+                } else {
+                    drawFlamingArrowAndBurnHole(ctx, d.x, d.y, 25, d.correct, idx);
+                }
             });
 
             // Draw Crosshair
@@ -451,19 +480,15 @@
         function drawQuillAndSplat(octx, x, y, size, isCorrect, index) {
             octx.save();
             
-            // Tinta azul (blau) para aciertos, roja para fallos
             const splatColor = isCorrect ? "#0033cc" : "#cc0000"; 
             octx.fillStyle = splatColor;
             
             const splatRadius = size * 0.8;
-            
-            // Mancha principal
             const seed = (index * 123.456) % 100;
             octx.beginPath();
             octx.arc(x, y, splatRadius * 0.6, 0, Math.PI * 2);
             octx.fill();
             
-            // Gotas esparcidas
             for (let i = 0; i < 7; i++) {
                 const angle = (i * Math.PI * 2) / 7 + seed;
                 const dropDist = splatRadius * (0.9 + ((seed + i) % 5) / 10);
@@ -481,18 +506,15 @@
                 octx.stroke();
             }
 
-            // Dibujar pluma
             octx.translate(x, y);
             const rotations = [-Math.PI/6, -Math.PI/4, -Math.PI/12, -Math.PI/3];
             const rot = rotations[index % rotations.length] || -Math.PI/4;
             octx.rotate(rot);
             
-            // Base de la pluma (blanca)
             octx.fillStyle = "#f8f9fa";
             octx.strokeStyle = "#e9ecef";
             octx.lineWidth = size * 0.05;
             
-            // Lado izquierdo
             octx.beginPath();
             octx.moveTo(0, 0);
             octx.quadraticCurveTo(size * 0.5, -size * 0.2, size * 2.5, -size * 2.5);
@@ -501,7 +523,6 @@
             octx.fill();
             octx.stroke();
             
-            // Lado derecho
             octx.beginPath();
             octx.moveTo(0, 0);
             octx.quadraticCurveTo(size * 0.2, -size * 0.5, size * 2.5, -size * 2.5);
@@ -510,7 +531,6 @@
             octx.fill();
             octx.stroke();
             
-            // Tallo central
             octx.beginPath();
             octx.moveTo(0, 0);
             octx.quadraticCurveTo(size * 1.0, -size * 1.0, size * 2.5, -size * 2.5);
@@ -518,13 +538,111 @@
             octx.lineWidth = size * 0.08;
             octx.stroke();
 
-            // Punta manchada de tinta
             octx.beginPath();
             octx.moveTo(0, 0);
             octx.lineTo(size * 0.3, -size * 0.1);
             octx.lineTo(size * 0.1, -size * 0.3);
             octx.closePath();
             octx.fillStyle = splatColor;
+            octx.fill();
+
+            octx.restore();
+        }
+
+        function drawFlamingArrowAndBurnHole(octx, x, y, size, isCorrect, index) {
+            octx.save();
+            
+            // Agujero quemado
+            const burnColor = isCorrect ? "#111111" : "#3a0000"; // Más oscuro si acierta, más rojizo si falla
+            octx.fillStyle = burnColor;
+            
+            const holeRadius = size * 0.5;
+            const seed = (index * 123.456) % 100;
+            
+            // Borde exterior quemado (difuminado)
+            octx.shadowColor = isCorrect ? "#ff4500" : "#ff0000";
+            octx.shadowBlur = size * 0.6;
+            
+            octx.beginPath();
+            for (let i = 0; i < 10; i++) {
+                const angle = (i * Math.PI * 2) / 10;
+                const r = holeRadius * (0.8 + ((seed * i) % 5) / 10);
+                if (i === 0) octx.moveTo(x + Math.cos(angle) * r, y + Math.sin(angle) * r);
+                else octx.lineTo(x + Math.cos(angle) * r, y + Math.sin(angle) * r);
+            }
+            octx.closePath();
+            octx.fill();
+            
+            octx.shadowBlur = 0; // reset shadow
+            
+            // Brasas alrededor del agujero
+            for (let i = 0; i < 5; i++) {
+                const angle = (i * Math.PI * 2) / 5 + seed;
+                const dist = holeRadius * (1.1 + (seed % 4)/10);
+                octx.beginPath();
+                octx.arc(x + Math.cos(angle) * dist, y + Math.sin(angle) * dist, size * 0.1, 0, Math.PI*2);
+                octx.fillStyle = (i % 2 === 0) ? "rgba(255, 69, 0, 0.8)" : "rgba(255, 140, 0, 0.9)";
+                octx.fill();
+            }
+
+            // Flecha clavada
+            octx.translate(x, y);
+            const rotations = [-Math.PI/6, -Math.PI/4, -Math.PI/12, -Math.PI/3];
+            const rot = rotations[index % rotations.length] || -Math.PI/4;
+            octx.rotate(rot);
+            
+            // Palo de madera
+            octx.beginPath();
+            octx.moveTo(0, 0);
+            octx.lineTo(size * 2.5, -size * 2.5);
+            octx.strokeStyle = "#4a2a10";
+            octx.lineWidth = size * 0.12;
+            octx.lineCap = "round";
+            octx.stroke();
+
+            // Plumas de la flecha (cola)
+            octx.fillStyle = "#cccccc";
+            octx.beginPath();
+            octx.moveTo(size * 2.0, -size * 2.0);
+            octx.lineTo(size * 2.7, -size * 1.7);
+            octx.lineTo(size * 2.4, -size * 2.4);
+            octx.fill();
+            
+            octx.beginPath();
+            octx.moveTo(size * 2.0, -size * 2.0);
+            octx.lineTo(size * 1.7, -size * 2.7);
+            octx.lineTo(size * 2.4, -size * 2.4);
+            octx.fill();
+            
+            // Fuego intenso en la punta clavada
+            octx.fillStyle = "rgba(255, 69, 0, 0.8)"; // Naranja rojizo
+            octx.beginPath();
+            octx.arc(size * 0.2, -size * 0.2, size * 0.4, 0, Math.PI*2);
+            octx.fill();
+            
+            octx.fillStyle = "rgba(255, 140, 0, 0.9)"; // Naranja claro
+            octx.beginPath();
+            octx.arc(size * 0.1, -size * 0.1, size * 0.25, 0, Math.PI*2);
+            octx.fill();
+            
+            octx.fillStyle = "rgba(255, 255, 0, 0.9)"; // Amarillo
+            octx.beginPath();
+            octx.arc(0, 0, size * 0.15, 0, Math.PI*2);
+            octx.fill();
+            
+            // Llama que sube por el palo
+            octx.fillStyle = "rgba(255, 69, 0, 0.7)";
+            octx.beginPath();
+            octx.moveTo(size * 0.4, -size * 0.4);
+            octx.quadraticCurveTo(size * 0.8, -size * 0.1, size * 1.2, -size * 1.2);
+            octx.quadraticCurveTo(size * 0.3, -size * 0.8, size * 0.1, -size * 0.5);
+            octx.fill();
+            
+            octx.fillStyle = "rgba(255, 140, 0, 0.6)";
+            octx.beginPath();
+            octx.moveTo(size * 0.3, -size * 0.3);
+            octx.quadraticCurveTo(size * 0.6, -size * 0.2, size * 0.9, -size * 0.9);
+            octx.quadraticCurveTo(size * 0.2, -size * 0.6, size * 0.1, -size * 0.4);
             octx.fill();
 
             octx.restore();
@@ -552,9 +670,13 @@
             darts.forEach((d, idx) => {
                 const imgX = (d.x - offsetX) / scale;
                 const imgY = (d.y - offsetY) / scale;
-                const size = offCanvas.width * 0.04; // pluma size
+                const size = offCanvas.width * 0.04; 
                 
-                drawQuillAndSplat(octx, imgX, imgY, size, d.correct, idx);
+                if (gameMode === 1) {
+                    drawQuillAndSplat(octx, imgX, imgY, size, d.correct, idx);
+                } else {
+                    drawFlamingArrowAndBurnHole(octx, imgX, imgY, size, d.correct, idx);
+                }
             });
             
             const barHeight = Math.floor(offCanvas.height * 0.12);
@@ -567,7 +689,8 @@
             octx.font = `bold ${fontSize}px sans-serif`;
             octx.textAlign = "center";
             octx.textBaseline = "middle";
-            octx.fillText(`Puntuació al Tir al Moniato: ${totalScore} punts!`, offCanvas.width/2, offCanvas.height - (barHeight / 2));
+            const scoreText = gameMode === 1 ? `Puntuació al Tir al Moniato 1: ${totalScore} punts!` : `Puntuació al Tir al Moniato 2: ${totalScore} punts!`;
+            octx.fillText(scoreText, offCanvas.width/2, offCanvas.height - (barHeight / 2));
 
             return offCanvas;
         }
@@ -586,13 +709,14 @@
         document.getElementById('btn-share').addEventListener('click', async (e) => {
             e.stopPropagation();
             const offCanvas = generateMoniatoImage();
-            const shareText = `🪶 He fet ${totalScore} punts al "Tir al Moniato" de Valencianismo Radio! ¿Pots superar-ho? Juga ací: https://valencianismo.com`;
+            const shareTitle = gameMode === 1 ? '🪶 Tir al Moniato 1' : '🔥 Tir al Moniato 2';
+            const shareText = `He fet ${totalScore} punts al "${shareTitle}" de Valencianismo Radio! ¿Pots superar-ho? Juga ací: https://valencianismo.com`;
             
             if (navigator.canShare) {
                 offCanvas.toBlob(async (blob) => {
                     const file = new File([blob], `Moniato_${totalScore}_punts.jpg`, { type: 'image/jpeg' });
                     const shareData = {
-                        title: 'Tir al Moniato',
+                        title: shareTitle,
                         text: shareText,
                         files: [file]
                     };
@@ -622,7 +746,6 @@
             }
         });
 
-        startAim();
         loop();
     </script>
 </body>
