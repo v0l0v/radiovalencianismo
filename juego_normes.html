@@ -119,8 +119,8 @@
 
         // Target setup
         const circles = 9;
-        const radiusStep = (W/2) / (circles + 1);
-        const maxRadius = circles * radiusStep;
+        let radiusStep = (W/2) / (circles + 1);
+        let maxRadius = circles * radiusStep;
         
         // State
         let aimX = W/2, aimY = H/2;
@@ -388,12 +388,17 @@
             setTimeout(() => { msg.style.display = 'none'; }, 1500);
         }
         
-        window.addEventListener('resize', () => {
-            W = container.clientWidth;
-            H = container.clientHeight;
-            canvas.width = W;
-            canvas.height = H;
+        const resizeObserver = new ResizeObserver(() => {
+            if (container.clientWidth > 0) {
+                W = container.clientWidth;
+                H = container.clientHeight;
+                canvas.width = W;
+                canvas.height = H;
+                radiusStep = (W/2) / (circles + 1);
+                maxRadius = circles * radiusStep;
+            }
         });
+        resizeObserver.observe(container);
 
         startAim();
         loop();
