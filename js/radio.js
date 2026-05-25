@@ -26,6 +26,39 @@ document.addEventListener('DOMContentLoaded', () => {
     let currentInfoMode = 'refran'; // 'refran' or 'news'
     let newsData = [];
 
+    // Canción escuchada por última vez cache
+    window.currentSongLastHeard = null;
+
+    function formatLastHeard(timestamp) {
+        if (!timestamp) return "Primera vez que se escucha en este navegador";
+        
+        const diffMs = Date.now() - timestamp;
+        const diffMins = Math.floor(diffMs / 60000);
+        const diffHours = Math.floor(diffMins / 60);
+        const diffDays = Math.floor(diffHours / 24);
+        
+        if (diffMins < 1) {
+            return "Escuchada por última vez hace unos segundos";
+        } else if (diffMins < 60) {
+            return `Escuchada por última vez hace ${diffMins} ${diffMins === 1 ? 'minuto' : 'minutos'}`;
+        } else if (diffHours < 24) {
+            return `Escuchada por última vez hace ${diffHours} ${diffHours === 1 ? 'hora' : 'horas'}`;
+        } else if (diffDays < 7) {
+            return `Escuchada por última vez hace ${diffDays} ${diffDays === 1 ? 'día' : 'días'}`;
+        } else {
+            const date = new Date(timestamp);
+            const months = [
+                "enero", "febrero", "marzo", "abril", "mayo", "junio",
+                "julio", "agosto", "septiembre", "octubre", "noviembre", "diciembre"
+            ];
+            const day = date.getDate();
+            const month = months[date.getMonth()];
+            const hours = String(date.getHours()).padStart(2, '0');
+            const minutes = String(date.getMinutes()).padStart(2, '0');
+            return `Escuchada por última vez el ${day} de ${month} a las ${hours}:${minutes} horas`;
+        }
+    }
+
 
     function loadRefran() {
         try {
@@ -176,6 +209,17 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 document.getElementById('info-title').textContent = infoTitle;
                 document.getElementById('info-artist').textContent = infoArtist;
+
+                // Actualizar info de última vez escuchada
+                const lastHeardEl = document.getElementById('info-last-heard');
+                if (lastHeardEl) {
+                    if (songName !== "Valencianismo Radio 24/7" && !songName.startsWith("PRÓXIMAMENTE")) {
+                        lastHeardEl.textContent = formatLastHeard(window.currentSongLastHeard);
+                        lastHeardEl.style.display = 'block';
+                    } else {
+                        lastHeardEl.style.display = 'none';
+                    }
+                }
             }
 
             // Actualizar carátula SIEMPRE que no sea el nombre de la radio por defecto
@@ -187,6 +231,20 @@ document.addEventListener('DOMContentLoaded', () => {
             }
 
             if (currentSongEl.textContent !== songName && songName !== "Valencianismo Radio 24/7") {
+                // Registrar última vez escuchada en localStorage antes de sobreescribir con el timestamp actual
+                let lastHeardMap = {};
+                try {
+                    lastHeardMap = JSON.parse(localStorage.getItem('vr_song_last_heard') || '{}');
+                } catch(e) {}
+                
+                window.currentSongLastHeard = lastHeardMap[songName] || null;
+                
+                // Guardar la hora de reproducción actual para la próxima vez
+                lastHeardMap[songName] = Date.now();
+                try {
+                    localStorage.setItem('vr_song_last_heard', JSON.stringify(lastHeardMap));
+                } catch(e) {}
+
                 currentSongEl.textContent = songName;
                 checkMarquee();
                 addToHistory(songName);
