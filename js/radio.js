@@ -388,6 +388,49 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    
+    const aboutModal = document.getElementById("about-modal");
+    const closeAboutBtn = document.getElementById("close-about");
+
+    if (closeAboutBtn && aboutModal) {
+        closeAboutBtn.addEventListener('click', () => {
+            aboutModal.classList.remove("active");
+        });
+    }
+
+    window.switchAboutLang = function(lang) {
+        const va = document.getElementById('about-content-va');
+        const es = document.getElementById('about-content-es');
+        const btnVa = document.getElementById('about-btn-va');
+        const btnEs = document.getElementById('about-btn-es');
+
+        if (!va || !es) return;
+
+        if (lang === 'va') {
+            va.style.display = 'block';
+            es.style.display = 'none';
+            btnVa.style.background = 'var(--secondary)';
+            btnVa.style.color = '#0a0a0f';
+            btnVa.style.border = 'none';
+            btnVa.style.boxShadow = '0 2px 10px rgba(255,215,0,0.3)';
+            btnEs.style.background = 'rgba(255,255,255,0.1)';
+            btnEs.style.color = '#fff';
+            btnEs.style.border = '1px solid rgba(255,255,255,0.2)';
+            btnEs.style.boxShadow = 'none';
+        } else {
+            es.style.display = 'block';
+            va.style.display = 'none';
+            btnEs.style.background = 'var(--secondary)';
+            btnEs.style.color = '#0a0a0f';
+            btnEs.style.border = 'none';
+            btnEs.style.boxShadow = '0 2px 10px rgba(255,215,0,0.3)';
+            btnVa.style.background = 'rgba(255,255,255,0.1)';
+            btnVa.style.color = '#fff';
+            btnVa.style.border = '1px solid rgba(255,255,255,0.2)';
+            btnVa.style.boxShadow = 'none';
+        }
+    };
+
     if (closePaypalBtn) closePaypalBtn.addEventListener('click', () => {
         paypalModal.classList.remove("active");
     });
@@ -396,6 +439,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (e.key === 'Escape') {
             if (zapModal) zapModal.classList.remove("active");
             if (paypalModal) paypalModal.classList.remove("active");
+            if (aboutModal) aboutModal.classList.remove("active");
         }
     });
 
