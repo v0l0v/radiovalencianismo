@@ -65,6 +65,8 @@
             text-shadow: 0 5px 20px #000; z-index: 50; display: none; pointer-events: none; 
             text-align: center; width: 100%;
         }
+        @keyframes blink { 0% { opacity: 1; } 50% { opacity: 0.3; } 100% { opacity: 1; } }
+        .blink-text { animation: blink 1.2s infinite; pointer-events: none; }
         
         .back-btn {
             position: absolute; top: 20px; left: 20px;
@@ -134,6 +136,7 @@
         let aimTimer = null;
         let hasBeenWarned = false;
         let aimStartTime = 0;
+        let gameEnded = false;
         
         function startAim() {
             isAiming = true;
@@ -258,6 +261,29 @@
         
         // Interaction
         canvas.addEventListener('click', (e) => {
+            if (gameEnded) {
+                gameEnded = false;
+                const msg = document.getElementById('msg-text');
+                msg.classList.remove('blink-text');
+                msg.style.display = 'none';
+                
+                attempts = 0;
+                totalScore = 0;
+                document.getElementById('total-score').innerText = `Punts: 0`;
+                darts = [];
+                for(let i=1; i<=9; i++) {
+                    const ind = document.getElementById('c'+i);
+                    ind.classList.remove('hit');
+                    ind.innerText = '-';
+                    ind.style.background = '';
+                    ind.style.borderColor = '';
+                    ind.style.color = '';
+                }
+                hasBeenWarned = false;
+                startAim();
+                return;
+            }
+
             if (!isAiming) return;
             clearTimeout(aimTimer);
             isAiming = false;
@@ -368,24 +394,10 @@
             // Check end game
             if (attempts >= maxAttempts) {
                 setTimeout(() => {
-                    showMessage(`¡FI DEL JOC!\n${totalScore} / 81`, "#ffd700");
-                    // Reset game after 5 seconds
-                    setTimeout(() => {
-                        attempts = 0;
-                        totalScore = 0;
-                        document.getElementById('total-score').innerText = `Punts: 0`;
-                        darts = [];
-                        for(let i=1; i<=9; i++) {
-                            const ind = document.getElementById('c'+i);
-                            ind.classList.remove('hit');
-                            ind.innerText = '-';
-                            ind.style.background = '';
-                            ind.style.borderColor = '';
-                            ind.style.color = '';
-                        }
-                        hasBeenWarned = false;
-                        startAim();
-                    }, 5000);
+                    gameEnded = true;
+                    const msg = document.getElementById('msg-text');
+                    msg.classList.add('blink-text');
+                    showMessage(`¡FI DEL JOC!\n${totalScore} / 81\n(Fes clic per jugar atra volta)`, "#000", "#ffd700", false);
                 }, 1500);
             } else {
                 setTimeout(() => {
