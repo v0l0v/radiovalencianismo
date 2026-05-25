@@ -1,0 +1,9 @@
+# Reglas Globales de IA para Radio Valencianismo
+
+1. **Idioma y Normativa:** TODA interacción, redacción, lectura o generación de contenido en valenciano DEBE acogerse estrictamente a las Normes d'El Puig (RACV).
+2. **Archivos de Referencia:** Si vas a redactar, generar o traducir textos largos en valenciano, debes aplicar obligatoriamente las reglas de:
+   - `normes_puig.md` (Manual de estilo principal y diccionario de revalencianización)
+   - `toponims_racv.md` (Nombres de poblaciones)
+   - `onomastica_racv.md` (Nombres propios)
+3. Bajo ninguna circunstancia se aplicará la normativa de la AVL ni del IEC.
+4. El idioma por defecto de la conversación con el usuario será siempre el español, salvo que él pida lo contrario.
