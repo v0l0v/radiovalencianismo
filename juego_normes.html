@@ -240,7 +240,7 @@
                 document.getElementById('msg-text').style.display = 'none';
                 const qIndex = getNextQuestion();
                 askQuestion(questionsRACV[qIndex]);
-            }, 1000); // 1 sec pause
+            }, 1800); // 1.8 sec pause
         });
         
         function askQuestion(qObj) {
@@ -258,7 +258,28 @@
                 const btn = document.createElement('button');
                 btn.className = 'q-btn';
                 btn.innerText = opt.t;
-                btn.onclick = () => handleAnswer(opt.correct);
+                btn.onclick = () => {
+                    const allBtns = optsDiv.querySelectorAll('.q-btn');
+                    allBtns.forEach(b => b.style.pointerEvents = 'none'); // Evitar doble click
+                    
+                    if (opt.correct) {
+                        btn.style.background = '#00ff00';
+                        btn.style.color = '#000';
+                        btn.style.borderColor = '#00ff00';
+                    } else {
+                        btn.style.background = '#ff2a2a';
+                        btn.style.color = '#fff';
+                        btn.style.borderColor = '#ff2a2a';
+                        // Resaltar la correcta
+                        allBtns.forEach(b => {
+                            if (b.innerText === qObj.o[qObj.a]) {
+                                b.style.border = '2px solid #00ff00';
+                            }
+                        });
+                    }
+                    
+                    setTimeout(() => handleAnswer(opt.correct), 1200);
+                };
                 optsDiv.appendChild(btn);
             });
         }
