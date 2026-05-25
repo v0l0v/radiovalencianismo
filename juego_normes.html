@@ -99,6 +99,7 @@
     <div id="game-container">
         <canvas id="gameCanvas"></canvas>
         <div class="message" id="msg-text"></div>
+        <button id="btn-download" style="display: none; position: absolute; bottom: 30px; left: 50%; transform: translateX(-50%); background: #8a9a5b; color: #fff; border: 3px solid #4a3600; padding: 15px 30px; font-size: 1.1rem; font-weight: 800; border-radius: 50px; cursor: pointer; z-index: 100; box-shadow: 0 10px 20px rgba(0,0,0,0.8); text-transform: uppercase; transition: transform 0.2s;">📸 Descarregar Moniato Feo</button>
     </div>
 
     <div id="q-modal">
@@ -113,6 +114,9 @@
         const container = document.getElementById('game-container');
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
+
+        const bgImg = new Image();
+        bgImg.src = 'assets/diana_juego.webp';
         
         let W = container.clientWidth;
         let H = container.clientHeight;
@@ -263,6 +267,7 @@
         canvas.addEventListener('click', (e) => {
             if (gameEnded) {
                 gameEnded = false;
+                document.getElementById('btn-download').style.display = 'none';
                 const msg = document.getElementById('msg-text');
                 msg.classList.remove('blink-text');
                 msg.style.display = 'none';
@@ -395,6 +400,7 @@
             if (attempts >= maxAttempts) {
                 setTimeout(() => {
                     gameEnded = true;
+                    document.getElementById('btn-download').style.display = 'block';
                     const msg = document.getElementById('msg-text');
                     msg.classList.add('blink-text');
                     showMessage(`¡FI DEL JOC!\n${totalScore} / 81\n(Fes clic per jugar atra volta)`, "#000", "#ffd700", false);
@@ -444,6 +450,67 @@
             }
         });
         resizeObserver.observe(container);
+        
+        // Download Logic
+        document.getElementById('btn-download').addEventListener('click', (e) => {
+            e.stopPropagation();
+            
+            const offCanvas = document.createElement('canvas');
+            offCanvas.width = bgImg.width || 1024;
+            offCanvas.height = bgImg.height || 1024;
+            const octx = offCanvas.getContext('2d');
+            
+            if (bgImg.complete && bgImg.naturalHeight !== 0) {
+                octx.drawImage(bgImg, 0, 0, offCanvas.width, offCanvas.height);
+            } else {
+                octx.fillStyle = "#1a1a2e";
+                octx.fillRect(0, 0, offCanvas.width, offCanvas.height);
+            }
+            
+            const scale = Math.max(W / offCanvas.width, H / offCanvas.height);
+            const scaledW = offCanvas.width * scale;
+            const scaledH = offCanvas.height * scale;
+            const offsetX = (W - scaledW) / 2;
+            const offsetY = (H - scaledH) / 2;
+            
+            darts.forEach(d => {
+                if (d.correct) {
+                    const imgX = (d.x - offsetX) / scale;
+                    const imgY = (d.y - offsetY) / scale;
+                    const size = offCanvas.width * 0.025; // responsive wart size
+                    
+                    octx.beginPath(); octx.arc(imgX, imgY, size, 0, Math.PI * 2);
+                    octx.fillStyle = "#4a3600"; octx.fill();
+                    octx.strokeStyle = "#2b2000"; octx.lineWidth = size * 0.1; octx.stroke();
+                    
+                    octx.beginPath(); octx.arc(imgX - size*0.2, imgY - size*0.2, size * 0.4, 0, Math.PI * 2);
+                    octx.fillStyle = "#8a9a5b"; octx.fill();
+                    
+                    octx.beginPath(); octx.arc(imgX, imgY, size*1.3, 0, Math.PI * 2);
+                    octx.strokeStyle = "rgba(255, 0, 0, 0.4)"; octx.lineWidth = size * 0.4; octx.stroke();
+
+                    octx.strokeStyle = "#000"; octx.lineWidth = size * 0.15;
+                    octx.beginPath();
+                    octx.moveTo(imgX + size*0.5, imgY - size*0.5); octx.lineTo(imgX + size*1.5, imgY - size*2);
+                    octx.moveTo(imgX - size*0.5, imgY + size*0.5); octx.lineTo(imgX - size*1.2, imgY + size*2.5);
+                    octx.moveTo(imgX + size*0.2, imgY + size*0.8); octx.lineTo(imgX + size*0.5, imgY + size*3);
+                    octx.stroke();
+                }
+            });
+            
+            octx.fillStyle = "rgba(0,0,0,0.7)";
+            octx.fillRect(0, offCanvas.height - 120, offCanvas.width, 120);
+            octx.fillStyle = "#ffd700";
+            octx.font = "bold 50px sans-serif";
+            octx.textAlign = "center";
+            octx.textBaseline = "middle";
+            octx.fillText(`Puntuació al Tir al Moniato: ${totalScore} punts!`, offCanvas.width/2, offCanvas.height - 60);
+
+            const link = document.createElement('a');
+            link.download = `Moniato_${totalScore}_punts.jpg`;
+            link.href = offCanvas.toDataURL("image/jpeg", 0.9);
+            link.click();
+        });
 
         startAim();
         loop();
