@@ -44,10 +44,15 @@ cp "$SELECTED" "$SELECCION_DIR/programa_${TIMESTAMP}.mp3"
 
 echo "$SELECTED" >> "$HISTORIAL"
 
-# ✅ Generar JSON bien formado en SELECCION (sin extensión .mp3 en el título)
+# ✅ Generar JSON bien formado en SELECCION
 TITLE="${SELECTED%.mp3}"
 FECHA=$(date '+%Y-%m-%d %H:%M:%S')
-printf '{\n    "title": "%s",\n    "thumbnail": "",\n    "url": "",\n    "date": "%s"\n}\n' "$TITLE" "$FECHA" > "$SELECCION_DIR/ultimo_programa.json"
+
+if [ -f "$BASE_DIR/${TITLE}.json" ]; then
+    cp "$BASE_DIR/${TITLE}.json" "$SELECCION_DIR/ultimo_programa.json"
+else
+    printf '{\n    "title": "%s",\n    "thumbnail": "",\n    "url": "",\n    "date": "%s"\n}\n' "$TITLE" "$FECHA" > "$SELECCION_DIR/ultimo_programa.json"
+fi
 
 echo "$(date '+%Y-%m-%d %H:%M:%S') - Seleccionado Ateneo: $SELECTED" >> "$BASE_DIR/selector_log.txt"
 

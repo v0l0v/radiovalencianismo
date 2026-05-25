@@ -236,14 +236,18 @@ def download_videos(feed_filename):
                         if len(meta_lines) >= 2:
                             video_title = meta_lines[0]
                             video_thumb = meta_lines[1]
-                    
+                    json_data = {
+                        "title": video_title, 
+                        "thumbnail": video_thumb, 
+                        "url": video_url,
+                        "date": time.strftime("%Y-%m-%d %H:%M:%S")
+                    }
                     with open(os.path.join(dest_path, "ultimo_programa.json"), "w") as jf:
-                        json.dump({
-                            "title": video_title, 
-                            "thumbnail": video_thumb, 
-                            "url": video_url,
-                            "date": time.strftime("%Y-%m-%d %H:%M:%S")
-                        }, jf, indent=4)
+                        json.dump(json_data, jf, indent=4)
+                        
+                    # Guardar una copia específica del episodio para que el selector pueda recuperar la carátula
+                    with open(os.path.join(dest_path, f"{clean_title}.json"), "w") as jf:
+                        json.dump(json_data, jf, indent=4)
                     print(f"📊 Metadatos exportados a ultimo_programa.json")
                     
                     # --- NUEVO: Copiar inmediatamente a la carpeta seleccion ---
