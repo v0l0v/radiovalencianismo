@@ -142,11 +142,13 @@
                 isAiming = false;
                 if (!hasBeenWarned) {
                     hasBeenWarned = true;
-                    showMessage("¡AFANYA'T!\nTens 5 segons per disparar o fallaràs.", "#ff9900");
-                    setTimeout(() => {
+                    showMessage("¡AFANYA'T!\nTens 5 segons per disparar o fallaràs.\n(Mou el ratolí per a continuar)", "#fff", "#ff9900", false);
+                    const onMove = () => {
+                        canvas.removeEventListener('mousemove', onMove);
                         document.getElementById('msg-text').style.display = 'none';
                         startAim();
-                    }, 3000);
+                    };
+                    canvas.addEventListener('mousemove', onMove);
                 } else {
                     frozenX = W/2;
                     frozenY = H/2;
@@ -290,12 +292,14 @@
                         // Resaltar la correcta
                         allBtns.forEach(b => {
                             if (b.innerText === qObj.o[qObj.a]) {
+                                b.style.background = 'rgba(0, 255, 0, 0.8)';
+                                b.style.color = '#000';
                                 b.style.border = '2px solid #00ff00';
                             }
                         });
                     }
                     
-                    setTimeout(() => handleAnswer(opt.correct), 1200);
+                    setTimeout(() => handleAnswer(opt.correct), 2500); // 2.5s margin
                 };
                 optsDiv.appendChild(btn);
             });
@@ -314,7 +318,7 @@
                 dartX += Math.cos(angle) * offset;
                 dartY += Math.sin(angle) * offset;
                 if (isTimeout) {
-                    showMessage("¡TEMPS ESGOTAT!", "#ff2a2a");
+                    showMessage("¡TEMPS ESGOTAT!", "#fff", "#ff2a2a");
                 } else {
                     showMessage("¡HAS FALLAT!", "#ff2a2a");
                 }
@@ -380,12 +384,23 @@
             }
         }
         
-        function showMessage(txt, color) {
+        function showMessage(txt, color, bg = 'transparent', autoHide = true) {
             const msg = document.getElementById('msg-text');
             msg.innerText = txt;
             msg.style.color = color;
+            msg.style.background = bg;
+            if (bg !== 'transparent') {
+                msg.style.padding = '15px 30px';
+                msg.style.borderRadius = '10px';
+                msg.style.border = `2px solid ${color === '#fff' ? 'rgba(255,255,255,0.3)' : color}`;
+            } else {
+                msg.style.padding = '0';
+                msg.style.border = 'none';
+            }
             msg.style.display = 'block';
-            setTimeout(() => { msg.style.display = 'none'; }, 1500);
+            if (autoHide) {
+                setTimeout(() => { msg.style.display = 'none'; }, 1500);
+            }
         }
         
         const resizeObserver = new ResizeObserver(() => {
