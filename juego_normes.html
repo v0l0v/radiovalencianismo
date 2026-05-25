@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tir al Moniato 2 | Valencianismo Radio</title>
+    <title>Tir al Moniato | Valencianismo Radio</title>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="assets/icon.png">
     <style>
@@ -118,7 +118,7 @@
             <h2 style="color:#ffd700; margin-top:0; font-size: 2rem;">Tir al Moniato</h2>
             <p style="color:#ccc; font-size: 1.1rem; margin-bottom: 20px;">Tria el teu mode de joc:</p>
             <button class="q-btn" id="btn-mode-1" style="font-size: 1.2rem; padding: 20px; text-align: left;">🪶 Joc 1: Pluma i Tinta</button>
-            <button class="q-btn" id="btn-mode-2" style="font-size: 1.2rem; padding: 20px; text-align: left;">🔥 Joc 2: Fletxes de Foc</button>
+            <button class="q-btn" id="btn-mode-2" style="font-size: 1.2rem; padding: 20px; text-align: left;">🔥 Joc 2: La Moniata Estelada</button>
         </div>
     </div>
 
@@ -167,7 +167,7 @@
         
         document.getElementById('btn-mode-2').addEventListener('click', () => {
             gameMode = 2;
-            document.getElementById('title-text').innerText = '🔥 Tir al Moniato 2';
+            document.getElementById('title-text').innerText = '🔥 La Moniata Estelada';
             document.getElementById('mode-modal').style.display = 'none';
             document.getElementById('game-container').style.backgroundImage = "url('assets/diana2_juego2.webp')";
             bgImg.src = 'assets/diana2_juego2.webp';
@@ -484,33 +484,34 @@
         function drawQuillAndSplat(octx, x, y, size, isCorrect, index, drawObject = true) {
             octx.save();
             
-            const splatColor = isCorrect ? "#0033cc" : "#cc0000"; 
-            octx.fillStyle = splatColor;
-            
-            const splatRadius = size * 0.8;
             const seed = (index * 123.456) % 100;
-            octx.beginPath();
-            octx.arc(x, y, splatRadius * 0.6, 0, Math.PI * 2);
-            octx.fill();
-            
-            for (let i = 0; i < 7; i++) {
-                const angle = (i * Math.PI * 2) / 7 + seed;
-                const dropDist = splatRadius * (0.9 + ((seed + i) % 5) / 10);
-                const dropSize = splatRadius * 0.35 * (1 - (i % 3) * 0.2);
-                
-                octx.beginPath();
-                octx.arc(x + Math.cos(angle) * dropDist, y + Math.sin(angle) * dropDist, dropSize, 0, Math.PI * 2);
-                octx.fill();
-                
-                octx.beginPath();
-                octx.moveTo(x, y);
-                octx.lineTo(x + Math.cos(angle) * dropDist, y + Math.sin(angle) * dropDist);
-                octx.strokeStyle = splatColor;
-                octx.lineWidth = dropSize * 0.8;
-                octx.stroke();
-            }
 
             if (drawObject) {
+                const splatColor = isCorrect ? "#0033cc" : "#cc0000"; 
+                octx.fillStyle = splatColor;
+                
+                const splatRadius = size * 0.8;
+                octx.beginPath();
+                octx.arc(x, y, splatRadius * 0.6, 0, Math.PI * 2);
+                octx.fill();
+                
+                for (let i = 0; i < 7; i++) {
+                    const angle = (i * Math.PI * 2) / 7 + seed;
+                    const dropDist = splatRadius * (0.9 + ((seed + i) % 5) / 10);
+                    const dropSize = splatRadius * 0.35 * (1 - (i % 3) * 0.2);
+                    
+                    octx.beginPath();
+                    octx.arc(x + Math.cos(angle) * dropDist, y + Math.sin(angle) * dropDist, dropSize, 0, Math.PI * 2);
+                    octx.fill();
+                    
+                    octx.beginPath();
+                    octx.moveTo(x, y);
+                    octx.lineTo(x + Math.cos(angle) * dropDist, y + Math.sin(angle) * dropDist);
+                    octx.strokeStyle = splatColor;
+                    octx.lineWidth = dropSize * 0.8;
+                    octx.stroke();
+                }
+
                 octx.translate(x, y);
                 const rotations = [-Math.PI/6, -Math.PI/4, -Math.PI/12, -Math.PI/3];
                 const rot = rotations[index % rotations.length] || -Math.PI/4;
@@ -550,6 +551,72 @@
                 octx.closePath();
                 octx.fillStyle = splatColor;
                 octx.fill();
+            } else {
+                // Tinta realista para la imagen final
+                octx.globalCompositeOperation = "multiply"; // La tinta "tinta" el papel oscureciéndolo
+                
+                // Azul índigo intenso si acierta, rojo carmesí oscuro si falla
+                const baseRGB = isCorrect ? "10, 30, 110" : "130, 10, 20";
+                
+                const splatRadius = size * 2.8; // Mancha mucho más grande
+                octx.translate(x, y);
+                octx.rotate(seed); // Orientación completamente aleatoria
+                
+                // 1. Mancha absorbida (borde suave e irregular)
+                octx.fillStyle = `rgba(${baseRGB}, 0.35)`;
+                octx.beginPath();
+                for (let i = 0; i < 12; i++) {
+                    const angle = (i * Math.PI * 2) / 12;
+                    const r = splatRadius * 0.7 * (0.7 + ((seed * i) % 6) / 10);
+                    if (i === 0) octx.moveTo(Math.cos(angle) * r, Math.sin(angle) * r);
+                    else octx.bezierCurveTo(
+                        Math.cos(angle - 0.2) * r, Math.sin(angle - 0.2) * r,
+                        Math.cos(angle) * r, Math.sin(angle) * r,
+                        Math.cos(angle) * r, Math.sin(angle) * r
+                    );
+                }
+                octx.closePath();
+                octx.fill();
+                
+                // 2. Núcleo denso y oscuro de la mancha
+                octx.fillStyle = `rgba(${baseRGB}, 0.85)`;
+                octx.beginPath();
+                for (let i = 0; i < 9; i++) {
+                    const angle = (i * Math.PI * 2) / 9;
+                    const r = splatRadius * 0.45 * (0.5 + ((seed * i * 3) % 8) / 10);
+                    if (i === 0) octx.moveTo(Math.cos(angle) * r, Math.sin(angle) * r);
+                    else octx.lineTo(Math.cos(angle) * r, Math.sin(angle) * r);
+                }
+                octx.closePath();
+                octx.fill();
+
+                // 3. Salpicaduras dinámicas y gotas explosivas
+                const drops = 15 + (seed % 12); // Entre 15 y 27 gotas
+                for (let i = 0; i < drops; i++) {
+                    const angle = (i * Math.PI * 2) / drops + ((seed * i) % 1);
+                    const dist = splatRadius * (0.3 + ((seed * i * 7) % 15) / 10); // Variación de distancia
+                    const dropSize = splatRadius * 0.15 * (1 - ((seed * i) % 8) / 10);
+                    
+                    const dropX = Math.cos(angle) * dist;
+                    const dropY = Math.sin(angle) * dist;
+                    
+                    // Gota individual
+                    octx.fillStyle = `rgba(${baseRGB}, ${0.5 + ((seed * i) % 5) / 10})`; // Opacidad aleatoria
+                    octx.beginPath();
+                    octx.arc(dropX, dropY, dropSize, 0, Math.PI * 2);
+                    octx.fill();
+                    
+                    // Estelas/Rastros que conectan algunas gotas al centro (efecto salpicadura fuerte)
+                    if (dist > splatRadius * 0.5 && dropSize > splatRadius * 0.04) {
+                        octx.strokeStyle = `rgba(${baseRGB}, 0.45)`;
+                        octx.lineWidth = dropSize * 0.7;
+                        octx.lineCap = "round";
+                        octx.beginPath();
+                        octx.moveTo(dropX * 0.4, dropY * 0.4); // Empieza cerca del centro
+                        octx.lineTo(dropX, dropY); // Termina en la gota
+                        octx.stroke();
+                    }
+                }
             }
 
             octx.restore();
@@ -653,42 +720,60 @@
                 octx.quadraticCurveTo(size * 0.2, -size * 0.6, size * 0.1, -size * 0.4);
                 octx.fill();
             } else {
-                // Llamas saliendo del agujero
-                // Ligeras variaciones en el ángulo de la llama para que no sean todas idénticas
-                const tilt = (seed % 3 - 1) * 0.15; // -0.15, 0, 0.15
+                // Realistic Fire for the final image
+                octx.save();
+                octx.globalCompositeOperation = "lighter"; // Hace que el fuego se fusione de forma luminosa con el fondo
+                
+                const tilt = (seed % 3 - 1) * 0.15;
                 octx.rotate(tilt);
                 
-                // Fuego base
-                octx.fillStyle = "rgba(255, 69, 0, 0.8)"; // Naranja rojizo
-                octx.beginPath();
-                octx.arc(0, 0, size * 0.4, 0, Math.PI*2);
-                octx.fill();
+                const fireScale = size * 3.5; // Fuego mucho más grande
                 
-                octx.fillStyle = "rgba(255, 140, 0, 0.9)"; // Naranja claro
+                // Resplandor naranja base en el agujero
+                octx.shadowColor = "#ff4500";
+                octx.shadowBlur = fireScale * 0.5;
+                octx.fillStyle = "rgba(255, 69, 0, 0.5)";
                 octx.beginPath();
-                octx.arc(0, size * 0.05, size * 0.25, 0, Math.PI*2);
+                octx.arc(0, 0, fireScale * 0.3, 0, Math.PI*2);
                 octx.fill();
+                octx.shadowBlur = 0;
+
+                // Múltiples capas de llamas (rojo oscuro -> amarillo -> blanco)
+                for (let i = 0; i < 5; i++) {
+                    const fWidth = fireScale * (0.5 - i * 0.08);
+                    const fHeight = fireScale * (1.2 - i * 0.2) + (((seed * 11 + i * 3) % 100) / 100) * fireScale * 0.5;
+                    const offsetX = (((seed * 17 + i * 5) % 100) / 100) * fireScale * 0.4 - fireScale * 0.2;
+                    
+                    octx.beginPath();
+                    octx.moveTo(offsetX - fWidth, 0);
+                    // Curvas de bezier para simular la forma irregular y ondulante de una llama real
+                    octx.bezierCurveTo(offsetX - fWidth, -fHeight * 0.4, offsetX - fWidth * 0.2, -fHeight * 0.7, offsetX, -fHeight);
+                    octx.bezierCurveTo(offsetX + fWidth * 0.2, -fHeight * 0.7, offsetX + fWidth, -fHeight * 0.4, offsetX + fWidth, 0);
+                    
+                    // Gradiente que se desvanece hacia arriba
+                    const grad = octx.createLinearGradient(0, 0, 0, -fHeight);
+                    if (i === 0) {
+                        grad.addColorStop(0, "rgba(200, 0, 0, 0.7)");
+                        grad.addColorStop(1, "rgba(255, 0, 0, 0)");
+                    } else if (i === 1) {
+                        grad.addColorStop(0, "rgba(255, 60, 0, 0.8)");
+                        grad.addColorStop(1, "rgba(255, 0, 0, 0)");
+                    } else if (i === 2) {
+                        grad.addColorStop(0, "rgba(255, 140, 0, 0.9)");
+                        grad.addColorStop(1, "rgba(255, 50, 0, 0)");
+                    } else if (i === 3) {
+                        grad.addColorStop(0, "rgba(255, 220, 0, 0.9)");
+                        grad.addColorStop(1, "rgba(255, 100, 0, 0)");
+                    } else {
+                        grad.addColorStop(0, "rgba(255, 255, 220, 1)");
+                        grad.addColorStop(1, "rgba(255, 200, 0, 0)");
+                    }
+                    
+                    octx.fillStyle = grad;
+                    octx.fill();
+                }
                 
-                octx.fillStyle = "rgba(255, 255, 0, 0.9)"; // Amarillo
-                octx.beginPath();
-                octx.arc(0, size * 0.1, size * 0.15, 0, Math.PI*2);
-                octx.fill();
-                
-                // Llama principal subiendo
-                octx.fillStyle = "rgba(255, 69, 0, 0.7)";
-                octx.beginPath();
-                octx.moveTo(-size * 0.3, 0);
-                octx.quadraticCurveTo(-size * 0.5, -size * 0.8, 0, -size * 1.5);
-                octx.quadraticCurveTo(size * 0.5, -size * 0.8, size * 0.3, 0);
-                octx.fill();
-                
-                // Llama interior
-                octx.fillStyle = "rgba(255, 140, 0, 0.6)";
-                octx.beginPath();
-                octx.moveTo(-size * 0.2, 0);
-                octx.quadraticCurveTo(-size * 0.3, -size * 0.5, 0, -size * 1.0);
-                octx.quadraticCurveTo(size * 0.3, -size * 0.5, size * 0.2, 0);
-                octx.fill();
+                octx.restore();
             }
 
             octx.restore();
@@ -735,7 +820,7 @@
             octx.font = `bold ${fontSize}px sans-serif`;
             octx.textAlign = "center";
             octx.textBaseline = "middle";
-            const scoreText = gameMode === 1 ? `Puntuació al Tir al Moniato 1: ${totalScore} punts!` : `Puntuació al Tir al Moniato 2: ${totalScore} punts!`;
+            const scoreText = gameMode === 1 ? `Puntuació al Tir al Moniato 1: ${totalScore} punts!` : `Puntuació a La Moniata Estelada: ${totalScore} punts!`;
             octx.fillText(scoreText, offCanvas.width/2, offCanvas.height - (barHeight / 2));
 
             return offCanvas;
@@ -755,7 +840,7 @@
         document.getElementById('btn-share').addEventListener('click', async (e) => {
             e.stopPropagation();
             const offCanvas = generateMoniatoImage();
-            const shareTitle = gameMode === 1 ? '🪶 Tir al Moniato 1' : '🔥 Tir al Moniato 2';
+            const shareTitle = gameMode === 1 ? '🪶 Tir al Moniato 1' : '🔥 La Moniata Estelada';
             const shareText = `He fet ${totalScore} punts al "${shareTitle}" de Valencianismo Radio! ¿Pots superar-ho? Juga ací: https://valencianismo.com`;
             
             if (navigator.canShare) {
