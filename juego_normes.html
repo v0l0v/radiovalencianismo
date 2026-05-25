@@ -234,7 +234,7 @@
             frozenX = aimX;
             frozenY = aimY;
             
-            showMessage("¡APUNTAT!", "#ffd700");
+            showMessage("¡APUNTA BÉ, ÉS FUSTER!", "#ffd700");
             
             setTimeout(() => {
                 document.getElementById('msg-text').style.display = 'none';
@@ -298,7 +298,7 @@
                 dartY += Math.sin(angle) * offset;
                 showMessage("¡HAS FALLAT!", "#ff2a2a");
             } else {
-                showMessage("¡DIANA PERFECTA!", "#00d2ff");
+                showMessage("¡AHÍ LI DOL!", "#00d2ff");
             }
             
             darts.push({x: dartX, y: dartY, correct: isCorrect});
