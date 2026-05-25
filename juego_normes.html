@@ -79,7 +79,7 @@
 </head>
 <body>
     <div class="ui">
-        <h1 style="color: #ffd700; margin: 0 0 5px 0;">🎯 Tir al Moniato</h1>
+        <h1 style="color: #ffd700; margin: 0 0 5px 0;">🪶 Tir al Moniato</h1>
         <p style="margin: 0; color: #ccc;">Apunta, dispara i demostra els teus coneiximents.<br>Tens 9 intents. ¡Encerta el centre (9 punts) per a fer la màxima puntuació!</p>
         <div class="score-board" id="scoreboard">
             <!-- 9 indicators -->
@@ -211,15 +211,9 @@
                 ctx.stroke();
             }
             
-            // Draw darts
-            darts.forEach(d => {
-                ctx.beginPath();
-                ctx.arc(d.x, d.y, 6, 0, Math.PI*2);
-                ctx.fillStyle = d.correct ? "#00ff00" : "#ff2a2a";
-                ctx.fill();
-                ctx.strokeStyle = "#fff";
-                ctx.lineWidth = 2;
-                ctx.stroke();
+            // Draw plumas y tinta
+            darts.forEach((d, idx) => {
+                drawQuillAndSplat(ctx, d.x, d.y, 22, d.correct, idx);
             });
 
             // Draw Crosshair
@@ -454,97 +448,84 @@
         });
         resizeObserver.observe(container);
         
-        function drawCartoonDart(octx, x, y, size, index) {
+        function drawQuillAndSplat(octx, x, y, size, isCorrect, index) {
             octx.save();
             
-            // Impact spark at tip
-            octx.strokeStyle = "#ffcc00";
-            octx.lineWidth = size * 0.1;
+            // Tinta azul (blau) para aciertos, roja para fallos
+            const splatColor = isCorrect ? "#0033cc" : "#cc0000"; 
+            octx.fillStyle = splatColor;
+            
+            const splatRadius = size * 0.8;
+            
+            // Mancha principal
+            const seed = (index * 123.456) % 100;
             octx.beginPath();
-            for (let i = 0; i < 8; i++) {
-                let sparkAngle = (i * Math.PI) / 4;
-                let startLen = size * 0.15;
-                let endLen = size * 0.4;
-                octx.moveTo(x + Math.cos(sparkAngle) * startLen, y + Math.sin(sparkAngle) * startLen);
-                octx.lineTo(x + Math.cos(sparkAngle) * endLen, y + Math.sin(sparkAngle) * endLen);
+            octx.arc(x, y, splatRadius * 0.6, 0, Math.PI * 2);
+            octx.fill();
+            
+            // Gotas esparcidas
+            for (let i = 0; i < 7; i++) {
+                const angle = (i * Math.PI * 2) / 7 + seed;
+                const dropDist = splatRadius * (0.9 + ((seed + i) % 5) / 10);
+                const dropSize = splatRadius * 0.35 * (1 - (i % 3) * 0.2);
+                
+                octx.beginPath();
+                octx.arc(x + Math.cos(angle) * dropDist, y + Math.sin(angle) * dropDist, dropSize, 0, Math.PI * 2);
+                octx.fill();
+                
+                octx.beginPath();
+                octx.moveTo(x, y);
+                octx.lineTo(x + Math.cos(angle) * dropDist, y + Math.sin(angle) * dropDist);
+                octx.strokeStyle = splatColor;
+                octx.lineWidth = dropSize * 0.8;
+                octx.stroke();
             }
-            octx.stroke();
 
-            // Set up placement and angle (rotation)
+            // Dibujar pluma
             octx.translate(x, y);
             const rotations = [-Math.PI/6, -Math.PI/4, -Math.PI/12, -Math.PI/3];
-            const rot = rotations[index % rotations.length];
+            const rot = rotations[index % rotations.length] || -Math.PI/4;
             octx.rotate(rot);
-
-            octx.lineCap = "round";
-            octx.lineJoin = "round";
-
-            // Tail fins (Senyera/Valencian colors!)
-            // Red Fin (top)
-            octx.fillStyle = "#ff2a2a";
-            octx.beginPath();
-            octx.moveTo(size * 1.2, 0);
-            octx.lineTo(size * 1.9, size * 0.5);
-            octx.lineTo(size * 2.2, size * 0.4);
-            octx.lineTo(size * 1.5, 0);
-            octx.closePath();
-            octx.fill();
-            octx.strokeStyle = "#000";
-            octx.lineWidth = size * 0.08;
-            octx.stroke();
-
-            // Yellow Fin (bottom)
-            octx.fillStyle = "#ffd700";
-            octx.beginPath();
-            octx.moveTo(size * 1.2, 0);
-            octx.lineTo(size * 1.9, -size * 0.5);
-            octx.lineTo(size * 2.2, -size * 0.4);
-            octx.lineTo(size * 1.5, 0);
-            octx.closePath();
-            octx.fill();
-            octx.strokeStyle = "#000";
-            octx.lineWidth = size * 0.08;
-            octx.stroke();
-
-            // Center flight rib
-            octx.beginPath();
-            octx.moveTo(size * 1.1, 0);
-            octx.lineTo(size * 2.1, 0);
-            octx.strokeStyle = "#000";
-            octx.lineWidth = size * 0.12;
-            octx.stroke();
-
-            // Metal body (shaft) - cartoonish slightly curved
-            octx.fillStyle = "#cbd5e1";
+            
+            // Base de la pluma (blanca)
+            octx.fillStyle = "#f8f9fa";
+            octx.strokeStyle = "#e9ecef";
+            octx.lineWidth = size * 0.05;
+            
+            // Lado izquierdo
             octx.beginPath();
             octx.moveTo(0, 0);
-            octx.quadraticCurveTo(size * 0.4, size * 0.15, size * 1.2, 0);
-            octx.lineTo(size * 1.2, -size * 0.1);
-            octx.quadraticCurveTo(size * 0.4, size * 0.05, 0, 0);
+            octx.quadraticCurveTo(size * 0.5, -size * 0.2, size * 2.5, -size * 2.5);
+            octx.quadraticCurveTo(size * 0.8, -size * 1.5, size * 0.2, -size * 0.5);
             octx.closePath();
             octx.fill();
-            octx.strokeStyle = "#000";
+            octx.stroke();
+            
+            // Lado derecho
+            octx.beginPath();
+            octx.moveTo(0, 0);
+            octx.quadraticCurveTo(size * 0.2, -size * 0.5, size * 2.5, -size * 2.5);
+            octx.quadraticCurveTo(size * 1.5, -size * 0.8, size * 0.5, -size * 0.2);
+            octx.closePath();
+            octx.fill();
+            octx.stroke();
+            
+            // Tallo central
+            octx.beginPath();
+            octx.moveTo(0, 0);
+            octx.quadraticCurveTo(size * 1.0, -size * 1.0, size * 2.5, -size * 2.5);
+            octx.strokeStyle = "#dee2e6";
             octx.lineWidth = size * 0.08;
             octx.stroke();
 
-            // Brass joint ring
-            octx.fillStyle = "#fbbf24";
+            // Punta manchada de tinta
             octx.beginPath();
-            octx.arc(size * 0.8, 0, size * 0.12, 0, Math.PI*2);
+            octx.moveTo(0, 0);
+            octx.lineTo(size * 0.3, -size * 0.1);
+            octx.lineTo(size * 0.1, -size * 0.3);
+            octx.closePath();
+            octx.fillStyle = splatColor;
             octx.fill();
-            octx.strokeStyle = "#000";
-            octx.lineWidth = size * 0.06;
-            octx.stroke();
-
-            // Comic vibration lines ("boing")
-            octx.strokeStyle = "#000";
-            octx.lineWidth = size * 0.05;
-            octx.beginPath();
-            octx.arc(size * 1.6, size * 0.7, size * 0.25, Math.PI * 1.2, Math.PI * 1.8);
-            octx.stroke();
-            octx.beginPath();
-            octx.arc(size * 1.6, -size * 0.7, size * 0.25, Math.PI * 0.2, Math.PI * 0.8);
-            octx.stroke();
 
             octx.restore();
         }
@@ -569,13 +550,11 @@
             const offsetY = (H - scaledH) / 2;
             
             darts.forEach((d, idx) => {
-                if (d.correct) {
-                    const imgX = (d.x - offsetX) / scale;
-                    const imgY = (d.y - offsetY) / scale;
-                    const size = offCanvas.width * 0.04; // comic dart size
-                    
-                    drawCartoonDart(octx, imgX, imgY, size, idx);
-                }
+                const imgX = (d.x - offsetX) / scale;
+                const imgY = (d.y - offsetY) / scale;
+                const size = offCanvas.width * 0.04; // pluma size
+                
+                drawQuillAndSplat(octx, imgX, imgY, size, d.correct, idx);
             });
             
             const barHeight = Math.floor(offCanvas.height * 0.12);
@@ -607,7 +586,7 @@
         document.getElementById('btn-share').addEventListener('click', async (e) => {
             e.stopPropagation();
             const offCanvas = generateMoniatoImage();
-            const shareText = `🎯 He fet ${totalScore} punts al "Tir al Moniato" de Valencianismo Radio! ¿Pots superar-ho? Juga ací: https://valencianismo.com`;
+            const shareText = `🪶 He fet ${totalScore} punts al "Tir al Moniato" de Valencianismo Radio! ¿Pots superar-ho? Juga ací: https://valencianismo.com`;
             
             if (navigator.canShare) {
                 offCanvas.toBlob(async (blob) => {
