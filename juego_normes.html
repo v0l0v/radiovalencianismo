@@ -133,9 +133,11 @@
         let darts = [];
         let aimTimer = null;
         let hasBeenWarned = false;
+        let aimStartTime = 0;
         
         function startAim() {
             isAiming = true;
+            aimStartTime = Date.now();
             clearTimeout(aimTimer);
             aimTimer = setTimeout(() => {
                 if (!isAiming) return;
@@ -212,6 +214,14 @@
 
             // Draw Crosshair
             if (isAiming) {
+                // Countdown timer
+                const timeLeft = Math.max(0, 5 - Math.floor((Date.now() - aimStartTime) / 1000));
+                ctx.fillStyle = "rgba(255, 255, 255, 0.4)";
+                ctx.font = "bold " + (radiusStep * 1.5) + "px sans-serif";
+                ctx.textAlign = "center";
+                ctx.textBaseline = "middle";
+                ctx.fillText(timeLeft, W/2, H/2);
+                
                 // Lissajous movement
                 aimX = W/2 + Math.sin(time * 0.03) * (maxRadius * 0.9);
                 aimY = H/2 + Math.cos(time * 0.043) * (maxRadius * 0.9);
@@ -379,7 +389,15 @@
                 }, 1500);
             } else {
                 setTimeout(() => {
-                    startAim();
+                    if (isTimeout) {
+                        const onMoveTimeout = () => {
+                            canvas.removeEventListener('mousemove', onMoveTimeout);
+                            startAim();
+                        };
+                        canvas.addEventListener('mousemove', onMoveTimeout);
+                    } else {
+                        startAim();
+                    }
                 }, 1500);
             }
         }
