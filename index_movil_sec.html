@@ -347,6 +347,9 @@
             <div class="history-footer" style="text-align: center; margin-top: 15px; opacity: 0.3; display: flex; justify-content: center; gap: 15px;">
                 <svg id="easter-egg-zap" viewBox="0 0 24 24" style="width: 16px; height: 16px; cursor: pointer;"><path fill="#FFD700" d="M7,2V13H10V22L17,10H13L17,2H7Z" /></svg>
                 <svg id="easter-egg-cd" viewBox="0 0 24 24" style="width: 16px; height: 16px; cursor: pointer;"><path id="cd-icon-path" fill="#ccc" d="M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2M12,16.5C9.5,16.5 7.5,14.5 7.5,12C7.5,9.5 9.5,7.5 12,7.5C14.5,7.5 16.5,9.5 16.5,12C16.5,14.5 14.5,16.5 12,16.5M12,10.5C11.17,10.5 10.5,11.17 10.5,12C10.5,12.83 11.17,13.5 12,13.5C12.83,13.5 13.5,12.83 13.5,12C13.5,11.17 12.83,10.5 12,10.5Z" /></svg>
+                <svg id="easter-egg-joc" viewBox="0 0 24 24" style="width: 16px; height: 16px; cursor: pointer;" title="Tir al Moniato (Juego)" onclick="document.getElementById('game-modal').classList.add('active')">
+                    <path fill="#ffd700" d="M19.59 3.41a3 3 0 0 0-4.24 0L9 9.76l-1.59-1.59a1 1 0 0 0-1.41 1.41l1.59 1.59-3.3 3.3a1 1 0 0 0-.22.33L3 18.12V21h2.88l3.32-1.07a1 1 0 0 0 .33-.22l3.3-3.3 1.59 1.59a1 1 0 0 0 1.41-1.41l-1.59-1.59 6.35-6.35a3 3 0 0 0 0-4.24zm-6.35 9.17l-1.41-1.41 5.65-5.65 1.41 1.41-5.65 5.65z" />
+                </svg>
             </div>
         </div>
     </div>
@@ -1075,6 +1078,17 @@ La Real Acadèmia de Cultura Valenciana reafirma, una volta més, el seu comprom
         </div>
     </div>
 
-</body>
+    <!-- Huevo de Pascua: Modal del Juego de las Normes -->
+    <div id="game-modal" class="modern-modal" onclick="document.getElementById('game-modal').classList.remove('active')">
+        <div class="modal-content" onclick="event.stopPropagation()" style="width: 95vw; max-width: 650px; height: 90vh; max-height: 850px; padding: 0; background: transparent; box-shadow: none; border: none; display: flex; flex-direction: column;">
+            <div style="background: rgba(10, 10, 15, 0.95); border: 2px solid #ffd700; border-radius: 20px; overflow: hidden; flex: 1; display: flex; flex-direction: column; box-shadow: 0 0 50px rgba(0,0,0,0.8);">
+                <div style="display: flex; justify-content: flex-end; padding: 12px; background: rgba(0,0,0,0.5); border-bottom: 1px solid rgba(255,215,0,0.3);">
+                    <button onclick="document.getElementById('game-modal').classList.remove('active')" style="background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); width: 35px; height: 35px; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; font-weight: bold; transition: all 0.2s;">✕</button>
+                </div>
+                <iframe src="juego_normes.html?v=4" style="width: 100%; height: 100%; border: none;" allow="web-share"></iframe>
+            </div>
+        </div>
+    </div>
 
+</body>
 </html>
