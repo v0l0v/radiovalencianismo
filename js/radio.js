@@ -322,7 +322,16 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     if (vinylBtn) {
-        vinylBtn.addEventListener('click', () => {
+        let clickTimer;
+        vinylBtn.addEventListener('click', (e) => {
+            if (e.detail === 1) {
+                clickTimer = setTimeout(() => {
+                    vinylWrapper.classList.toggle('paused-by-user');
+                }, 250);
+            }
+        });
+        vinylBtn.addEventListener('dblclick', (e) => {
+            clearTimeout(clickTimer);
             document.querySelector('.history-panel').classList.toggle('active');
         });
     }

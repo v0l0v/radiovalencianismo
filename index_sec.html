@@ -607,7 +607,7 @@
                     </div>
                     <!-- Tooltip premium personalizado -->
                     <div class="custom-vinyl-tooltip" style="position: absolute; bottom: -45px; left: 50%; transform: translateX(-50%); background: rgba(10, 10, 15, 0.9); backdrop-filter: blur(8px); border: 1px solid rgba(255, 215, 0, 0.45); padding: 6px 14px; border-radius: 20px; font-size: 0.75rem; color: #ffd700; font-weight: 700; white-space: nowrap; pointer-events: none; opacity: 0; visibility: hidden; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); z-index: 100; box-shadow: 0 4px 15px rgba(255, 215, 0, 0.3); text-transform: uppercase; letter-spacing: 0.5px;">
-                        Ver el historial de las últimas canciones reproducidas
+                        CLIC: PARAR/GIRAR • DOBLE CLIC: INFO DISCO
                     </div>
                 </div>
 
@@ -671,7 +671,7 @@
 
             <div class="history-panel" id="history-panel">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px;">
-                    <h3 style="margin: 0; border: none; padding: 0; font-size: 1.1rem; color: #ffd700; font-weight: 800;">HISTORIAL</h3>
+                    <h3 style="margin: 0; border: none; padding: 0; font-size: 1.1rem; color: #ffd700; font-weight: 800;">INFORMACIÓN</h3>
                     <div id="collapse-history-btn" style="width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.2);" title="Plegar historial" onclick="document.querySelector('.history-panel').classList.remove('active');">
                         <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: none; stroke: #fff; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;">
                             <polyline points="7 13 12 18 17 13"></polyline>
@@ -679,7 +679,16 @@
                         </svg>
                     </div>
                 </div>
-                <ul class="modern-history-list" id="history-list"></ul>
+                
+                <div id="track-info-container" style="display: flex; flex-direction: column; align-items: center; gap: 15px; text-align: center; margin-top: 10px; margin-bottom: 20px;">
+                    <img id="info-cover" src="assets/logoVR.png" style="width: 140px; height: 140px; border-radius: 15px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); object-fit: cover;">
+                    <div style="flex: 1;">
+                        <h4 id="info-title" style="margin: 0 0 5px 0; font-size: 1.2rem; font-weight: bold; color: #fff;">Cargando...</h4>
+                        <p id="info-artist" style="margin: 0; font-size: 1rem; color: #ffd700; opacity: 0.8;">Valencianismo Radio</p>
+                    </div>
+                </div>
+                
+                <ul class="modern-history-list" id="history-list" style="display:none;"></ul>
                 <div class="history-footer" style="text-align: center; margin-top: 15px; opacity: 0.3; display: flex; justify-content: center; gap: 15px;">
                     <svg id="easter-egg-zap" viewBox="0 0 24 24" style="width: 16px; height: 16px; cursor: pointer;" title="Zap Sim">
                         <path fill="#FFD700" d="M7,2V13H10V22L17,10H13L17,2H7Z" />
