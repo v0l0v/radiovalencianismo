@@ -481,7 +481,7 @@
         });
         resizeObserver.observe(container);
         
-        function drawQuillAndSplat(octx, x, y, size, isCorrect, index) {
+        function drawQuillAndSplat(octx, x, y, size, isCorrect, index, drawObject = true) {
             octx.save();
             
             const splatColor = isCorrect ? "#0033cc" : "#cc0000"; 
@@ -510,50 +510,52 @@
                 octx.stroke();
             }
 
-            octx.translate(x, y);
-            const rotations = [-Math.PI/6, -Math.PI/4, -Math.PI/12, -Math.PI/3];
-            const rot = rotations[index % rotations.length] || -Math.PI/4;
-            octx.rotate(rot);
-            
-            octx.fillStyle = "#f8f9fa";
-            octx.strokeStyle = "#e9ecef";
-            octx.lineWidth = size * 0.05;
-            
-            octx.beginPath();
-            octx.moveTo(0, 0);
-            octx.quadraticCurveTo(size * 0.5, -size * 0.2, size * 2.5, -size * 2.5);
-            octx.quadraticCurveTo(size * 0.8, -size * 1.5, size * 0.2, -size * 0.5);
-            octx.closePath();
-            octx.fill();
-            octx.stroke();
-            
-            octx.beginPath();
-            octx.moveTo(0, 0);
-            octx.quadraticCurveTo(size * 0.2, -size * 0.5, size * 2.5, -size * 2.5);
-            octx.quadraticCurveTo(size * 1.5, -size * 0.8, size * 0.5, -size * 0.2);
-            octx.closePath();
-            octx.fill();
-            octx.stroke();
-            
-            octx.beginPath();
-            octx.moveTo(0, 0);
-            octx.quadraticCurveTo(size * 1.0, -size * 1.0, size * 2.5, -size * 2.5);
-            octx.strokeStyle = "#dee2e6";
-            octx.lineWidth = size * 0.08;
-            octx.stroke();
+            if (drawObject) {
+                octx.translate(x, y);
+                const rotations = [-Math.PI/6, -Math.PI/4, -Math.PI/12, -Math.PI/3];
+                const rot = rotations[index % rotations.length] || -Math.PI/4;
+                octx.rotate(rot);
+                
+                octx.fillStyle = "#f8f9fa";
+                octx.strokeStyle = "#e9ecef";
+                octx.lineWidth = size * 0.05;
+                
+                octx.beginPath();
+                octx.moveTo(0, 0);
+                octx.quadraticCurveTo(size * 0.5, -size * 0.2, size * 2.5, -size * 2.5);
+                octx.quadraticCurveTo(size * 0.8, -size * 1.5, size * 0.2, -size * 0.5);
+                octx.closePath();
+                octx.fill();
+                octx.stroke();
+                
+                octx.beginPath();
+                octx.moveTo(0, 0);
+                octx.quadraticCurveTo(size * 0.2, -size * 0.5, size * 2.5, -size * 2.5);
+                octx.quadraticCurveTo(size * 1.5, -size * 0.8, size * 0.5, -size * 0.2);
+                octx.closePath();
+                octx.fill();
+                octx.stroke();
+                
+                octx.beginPath();
+                octx.moveTo(0, 0);
+                octx.quadraticCurveTo(size * 1.0, -size * 1.0, size * 2.5, -size * 2.5);
+                octx.strokeStyle = "#dee2e6";
+                octx.lineWidth = size * 0.08;
+                octx.stroke();
 
-            octx.beginPath();
-            octx.moveTo(0, 0);
-            octx.lineTo(size * 0.3, -size * 0.1);
-            octx.lineTo(size * 0.1, -size * 0.3);
-            octx.closePath();
-            octx.fillStyle = splatColor;
-            octx.fill();
+                octx.beginPath();
+                octx.moveTo(0, 0);
+                octx.lineTo(size * 0.3, -size * 0.1);
+                octx.lineTo(size * 0.1, -size * 0.3);
+                octx.closePath();
+                octx.fillStyle = splatColor;
+                octx.fill();
+            }
 
             octx.restore();
         }
 
-        function drawFlamingArrowAndBurnHole(octx, x, y, size, isCorrect, index) {
+        function drawFlamingArrowAndBurnHole(octx, x, y, size, isCorrect, index, drawObject = true) {
             octx.save();
             
             // Agujero quemado
@@ -589,65 +591,105 @@
                 octx.fill();
             }
 
-            // Flecha clavada
             octx.translate(x, y);
-            const rotations = [-Math.PI/6, -Math.PI/4, -Math.PI/12, -Math.PI/3];
-            const rot = rotations[index % rotations.length] || -Math.PI/4;
-            octx.rotate(rot);
-            
-            // Palo de madera
-            octx.beginPath();
-            octx.moveTo(0, 0);
-            octx.lineTo(size * 2.5, -size * 2.5);
-            octx.strokeStyle = "#4a2a10";
-            octx.lineWidth = size * 0.12;
-            octx.lineCap = "round";
-            octx.stroke();
 
-            // Plumas de la flecha (cola)
-            octx.fillStyle = "#cccccc";
-            octx.beginPath();
-            octx.moveTo(size * 2.0, -size * 2.0);
-            octx.lineTo(size * 2.7, -size * 1.7);
-            octx.lineTo(size * 2.4, -size * 2.4);
-            octx.fill();
-            
-            octx.beginPath();
-            octx.moveTo(size * 2.0, -size * 2.0);
-            octx.lineTo(size * 1.7, -size * 2.7);
-            octx.lineTo(size * 2.4, -size * 2.4);
-            octx.fill();
-            
-            // Fuego intenso en la punta clavada
-            octx.fillStyle = "rgba(255, 69, 0, 0.8)"; // Naranja rojizo
-            octx.beginPath();
-            octx.arc(size * 0.2, -size * 0.2, size * 0.4, 0, Math.PI*2);
-            octx.fill();
-            
-            octx.fillStyle = "rgba(255, 140, 0, 0.9)"; // Naranja claro
-            octx.beginPath();
-            octx.arc(size * 0.1, -size * 0.1, size * 0.25, 0, Math.PI*2);
-            octx.fill();
-            
-            octx.fillStyle = "rgba(255, 255, 0, 0.9)"; // Amarillo
-            octx.beginPath();
-            octx.arc(0, 0, size * 0.15, 0, Math.PI*2);
-            octx.fill();
-            
-            // Llama que sube por el palo
-            octx.fillStyle = "rgba(255, 69, 0, 0.7)";
-            octx.beginPath();
-            octx.moveTo(size * 0.4, -size * 0.4);
-            octx.quadraticCurveTo(size * 0.8, -size * 0.1, size * 1.2, -size * 1.2);
-            octx.quadraticCurveTo(size * 0.3, -size * 0.8, size * 0.1, -size * 0.5);
-            octx.fill();
-            
-            octx.fillStyle = "rgba(255, 140, 0, 0.6)";
-            octx.beginPath();
-            octx.moveTo(size * 0.3, -size * 0.3);
-            octx.quadraticCurveTo(size * 0.6, -size * 0.2, size * 0.9, -size * 0.9);
-            octx.quadraticCurveTo(size * 0.2, -size * 0.6, size * 0.1, -size * 0.4);
-            octx.fill();
+            if (drawObject) {
+                // Flecha clavada
+                const rotations = [-Math.PI/6, -Math.PI/4, -Math.PI/12, -Math.PI/3];
+                const rot = rotations[index % rotations.length] || -Math.PI/4;
+                octx.rotate(rot);
+                
+                // Palo de madera
+                octx.beginPath();
+                octx.moveTo(0, 0);
+                octx.lineTo(size * 2.5, -size * 2.5);
+                octx.strokeStyle = "#4a2a10";
+                octx.lineWidth = size * 0.12;
+                octx.lineCap = "round";
+                octx.stroke();
+
+                // Plumas de la flecha (cola)
+                octx.fillStyle = "#cccccc";
+                octx.beginPath();
+                octx.moveTo(size * 2.0, -size * 2.0);
+                octx.lineTo(size * 2.7, -size * 1.7);
+                octx.lineTo(size * 2.4, -size * 2.4);
+                octx.fill();
+                
+                octx.beginPath();
+                octx.moveTo(size * 2.0, -size * 2.0);
+                octx.lineTo(size * 1.7, -size * 2.7);
+                octx.lineTo(size * 2.4, -size * 2.4);
+                octx.fill();
+                
+                // Fuego intenso en la punta clavada
+                octx.fillStyle = "rgba(255, 69, 0, 0.8)"; // Naranja rojizo
+                octx.beginPath();
+                octx.arc(size * 0.2, -size * 0.2, size * 0.4, 0, Math.PI*2);
+                octx.fill();
+                
+                octx.fillStyle = "rgba(255, 140, 0, 0.9)"; // Naranja claro
+                octx.beginPath();
+                octx.arc(size * 0.1, -size * 0.1, size * 0.25, 0, Math.PI*2);
+                octx.fill();
+                
+                octx.fillStyle = "rgba(255, 255, 0, 0.9)"; // Amarillo
+                octx.beginPath();
+                octx.arc(0, 0, size * 0.15, 0, Math.PI*2);
+                octx.fill();
+                
+                // Llama que sube por el palo
+                octx.fillStyle = "rgba(255, 69, 0, 0.7)";
+                octx.beginPath();
+                octx.moveTo(size * 0.4, -size * 0.4);
+                octx.quadraticCurveTo(size * 0.8, -size * 0.1, size * 1.2, -size * 1.2);
+                octx.quadraticCurveTo(size * 0.3, -size * 0.8, size * 0.1, -size * 0.5);
+                octx.fill();
+                
+                octx.fillStyle = "rgba(255, 140, 0, 0.6)";
+                octx.beginPath();
+                octx.moveTo(size * 0.3, -size * 0.3);
+                octx.quadraticCurveTo(size * 0.6, -size * 0.2, size * 0.9, -size * 0.9);
+                octx.quadraticCurveTo(size * 0.2, -size * 0.6, size * 0.1, -size * 0.4);
+                octx.fill();
+            } else {
+                // Llamas saliendo del agujero
+                // Ligeras variaciones en el ángulo de la llama para que no sean todas idénticas
+                const tilt = (seed % 3 - 1) * 0.15; // -0.15, 0, 0.15
+                octx.rotate(tilt);
+                
+                // Fuego base
+                octx.fillStyle = "rgba(255, 69, 0, 0.8)"; // Naranja rojizo
+                octx.beginPath();
+                octx.arc(0, 0, size * 0.4, 0, Math.PI*2);
+                octx.fill();
+                
+                octx.fillStyle = "rgba(255, 140, 0, 0.9)"; // Naranja claro
+                octx.beginPath();
+                octx.arc(0, size * 0.05, size * 0.25, 0, Math.PI*2);
+                octx.fill();
+                
+                octx.fillStyle = "rgba(255, 255, 0, 0.9)"; // Amarillo
+                octx.beginPath();
+                octx.arc(0, size * 0.1, size * 0.15, 0, Math.PI*2);
+                octx.fill();
+                
+                // Llama principal subiendo
+                octx.fillStyle = "rgba(255, 69, 0, 0.7)";
+                octx.beginPath();
+                octx.moveTo(-size * 0.3, 0);
+                octx.quadraticCurveTo(-size * 0.5, -size * 0.8, 0, -size * 1.5);
+                octx.quadraticCurveTo(size * 0.5, -size * 0.8, size * 0.3, 0);
+                octx.fill();
+                
+                // Llama interior
+                octx.fillStyle = "rgba(255, 140, 0, 0.6)";
+                octx.beginPath();
+                octx.moveTo(-size * 0.2, 0);
+                octx.quadraticCurveTo(-size * 0.3, -size * 0.5, 0, -size * 1.0);
+                octx.quadraticCurveTo(size * 0.3, -size * 0.5, size * 0.2, 0);
+                octx.fill();
+            }
 
             octx.restore();
         }
@@ -677,9 +719,9 @@
                 const size = offCanvas.width * 0.04; 
                 
                 if (gameMode === 1) {
-                    drawQuillAndSplat(octx, imgX, imgY, size, d.correct, idx);
+                    drawQuillAndSplat(octx, imgX, imgY, size, d.correct, idx, false);
                 } else {
-                    drawFlamingArrowAndBurnHole(octx, imgX, imgY, size, d.correct, idx);
+                    drawFlamingArrowAndBurnHole(octx, imgX, imgY, size, d.correct, idx, false);
                 }
             });
             
