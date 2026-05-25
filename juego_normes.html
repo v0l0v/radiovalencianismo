@@ -134,6 +134,29 @@
         let totalScore = 0;
         const maxAttempts = 9;
         let darts = [];
+        let aimTimer = null;
+        let hasBeenWarned = false;
+        
+        function startAim() {
+            isAiming = true;
+            clearTimeout(aimTimer);
+            aimTimer = setTimeout(() => {
+                if (!isAiming) return;
+                isAiming = false;
+                if (!hasBeenWarned) {
+                    hasBeenWarned = true;
+                    showMessage("¡AFANYA'T!\nTens 5 segons per disparar o fallaràs.", "#ff9900");
+                    setTimeout(() => {
+                        document.getElementById('msg-text').style.display = 'none';
+                        startAim();
+                    }, 3000);
+                } else {
+                    frozenX = W/2;
+                    frozenY = H/2;
+                    handleAnswer(false, true);
+                }
+            }, 5000);
+        }
         
         // Preguntes
         let availableQuestions = [];
@@ -228,6 +251,7 @@
         // Interaction
         canvas.addEventListener('click', (e) => {
             if (!isAiming) return;
+            clearTimeout(aimTimer);
             isAiming = false;
             
             frozenX = aimX;
@@ -281,7 +305,7 @@
             });
         }
         
-        function handleAnswer(isCorrect) {
+        function handleAnswer(isCorrect, isTimeout = false) {
             document.getElementById('q-modal').style.display = 'none';
             
             let dartX = frozenX;
@@ -293,7 +317,11 @@
                 const offset = (Math.random() * 1.0 + 0.5) * maxRadius;
                 dartX += Math.cos(angle) * offset;
                 dartY += Math.sin(angle) * offset;
-                showMessage("¡HAS FALLAT!", "#ff2a2a");
+                if (isTimeout) {
+                    showMessage("¡TEMPS ESGOTAT!", "#ff2a2a");
+                } else {
+                    showMessage("¡HAS FALLAT!", "#ff2a2a");
+                }
             } else {
                 showMessage("¡AHÍ LI DOL!", "#00d2ff");
             }
@@ -345,12 +373,13 @@
                             ind.style.borderColor = '';
                             ind.style.color = '';
                         }
-                        isAiming = true;
+                        hasBeenWarned = false;
+                        startAim();
                     }, 5000);
                 }, 1500);
             } else {
                 setTimeout(() => {
-                    isAiming = true;
+                    startAim();
                 }, 1500);
             }
         }
@@ -370,6 +399,7 @@
             canvas.height = H;
         });
 
+        startAim();
         loop();
     </script>
 </body>
