@@ -730,40 +730,31 @@
                 const fireScale = size * 1.8;
                 const seedVal = seed * 123.45;
                 
-                octx.globalCompositeOperation = "source-over";
+                // Usar "multiply" hace que lo negro quede impregnado en el papel de forma natural
+                octx.globalCompositeOperation = "multiply"; 
+                octx.globalAlpha = 0.85; // Un poco diluido para que no sea un bloque tan duro
                 
                 // 1. Dibujar el impacto: Agujero quemado fotorrealista
                 const tiltHole = (seedVal % 5 - 2) * 0.3; // Rotar aleatoriamente el impacto
                 octx.rotate(tiltHole);
 
                 if (agujeroImg.complete && agujeroImg.naturalHeight !== 0) {
-                    const aW = fireScale * 3.5;
-                    const aH = fireScale * 3.5;
+                    const aW = fireScale * 2.3; // Menos grueso y grande
+                    const aH = fireScale * 2.3;
                     octx.drawImage(agujeroImg, -aW / 2, -aH / 2, aW, aH);
                 } else {
                     // Fallback negro
                     octx.fillStyle = "#0a0500";
                     octx.beginPath();
-                    octx.arc(0, 0, fireScale, 0, Math.PI*2);
+                    octx.arc(0, 0, fireScale * 0.8, 0, Math.PI*2);
                     octx.fill();
                 }
                 
                 octx.rotate(-tiltHole); // reset rotation for fire
+                octx.globalAlpha = 1.0; // reset opacidad
 
-                // 5. La bola de brea ardiendo dentro del agujero
+                // 2. Fuego hiperrealista saliendo del agujero
                 octx.globalCompositeOperation = "screen"; // "screen" elimina el fondo negro del fuego fotorrealista
-                
-                // Humo/Resplandor oscuro rojizo
-                octx.fillStyle = "rgba(150, 20, 0, 0.5)";
-                octx.beginPath();
-                octx.arc(0, -fireScale*0.2, fireScale * 0.7, 0, Math.PI*2);
-                octx.fill();
-
-                // Núcleo de la bola incandescente
-                octx.fillStyle = "rgba(255, 80, 0, 0.9)";
-                octx.beginPath();
-                octx.arc(0, 0, fireScale * 0.4, 0, Math.PI*2);
-                octx.fill();
                 
                 const tilt = (seedVal % 3 - 1) * 0.2;
                 octx.rotate(tilt);
