@@ -730,19 +730,17 @@
                 const fireScale = size * 1.8;
                 const seedVal = seed * 123.45;
                 
-                // Tela quemada con bordes fotorrealistas integrándose en el fondo
+                // Tela quemada fina y sutil integrándose en el fondo
                 octx.globalCompositeOperation = "source-over"; 
-                octx.globalAlpha = 1.0;
+                octx.globalAlpha = 0.7; // Más transparente para que la tela se sienta muy fina
                 
                 // 1. Dibujar el impacto: Agujero en tela fotorrealista
                 const tiltHole = (seedVal % 5 - 2) * 0.3; // Rotar aleatoriamente el impacto
                 octx.rotate(tiltHole);
 
                 if (agujeroImg.complete && agujeroImg.naturalHeight !== 0) {
-                    // Ahora la imagen es de alta calidad y la tela se difumina suavemente,
-                    // así que podemos ponerla de un tamaño más grande para que se aprecie la textura quemada
-                    const aW = fireScale * 3.5; 
-                    const aH = fireScale * 3.5;
+                    const aW = fireScale * 2.0; // Mucho más pequeño y delicado
+                    const aH = fireScale * 2.0;
                     octx.drawImage(agujeroImg, -aW / 2, -aH / 2, aW, aH);
                 } else {
                     // Fallback negro
@@ -762,10 +760,10 @@
                 octx.rotate(tilt);
 
                 if (fuegoRealImg.complete && fuegoRealImg.naturalHeight !== 0) {
-                    const fWidth = fireScale * 5.0;
-                    const fHeight = fireScale * 5.0;
+                    const fWidth = fireScale * 4.5;
+                    const fHeight = fireScale * 4.5;
                     // Centrar horizontalmente y que la base del fuego coincida con el centro de la bola
-                    octx.drawImage(fuegoRealImg, -fWidth * 0.5, -fHeight * 0.75, fWidth, fHeight);
+                    octx.drawImage(fuegoRealImg, -fWidth * 0.5, -fHeight * 0.65, fWidth, fHeight);
                 } else {
                     // Fallback por si la imagen no ha cargado
                     octx.fillStyle = "rgba(255, 180, 0, 0.9)";
