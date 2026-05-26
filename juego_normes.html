@@ -133,6 +133,8 @@
         
         const fuegoRealImg = new Image();
         fuegoRealImg.src = 'assets/fuego_foto.png';
+        const agujeroImg = new Image();
+        agujeroImg.src = 'assets/agujero_foto.png';
         let W = container.clientWidth;
         let H = container.clientHeight;
         canvas.width = W;
@@ -730,57 +732,23 @@
                 
                 octx.globalCompositeOperation = "source-over";
                 
-                // 1. Dibujar el agujero negro irregular (papel roto/quemado hacia dentro)
-                octx.beginPath();
-                for(let i=0; i<14; i++) {
-                    const angle = (i * Math.PI * 2) / 14;
-                    const r = fireScale * (0.6 + ((seedVal * i) % 5) / 10);
-                    const hx = Math.cos(angle) * r;
-                    const hy = Math.sin(angle) * r;
-                    if(i===0) octx.moveTo(hx, hy);
-                    else octx.lineTo(hx, hy);
+                // 1. Dibujar el impacto: Agujero quemado fotorrealista
+                const tiltHole = (seedVal % 5 - 2) * 0.3; // Rotar aleatoriamente el impacto
+                octx.rotate(tiltHole);
+
+                if (agujeroImg.complete && agujeroImg.naturalHeight !== 0) {
+                    const aW = fireScale * 3.5;
+                    const aH = fireScale * 3.5;
+                    octx.drawImage(agujeroImg, -aW / 2, -aH / 2, aW, aH);
+                } else {
+                    // Fallback negro
+                    octx.fillStyle = "#0a0500";
+                    octx.beginPath();
+                    octx.arc(0, 0, fireScale, 0, Math.PI*2);
+                    octx.fill();
                 }
-                octx.closePath();
                 
-                // Rellenar de negro carbonizado
-                octx.fillStyle = "#0a0500";
-                octx.fill();
-                
-                // 2. Bordes rotos y carbonizados hacia afuera
-                octx.lineWidth = fireScale * 0.4;
-                octx.strokeStyle = "rgba(40, 10, 0, 0.9)";
-                octx.stroke();
-
-                // 3. Resplandor del fuego consumiendo los bordes
-                octx.lineWidth = fireScale * 0.2;
-                octx.shadowColor = "#ff2200";
-                octx.shadowBlur = fireScale * 0.5;
-                octx.strokeStyle = "#ff3300";
-                octx.stroke();
-
-                octx.lineWidth = fireScale * 0.08;
-                octx.shadowColor = "#ffaa00";
-                octx.shadowBlur = fireScale * 0.3;
-                octx.strokeStyle = "#ff9900";
-                octx.stroke();
-                
-                octx.shadowBlur = 0; // reset sombra
-
-                // 4. Grietas carbonizadas en el papel
-                octx.beginPath();
-                for(let i=0; i<6; i++) {
-                    const angle = (i * Math.PI * 2) / 6 + (seedVal % Math.PI);
-                    const rInner = fireScale * 0.5;
-                    const rOuter = fireScale * (1.2 + ((seedVal * i)%4)/10);
-                    octx.moveTo(Math.cos(angle) * rInner, Math.sin(angle) * rInner);
-                    octx.lineTo(Math.cos(angle) * rOuter, Math.sin(angle) * rOuter);
-                }
-                octx.lineWidth = fireScale * 0.15;
-                octx.strokeStyle = "rgba(40, 10, 0, 0.7)";
-                octx.stroke();
-                octx.lineWidth = fireScale * 0.05;
-                octx.strokeStyle = "#ff4400";
-                octx.stroke();
+                octx.rotate(-tiltHole); // reset rotation for fire
 
                 // 5. La bola de brea ardiendo dentro del agujero
                 octx.globalCompositeOperation = "screen"; // "screen" elimina el fondo negro del fuego fotorrealista
