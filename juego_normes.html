@@ -131,9 +131,7 @@
         const bgImg = new Image();
         bgImg.src = 'assets/diana_juego.webp';
         
-        const fuegoImg = new Image();
-        fuegoImg.src = 'assets/fuego_realista_transparent.png';
-        
+
         let W = container.clientWidth;
         let H = container.clientHeight;
         canvas.width = W;
@@ -723,38 +721,124 @@
                 octx.quadraticCurveTo(size * 0.2, -size * 0.6, size * 0.1, -size * 0.4);
                 octx.fill();
             } else {
-                // Realistic Fire for the final image
+                // Efecto "Edad Media": Agujero quemado con bola de brea ardiendo
                 octx.save();
                 
-                // Fondo oscuro sutíl detrás del fuego para forzar más contraste con la foto
+                const fireScale = size * 1.8;
+                const seedVal = seed * 123.45;
+                
                 octx.globalCompositeOperation = "source-over";
-                octx.fillStyle = "rgba(0,0,0,0.5)"; 
+                
+                // 1. Dibujar el agujero negro irregular (papel roto/quemado hacia dentro)
                 octx.beginPath();
-                octx.arc(0, 0, size * 2.0, 0, Math.PI*2);
+                for(let i=0; i<14; i++) {
+                    const angle = (i * Math.PI * 2) / 14;
+                    const r = fireScale * (0.6 + ((seedVal * i) % 5) / 10);
+                    const hx = Math.cos(angle) * r;
+                    const hy = Math.sin(angle) * r;
+                    if(i===0) octx.moveTo(hx, hy);
+                    else octx.lineTo(hx, hy);
+                }
+                octx.closePath();
+                
+                // Rellenar de negro carbonizado
+                octx.fillStyle = "#0a0500";
+                octx.fill();
+                
+                // 2. Bordes rotos y carbonizados hacia afuera
+                octx.lineWidth = fireScale * 0.4;
+                octx.strokeStyle = "rgba(40, 10, 0, 0.9)";
+                octx.stroke();
+
+                // 3. Resplandor del fuego consumiendo los bordes
+                octx.lineWidth = fireScale * 0.2;
+                octx.shadowColor = "#ff2200";
+                octx.shadowBlur = fireScale * 0.5;
+                octx.strokeStyle = "#ff3300";
+                octx.stroke();
+
+                octx.lineWidth = fireScale * 0.08;
+                octx.shadowColor = "#ffaa00";
+                octx.shadowBlur = fireScale * 0.3;
+                octx.strokeStyle = "#ff9900";
+                octx.stroke();
+                
+                octx.shadowBlur = 0; // reset sombra
+
+                // 4. Grietas carbonizadas en el papel
+                octx.beginPath();
+                for(let i=0; i<6; i++) {
+                    const angle = (i * Math.PI * 2) / 6 + (seedVal % Math.PI);
+                    const rInner = fireScale * 0.5;
+                    const rOuter = fireScale * (1.2 + ((seedVal * i)%4)/10);
+                    octx.moveTo(Math.cos(angle) * rInner, Math.sin(angle) * rInner);
+                    octx.lineTo(Math.cos(angle) * rOuter, Math.sin(angle) * rOuter);
+                }
+                octx.lineWidth = fireScale * 0.15;
+                octx.strokeStyle = "rgba(40, 10, 0, 0.7)";
+                octx.stroke();
+                octx.lineWidth = fireScale * 0.05;
+                octx.strokeStyle = "#ff4400";
+                octx.stroke();
+
+                // 5. La bola de brea ardiendo dentro del agujero
+                octx.globalCompositeOperation = "lighter";
+                
+                // Humo/Resplandor oscuro rojizo
+                octx.fillStyle = "rgba(150, 20, 0, 0.5)";
+                octx.beginPath();
+                octx.arc(0, -fireScale*0.2, fireScale * 0.7, 0, Math.PI*2);
                 octx.fill();
 
-                octx.globalCompositeOperation = "lighter"; // Hace que el fuego se fusione de forma luminosa con el fondo
-                
-                // Inclinación más caótica y agresiva
-                const tilt = (seed % 3 - 1) * 0.25;
-                octx.rotate(tilt);
-                
-                const fireScale = size * 4.0; // Fuego aún más grande
-                
-                // Resplandor rojo/naranja para integrar la imagen
-                octx.shadowColor = "#ff2200";
-                octx.shadowBlur = fireScale * 0.6;
-                octx.fillStyle = "rgba(255, 30, 0, 0.3)";
+                // Núcleo de la bola
+                octx.fillStyle = "rgba(255, 80, 0, 0.9)";
                 octx.beginPath();
                 octx.arc(0, 0, fireScale * 0.4, 0, Math.PI*2);
                 octx.fill();
-                octx.shadowBlur = 0;
+                
+                octx.fillStyle = "rgba(255, 180, 0, 0.9)";
+                octx.beginPath();
+                octx.arc(0, fireScale * 0.1, fireScale * 0.25, 0, Math.PI*2);
+                octx.fill();
 
-                if (fuegoImg.complete && fuegoImg.naturalHeight !== 0) {
-                    // Dibujar la imagen del fuego generado
-                    const imgW = fireScale * 2.2;
-                    const imgH = fireScale * 2.2;
-                    octx.drawImage(fuegoImg, -imgW / 2, -imgH + (fireScale * 0.4), imgW, imgH);
+                octx.fillStyle = "#ffffff";
+                octx.beginPath();
+                octx.arc(0, fireScale * 0.15, fireScale * 0.1, 0, Math.PI*2);
+                octx.fill();
+
+                // Llamas medievales subiendo agresivamente
+                const tilt = (seedVal % 3 - 1) * 0.2;
+                octx.rotate(tilt);
+                
+                for (let i = 0; i < 4; i++) {
+                    const fW = fireScale * (0.35 - i*0.06);
+                    const fH = fireScale * (1.2 + ((seedVal+i)%4)*0.3);
+                    const oX = (i - 1.5) * fireScale * 0.15;
+                    
+                    octx.beginPath();
+                    octx.moveTo(oX - fW, 0);
+                    octx.quadraticCurveTo(oX - fW*0.3, -fH*0.5, oX, -fH);
+                    octx.quadraticCurveTo(oX + fW*0.3, -fH*0.5, oX + fW, 0);
+                    
+                    const grad = octx.createLinearGradient(0, 0, 0, -fH);
+                    grad.addColorStop(0, "rgba(255, 120, 0, 0.9)");
+                    grad.addColorStop(0.5, "rgba(255, 60, 0, 0.5)");
+                    grad.addColorStop(1, "rgba(255, 20, 0, 0)");
+                    octx.fillStyle = grad;
+                    octx.fill();
+                }
+
+                // Chispas volando hacia arriba
+                const sparkCount = 12 + (seedVal % 6);
+                for (let i = 0; i < sparkCount; i++) {
+                    const sx = (((seedVal * 7 + i * 11) % 100) / 100) * fireScale * 2 - fireScale;
+                    const sy = - (((seedVal * 13 + i * 17) % 100) / 100) * fireScale * 2;
+                    const sSize = size * 0.08 * (1 + ((seedVal + i) % 5)/5);
+                    
+                    octx.fillStyle = (i % 2 === 0) ? "rgba(255, 220, 0, 0.9)" : "rgba(255, 60, 0, 0.9)";
+                    octx.beginPath();
+                    octx.arc(sx, sy, sSize, 0, Math.PI*2);
+                    octx.fill();
                 }
                 
                 octx.restore();
