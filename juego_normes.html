@@ -131,6 +131,9 @@
         const bgImg = new Image();
         bgImg.src = 'assets/diana_juego.webp';
         
+        const fuegoImg = new Image();
+        fuegoImg.src = 'assets/fuego_realista_transparent.png';
+        
         let W = container.clientWidth;
         let H = container.clientHeight;
         canvas.width = W;
@@ -738,66 +741,20 @@
                 
                 const fireScale = size * 4.0; // Fuego aún más grande
                 
-                // Resplandor rojo/naranja brutal en la base
+                // Resplandor rojo/naranja para integrar la imagen
                 octx.shadowColor = "#ff2200";
                 octx.shadowBlur = fireScale * 0.6;
-                octx.fillStyle = "rgba(255, 30, 0, 0.7)";
+                octx.fillStyle = "rgba(255, 30, 0, 0.3)";
                 octx.beginPath();
-                octx.arc(0, 0, fireScale * 0.3, 0, Math.PI*2);
+                octx.arc(0, 0, fireScale * 0.4, 0, Math.PI*2);
                 octx.fill();
                 octx.shadowBlur = 0;
 
-                // 6 capas de llamas más afiladas y contrastadas
-                for (let i = 0; i < 6; i++) {
-                    // Más estrecho en la base (afilado) y más alto
-                    const fWidth = fireScale * (0.4 - i * 0.06);
-                    const fHeight = fireScale * (1.3 - i * 0.15) + (((seed * 11 + i * 3) % 100) / 100) * fireScale * 0.7;
-                    const offsetX = (((seed * 17 + i * 5) % 100) / 100) * fireScale * 0.5 - fireScale * 0.25;
-                    
-                    octx.beginPath();
-                    octx.moveTo(offsetX - fWidth, 0);
-                    // Curvas de bezier más cerradas para picos afilados
-                    octx.bezierCurveTo(offsetX - fWidth, -fHeight * 0.3, offsetX - fWidth * 0.1, -fHeight * 0.6, offsetX, -fHeight);
-                    octx.bezierCurveTo(offsetX + fWidth * 0.1, -fHeight * 0.6, offsetX + fWidth, -fHeight * 0.3, offsetX + fWidth, 0);
-                    
-                    // Gradientes con máxima opacidad (1) para un contraste deslumbrante
-                    const grad = octx.createLinearGradient(0, 0, 0, -fHeight);
-                    if (i === 0) {
-                        grad.addColorStop(0, "rgba(200, 0, 0, 0.9)");
-                        grad.addColorStop(1, "rgba(255, 0, 0, 0)");
-                    } else if (i === 1) {
-                        grad.addColorStop(0, "rgba(255, 40, 0, 1)");
-                        grad.addColorStop(1, "rgba(255, 0, 0, 0)");
-                    } else if (i === 2) {
-                        grad.addColorStop(0, "rgba(255, 120, 0, 1)");
-                        grad.addColorStop(0.7, "rgba(255, 30, 0, 0.2)");
-                        grad.addColorStop(1, "rgba(255, 0, 0, 0)");
-                    } else if (i === 3) {
-                        grad.addColorStop(0, "rgba(255, 200, 0, 1)");
-                        grad.addColorStop(1, "rgba(255, 50, 0, 0)");
-                    } else if (i === 4) {
-                        grad.addColorStop(0, "rgba(255, 255, 150, 1)");
-                        grad.addColorStop(1, "rgba(255, 100, 0, 0)");
-                    } else {
-                        grad.addColorStop(0, "rgba(255, 255, 255, 1)"); // Núcleo blanco puro
-                        grad.addColorStop(1, "rgba(255, 200, 0, 0)");
-                    }
-                    
-                    octx.fillStyle = grad;
-                    octx.fill();
-                }
-
-                // Chispas y brasas volando violentamente hacia arriba
-                const sparkCount = 8 + (seed % 8);
-                for (let i = 0; i < sparkCount; i++) {
-                    const sx = (((seed * 7 + i * 11) % 100) / 100) * fireScale - fireScale * 0.5;
-                    const sy = - (((seed * 13 + i * 17) % 100) / 100) * fireScale * 1.5;
-                    const sSize = size * 0.1 * (1 + ((seed + i) % 5)/5);
-                    
-                    octx.fillStyle = (i % 2 === 0) ? "rgba(255, 200, 0, 0.9)" : "rgba(255, 50, 0, 0.9)";
-                    octx.beginPath();
-                    octx.arc(sx, sy, sSize, 0, Math.PI*2);
-                    octx.fill();
+                if (fuegoImg.complete && fuegoImg.naturalHeight !== 0) {
+                    // Dibujar la imagen del fuego generado
+                    const imgW = fireScale * 2.2;
+                    const imgH = fireScale * 2.2;
+                    octx.drawImage(fuegoImg, -imgW / 2, -imgH + (fireScale * 0.4), imgW, imgH);
                 }
                 
                 octx.restore();
