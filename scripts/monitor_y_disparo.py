@@ -4,6 +4,7 @@ import subprocess
 import time
 import xml.etree.ElementTree as ET
 
+
 # Configuración de programas a vigilar
 PROGRAMAS = [
     {"feed": "gothamvcf.txt", "id_file": "scripts/ultimo_id_gotham.txt"},
