@@ -134,7 +134,7 @@
         const fuegoRealImg = new Image();
         fuegoRealImg.src = 'assets/fuego_foto.png';
         const agujeroImg = new Image();
-        agujeroImg.src = 'assets/agujero_foto.png';
+        agujeroImg.src = 'assets/agujero_tela_masked.png';
         let W = container.clientWidth;
         let H = container.clientHeight;
         canvas.width = W;
@@ -730,17 +730,19 @@
                 const fireScale = size * 1.8;
                 const seedVal = seed * 123.45;
                 
-                // Usar "multiply" hace que lo negro quede impregnado en el papel de forma natural
-                octx.globalCompositeOperation = "multiply"; 
-                octx.globalAlpha = 0.85; // Un poco diluido para que no sea un bloque tan duro
+                // Tela quemada con bordes fotorrealistas integrándose en el fondo
+                octx.globalCompositeOperation = "source-over"; 
+                octx.globalAlpha = 1.0;
                 
-                // 1. Dibujar el impacto: Agujero quemado fotorrealista
+                // 1. Dibujar el impacto: Agujero en tela fotorrealista
                 const tiltHole = (seedVal % 5 - 2) * 0.3; // Rotar aleatoriamente el impacto
                 octx.rotate(tiltHole);
 
                 if (agujeroImg.complete && agujeroImg.naturalHeight !== 0) {
-                    const aW = fireScale * 2.3; // Menos grueso y grande
-                    const aH = fireScale * 2.3;
+                    // Ahora la imagen es de alta calidad y la tela se difumina suavemente,
+                    // así que podemos ponerla de un tamaño más grande para que se aprecie la textura quemada
+                    const aW = fireScale * 3.5; 
+                    const aH = fireScale * 3.5;
                     octx.drawImage(agujeroImg, -aW / 2, -aH / 2, aW, aH);
                 } else {
                     // Fallback negro
