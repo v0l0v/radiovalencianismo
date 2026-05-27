@@ -33,6 +33,7 @@ valencianismo.com {
 
     # Proxy del stream de audio
     reverse_proxy /stream icecast:8000
+    reverse_proxy /stream_musical icecast:8000
     reverse_proxy /status-json.xsl icecast:8000
 }
 biblioteca.valencianismo.com {

@@ -61,3 +61,11 @@ output.icecast(%mp3(bitrate=128),
   genre="Valencian Music", url="https://valencianismo.com",
   public=true,
   radio)
+
+output.icecast(%mp3(bitrate=128),
+  host="icecast", port=8000, password="hackme",
+  mount="stream_musical", name="Valencianismo Radio - Solo Música", 
+  description="Música valenciana y de la radio sin interrupciones",
+  genre="Valencian Music", url="https://valencianismo.com",
+  public=true,
+  mksafe(musica_normal))

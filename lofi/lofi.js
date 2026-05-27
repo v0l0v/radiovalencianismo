@@ -25,7 +25,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const trackTitle = document.getElementById('track-title');
     const musicIcon = document.querySelector('.music-icon');
     const ambientButtons = document.querySelectorAll('.ambient-btn[data-ambient]');
-    const shuffleBtn = document.getElementById('shuffle-btn');
 
     // --- Lógica del Reproductor de Audio ---
     let isPlaying = false;
@@ -36,7 +35,7 @@ document.addEventListener('DOMContentLoaded', () => {
     function togglePlay() {
         if (!isPlaying) {
             // Recargar el stream para evitar lag por almacenamiento en búfer pasivo
-            radioAudio.src = 'https://valencianismo.com/stream?v=' + Date.now();
+            radioAudio.src = 'https://valencianismo.com/stream_musical?v=' + Date.now();
             radioAudio.play()
                 .then(() => {
                     isPlaying = true;
@@ -84,9 +83,6 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.classList.remove('active');
             }
         });
-
-        // Guardar preferencia
-        localStorage.setItem('valencianismo_lofi_ambient', ambientKey);
     }
 
     // Inicializar ambientes con clicks
@@ -96,17 +92,41 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // Botón aleatorio (Sintonización)
-    shuffleBtn.addEventListener('click', () => {
-        const keys = Object.keys(AMBIENTS);
-        const filtered = keys.filter(k => k !== currentAmbient);
-        const randomKey = filtered[Math.floor(Math.random() * filtered.length)];
-        setAmbient(randomKey);
+    // Botón de Pantalla Completa (Full Screen API)
+    const fullscreenBtn = document.getElementById('fullscreen-btn');
+    
+    fullscreenBtn.addEventListener('click', () => {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen()
+                .then(() => {
+                    fullscreenBtn.textContent = '🗗';
+                    fullscreenBtn.title = 'Salir de Pantalla Completa';
+                })
+                .catch(err => {
+                    console.error(`Error al activar pantalla completa: ${err.message}`);
+                });
+        } else {
+            document.exitFullscreen();
+            fullscreenBtn.textContent = '⛶';
+            fullscreenBtn.title = 'Pantalla Completa';
+        }
     });
 
-    // Cargar preferencia guardada o usar la de por defecto (retro)
-    const savedAmbient = localStorage.getItem('valencianismo_lofi_ambient');
-    setAmbient(savedAmbient && AMBIENTS[savedAmbient] ? savedAmbient : 'retro');
+    // Sincronizar el botón si se sale pulsando ESC
+    document.addEventListener('fullscreenchange', () => {
+        if (!document.fullscreenElement) {
+            fullscreenBtn.textContent = '⛶';
+            fullscreenBtn.title = 'Pantalla Completa';
+        } else {
+            fullscreenBtn.textContent = '🗗';
+            fullscreenBtn.title = 'Salir de Pantalla Completa';
+        }
+    });
+
+    // Cargar un ambiente aleatorio distinto cada vez que se entra a la página
+    const ambientKeys = Object.keys(AMBIENTS);
+    const randomAmbient = ambientKeys[Math.floor(Math.random() * ambientKeys.length)];
+    setAmbient(randomAmbient);
 
 
     // --- Reloj Analógico y Digital Funcional ---
@@ -284,8 +304,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 let activeSource = null;
                 
                 if (Array.isArray(sources)) {
-                    activeSource = sources.find(s => s.mount === '/stream');
-                } else if (sources.mount === '/stream') {
+                    activeSource = sources.find(s => s.mount === '/stream_musical');
+                } else if (sources.mount === '/stream_musical') {
                     activeSource = sources;
                 }
                 
