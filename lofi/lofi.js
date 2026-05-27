@@ -309,6 +309,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         playerPanel.style.left = `${left}px`;
         playerPanel.style.top = `${top}px`;
+        playerPanel.style.bottom = 'auto'; // Desactivar bottom de CSS
         playerPanel.style.margin = '0';
     }
 
@@ -330,6 +331,7 @@ document.addEventListener('DOMContentLoaded', () => {
         
         isDragging = true;
         playerPanel.classList.add('dragging');
+        playerPanel.style.bottom = 'auto'; // Asegurar desactivación de bottom en arrastre
         
         const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
         const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
