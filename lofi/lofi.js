@@ -323,108 +323,11 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-    // --- Elementos Especiales de Manhattan (NYC) ---
-    class CityLight {
-        constructor() {
-            this.reset();
-        }
-        reset() {
-            // Posicionar luces aleatorias en las zonas altas de los rascacielos
-            this.x = Math.random() * width;
-            this.y = Math.random() * (height * 0.65);
-            this.r = Math.random() * 1.5 + 0.5; // Tamaño del neón/ventana
-            this.opacity = Math.random() * 0.7 + 0.1;
-            // Neón rosa, cian o amarillo ventana vintage
-            const colors = ['#ff007f', '#00f0ff', '#ffdd67', '#ffffff', '#ff9f1c'];
-            this.color = colors[Math.floor(Math.random() * colors.length)];
-            this.blinkSpeed = Math.random() * 0.015 + 0.005;
-            this.blinkDir = Math.random() < 0.5 ? 1 : -1;
-        }
-        update() {
-            this.opacity += this.blinkSpeed * this.blinkDir;
-            if (this.opacity > 0.85) {
-                this.opacity = 0.85;
-                this.blinkDir = -1;
-            } else if (this.opacity < 0.05) {
-                this.opacity = 0.05;
-                this.blinkDir = 1;
-                // A veces cambia de posición simulando otra oficina encendiéndose
-                if (Math.random() < 0.1) {
-                    this.reset();
-                }
-            }
-        }
-        draw() {
-            ctx.fillStyle = this.color;
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-            ctx.fill();
-        }
-    }
-
-    class TrafficVehicle {
-        constructor() {
-            this.reset();
-        }
-        reset() {
-            this.progress = Math.random(); // Inicializar en punto aleatorio del camino
-            this.speed = Math.random() * 0.002 + 0.0008; // velocidad
-            this.lane = Math.random() < 0.5 ? 'down' : 'up'; // bajando (amarillo taxi) o subiendo (rojo freno)
-            this.driftX = (Math.random() - 0.5) * 15; // dispersión de carril
-        }
-        update() {
-            this.progress += this.speed;
-            if (this.progress > 1) {
-                this.progress = 0;
-                this.reset();
-            }
-        }
-        draw() {
-            // Punto de fuga de la avenida central en lofi_nyc.png
-            const vanishX = width * 0.38;
-            const vanishY = height * 0.46;
-            
-            // Destino inferior en la base de la pantalla
-            const targetX = width * (this.lane === 'down' ? 0.39 : 0.34) + this.driftX;
-            const targetY = height * 0.96;
-            
-            // Interpolación con perspectiva
-            const currentX = vanishX + (targetX - vanishX) * this.progress;
-            const currentY = vanishY + (targetY - vanishY) * this.progress;
-            
-            // Más grande y separado a medida que se acerca
-            const size = this.progress * 2.2 + 0.4;
-            const spacing = this.progress * 4.5 + 1.2;
-            
-            ctx.fillStyle = this.lane === 'down' ? 'rgba(255, 200, 0, 0.9)' : 'rgba(255, 30, 0, 0.9)';
-            
-            // Dibujar faros izquierdo y derecho del taxi/coche
-            ctx.beginPath();
-            ctx.arc(currentX - spacing/2, currentY, size, 0, Math.PI * 2);
-            ctx.arc(currentX + spacing/2, currentY, size, 0, Math.PI * 2);
-            ctx.fill();
-        }
-    }
-
     const raindrops = Array.from({ length: 65 }, () => new RainDrop());
     const windowdrops = Array.from({ length: 120 }, () => new WindowDrop());
-    const cityLights = Array.from({ length: 40 }, () => new CityLight());
-    const cityVehicles = Array.from({ length: 10 }, () => new TrafficVehicle());
 
     function animateRain() {
         ctx.clearRect(0, 0, width, height);
-
-        // Si es Manhattan, dibujar luces y vehículos urbanos antes de la lluvia en el cristal
-        if (currentAmbient === 'nyc') {
-            cityLights.forEach(light => {
-                light.update();
-                light.draw();
-            });
-            cityVehicles.forEach(vehicle => {
-                vehicle.update();
-                vehicle.draw();
-            });
-        }
 
         // Lluvia de fondo (detrás del cristal)
         raindrops.forEach(drop => {
