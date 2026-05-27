@@ -6,13 +6,17 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Mapeo de ambientes
     const AMBIENTS = {
-        pixelart: { name: 'Habitación Pixel-Art', file: 'assets/pixelart.png', tint: 'rgba(255, 159, 28, 0.05)' },
-        retro: { name: 'Retro Vintage Años 50', file: 'assets/retro.png', tint: 'rgba(255, 100, 10, 0.04)' },
-        cyberpunk: { name: 'Ciberpunk Futurista', file: 'assets/cyberpunk.png', tint: 'rgba(46, 196, 182, 0.05)' },
-        nature: { name: 'Cabaña y Naturaleza', file: 'assets/nature.png', tint: 'rgba(10, 180, 50, 0.03)' }
+        pixelart: { name: 'Habitación Pixel-Art', file: 'assets/pixelart.png' },
+        retro: { name: 'Retro Vintage Años 50', file: 'assets/retro.png' },
+        cyberpunk: { name: 'Ciberpunk Futurista', file: 'assets/cyberpunk.png' },
+        nature: { name: 'Cabaña y Naturaleza', file: 'assets/nature.png' },
+        space: { name: 'Estación Espacial sobre Valencia', file: 'assets/space.png' },
+        brooklyn: { name: 'Loft en Brooklyn', file: 'assets/brooklyn.png' },
+        nyc: { name: 'Rascacielos en Manhattan', file: 'assets/nyc.png' },
+        valencia: { name: 'Barraca en la Albufera', file: 'assets/valencia.png' }
     };
 
-    let currentAmbient = 'retro';
+    let currentAmbient = '';
 
     // Elementos DOM
     const bgContainer = document.getElementById('bg-container');
@@ -174,37 +178,64 @@ document.addEventListener('DOMContentLoaded', () => {
         height = canvas.height = window.innerHeight;
     });
 
-    // Clase para Gotas Rápidas de Fondo (Lluvia cayendo detrás del vidrio)
+    // Clase para Gotas Rápidas de Fondo (Lluvia cayendo detrás del vidrio / Estrellas fugaces)
     class RainDrop {
         constructor() {
             this.reset();
         }
         reset() {
-            this.x = Math.random() * width;
-            this.y = Math.random() * -height;
-            this.length = Math.random() * 20 + 15;
-            this.speed = Math.random() * 15 + 10;
-            this.opacity = Math.random() * 0.15 + 0.05;
-            this.width = Math.random() * 1 + 0.5;
+            if (currentAmbient === 'space') {
+                // Estrellas fugaces: mayor velocidad horizontal, entrada más diagonal y veloz
+                this.x = Math.random() * (width * 0.7);
+                this.y = Math.random() * -height;
+                this.length = Math.random() * 35 + 25;
+                this.speed = Math.random() * 25 + 15;
+                this.opacity = Math.random() * 0.25 + 0.1;
+                this.width = Math.random() * 1.5 + 0.5;
+            } else {
+                this.x = Math.random() * width;
+                this.y = Math.random() * -height;
+                this.length = Math.random() * 20 + 15;
+                this.speed = Math.random() * 15 + 10;
+                this.opacity = Math.random() * 0.15 + 0.05;
+                this.width = Math.random() * 1 + 0.5;
+            }
         }
         update() {
-            this.y += this.speed;
-            this.x += this.speed * 0.05; // Leve caída diagonal
-            if (this.y > height) {
-                this.reset();
+            if (currentAmbient === 'space') {
+                this.y += this.speed * 0.35;
+                this.x += this.speed * 0.75; // Movimiento veloz diagonal derecha-abajo
+                if (this.y > height || this.x > width) {
+                    this.reset();
+                }
+            } else {
+                this.y += this.speed;
+                this.x += this.speed * 0.05; // Leve caída diagonal
+                if (this.y > height) {
+                    this.reset();
+                }
             }
         }
         draw() {
-            ctx.strokeStyle = `rgba(174, 194, 224, ${this.opacity})`;
-            ctx.lineWidth = this.width;
-            ctx.beginPath();
-            ctx.moveTo(this.x, this.y);
-            ctx.lineTo(this.x + this.length * 0.05, this.y + this.length);
-            ctx.stroke();
+            if (currentAmbient === 'space') {
+                ctx.strokeStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.lineWidth = this.width;
+                ctx.beginPath();
+                ctx.moveTo(this.x, this.y);
+                ctx.lineTo(this.x + this.length * 0.75, this.y + this.length * 0.35);
+                ctx.stroke();
+            } else {
+                ctx.strokeStyle = `rgba(174, 194, 224, ${this.opacity})`;
+                ctx.lineWidth = this.width;
+                ctx.beginPath();
+                ctx.moveTo(this.x, this.y);
+                ctx.lineTo(this.x + this.length * 0.05, this.y + this.length);
+                ctx.stroke();
+            }
         }
     }
 
-    // Clase para Gotas del Vidrio (Efecto Condensación y Gravedad lenta)
+    // Clase para Gotas del Vidrio (Efecto Condensación y Gravedad lenta / Estrellas parpadeantes)
     class WindowDrop {
         constructor() {
             this.reset();
@@ -212,55 +243,83 @@ document.addEventListener('DOMContentLoaded', () => {
         reset() {
             this.x = Math.random() * width;
             this.y = Math.random() * height;
-            this.r = Math.random() * 2 + 1; // Radio de la gota
+            this.r = Math.random() * 2 + 1; // Radio
             this.opacity = Math.random() * 0.4 + 0.2;
             this.speedY = Math.random() * 0.5 + 0.1; // Deslizamiento lento
             this.slideChance = Math.random() < 0.2; // Solo algunas se deslizan
             this.trail = [];
         }
         update() {
-            if (this.slideChance) {
-                this.y += this.speedY;
-                // Dejar un rastro de humedad detrás de la gota
-                if (Math.random() < 0.3) {
-                    this.trail.push({ x: this.x, y: this.y, opacity: this.opacity });
-                }
-                // Si sale del panel, reiniciar arriba
-                if (this.y > height) {
-                    this.reset();
-                    this.y = 0;
-                }
+            if (currentAmbient === 'space') {
+                // Comportamiento de estrellas: parpadeo aleatorio, sin rastro
+                this.opacity += (Math.random() - 0.5) * 0.06;
+                this.opacity = Math.max(0.1, Math.min(this.opacity, 0.75));
+                this.trail = []; // no hay rastro
             } else {
-                // Si es estática, tiene una probabilidad mínima de empezar a resbalar con el tiempo
-                if (Math.random() < 0.0005) {
-                    this.slideChance = true;
+                // Comportamiento de gotas de agua normales
+                if (this.slideChance) {
+                    this.y += this.speedY;
+                    // Dejar un rastro de humedad detrás de la gota
+                    if (Math.random() < 0.3) {
+                        this.trail.push({ x: this.x, y: this.y, opacity: this.opacity });
+                    }
+                    // Si sale del panel, reiniciar arriba
+                    if (this.y > height) {
+                        this.reset();
+                        this.y = 0;
+                    }
+                } else {
+                    // Si es estática, tiene una probabilidad mínima de empezar a resbalar con el tiempo
+                    if (Math.random() < 0.0005) {
+                        this.slideChance = true;
+                    }
                 }
+                
+                // Reducir la opacidad del rastro
+                this.trail.forEach(t => t.opacity -= 0.005);
+                this.trail = this.trail.filter(t => t.opacity > 0);
             }
-            
-            // Reducir la opacidad del rastro
-            this.trail.forEach(t => t.opacity -= 0.005);
-            this.trail = this.trail.filter(t => t.opacity > 0);
         }
         draw() {
-            // Dibujar rastro
-            this.trail.forEach(t => {
-                ctx.fillStyle = `rgba(255, 255, 255, ${t.opacity * 0.5})`;
+            if (currentAmbient === 'space') {
+                // Dibujar estrella parpadeante
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
                 ctx.beginPath();
-                ctx.arc(t.x, t.y, this.r * 0.8, 0, Math.PI * 2);
+                ctx.arc(this.x, this.y, this.r * 0.7, 0, Math.PI * 2);
                 ctx.fill();
-            });
+                
+                // Pequeño destello cruzado para estrellas más grandes
+                if (this.r > 2) {
+                    ctx.strokeStyle = `rgba(255, 255, 255, ${this.opacity * 0.3})`;
+                    ctx.lineWidth = 0.5;
+                    ctx.beginPath();
+                    ctx.moveTo(this.x - this.r * 1.8, this.y);
+                    ctx.lineTo(this.x + this.r * 1.8, this.y);
+                    ctx.moveTo(this.x, this.y - this.r * 1.8);
+                    ctx.lineTo(this.x, this.y + this.r * 1.8);
+                    ctx.stroke();
+                }
+            } else {
+                // Dibujar rastro
+                this.trail.forEach(t => {
+                    ctx.fillStyle = `rgba(255, 255, 255, ${t.opacity * 0.5})`;
+                    ctx.beginPath();
+                    ctx.arc(t.x, t.y, this.r * 0.8, 0, Math.PI * 2);
+                    ctx.fill();
+                });
 
-            // Dibujar gota de agua (con reflejo simulado)
-            ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
-            ctx.beginPath();
-            ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
-            ctx.fill();
-            
-            // Pequeño reflejo luminoso interno
-            ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
-            ctx.beginPath();
-            ctx.arc(this.x - this.r * 0.3, this.y - this.r * 0.3, this.r * 0.3, 0, Math.PI * 2);
-            ctx.fill();
+                // Dibujar gota de agua (con reflejo simulado)
+                ctx.fillStyle = `rgba(255, 255, 255, ${this.opacity})`;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+                ctx.fill();
+                
+                // Pequeño reflejo luminoso interno
+                ctx.fillStyle = 'rgba(255, 255, 255, 0.7)';
+                ctx.beginPath();
+                ctx.arc(this.x - this.r * 0.3, this.y - this.r * 0.3, this.r * 0.3, 0, Math.PI * 2);
+                ctx.fill();
+            }
         }
     }
 
