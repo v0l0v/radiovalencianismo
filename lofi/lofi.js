@@ -17,7 +17,6 @@ document.addEventListener('DOMContentLoaded', () => {
     };
 
     let currentAmbient = '';
-    let currentMode = 'art'; // 'art' o 'photo'
 
     // Elementos DOM
     const bgContainer = document.getElementById('bg-container');
@@ -76,8 +75,9 @@ document.addEventListener('DOMContentLoaded', () => {
         currentAmbient = ambientKey;
         const amb = AMBIENTS[ambientKey];
 
-        // Obtener el archivo según el modo actual (Ilustración o Foto)
-        const bgUrl = amb['file_' + currentMode];
+        // Seleccionar aleatoriamente entre modo ilustración (file_art) y modo fotografía (file_photo)
+        const loadPhoto = Math.random() < 0.5;
+        const bgUrl = loadPhoto ? amb.file_photo : amb.file_art;
 
         // Cambiar la imagen de fondo con transición CSS3 suave
         bgContainer.style.backgroundImage = `url(${bgUrl})`;
@@ -93,35 +93,43 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // --- Selector de Modo Visual (Foto / Ilustración) ---
-    const modeArtBtn = document.getElementById('mode-art');
-    const modePhotoBtn = document.getElementById('mode-photo');
-
-    modeArtBtn.addEventListener('click', () => {
-        if (currentMode === 'art') return;
-        currentMode = 'art';
-        modeArtBtn.classList.add('active');
-        modePhotoBtn.classList.remove('active');
-        if (currentAmbient) {
-            setAmbient(currentAmbient);
-        }
-    });
-
-    modePhotoBtn.addEventListener('click', () => {
-        if (currentMode === 'photo') return;
-        currentMode = 'photo';
-        modePhotoBtn.classList.add('active');
-        modeArtBtn.classList.remove('active');
-        if (currentAmbient) {
-            setAmbient(currentAmbient);
-        }
-    });
-
     // Inicializar ambientes con clicks
     ambientButtons.forEach(btn => {
         btn.addEventListener('click', () => {
             setAmbient(btn.getAttribute('data-ambient'));
         });
+    });
+
+    // --- Minimizar / Maximizar Reproductor ---
+    const playerPanel = document.getElementById('player-panel');
+    const togglePlayerBtn = document.getElementById('toggle-player-btn');
+
+    function togglePlayerMinimize() {
+        const isMinimized = playerPanel.classList.toggle('minimized');
+        togglePlayerBtn.textContent = isMinimized ? '▲' : '▼';
+        togglePlayerBtn.title = isMinimized ? 'Maximizar Reproductor' : 'Minimizar Reproductor';
+        
+        // Recalcular posicionamiento de margen de 5px tras redimensionarse
+        setTimeout(centerPanel, 150);
+    }
+
+    togglePlayerBtn.addEventListener('click', togglePlayerMinimize);
+
+    // En dispositivos móviles (ancho <= 580px) arranca minimizado por defecto
+    if (window.innerWidth <= 580) {
+        playerPanel.classList.add('minimized');
+        togglePlayerBtn.textContent = '▲';
+        togglePlayerBtn.title = 'Maximizar Reproductor';
+    }
+
+    // --- Desplegar / Colapsar Selector de Ambientes ---
+    const toggleSelectorBtn = document.getElementById('toggle-selector-btn');
+    const ambientSelectorWrapper = document.getElementById('ambient-selector-wrapper');
+
+    toggleSelectorBtn.addEventListener('click', () => {
+        const isCollapsed = ambientSelectorWrapper.classList.toggle('collapsed');
+        toggleSelectorBtn.textContent = isCollapsed ? '▲' : '▼';
+        toggleSelectorBtn.title = isCollapsed ? 'Mostrar ambientes' : 'Ocultar ambientes';
     });
 
     // Botón de Pantalla Completa (Full Screen API)

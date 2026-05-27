@@ -413,43 +413,165 @@ body, html {
     background: var(--primary-color);
 }
 
-/* --- Selectores de Ambiente --- */
-.player-footer {
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    padding-top: 1.2rem;
+/* --- Botón Minimizar / Maximizar Reproductor --- */
+.player-toggle-btn {
+    position: absolute;
+    top: 1rem;
+    right: 1.2rem;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 0.8rem;
+    cursor: pointer;
+    padding: 5px;
+    transition: all 0.2s ease;
+    z-index: 12;
+    outline: none;
+}
+
+.player-toggle-btn:hover {
+    color: #ffffff;
+}
+
+/* --- Estado Minimizado del Reproductor --- */
+.player-panel.minimized {
+    gap: 0.8rem !important;
+    padding: 1.2rem 1.8rem !important;
+}
+
+.player-panel.minimized .tagline,
+.player-panel.minimized .now-playing,
+.player-panel.minimized .volume-container {
+    display: none !important;
+}
+
+.player-panel.minimized .player-controls {
+    justify-content: center;
+    margin-top: 0.2rem;
+}
+
+.player-panel.minimized .play-btn {
+    width: 50px;
+    height: 50px;
+}
+
+/* --- Widget Flotante del Selector de Ambientes --- */
+.ambient-widget-container {
+    position: absolute;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 100;
     display: flex;
     flex-direction: column;
+    align-items: center;
     gap: 0.6rem;
+    width: 90%;
+    max-width: 600px;
+    pointer-events: none; /* Dejar pasar eventos de click si no tocan elementos */
+}
+
+.ambient-widget-container * {
+    pointer-events: auto; /* Reactivar eventos */
+}
+
+/* Barra de control flotante (Botones fullscreen y flecha) */
+.ambient-widget-controls {
+    display: flex;
+    gap: 0.5rem;
+    background: var(--bg-glass);
+    border: 1px solid var(--border-glass);
+    padding: 5px 8px;
+    border-radius: 30px;
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    box-shadow: var(--shadow-premium);
+}
+
+.widget-btn {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.65);
+    width: 34px;
+    height: 34px;
+    border-radius: 50%;
+    font-size: 0.95rem;
+    font-weight: bold;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.25s ease;
+    outline: none;
+}
+
+.widget-btn:hover {
+    color: #ffffff;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Contenedor de la barra de ambientes deslizable */
+.ambient-selector-wrapper {
+    width: 100%;
+    background: var(--bg-glass);
+    border: 1px solid var(--border-glass);
+    border-radius: 1.5rem;
+    padding: 1rem 1.2rem;
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    box-shadow: var(--shadow-premium);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.6rem;
+    transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+    max-height: 250px;
+    opacity: 1;
+    overflow: hidden;
+}
+
+/* Estado Colapsado */
+.ambient-selector-wrapper.collapsed {
+    max-height: 0;
+    padding: 0 1.2rem;
+    opacity: 0;
+    border-color: transparent;
+    pointer-events: none;
+    transform: translateY(15px);
 }
 
 .ambient-label {
-    font-size: 0.75rem;
-    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.72rem;
     font-weight: 600;
+    letter-spacing: 1px;
+    color: rgba(255, 255, 255, 0.5);
+    text-transform: uppercase;
 }
 
 .ambient-label strong {
     color: var(--primary-color);
 }
 
+/* Contenedor de los botones de ambientes */
 .ambient-selector {
     display: flex;
-    gap: 0.4rem;
     flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.5rem;
+    width: 100%;
 }
 
 .ambient-btn {
-    flex: 1;
-    min-width: 60px;
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.06);
     color: rgba(255, 255, 255, 0.7);
-    padding: 0.5rem 0.6rem;
+    padding: 0.5rem 0.8rem;
     border-radius: 0.75rem;
     font-size: 0.75rem;
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    outline: none;
 }
 
 .ambient-btn:hover {
@@ -465,15 +587,6 @@ body, html {
     box-shadow: 0 4px 15px rgba(255, 159, 28, 0.25);
 }
 
-.shuffle-btn {
-    flex: 0 0 38px;
-    min-width: 38px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.95rem;
-}
-
 /* --- Marca de agua y extras --- */
 .watermark {
     font-size: 0.75rem;
@@ -481,6 +594,7 @@ body, html {
     color: rgba(255, 255, 255, 0.15);
     font-weight: 800;
     text-transform: uppercase;
+    margin-top: 1rem;
 }
 
 .hidden {
@@ -490,7 +604,7 @@ body, html {
 /* --- Adaptación Responsive --- */
 @media (max-width: 580px) {
     .app-container {
-        padding: 1.5rem;
+        padding: 1.2rem;
     }
     
     .clock-widget {
@@ -502,46 +616,20 @@ body, html {
         padding: 1.5rem;
         gap: 1.3rem;
         margin-bottom: 1rem;
+        max-width: 100%;
+        width: 100%;
+    }
+
+    .player-panel.minimized {
+        max-width: 100%;
+        width: 100%;
     }
 
     .radio-title {
         font-size: 1.8rem;
     }
-}
 
-/* Selector de Modo Visual (Foto / Ilustración) */
-.mode-selector {
-    display: flex;
-    background: rgba(0, 0, 0, 0.45);
-    padding: 3px;
-    border-radius: 20px;
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    margin-top: 0.3rem;
-    gap: 2px;
-}
-
-.mode-btn {
-    background: transparent;
-    border: none;
-    color: rgba(255, 255, 255, 0.6);
-    padding: 5px 12px;
-    border-radius: 15px;
-    font-size: 0.72rem;
-    font-weight: 700;
-    cursor: pointer;
-    transition: all 0.25s ease;
-    display: flex;
-    align-items: center;
-    gap: 4px;
-    outline: none;
-}
-
-.mode-btn:hover {
-    color: #ffffff;
-}
-
-.mode-btn.active {
-    background: var(--primary-color);
-    color: #0b0c10;
-    box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+    .ambient-widget-container {
+        bottom: 1.5rem;
+    }
 }

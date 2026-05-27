@@ -29,16 +29,13 @@
                 <div class="center-dot"></div>
             </div>
             <div class="digital-time" id="digital-time">00:00:00</div>
-            
-            <!-- Selector de Modo Visual (Foto o Ilustración) -->
-            <div class="mode-selector">
-                <button class="mode-btn active" id="mode-art" title="Estilo Ilustración Artística">🎨 Ilustración</button>
-                <button class="mode-btn" id="mode-photo" title="Estilo Fotografía Realista">📷 Foto</button>
-            </div>
         </div>
 
         <!-- Panel del Reproductor (Glassmorphism en el centro/abajo) -->
-        <main class="player-panel">
+        <main class="player-panel" id="player-panel">
+            <!-- Botón para Minimizar / Maximizar el reproductor -->
+            <button class="player-toggle-btn" id="toggle-player-btn" title="Minimizar Reproductor">▼</button>
+
             <header class="player-header">
                 <span class="badge">EMISIÓN EN DIRECTO</span>
                 <h1 class="radio-title">Valencianismo Radio</h1>
@@ -79,23 +76,31 @@
                     <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.01" value="0.7">
                 </div>
             </div>
+        </main>
 
-            <!-- Panel de Sintonización de Ambiente -->
-            <footer class="player-footer">
+        <!-- Widget Flotante del Selector de Ambientes (Centro Inferior) -->
+        <div class="ambient-widget-container">
+            <!-- Barra de control (Flecha de despliegue + Botón de pantalla completa) -->
+            <div class="ambient-widget-controls">
+                <button class="widget-btn" id="fullscreen-btn" title="Pantalla Completa">⛶</button>
+                <button class="widget-btn" id="toggle-selector-btn" title="Mostrar ambientes">▲</button>
+            </div>
+            
+            <!-- Contenedor deslizable con los 8 ambientes -->
+            <div class="ambient-selector-wrapper collapsed" id="ambient-selector-wrapper">
                 <span class="ambient-label">AMBIENTE ACTUAL: <strong id="ambient-name">Cargando...</strong></span>
                 <div class="ambient-selector">
                     <button class="ambient-btn" data-ambient="pixelart" title="Estilo Pixel-Art">👾 Pixel</button>
-                    <button class="ambient-btn" data-ambient="retro" title="Retro Años 50">🪵 Retro</button>
-                    <button class="ambient-btn" data-ambient="cyberpunk" title="Futurista Cyberpunk">🌌 Cyber</button>
-                    <button class="ambient-btn" data-ambient="nature" title="Cabaña y Naturaleza">🌿 Bosque</button>
+                    <button class="ambient-btn" data-ambient="retro" title="Retro Años 50">📻 Retro</button>
+                    <button class="ambient-btn" data-ambient="cyberpunk" title="Futurista Cyberpunk">⚡ Cyber</button>
+                    <button class="ambient-btn" data-ambient="nature" title="Cabaña y Naturaleza">🌲 Bosque</button>
                     <button class="ambient-btn" data-ambient="space" title="Estación Espacial sobre Valencia">🚀 Órbita</button>
                     <button class="ambient-btn" data-ambient="brooklyn" title="Loft en Brooklyn">🧱 Brooklyn</button>
                     <button class="ambient-btn" data-ambient="nyc" title="Skyscraper en Manhattan">🏙️ Manhattan</button>
                     <button class="ambient-btn" data-ambient="valencia" title="Barraca Tradicional en la Albufera">🍊 Barraca</button>
-                    <button class="ambient-btn fullscreen-btn" id="fullscreen-btn" title="Pantalla Completa">⛶</button>
                 </div>
-            </footer>
-        </main>
+            </div>
+        </div>
         
         <!-- Marca de Agua Sutil -->
         <div class="watermark">
