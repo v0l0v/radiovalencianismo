@@ -4,19 +4,20 @@ document.addEventListener('DOMContentLoaded', () => {
     // --- Configuración y Referencias ---
     const ICECAST_JSON_URL = '/status-json.xsl';
     
-    // Mapeo de ambientes
+    // Mapeo de ambientes (Modo Ilustración y Modo Foto)
     const AMBIENTS = {
-        pixelart: { name: 'Habitación Pixel-Art', file: 'assets/pixelart.png' },
-        retro: { name: 'Retro Vintage Años 50', file: 'assets/retro.png' },
-        cyberpunk: { name: 'Ciberpunk Futurista', file: 'assets/cyberpunk.png' },
-        nature: { name: 'Cabaña y Naturaleza', file: 'assets/nature.png' },
-        space: { name: 'Estación Espacial sobre Valencia', file: 'assets/space.png' },
-        brooklyn: { name: 'Loft en Brooklyn', file: 'assets/brooklyn.png' },
-        nyc: { name: 'Rascacielos en Manhattan', file: 'assets/nyc.png' },
-        valencia: { name: 'Barraca en la Albufera', file: 'assets/valencia.png' }
+        pixelart: { name: 'Habitación Pixel-Art', file_art: 'assets/pixelart_art.png', file_photo: 'assets/pixelart_photo.png' },
+        retro: { name: 'Retro Vintage Años 50', file_art: 'assets/retro_art.png', file_photo: 'assets/retro_photo.png' },
+        cyberpunk: { name: 'Ciberpunk Futurista', file_art: 'assets/cyberpunk_art.png', file_photo: 'assets/cyberpunk_photo.png' },
+        nature: { name: 'Cabaña y Naturaleza', file_art: 'assets/nature_art.png', file_photo: 'assets/nature_photo.png' },
+        space: { name: 'Estación Espacial sobre Valencia', file_art: 'assets/space_art.png', file_photo: 'assets/space_photo.png' },
+        brooklyn: { name: 'Loft en Brooklyn', file_art: 'assets/brooklyn_art.png', file_photo: 'assets/brooklyn_photo.png' },
+        nyc: { name: 'Rascacielos en Manhattan', file_art: 'assets/nyc_art.png', file_photo: 'assets/nyc_photo.png' },
+        valencia: { name: 'Barraca en la Albufera', file_art: 'assets/valencia_art.png', file_photo: 'assets/valencia_photo.png' }
     };
 
     let currentAmbient = '';
+    let currentMode = 'art'; // 'art' o 'photo'
 
     // Elementos DOM
     const bgContainer = document.getElementById('bg-container');
@@ -75,8 +76,11 @@ document.addEventListener('DOMContentLoaded', () => {
         currentAmbient = ambientKey;
         const amb = AMBIENTS[ambientKey];
 
+        // Obtener el archivo según el modo actual (Ilustración o Foto)
+        const bgUrl = amb['file_' + currentMode];
+
         // Cambiar la imagen de fondo con transición CSS3 suave
-        bgContainer.style.backgroundImage = `url(${amb.file})`;
+        bgContainer.style.backgroundImage = `url(${bgUrl})`;
         ambientNameDisplay.textContent = amb.name;
 
         // Actualizar estados de botones de selección
@@ -88,6 +92,30 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // --- Selector de Modo Visual (Foto / Ilustración) ---
+    const modeArtBtn = document.getElementById('mode-art');
+    const modePhotoBtn = document.getElementById('mode-photo');
+
+    modeArtBtn.addEventListener('click', () => {
+        if (currentMode === 'art') return;
+        currentMode = 'art';
+        modeArtBtn.classList.add('active');
+        modePhotoBtn.classList.remove('active');
+        if (currentAmbient) {
+            setAmbient(currentAmbient);
+        }
+    });
+
+    modePhotoBtn.addEventListener('click', () => {
+        if (currentMode === 'photo') return;
+        currentMode = 'photo';
+        modePhotoBtn.classList.add('active');
+        modeArtBtn.classList.remove('active');
+        if (currentAmbient) {
+            setAmbient(currentAmbient);
+        }
+    });
 
     // Inicializar ambientes con clicks
     ambientButtons.forEach(btn => {

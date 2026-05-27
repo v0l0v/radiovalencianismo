@@ -508,3 +508,40 @@ body, html {
         font-size: 1.8rem;
     }
 }
+
+/* Selector de Modo Visual (Foto / Ilustración) */
+.mode-selector {
+    display: flex;
+    background: rgba(0, 0, 0, 0.45);
+    padding: 3px;
+    border-radius: 20px;
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    margin-top: 0.3rem;
+    gap: 2px;
+}
+
+.mode-btn {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.6);
+    padding: 5px 12px;
+    border-radius: 15px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    outline: none;
+}
+
+.mode-btn:hover {
+    color: #ffffff;
+}
+
+.mode-btn.active {
+    background: var(--primary-color);
+    color: #0b0c10;
+    box-shadow: 0 2px 8px rgba(255, 215, 0, 0.3);
+}
