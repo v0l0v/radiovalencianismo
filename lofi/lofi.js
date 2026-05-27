@@ -70,14 +70,15 @@ document.addEventListener('DOMContentLoaded', () => {
     musicIcon.classList.add('paused');
 
     // --- Sintonización de Ambientes (Estéticas) ---
-    function setAmbient(ambientKey) {
+    let currentVisualType = 'art'; // 'art' o 'photo'
+
+    function loadAmbientVisual(ambientKey, visualType) {
         if (!AMBIENTS[ambientKey]) return;
         currentAmbient = ambientKey;
+        currentVisualType = visualType;
+        
         const amb = AMBIENTS[ambientKey];
-
-        // Seleccionar aleatoriamente entre modo ilustración (file_art) y modo fotografía (file_photo)
-        const loadPhoto = Math.random() < 0.5;
-        const bgUrl = loadPhoto ? amb.file_photo : amb.file_art;
+        const bgUrl = visualType === 'photo' ? amb.file_photo : amb.file_art;
 
         // Cambiar la imagen de fondo con transición CSS3 suave
         bgContainer.style.backgroundImage = `url(${bgUrl})`;
@@ -93,10 +94,27 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Inicializar ambientes con clicks
+    function setAmbient(ambientKey) {
+        // Seleccionar aleatoriamente entre modo ilustración ('art') y modo fotografía ('photo')
+        const visualType = Math.random() < 0.5 ? 'photo' : 'art';
+        loadAmbientVisual(ambientKey, visualType);
+    }
+
+    // Inicializar ambientes con clicks y doble clicks
     ambientButtons.forEach(btn => {
+        // Click simple: sintoniza ambiente con fondo aleatorio
         btn.addEventListener('click', () => {
             setAmbient(btn.getAttribute('data-ambient'));
+        });
+
+        // Doble click: alterna el modo (Foto / Ilustración) para el ambiente pulsado
+        btn.addEventListener('dblclick', (e) => {
+            e.preventDefault();
+            const ambientKey = btn.getAttribute('data-ambient');
+            
+            // Alternamos el tipo visual actual
+            const nextVisualType = currentVisualType === 'art' ? 'photo' : 'art';
+            loadAmbientVisual(ambientKey, nextVisualType);
         });
     });
 
@@ -110,7 +128,7 @@ document.addEventListener('DOMContentLoaded', () => {
         togglePlayerBtn.title = isMinimized ? 'Maximizar Reproductor' : 'Minimizar Reproductor';
         
         // Recalcular posicionamiento de margen de 5px tras redimensionarse
-        setTimeout(centerPanel, 150);
+        setTimeout(positionPanel, 150);
     }
 
     togglePlayerBtn.addEventListener('click', togglePlayerMinimize);
@@ -265,17 +283,16 @@ document.addEventListener('DOMContentLoaded', () => {
     let startX, startY;
     let initialLeft, initialTop;
 
-    // Centrar inicialmente el panel en la pantalla
-    function centerPanel() {
+    // Posicionar el panel en la esquina inferior izquierda
+    function positionPanel() {
         const panelWidth = playerPanel.offsetWidth;
         const panelHeight = playerPanel.offsetHeight;
         
-        // Centrado horizontal
-        let left = (window.innerWidth - panelWidth) / 2;
-        // Centrado vertical un poco desplazado hacia abajo
-        let top = (window.innerHeight - panelHeight) / 2 + 50; 
+        // Esquina inferior izquierda (20px de margen)
+        let left = 20;
+        let top = window.innerHeight - panelHeight - 20; 
         
-        // Limitar al margen de 5px
+        // Limitar al margen de 5px en pantallas muy pequeñas
         left = Math.max(5, Math.min(left, window.innerWidth - panelWidth - 5));
         top = Math.max(5, Math.min(top, window.innerHeight - panelHeight - 5));
         
@@ -284,9 +301,9 @@ document.addEventListener('DOMContentLoaded', () => {
         playerPanel.style.margin = '0';
     }
 
-    // Ejecutar centrado tras un pequeño timeout para que el layout se renderice y se obtengan offsets reales
-    setTimeout(centerPanel, 100);
-    window.addEventListener('resize', centerPanel);
+    // Ejecutar posicionamiento tras un pequeño timeout para que el layout se renderice y se obtengan offsets reales
+    setTimeout(positionPanel, 100);
+    window.addEventListener('resize', positionPanel);
 
     dragHeader.addEventListener('mousedown', dragStart);
     document.addEventListener('mousemove', drag);

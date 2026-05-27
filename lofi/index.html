@@ -31,42 +31,46 @@
             <div class="digital-time" id="digital-time">00:00:00</div>
         </div>
 
-        <!-- Panel del Reproductor (Glassmorphism en el centro/abajo) -->
+        <!-- Panel del Reproductor (Glassmorphism abajo a la izquierda) -->
         <main class="player-panel" id="player-panel">
-            <!-- Botón para Minimizar / Maximizar el reproductor -->
-            <button class="player-toggle-btn" id="toggle-player-btn" title="Minimizar Reproductor">▼</button>
-
             <header class="player-header">
-                <span class="badge">EMISIÓN EN DIRECTO</span>
-                <h1 class="radio-title">Valencianismo Radio</h1>
-                <p class="tagline">Tu compañía de fondo para trabajar y estudiar</p>
+                <div class="player-header-text">
+                    <span class="badge">EMISIÓN EN DIRECTO</span>
+                    <h1 class="radio-title">Valencianismo Radio</h1>
+                    <p class="tagline">Tu compañía de fondo para trabajar y estudiar</p>
+                </div>
+                
+                <div class="player-header-actions">
+                    <!-- Botón Play/Pausa -->
+                    <button class="control-btn play-btn" id="play-pause-btn" aria-label="Reproducir">
+                        <svg class="play-icon" viewBox="0 0 24 24" id="play-svg">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                        <svg class="pause-icon hidden" viewBox="0 0 24 24" id="pause-svg">
+                            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                        </svg>
+                    </button>
+                    <!-- Botón para Minimizar / Maximizar el reproductor -->
+                    <button class="player-toggle-btn" id="toggle-player-btn" title="Minimizar Reproductor">▼</button>
+                </div>
             </header>
 
-            <!-- Metadata Display (Canción Actual) -->
-            <div class="now-playing">
-                <div class="music-icon">
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                    <span class="bar"></span>
-                </div>
-                <div class="track-info">
-                    <span class="now-playing-label">SONANDO AHORA</span>
-                    <div class="track-title-wrapper">
-                        <h2 class="track-title" id="track-title">Cargando emisión...</h2>
+            <!-- Contenido del cuerpo del reproductor -->
+            <div class="player-body" id="player-body">
+                <!-- Metadata Display (Canción Actual) -->
+                <div class="now-playing">
+                    <div class="music-icon">
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                        <span class="bar"></span>
+                    </div>
+                    <div class="track-info">
+                        <span class="now-playing-label">SONANDO AHORA</span>
+                        <div class="track-title-wrapper">
+                            <h2 class="track-title" id="track-title">Cargando emisión...</h2>
+                        </div>
                     </div>
                 </div>
-            </div>
-
-            <!-- Controles del Reproductor -->
-            <div class="player-controls">
-                <button class="control-btn play-btn" id="play-pause-btn" aria-label="Reproducir">
-                    <svg class="play-icon" viewBox="0 0 24 24" id="play-svg">
-                        <path d="M8 5v14l11-7z"/>
-                    </svg>
-                    <svg class="pause-icon hidden" viewBox="0 0 24 24" id="pause-svg">
-                        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-                    </svg>
-                </button>
 
                 <!-- Control de Volumen Retro -->
                 <div class="volume-container">
@@ -76,31 +80,29 @@
                     <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.01" value="0.7">
                 </div>
             </div>
-        </main>
 
-        <!-- Widget Flotante del Selector de Ambientes (Centro Inferior) -->
-        <div class="ambient-widget-container">
-            <!-- Barra de control (Flecha de despliegue + Botón de pantalla completa) -->
-            <div class="ambient-widget-controls">
-                <button class="widget-btn" id="fullscreen-btn" title="Pantalla Completa">⛶</button>
-                <button class="widget-btn" id="toggle-selector-btn" title="Mostrar ambientes">▲</button>
-            </div>
-            
-            <!-- Contenedor deslizable con los 8 ambientes -->
-            <div class="ambient-selector-wrapper collapsed" id="ambient-selector-wrapper">
-                <span class="ambient-label">AMBIENTE ACTUAL: <strong id="ambient-name">Cargando...</strong></span>
-                <div class="ambient-selector">
-                    <button class="ambient-btn" data-ambient="pixelart" title="Estilo Pixel-Art">👾 Pixel</button>
-                    <button class="ambient-btn" data-ambient="retro" title="Retro Años 50">📻 Retro</button>
-                    <button class="ambient-btn" data-ambient="cyberpunk" title="Futurista Cyberpunk">⚡ Cyber</button>
-                    <button class="ambient-btn" data-ambient="nature" title="Cabaña y Naturaleza">🌲 Bosque</button>
-                    <button class="ambient-btn" data-ambient="space" title="Estación Espacial sobre Valencia">🚀 Órbita</button>
-                    <button class="ambient-btn" data-ambient="brooklyn" title="Loft en Brooklyn">🧱 Brooklyn</button>
-                    <button class="ambient-btn" data-ambient="nyc" title="Skyscraper en Manhattan">🏙️ Manhattan</button>
-                    <button class="ambient-btn" data-ambient="valencia" title="Barraca Tradicional en la Albufera">🍊 Barraca</button>
+            <!-- Panel de Sintonización de Ambiente (Desplegable integrado) -->
+            <footer class="player-footer" id="player-footer">
+                <div class="ambient-controls">
+                    <button class="footer-btn" id="fullscreen-btn" title="Pantalla Completa">⛶</button>
+                    <button class="footer-btn" id="toggle-selector-btn" title="Mostrar ambientes">▲</button>
                 </div>
-            </div>
-        </div>
+                
+                <div class="ambient-selector-wrapper collapsed" id="ambient-selector-wrapper">
+                    <span class="ambient-label">AMBIENTE ACTUAL: <strong id="ambient-name">Cargando...</strong></span>
+                    <div class="ambient-selector grid-2x4">
+                        <button class="ambient-btn" data-ambient="pixelart" title="Estilo Pixel-Art">👾 Pixel</button>
+                        <button class="ambient-btn" data-ambient="retro" title="Retro Años 50">📻 Retro</button>
+                        <button class="ambient-btn" data-ambient="cyberpunk" title="Futurista Cyberpunk">⚡ Cyber</button>
+                        <button class="ambient-btn" data-ambient="nature" title="Cabaña y Naturaleza">🌲 Bosque</button>
+                        <button class="ambient-btn" data-ambient="space" title="Estación Espacial sobre Valencia">🚀 Órbita</button>
+                        <button class="ambient-btn" data-ambient="brooklyn" title="Loft en Brooklyn">🧱 Brooklyn</button>
+                        <button class="ambient-btn" data-ambient="nyc" title="Skyscraper en Manhattan">🏙️ Manhattan</button>
+                        <button class="ambient-btn" data-ambient="valencia" title="Barraca Tradicional en la Albufera">🍊 Barraca</button>
+                    </div>
+                </div>
+            </footer>
+        </main>
         
         <!-- Marca de Agua Sutil -->
         <div class="watermark">
