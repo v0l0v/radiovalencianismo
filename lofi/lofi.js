@@ -234,31 +234,79 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
 
-    // --- Actualización de Metadatos en tiempo real (Canción Actual) ---
+    // --- Lógica de Metadatos Alineada con Valencianismo Radio ---
+    const SCHEDULE = [
+        { h: 9, m: 30, name: "GOTHAM VCF" },
+        { h: 11, m: 30, name: "LA HORA DON PÍO" },
+        { h: 13, m: 30, name: "ATENEO" },
+        { h: 15, m: 30, name: "GOTHAM VCF" },
+        { h: 17, m: 30, name: "LA HORA DON PÍO" },
+        { h: 19, m: 30, name: "ATENEO" },
+        { h: 21, m: 30, name: "GOTHAM VCF" },
+        { h: 23, m: 30, name: "ATENEO" }
+    ];
+
+    function getComingNextMessage() {
+        const now = new Date();
+        const curH = now.getHours();
+        const curM = now.getMinutes();
+        const curS = now.getSeconds();
+        const totalMinutesNow = curH * 60 + curM;
+
+        // Si estamos en los últimos 15 segundos del minuto, no mostrar aviso (para que rote la canción)
+        if (curS >= 45) return null;
+
+        for (const prog of SCHEDULE) {
+            const progTotalMinutes = prog.h * 60 + prog.m;
+            const diff = progTotalMinutes - totalMinutesNow;
+            if (diff > 0 && diff <= 5) {
+                return `PRÓXIMAMENTE (${prog.h}:${prog.m.toString().padStart(2,'0')}h): ${prog.name}`;
+            }
+        }
+        if (curM >= 57 && curM < 60) {
+            return `A LAS EN PUNTO: EL MÓN DE JUAN Y PATRI`;
+        }
+        return null;
+    }
+
+    function decodeHTMLEntities(text) {
+        if (!text) return "";
+        const textArea = document.createElement('textarea');
+        textArea.innerHTML = text;
+        return textArea.value;
+    }
+
     let lastTrack = '';
 
     async function fetchMetadata() {
         try {
-            // Añadimos cache-buster para evitar respuestas cacheadas por Caddy
+            let songName = "Valencianismo Radio 24/7";
+            const comingNext = getComingNextMessage();
+
+            // Añadimos cache-buster para evitar respuestas cacheadas
             const res = await fetch(ICECAST_JSON_URL + '?v=' + Date.now());
-            if (!res.ok) throw new Error("HTTP error " + res.status);
-            const data = await res.json();
-            
-            // Buscar la fuente montada en Icecast
-            let songName = 'Emisión en directo';
-            if (data.icestats && data.icestats.source) {
-                const sources = data.icestats.source;
-                let activeSource = null;
-                
-                if (Array.isArray(sources)) {
-                    activeSource = sources.find(s => s.mount === '/stream_musical');
-                } else if (sources.mount === '/stream_musical') {
-                    activeSource = sources;
+            if (res.ok) {
+                const data = await res.json();
+                if (data.icestats && data.icestats.source) {
+                    const sources = data.icestats.source;
+                    let activeSource = null;
+                    
+                    if (Array.isArray(sources)) {
+                        // Buscar primero /stream (la principal) o sino la primera disponible
+                        activeSource = sources.find(s => s.mount === '/stream') || sources[0];
+                    } else {
+                        activeSource = sources;
+                    }
+                    
+                    if (activeSource && activeSource.title) {
+                        songName = decodeHTMLEntities(activeSource.title.trim());
+                    }
                 }
-                
-                if (activeSource && activeSource.title) {
-                    songName = activeSource.title;
-                }
+            }
+
+            // Prioridad al aviso si estamos en música genérica o por defecto
+            if (comingNext && (songName === "Valencianismo Radio 24/7" || !songName.includes(':'))) {
+                songName = comingNext;
             }
 
             // Normalizar y mostrar
