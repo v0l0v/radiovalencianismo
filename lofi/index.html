@@ -36,20 +36,24 @@
             <header class="player-header">
                 <div class="player-header-text">
                     <span class="badge">EMISIÓN EN DIRECTO</span>
-                    <h1 class="radio-title">Valencianismo Radio</h1>
+                    <div class="title-play-row">
+                        <h1 class="radio-title">Valencianismo Radio</h1>
+                        <!-- Botón Play/Pausa al lado del título -->
+                        <button class="control-btn play-btn" id="play-pause-btn" aria-label="Reproducir">
+                            <svg class="play-icon" viewBox="0 0 24 24" id="play-svg">
+                                <path d="M8 5v14l11-7z"/>
+                            </svg>
+                            <svg class="pause-icon hidden" viewBox="0 0 24 24" id="pause-svg">
+                                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                            </svg>
+                        </button>
+                    </div>
                     <p class="tagline">Tu compañía de fondo para trabajar y estudiar</p>
                 </div>
                 
                 <div class="player-header-actions">
-                    <!-- Botón Play/Pausa -->
-                    <button class="control-btn play-btn" id="play-pause-btn" aria-label="Reproducir">
-                        <svg class="play-icon" viewBox="0 0 24 24" id="play-svg">
-                            <path d="M8 5v14l11-7z"/>
-                        </svg>
-                        <svg class="pause-icon hidden" viewBox="0 0 24 24" id="pause-svg">
-                            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-                        </svg>
-                    </button>
+                    <!-- Botón de Pantalla Completa (Fullscreen) -->
+                    <button class="player-fullscreen-btn" id="fullscreen-btn" title="Pantalla Completa">⛶</button>
                     <!-- Botón para Minimizar / Maximizar el reproductor -->
                     <button class="player-toggle-btn" id="toggle-player-btn" title="Minimizar Reproductor">▼</button>
                 </div>
@@ -71,20 +75,12 @@
                         </div>
                     </div>
                 </div>
-
-                <!-- Control de Volumen Retro -->
-                <div class="volume-container">
-                    <svg class="volume-icon" viewBox="0 0 24 24">
-                        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
-                    </svg>
-                    <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.01" value="0.7">
-                </div>
             </div>
 
             <!-- Panel de Sintonización de Ambiente (Desplegable integrado) -->
             <footer class="player-footer" id="player-footer">
                 <div class="ambient-controls">
-                    <button class="footer-btn" id="fullscreen-btn" title="Pantalla Completa">⛶</button>
+                    <!-- Solo el botón de despliegue inferior -->
                     <button class="footer-btn" id="toggle-selector-btn" title="Mostrar ambientes">▲</button>
                 </div>
                 

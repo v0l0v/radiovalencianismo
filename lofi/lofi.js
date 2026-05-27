@@ -24,7 +24,6 @@ document.addEventListener('DOMContentLoaded', () => {
     const playPauseBtn = document.getElementById('play-pause-btn');
     const playSvg = document.getElementById('play-svg');
     const pauseSvg = document.getElementById('pause-svg');
-    const volumeSlider = document.getElementById('volume-slider');
     const radioAudio = document.getElementById('radio-audio');
     const trackTitle = document.getElementById('track-title');
     const musicIcon = document.querySelector('.music-icon');
@@ -34,7 +33,7 @@ document.addEventListener('DOMContentLoaded', () => {
     let isPlaying = false;
 
     // Sincronizar volumen inicial
-    radioAudio.volume = volumeSlider.value;
+    radioAudio.volume = 0.8;
 
     function togglePlay() {
         if (!isPlaying) {
@@ -60,11 +59,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     playPauseBtn.addEventListener('click', togglePlay);
-
-    // Ajustar volumen
-    volumeSlider.addEventListener('input', (e) => {
-        radioAudio.volume = e.target.value;
-    });
 
     // Poner el reproductor como pausado inicialmente
     musicIcon.classList.add('paused');
@@ -148,6 +142,9 @@ document.addEventListener('DOMContentLoaded', () => {
         const isCollapsed = ambientSelectorWrapper.classList.toggle('collapsed');
         toggleSelectorBtn.textContent = isCollapsed ? '▲' : '▼';
         toggleSelectorBtn.title = isCollapsed ? 'Mostrar ambientes' : 'Ocultar ambientes';
+        
+        // Ajustar posición del panel al cambiar de altura
+        setTimeout(positionPanel, 150);
     });
 
     // Botón de Pantalla Completa (Full Screen API)

@@ -38,7 +38,7 @@ body, html {
     background-position: center;
     background-repeat: no-repeat;
     transition: background-image 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-    transform: scale(1.02); /* Evita bordes blancos por difuminados */
+    transform: scale(1.02);
     filter: brightness(0.7) contrast(1.05);
 }
 
@@ -54,19 +54,6 @@ body, html {
     pointer-events: none;
 }
 
-/* Canvas para Gotas de Lluvia en el vidrio */
-#rain-canvas {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    z-index: 2;
-    pointer-events: none;
-    mix-blend-mode: screen;
-    opacity: 0.85;
-}
-
 /* Contenedor General de la Aplicación */
 .app-container {
     position: relative;
@@ -78,7 +65,7 @@ body, html {
     justify-content: space-between;
     align-items: center;
     padding: 2.5rem;
-    pointer-events: none; /* Dejar pasar clicks al canvas si es interactivo, pero reactivamos en paneles */
+    pointer-events: none;
 }
 
 .app-container * {
@@ -177,14 +164,14 @@ body, html {
     max-width: 440px;
     background: var(--bg-glass);
     border: 1px solid var(--border-glass);
-    border-radius: 2rem;
-    padding: 2rem;
+    border-radius: 1.8rem;
+    padding: 1.6rem 1.8rem;
     box-shadow: var(--shadow-premium);
     backdrop-filter: blur(25px);
     -webkit-backdrop-filter: blur(25px);
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1.2rem;
     transition: var(--transition-smooth);
 }
 
@@ -205,7 +192,7 @@ body, html {
     width: 100%;
     cursor: grab;
     user-select: none;
-    gap: 1rem;
+    gap: 0.8rem;
 }
 
 .player-header-text {
@@ -213,12 +200,20 @@ body, html {
     flex-direction: column;
     align-items: flex-start;
     text-align: left;
+    overflow: hidden;
+}
+
+.title-play-row {
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    width: 100%;
 }
 
 .player-header-actions {
     display: flex;
     align-items: center;
-    gap: 0.8rem;
+    gap: 0.4rem;
     flex-shrink: 0;
 }
 
@@ -226,34 +221,35 @@ body, html {
     background: rgba(255, 159, 28, 0.15);
     color: var(--primary-color);
     border: 1px solid rgba(255, 159, 28, 0.3);
-    font-size: 0.65rem;
+    font-size: 0.62rem;
     font-weight: 800;
-    letter-spacing: 3px;
-    padding: 0.3rem 0.8rem;
+    letter-spacing: 2.5px;
+    padding: 0.2rem 0.6rem;
     border-radius: 50px;
     display: inline-block;
-    margin-bottom: 0.4rem;
+    margin-bottom: 0.3rem;
 }
 
 .radio-title {
     font-family: var(--font-serif);
-    font-size: 1.8rem;
+    font-size: 1.6rem;
     font-weight: 700;
     letter-spacing: -0.5px;
     color: #ffffff;
-    margin-bottom: 0.1rem;
+    white-space: nowrap;
 }
 
 .tagline {
-    font-size: 0.85rem;
-    color: rgba(255, 255, 255, 0.5);
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.45);
     font-weight: 300;
+    margin-top: 0.1rem;
 }
 
 /* Botón Play/Pausa en cabecera */
 .play-btn {
-    width: 48px;
-    height: 48px;
+    width: 36px;
+    height: 36px;
     border-radius: 50%;
     border: none;
     background: #ffffff;
@@ -261,15 +257,16 @@ body, html {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.25), inset 0 -3px 0px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2), inset 0 -2px 0px rgba(0, 0, 0, 0.1);
     transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     outline: none;
+    flex-shrink: 0;
 }
 
 .play-btn:hover {
     transform: scale(1.08);
     background: #ffffff;
-    box-shadow: 0 8px 20px rgba(255, 159, 28, 0.3);
+    box-shadow: 0 6px 15px rgba(255, 159, 28, 0.35);
 }
 
 .play-btn:active {
@@ -277,20 +274,21 @@ body, html {
 }
 
 .play-btn svg {
-    width: 18px;
-    height: 18px;
+    width: 14px;
+    height: 14px;
     fill: #0c0d12;
 }
 
-/* Botón Minimizar / Maximizar */
+/* Botones de Cabecera (Fullscreen y Minimizar) */
+.player-fullscreen-btn,
 .player-toggle-btn {
-    background: rgba(255, 255, 255, 0.05);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-    color: rgba(255, 255, 255, 0.6);
-    width: 32px;
-    height: 32px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.55);
+    width: 30px;
+    height: 30px;
     border-radius: 50%;
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -299,28 +297,28 @@ body, html {
     outline: none;
 }
 
+.player-fullscreen-btn:hover,
 .player-toggle-btn:hover {
     color: #ffffff;
     background: rgba(255, 255, 255, 0.1);
-    border-color: rgba(255, 255, 255, 0.2);
+    border-color: rgba(255, 255, 255, 0.18);
 }
 
 /* Cuerpo del Reproductor */
 .player-body {
     display: flex;
     flex-direction: column;
-    gap: 1.2rem;
     width: 100%;
 }
 
 .now-playing {
     display: flex;
     align-items: center;
-    gap: 1rem;
-    background: rgba(255, 255, 255, 0.03);
-    padding: 0.9rem 1.2rem;
-    border-radius: 1.25rem;
-    border: 1px solid rgba(255, 255, 255, 0.05);
+    gap: 0.8rem;
+    background: rgba(255, 255, 255, 0.02);
+    padding: 0.75rem 1rem;
+    border-radius: 1rem;
+    border: 1px solid rgba(255, 255, 255, 0.04);
     overflow: hidden;
 }
 
@@ -370,9 +368,9 @@ body, html {
 }
 
 .now-playing-label {
-    font-size: 0.62rem;
+    font-size: 0.6rem;
     font-weight: 800;
-    color: rgba(255, 255, 255, 0.35);
+    color: rgba(255, 255, 255, 0.3);
     letter-spacing: 2px;
 }
 
@@ -380,18 +378,16 @@ body, html {
     overflow: hidden;
     width: 100%;
     white-space: nowrap;
-    position: relative;
 }
 
 .track-title {
-    font-size: 0.95rem;
+    font-size: 0.9rem;
     font-weight: 600;
     color: #ffffff;
     display: inline-block;
     will-change: transform;
 }
 
-/* Desplazamiento si el texto es muy largo */
 .track-title.marquee {
     animation: marquee 15s linear infinite;
     padding-left: 100%;
@@ -402,84 +398,34 @@ body, html {
     100% { transform: translate3d(-100%, 0, 0); }
 }
 
-.volume-container {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    width: 100%;
-    background: rgba(255, 255, 255, 0.02);
-    padding: 0.8rem 1.2rem;
-    border-radius: 1.25rem;
-    border: 1px solid rgba(255, 255, 255, 0.03);
-}
-
-.volume-icon {
-    width: 18px;
-    height: 18px;
-    fill: rgba(255, 255, 255, 0.5);
-    transition: fill 0.3s ease;
-}
-
-.volume-container:hover .volume-icon {
-    fill: #ffffff;
-}
-
-.volume-slider {
-    -webkit-appearance: none;
-    width: 100%;
-    height: 4px;
-    border-radius: 2px;
-    background: rgba(255, 255, 255, 0.15);
-    outline: none;
-    cursor: pointer;
-    transition: background 0.3s ease;
-}
-
-.volume-slider::-webkit-slider-thumb {
-    -webkit-appearance: none;
-    appearance: none;
-    width: 12px;
-    height: 12px;
-    border-radius: 50%;
-    background: #ffffff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    cursor: pointer;
-    transition: transform 0.1s ease, background 0.3s ease;
-}
-
-.volume-slider::-webkit-slider-thumb:hover {
-    transform: scale(1.3);
-    background: var(--primary-color);
-}
-
 /* --- Panel de Sintonización de Ambiente (Desplegable integrado) --- */
 .player-footer {
-    border-top: 1px solid rgba(255, 255, 255, 0.05);
-    padding-top: 1.2rem;
+    border-top: 1px solid rgba(255, 255, 255, 0.04);
+    padding-top: 0.8rem;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.5rem;
     width: 100%;
 }
 
 .ambient-controls {
     display: flex;
     gap: 0.5rem;
-    background: rgba(0, 0, 0, 0.25);
-    border: 1px solid rgba(255, 255, 255, 0.05);
-    padding: 4px 6px;
+    background: rgba(0, 0, 0, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.04);
+    padding: 3px 5px;
     border-radius: 20px;
 }
 
 .footer-btn {
     background: transparent;
     border: none;
-    color: rgba(255, 255, 255, 0.6);
-    width: 30px;
-    height: 30px;
+    color: rgba(255, 255, 255, 0.5);
+    width: 28px;
+    height: 28px;
     border-radius: 50%;
-    font-size: 0.85rem;
+    font-size: 0.8rem;
     font-weight: bold;
     cursor: pointer;
     display: flex;
@@ -491,7 +437,7 @@ body, html {
 
 .footer-btn:hover {
     color: #ffffff;
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.06);
 }
 
 .ambient-selector-wrapper {
@@ -499,12 +445,12 @@ body, html {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0.6rem;
+    gap: 0.5rem;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    max-height: 180px;
+    max-height: 160px;
     opacity: 1;
     overflow: hidden;
-    margin-top: 0.3rem;
+    margin-top: 0.2rem;
 }
 
 .ambient-selector-wrapper.collapsed {
@@ -516,10 +462,10 @@ body, html {
 }
 
 .ambient-label {
-    font-size: 0.72rem;
+    font-size: 0.68rem;
     font-weight: 600;
     letter-spacing: 1px;
-    color: rgba(255, 255, 255, 0.5);
+    color: rgba(255, 255, 255, 0.4);
     text-transform: uppercase;
 }
 
@@ -527,7 +473,7 @@ body, html {
     color: var(--primary-color);
 }
 
-/* Selector de ambientes agrupado en 2 filas de 4 */
+/* Selector de ambientes agrupado en 2 filas de 4 saneado */
 .ambient-selector.grid-2x4 {
     display: grid;
     grid-template-columns: repeat(4, 1fr);
@@ -537,12 +483,12 @@ body, html {
 }
 
 .ambient-btn {
-    background: rgba(255, 255, 255, 0.04);
-    border: 1px solid rgba(255, 255, 255, 0.06);
-    color: rgba(255, 255, 255, 0.7);
-    padding: 0.5rem 0.2rem;
-    border-radius: 0.75rem;
-    font-size: 0.7rem;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    color: rgba(255, 255, 255, 0.65);
+    padding: 0.45rem 0.2rem;
+    border-radius: 0.6rem;
+    font-size: 0.68rem;
     font-weight: 600;
     text-align: center;
     cursor: pointer;
@@ -554,23 +500,22 @@ body, html {
 }
 
 .ambient-btn:hover {
-    background: rgba(255, 255, 255, 0.08);
+    background: rgba(255, 255, 255, 0.07);
     color: #ffffff;
-    border-color: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.12);
 }
 
 .ambient-btn.active {
     background: var(--primary-color);
     border-color: var(--primary-color);
     color: #0c0d12;
-    box-shadow: 0 4px 15px rgba(255, 159, 28, 0.25);
+    box-shadow: 0 4px 12px rgba(255, 159, 28, 0.2);
 }
 
 /* --- Estado Minimizado del Reproductor --- */
 .player-panel.minimized {
-    padding: 1rem 1.4rem !important;
+    padding: 0.9rem 1.2rem !important;
     gap: 0 !important;
-    max-width: 320px;
 }
 
 .player-panel.minimized .tagline,
@@ -583,7 +528,7 @@ body, html {
 .watermark {
     font-size: 0.75rem;
     letter-spacing: 5px;
-    color: rgba(255, 255, 255, 0.15);
+    color: rgba(255, 255, 255, 0.12);
     font-weight: 800;
     text-transform: uppercase;
     margin-top: 1rem;
@@ -628,7 +573,8 @@ body, html {
     }
 
     .player-panel.minimized .player-header-text,
-    .player-panel.minimized .play-btn {
+    .player-panel.minimized .player-header-actions .play-btn,
+    .player-panel.minimized .player-header-actions .player-fullscreen-btn {
         display: none !important;
     }
 
@@ -651,6 +597,6 @@ body, html {
     }
 
     .radio-title {
-        font-size: 1.6rem;
+        font-size: 1.4rem;
     }
 }
