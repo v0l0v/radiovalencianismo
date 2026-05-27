@@ -559,7 +559,7 @@ body, html {
     font-weight: 600;
     text-align: center;
     cursor: pointer;
-    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
     outline: none;
     text-overflow: ellipsis;
     white-space: nowrap;
@@ -567,16 +567,29 @@ body, html {
 }
 
 .ambient-btn:hover {
-    background: rgba(255, 255, 255, 0.07);
+    background: rgba(255, 255, 255, 0.08);
     color: #ffffff;
-    border-color: rgba(255, 255, 255, 0.12);
+    border-color: rgba(255, 255, 255, 0.2);
+    transform: translateY(-2px) scale(1.02);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.25);
+}
+
+.ambient-btn:active {
+    transform: translateY(1px) scale(0.97);
+    transition-duration: 0.05s;
 }
 
 .ambient-btn.active {
     background: var(--primary-color);
     border-color: var(--primary-color);
     color: #0c0d12;
-    box-shadow: 0 4px 12px rgba(255, 159, 28, 0.2);
+    box-shadow: 0 4px 15px rgba(255, 159, 28, 0.35);
+}
+
+.ambient-btn.active:hover {
+    transform: translateY(-2px) scale(1.02);
+    color: #0c0d12;
+    box-shadow: 0 6px 20px rgba(255, 159, 28, 0.45);
 }
 
 /* --- Estado Minimizado del Reproductor --- */

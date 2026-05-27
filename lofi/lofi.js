@@ -103,26 +103,15 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function setAmbient(ambientKey) {
-        // Seleccionar aleatoriamente entre modo ilustración ('art') y modo fotografía ('photo')
-        const visualType = Math.random() < 0.5 ? 'photo' : 'art';
-        loadAmbientVisual(ambientKey, visualType);
+        // Al sintonizar un nuevo ambiente, alternamos el tipo visual actual
+        const nextVisualType = currentVisualType === 'art' ? 'photo' : 'art';
+        loadAmbientVisual(ambientKey, nextVisualType);
     }
 
-    // Inicializar ambientes con clicks y doble clicks
+    // Inicializar ambientes con click simple
     ambientButtons.forEach(btn => {
-        // Click simple: sintoniza ambiente con fondo aleatorio
         btn.addEventListener('click', () => {
             setAmbient(btn.getAttribute('data-ambient'));
-        });
-
-        // Doble click: alterna el modo (Foto / Ilustración) para el ambiente pulsado
-        btn.addEventListener('dblclick', (e) => {
-            e.preventDefault();
-            const ambientKey = btn.getAttribute('data-ambient');
-            
-            // Alternamos el tipo visual actual
-            const nextVisualType = currentVisualType === 'art' ? 'photo' : 'art';
-            loadAmbientVisual(ambientKey, nextVisualType);
         });
     });
 
