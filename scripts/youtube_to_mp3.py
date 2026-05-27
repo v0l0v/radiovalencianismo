@@ -28,7 +28,7 @@ FFMPEG_PATH = get_binary_path("ffmpeg")
 
 # Configuración del puente de envío (rsync)
 RSYNC_ENABLED = True
-RSYNC_TARGET = "debian@100.79.188.3:/home/debian/radiovalencianismo/backend/mp3/programas/"
+RSYNC_TARGET = "debian@54.36.100.247:/home/debian/radiovalencianismo/backend/mp3/programas/"
 SSH_KEY_PATH = os.path.expanduser("~/.ssh/id_ed25519")
 
 
@@ -281,22 +281,34 @@ def download_videos(feed_filename):
                 # Continuamos con el siguiente vídeo del feed
                 continue
 
-        # Mover rsync fuera del bucle para que se ejecute siempre
-        # Usar rsync con la llave SSH específica y --delete para limpiar el servidor
+        # ---------- RSYNC SINCRONIZACIÓN ----------
+        # Ejecutamos rsync con captura de salida y manejo de errores
         rsync_base_cmd = ["rsync", "-avz", "--delete", "--exclude=*.txt"]
         if os.path.exists(SSH_KEY_PATH):
             rsync_base_cmd += ["-e", f"ssh -i {SSH_KEY_PATH} -o StrictHostKeyChecking=no"]
-        
-        if program_folder == "gothamvcf":
-            src_gotham = os.path.join(base_path, "backend/mp3/programas/gothamvcf/")
-            dest_gotham = RSYNC_TARGET + "gothamvcf/"
-            print(f"📤 Sincronizando Gotham (con limpieza)...")
-            subprocess.run(rsync_base_cmd + [src_gotham, dest_gotham])
         else:
-            # Espejo completo para el resto
-            src_all = os.path.join(base_path, "backend/mp3/programas/")
-            subprocess.run(rsync_base_cmd + [src_all, RSYNC_TARGET])
-        print("✅ Sincronización completa.")
+            print("⚠️ Advertencia: No se encontró la clave SSH en {}. Se usará la autenticación por defecto.".format(SSH_KEY_PATH))
+        
+        try:
+            if program_folder == "gothamvcf":
+                src_gotham = os.path.join(base_path, "backend/mp3/programas/gothamvcf/")
+                dest_gotham = RSYNC_TARGET + "gothamvcf/"
+                print(f"📤 Sincronizando Gotham (con limpieza)...")
+                rsync_result = subprocess.run(rsync_base_cmd + [src_gotham, dest_gotham], capture_output=True, text=True)
+            else:
+                src_all = os.path.join(base_path, "backend/mp3/programas/")
+                print(f"📤 Sincronizando todos los programas...")
+                rsync_result = subprocess.run(rsync_base_cmd + [src_all, RSYNC_TARGET], capture_output=True, text=True)
+            
+            if rsync_result.returncode != 0:
+                print("❌ Error en rsync:")
+                print(rsync_result.stderr)
+            else:
+                print("✅ Sincronización completa.")
+                # Opcional: imprimir stdout resumido
+                # print(rsync_result.stdout)
+        except Exception as rsync_exc:
+            print(f"⚠️ Excepción durante rsync: {rsync_exc}")
 
 
     except Exception as e:
