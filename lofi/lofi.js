@@ -21,9 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Elementos DOM
     const bgContainer = document.getElementById('bg-container');
     const ambientNameDisplay = document.getElementById('ambient-name');
-    const playPauseBtn = document.getElementById('play-pause-btn');
-    const playSvg = document.getElementById('play-svg');
-    const pauseSvg = document.getElementById('pause-svg');
+    const playButtons = document.querySelectorAll('.play-btn');
     const radioAudio = document.getElementById('radio-audio');
     const trackTitle = document.getElementById('track-title');
     const musicIcon = document.querySelector('.music-icon');
@@ -35,6 +33,24 @@ document.addEventListener('DOMContentLoaded', () => {
     // Sincronizar volumen inicial
     radioAudio.volume = 0.8;
 
+    function updatePlayUI(playing) {
+        playButtons.forEach(btn => {
+            const playSvg = btn.querySelector('.play-icon');
+            const pauseSvg = btn.querySelector('.pause-icon');
+            if (playSvg && pauseSvg) {
+                if (playing) {
+                    playSvg.classList.add('hidden');
+                    pauseSvg.classList.remove('hidden');
+                    btn.setAttribute('aria-label', 'Pausar');
+                } else {
+                    playSvg.classList.remove('hidden');
+                    pauseSvg.classList.add('hidden');
+                    btn.setAttribute('aria-label', 'Reproducir');
+                }
+            }
+        });
+    }
+
     function togglePlay() {
         if (!isPlaying) {
             // Recargar el stream para evitar lag por almacenamiento en búfer pasivo
@@ -42,23 +58,21 @@ document.addEventListener('DOMContentLoaded', () => {
             radioAudio.play()
                 .then(() => {
                     isPlaying = true;
-                    playSvg.classList.add('hidden');
-                    pauseSvg.classList.remove('hidden');
+                    updatePlayUI(true);
                     musicIcon.classList.remove('paused');
-                    playPauseBtn.setAttribute('aria-label', 'Pausar');
                 })
                 .catch(err => console.error("Error reproduciendo audio:", err));
         } else {
             radioAudio.pause();
             isPlaying = false;
-            playSvg.classList.remove('hidden');
-            pauseSvg.classList.add('hidden');
+            updatePlayUI(false);
             musicIcon.classList.add('paused');
-            playPauseBtn.setAttribute('aria-label', 'Reproducir');
         }
     }
 
-    playPauseBtn.addEventListener('click', togglePlay);
+    playButtons.forEach(btn => {
+        btn.addEventListener('click', togglePlay);
+    });
 
     // Poner el reproductor como pausado inicialmente
     musicIcon.classList.add('paused');

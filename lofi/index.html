@@ -36,14 +36,14 @@
             <header class="player-header">
                 <div class="player-header-text">
                     <span class="badge">EMISIÓN EN DIRECTO</span>
-                    <div class="title-play-row">
+                    <div class="title-row">
                         <h1 class="radio-title">Valencianismo Radio</h1>
-                        <!-- Botón Play/Pausa al lado del título -->
-                        <button class="control-btn play-btn" id="play-pause-btn" aria-label="Reproducir">
-                            <svg class="play-icon" viewBox="0 0 24 24" id="play-svg">
+                        <!-- Botón Play/Pausa en cabecera (solo visible si está minimizado) -->
+                        <button class="control-btn play-btn header-play-btn" id="play-pause-btn-header" aria-label="Reproducir">
+                            <svg class="play-icon" viewBox="0 0 24 24">
                                 <path d="M8 5v14l11-7z"/>
                             </svg>
-                            <svg class="pause-icon hidden" viewBox="0 0 24 24" id="pause-svg">
+                            <svg class="pause-icon hidden" viewBox="0 0 24 24">
                                 <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
                             </svg>
                         </button>
@@ -61,19 +61,31 @@
 
             <!-- Contenido del cuerpo del reproductor -->
             <div class="player-body" id="player-body">
-                <!-- Metadata Display (Canción Actual) -->
-                <div class="now-playing">
-                    <div class="music-icon">
-                        <span class="bar"></span>
-                        <span class="bar"></span>
-                        <span class="bar"></span>
-                    </div>
-                    <div class="track-info">
-                        <span class="now-playing-label">SONANDO AHORA</span>
-                        <div class="track-title-wrapper">
-                            <h2 class="track-title" id="track-title">Cargando emisión...</h2>
+                <div class="player-controls-row">
+                    <!-- Metadata Display (Canción Actual) -->
+                    <div class="now-playing">
+                        <div class="music-icon">
+                            <span class="bar"></span>
+                            <span class="bar"></span>
+                            <span class="bar"></span>
+                        </div>
+                        <div class="track-info">
+                            <span class="now-playing-label">SONANDO AHORA</span>
+                            <div class="track-title-wrapper">
+                                <h2 class="track-title" id="track-title">Cargando emisión...</h2>
+                            </div>
                         </div>
                     </div>
+                    
+                    <!-- Botón Play/Pausa Principal (Abajo en el cuerpo) -->
+                    <button class="control-btn play-btn body-play-btn" id="play-pause-btn-body" aria-label="Reproducir">
+                        <svg class="play-icon" viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                        <svg class="pause-icon hidden" viewBox="0 0 24 24">
+                            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                        </svg>
+                    </button>
                 </div>
             </div>
 
@@ -85,7 +97,7 @@
                 </div>
                 
                 <div class="ambient-selector-wrapper collapsed" id="ambient-selector-wrapper">
-                    <span class="ambient-label">AMBIENTE ACTUAL: <strong id="ambient-name">Cargando...</strong></span>
+                    <span class="ambient-label">AMBIENTE ACTUAL: <strong id="ambient-name">Cargando...</strong> <span class="ambient-hint">(Pulsa de nuevo para cambiar estilo)</span></span>
                     <div class="ambient-selector grid-2x4">
                         <button class="ambient-btn" data-ambient="pixelart" title="Estilo Pixel-Art">👾 Pixel</button>
                         <button class="ambient-btn" data-ambient="retro" title="Retro Años 50">📻 Retro</button>
