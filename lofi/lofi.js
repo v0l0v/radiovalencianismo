@@ -259,7 +259,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // --- Lógica de Arrastre (Draggable) del Panel ---
-    const playerPanel = document.querySelector('.player-panel');
     const dragHeader = document.querySelector('.player-header');
 
     let isDragging = false;
