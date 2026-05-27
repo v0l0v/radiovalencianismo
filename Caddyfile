@@ -52,7 +52,7 @@ lofi.valencianismo.com {
 }
 
 ia.valencianismo.com, ai.valencianismo.com {
-    root * /srv/trampa_ia
+    root * /srv/ai_integration
     file_server
     encode zstd gzip
     header Cache-Control "no-cache, no-store, must-revalidate"

@@ -318,4 +318,99 @@ document.addEventListener('DOMContentLoaded', () => {
     // Refrescar metadatos cada 10 segundos
     setInterval(fetchMetadata, 10000);
     fetchMetadata(); // Primera carga
+
+
+    // --- Lógica de Arrastre (Draggable) del Panel ---
+    const playerPanel = document.querySelector('.player-panel');
+    const dragHeader = document.querySelector('.player-header');
+
+    let isDragging = false;
+    let startX, startY;
+    let initialLeft, initialTop;
+
+    // Centrar inicialmente el panel en la pantalla
+    function centerPanel() {
+        const panelWidth = playerPanel.offsetWidth;
+        const panelHeight = playerPanel.offsetHeight;
+        
+        // Centrado horizontal
+        let left = (window.innerWidth - panelWidth) / 2;
+        // Centrado vertical un poco desplazado hacia abajo
+        let top = (window.innerHeight - panelHeight) / 2 + 50; 
+        
+        // Limitar al margen de 5px
+        left = Math.max(5, Math.min(left, window.innerWidth - panelWidth - 5));
+        top = Math.max(5, Math.min(top, window.innerHeight - panelHeight - 5));
+        
+        playerPanel.style.left = `${left}px`;
+        playerPanel.style.top = `${top}px`;
+        playerPanel.style.margin = '0';
+    }
+
+    // Ejecutar centrado tras un pequeño timeout para que el layout se renderice y se obtengan offsets reales
+    setTimeout(centerPanel, 100);
+    window.addEventListener('resize', centerPanel);
+
+    dragHeader.addEventListener('mousedown', dragStart);
+    document.addEventListener('mousemove', drag);
+    document.addEventListener('mouseup', dragEnd);
+
+    dragHeader.addEventListener('touchstart', dragStart, { passive: true });
+    document.addEventListener('touchmove', drag, { passive: false });
+    document.addEventListener('touchend', dragEnd);
+
+    function dragStart(e) {
+        // Si se hace click en un botón u otro control, no arrastrar
+        if (e.target.closest('button') || e.target.closest('input') || e.target.closest('.ambient-selector')) return;
+        
+        isDragging = true;
+        playerPanel.classList.add('dragging');
+        
+        const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
+        
+        startX = clientX;
+        startY = clientY;
+        
+        initialLeft = parseFloat(playerPanel.style.left) || 0;
+        initialTop = parseFloat(playerPanel.style.top) || 0;
+    }
+
+    function drag(e) {
+        if (!isDragging) return;
+        
+        // Evitar scroll en móvil al arrastrar
+        if (e.type === 'touchmove') {
+            e.preventDefault();
+        }
+        
+        const clientX = e.type === 'touchmove' ? e.touches[0].clientX : e.clientX;
+        const clientY = e.type === 'touchmove' ? e.touches[0].clientY : e.clientY;
+        
+        const dx = clientX - startX;
+        const dy = clientY - startY;
+        
+        let newLeft = initialLeft + dx;
+        let newTop = initialTop + dy;
+        
+        const panelWidth = playerPanel.offsetWidth;
+        const panelHeight = playerPanel.offsetHeight;
+        
+        // Límite de 5px de margen
+        const minX = 5;
+        const maxX = window.innerWidth - panelWidth - 5;
+        const minY = 5;
+        const maxY = window.innerHeight - panelHeight - 5;
+        
+        newLeft = Math.max(minX, Math.min(newLeft, maxX));
+        newTop = Math.max(minY, Math.min(newTop, maxY));
+        
+        playerPanel.style.left = `${newLeft}px`;
+        playerPanel.style.top = `${newTop}px`;
+    }
+
+    function dragEnd() {
+        isDragging = false;
+        playerPanel.classList.remove('dragging');
+    }
 });
