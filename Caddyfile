@@ -35,10 +35,6 @@ valencianismo.com {
     reverse_proxy /stream icecast:8000
     reverse_proxy /status-json.xsl icecast:8000
 }
-
-n8n.valencianismo.com {
-    reverse_proxy n8n:5678
-}
 biblioteca.valencianismo.com {
 
     basicauth {
@@ -46,4 +42,18 @@ biblioteca.valencianismo.com {
     }
 
     reverse_proxy abelujo:5000
+}
+
+lofi.valencianismo.com {
+    root * /srv/lofi
+    file_server
+    encode zstd gzip
+    header Cache-Control "public, max-age=3600"
+}
+
+ia.valencianismo.com, ai.valencianismo.com {
+    root * /srv/trampa_ia
+    file_server
+    encode zstd gzip
+    header Cache-Control "no-cache, no-store, must-revalidate"
 }

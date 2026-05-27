@@ -1,0 +1,498 @@
+/* Valencianismo Lo-Fi — Sistema de Estilos Premium */
+
+:root {
+    --primary-color: #ff9f1c; /* Naranja valencianista cálido */
+    --accent-color: #2ec4b6;  /* Azul relajante */
+    --bg-glass: rgba(15, 18, 26, 0.45);
+    --border-glass: rgba(255, 255, 255, 0.08);
+    --shadow-premium: 0 20px 50px rgba(0, 0, 0, 0.5);
+    --font-sans: 'Outfit', sans-serif;
+    --font-serif: 'Playfair Display', serif;
+    --transition-smooth: all 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body, html {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: #08090c;
+    font-family: var(--font-sans);
+    color: #f1f3f9;
+}
+
+/* Contenedor de Fondos de Ambiente */
+.background-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    transition: background-image 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+    transform: scale(1.02); /* Evita bordes blancos por difuminados */
+    filter: brightness(0.7) contrast(1.05);
+}
+
+/* Efecto de viñeta oscura para enfocar el centro */
+.background-container::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle at center, transparent 20%, rgba(5, 6, 8, 0.75) 100%);
+    pointer-events: none;
+}
+
+/* Canvas para Gotas de Lluvia en el vidrio */
+#rain-canvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 2;
+    pointer-events: none;
+    mix-blend-mode: screen;
+    opacity: 0.85;
+}
+
+/* Contenedor General de la Aplicación */
+.app-container {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    z-index: 3;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 2.5rem;
+    pointer-events: none; /* Dejar pasar clicks al canvas si es interactivo, pero reactivamos en paneles */
+}
+
+.app-container * {
+    pointer-events: auto;
+}
+
+/* --- Widget del Reloj Analógico --- */
+.clock-widget {
+    align-self: flex-end;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.5rem;
+    background: var(--bg-glass);
+    border: 1px solid var(--border-glass);
+    padding: 1rem 1.2rem;
+    border-radius: 1.5rem;
+    box-shadow: var(--shadow-premium);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    transition: var(--transition-smooth);
+}
+
+.clock-widget:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    background: rgba(15, 18, 26, 0.55);
+}
+
+.clock {
+    width: 70px;
+    height: 70px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    position: relative;
+    box-shadow: inset 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+.hand {
+    position: absolute;
+    bottom: 50%;
+    left: 50%;
+    transform-origin: bottom center;
+    border-radius: 4px;
+    background: #ffffff;
+    transition: transform 0.1s cubic-bezier(0.4, 2.08, 0.55, 0.44);
+}
+
+.hand.hour {
+    width: 3px;
+    height: 20px;
+    margin-left: -1.5px;
+    background: #ffffff;
+}
+
+.hand.minute {
+    width: 2px;
+    height: 28px;
+    margin-left: -1px;
+    background: rgba(255, 255, 255, 0.85);
+}
+
+.hand.second {
+    width: 1px;
+    height: 31px;
+    margin-left: -0.5px;
+    background: var(--primary-color);
+}
+
+.center-dot {
+    width: 6px;
+    height: 6px;
+    background: var(--primary-color);
+    border-radius: 50%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    box-shadow: 0 0 5px var(--primary-color);
+}
+
+.digital-time {
+    font-size: 0.85rem;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color: rgba(255, 255, 255, 0.7);
+    font-feature-settings: "tnum";
+}
+
+/* --- Panel Central del Reproductor --- */
+.player-panel {
+    width: 100%;
+    max-width: 480px;
+    background: var(--bg-glass);
+    border: 1px solid var(--border-glass);
+    border-radius: 2rem;
+    padding: 2.2rem;
+    box-shadow: var(--shadow-premium);
+    backdrop-filter: blur(25px);
+    -webkit-backdrop-filter: blur(25px);
+    display: flex;
+    flex-direction: column;
+    gap: 1.8rem;
+    margin-bottom: 2rem;
+    transition: var(--transition-smooth);
+}
+
+.player-panel:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 25px 60px rgba(0, 0, 0, 0.6);
+}
+
+.player-header {
+    text-align: center;
+}
+
+.badge {
+    background: rgba(255, 159, 28, 0.15);
+    color: var(--primary-color);
+    border: 1px solid rgba(255, 159, 28, 0.3);
+    font-size: 0.7rem;
+    font-weight: 800;
+    letter-spacing: 3px;
+    padding: 0.3rem 0.8rem;
+    border-radius: 50px;
+    display: inline-block;
+    margin-bottom: 0.8rem;
+}
+
+.radio-title {
+    font-family: var(--font-serif);
+    font-size: 2.2rem;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+    margin-bottom: 0.3rem;
+}
+
+.tagline {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 300;
+}
+
+/* --- Display de lo que suena --- */
+.now-playing {
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.05);
+    border-radius: 1.25rem;
+    padding: 1.1rem;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    overflow: hidden;
+}
+
+.music-icon {
+    display: flex;
+    align-items: flex-end;
+    gap: 3px;
+    width: 20px;
+    height: 20px;
+}
+
+.music-icon .bar {
+    width: 4px;
+    height: 4px;
+    background-color: var(--primary-color);
+    border-radius: 2px;
+    animation: bounce 1.2s ease-in-out infinite alternate;
+}
+
+.music-icon .bar:nth-child(2) {
+    animation-delay: 0.2s;
+    animation-duration: 0.8s;
+}
+
+.music-icon .bar:nth-child(3) {
+    animation-delay: 0.4s;
+    animation-duration: 1.4s;
+}
+
+/* Animación cuando no se reproduce */
+.music-icon.paused .bar {
+    animation: none;
+    height: 4px !important;
+    background-color: rgba(255, 255, 255, 0.4);
+}
+
+@keyframes bounce {
+    0% { height: 4px; }
+    100% { height: 18px; }
+}
+
+.track-info {
+    flex: 1;
+    overflow: hidden;
+}
+
+.now-playing-label {
+    font-size: 0.65rem;
+    font-weight: 800;
+    letter-spacing: 2px;
+    color: var(--primary-color);
+    margin-bottom: 0.15rem;
+    display: block;
+}
+
+.track-title-wrapper {
+    overflow: hidden;
+    position: relative;
+    white-space: nowrap;
+}
+
+.track-title {
+    font-size: 1.05rem;
+    font-weight: 600;
+    color: #ffffff;
+    display: inline-block;
+    will-change: transform;
+}
+
+/* Desplazamiento si el texto es muy largo */
+.track-title.marquee {
+    animation: marquee 15s linear infinite;
+    padding-left: 100%;
+}
+
+@keyframes marquee {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-100%, 0, 0); }
+}
+
+/* --- Controles del Reproductor --- */
+.player-controls {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1.5rem;
+    background: rgba(255, 255, 255, 0.02);
+    padding: 0.8rem 1.2rem;
+    border-radius: 1.25rem;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+.play-btn {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    border: none;
+    background: #ffffff;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3), inset 0 -4px 0px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.play-btn:hover {
+    transform: scale(1.08);
+    background: #ffffff;
+    box-shadow: 0 12px 28px rgba(255, 159, 28, 0.3);
+}
+
+.play-btn:active {
+    transform: scale(0.95);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+}
+
+.play-btn svg {
+    width: 24px;
+    height: 24px;
+    fill: #0c0d12;
+    transition: transform 0.1s ease;
+}
+
+.volume-container {
+    display: flex;
+    align-items: center;
+    gap: 0.8rem;
+    flex: 1;
+}
+
+.volume-icon {
+    width: 20px;
+    height: 20px;
+    fill: rgba(255, 255, 255, 0.5);
+    transition: fill 0.3s ease;
+}
+
+.volume-container:hover .volume-icon {
+    fill: #ffffff;
+}
+
+.volume-slider {
+    -webkit-appearance: none;
+    width: 100%;
+    height: 4px;
+    border-radius: 2px;
+    background: rgba(255, 255, 255, 0.15);
+    outline: none;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.volume-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #ffffff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    cursor: pointer;
+    transition: transform 0.1s ease, background 0.3s ease;
+}
+
+.volume-slider::-webkit-slider-thumb:hover {
+    transform: scale(1.3);
+    background: var(--primary-color);
+}
+
+/* --- Selectores de Ambiente --- */
+.player-footer {
+    border-top: 1px solid rgba(255, 255, 255, 0.05);
+    padding-top: 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.6rem;
+}
+
+.ambient-label {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.5);
+    font-weight: 600;
+}
+
+.ambient-label strong {
+    color: var(--primary-color);
+}
+
+.ambient-selector {
+    display: flex;
+    gap: 0.4rem;
+    flex-wrap: wrap;
+}
+
+.ambient-btn {
+    flex: 1;
+    min-width: 60px;
+    background: rgba(255, 255, 255, 0.04);
+    border: 1px solid rgba(255, 255, 255, 0.06);
+    color: rgba(255, 255, 255, 0.7);
+    padding: 0.5rem 0.6rem;
+    border-radius: 0.75rem;
+    font-size: 0.75rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+}
+
+.ambient-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    border-color: rgba(255, 255, 255, 0.15);
+}
+
+.ambient-btn.active {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+    color: #0c0d12;
+    box-shadow: 0 4px 15px rgba(255, 159, 28, 0.25);
+}
+
+.shuffle-btn {
+    flex: 0 0 38px;
+    min-width: 38px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.95rem;
+}
+
+/* --- Marca de agua y extras --- */
+.watermark {
+    font-size: 0.75rem;
+    letter-spacing: 5px;
+    color: rgba(255, 255, 255, 0.15);
+    font-weight: 800;
+    text-transform: uppercase;
+}
+
+.hidden {
+    display: none !important;
+}
+
+/* --- Adaptación Responsive --- */
+@media (max-width: 580px) {
+    .app-container {
+        padding: 1.5rem;
+    }
+    
+    .clock-widget {
+        align-self: center;
+        margin-top: 1rem;
+    }
+    
+    .player-panel {
+        padding: 1.5rem;
+        gap: 1.3rem;
+        margin-bottom: 1rem;
+    }
+
+    .radio-title {
+        font-size: 1.8rem;
+    }
+}

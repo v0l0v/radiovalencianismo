@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Valencianismo Lo-Fi — Radio Relajante</title>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;800&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <!-- CSS Estilos -->
+    <link rel="stylesheet" href="lofi.css">
+</head>
+<body>
+    <!-- Capa de Fondo (Ambiente) -->
+    <div class="background-container" id="bg-container"></div>
+    
+    <!-- Canvas de Lluvia (Superpuesto en el vidrio de la ventana) -->
+    <canvas id="rain-canvas"></canvas>
+
+    <!-- Contenedor Principal (Experiencia Minimalista) -->
+    <div class="app-container">
+        
+        <!-- Reloj Analógico (Esquina Superior Derecha) -->
+        <div class="clock-widget">
+            <div class="clock">
+                <div class="hand hour" id="hour-hand"></div>
+                <div class="hand minute" id="min-hand"></div>
+                <div class="hand second" id="sec-hand"></div>
+                <div class="center-dot"></div>
+            </div>
+            <div class="digital-time" id="digital-time">00:00:00</div>
+        </div>
+
+        <!-- Panel del Reproductor (Glassmorphism en el centro/abajo) -->
+        <main class="player-panel">
+            <header class="player-header">
+                <span class="badge">EMISIÓN EN DIRECTO</span>
+                <h1 class="radio-title">Valencianismo Radio</h1>
+                <p class="tagline">Tu compañía de fondo para trabajar y estudiar</p>
+            </header>
+
+            <!-- Metadata Display (Canción Actual) -->
+            <div class="now-playing">
+                <div class="music-icon">
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                    <span class="bar"></span>
+                </div>
+                <div class="track-info">
+                    <span class="now-playing-label">SONANDO AHORA</span>
+                    <div class="track-title-wrapper">
+                        <h2 class="track-title" id="track-title">Cargando emisión...</h2>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Controles del Reproductor -->
+            <div class="player-controls">
+                <button class="control-btn play-btn" id="play-pause-btn" aria-label="Reproducir">
+                    <svg class="play-icon" viewBox="0 0 24 24" id="play-svg">
+                        <path d="M8 5v14l11-7z"/>
+                    </svg>
+                    <svg class="pause-icon hidden" viewBox="0 0 24 24" id="pause-svg">
+                        <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                    </svg>
+                </button>
+
+                <!-- Control de Volumen Retro -->
+                <div class="volume-container">
+                    <svg class="volume-icon" viewBox="0 0 24 24">
+                        <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z"/>
+                    </svg>
+                    <input type="range" class="volume-slider" id="volume-slider" min="0" max="1" step="0.01" value="0.7">
+                </div>
+            </div>
+
+            <!-- Panel de Sintonización de Ambiente -->
+            <footer class="player-footer">
+                <span class="ambient-label">AMBIENTE ACTUAL: <strong id="ambient-name">Retro Vintage</strong></span>
+                <div class="ambient-selector">
+                    <button class="ambient-btn" data-ambient="pixelart" title="Estilo Pixel-Art">👾 Pixel</button>
+                    <button class="ambient-btn active" data-ambient="retro" title="Retro Años 50">🪵 Retro</button>
+                    <button class="ambient-btn" data-ambient="cyberpunk" title="Futurista Cyberpunk">🌌 Cyber</button>
+                    <button class="ambient-btn" data-ambient="nature" title="Cabaña y Naturaleza">🌿 Bosque</button>
+                    <button class="ambient-btn shuffle-btn" id="shuffle-btn" title="Ambiente Aleatorio">🎲</button>
+                </div>
+            </footer>
+        </main>
+        
+        <!-- Marca de Agua Sutil -->
+        <div class="watermark">
+            <span>lofi.valencianismo.com</span>
+        </div>
+    </div>
+
+    <!-- Elemento Audio Oculto (Apunta al stream de la radio) -->
+    <audio id="radio-audio" src="https://valencianismo.com/stream" preload="none" crossorigin="anonymous"></audio>
+
+    <!-- JS Lógica -->
+    <script src="lofi.js"></script>
+</body>
+</html>
