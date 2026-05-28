@@ -450,4 +450,46 @@ document.addEventListener('DOMContentLoaded', () => {
         isDragging = false;
         playerPanel.classList.remove('dragging');
     }
+
+    // --- Efecto Parallax con Giroscopio (Especial Móviles) ---
+    let gyroscopeEnabled = false;
+
+    // Detectar si es un dispositivo móvil (touch)
+    if (window.matchMedia("(pointer: coarse)").matches) {
+        // En iOS 13+, DeviceOrientationEvent requiere permiso mediante interacción del usuario.
+        document.body.addEventListener('click', () => {
+            if (!gyroscopeEnabled && typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
+                DeviceOrientationEvent.requestPermission()
+                    .then(permissionState => {
+                        if (permissionState === 'granted') {
+                            gyroscopeEnabled = true;
+                            startGyroscopeParallax();
+                        }
+                    })
+                    .catch(console.error);
+            } else if (!gyroscopeEnabled) {
+                gyroscopeEnabled = true;
+                startGyroscopeParallax();
+            }
+        }, { once: true });
+    }
+
+    function startGyroscopeParallax() {
+        window.addEventListener('deviceorientation', (e) => {
+            if (e.gamma === null || e.beta === null) return;
+
+            // gamma: inclinación izq/der (-90 a 90) -> Limitamos a [-45, 45]
+            let gamma = Math.max(-45, Math.min(45, e.gamma));
+            
+            // beta: inclinación adelante/atrás (-180 a 180) -> Limitamos a [0, 90] (agarre natural a 45º)
+            let beta = Math.max(0, Math.min(90, e.beta));
+
+            // Mapear inclinaciones a porcentajes [0%, 100%]
+            let xPos = 50 + (gamma / 45) * 50;
+            let yPos = 50 + ((beta - 45) / 45) * 50;
+
+            // Aplicar la posición a la imagen de fondo
+            bgContainer.style.backgroundPosition = `${xPos}% ${yPos}%`;
+        });
+    }
 });
