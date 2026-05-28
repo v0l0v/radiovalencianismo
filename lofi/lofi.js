@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
         pixelart: { name: 'Habitación Pixel-Art', file_art: 'assets/pixelart_art.png', file_photo: 'assets/pixelart_photo.png' },
         xativa: { name: 'Castell de Xàtiva', file_art: 'assets/xativa_art.png', file_photo: 'assets/xativa_photo.png' },
         cyberpunk: { name: 'Ciberpunk Futurista', file_art: 'assets/cyberpunk_art.png', file_photo: 'assets/cyberpunk_photo.png' },
-        nature: { name: 'Cabaña y Naturaleza', file_art: 'assets/nature_art.png', file_photo: 'assets/nature_photo.png' },
+        malvarrosa: { name: 'Amanecer en la Malvarrosa', file_art: 'assets/malvarrosa_art.png', file_photo: 'assets/malvarrosa_photo.png' },
         space: { name: 'Estación Espacial sobre Valencia', file_art: 'assets/space_art.png', file_photo: 'assets/space_photo.png' },
         brooklyn: { name: 'Loft en Brooklyn', file_art: 'assets/brooklyn_art.png', file_photo: 'assets/brooklyn_photo.png' },
         cac: { name: 'Ciutat de les Arts i les Ciències', file_art: 'assets/cac_art.png?v=2', file_photo: 'assets/cac_photo.png?v=2' },
