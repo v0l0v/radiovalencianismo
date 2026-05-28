@@ -7,7 +7,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Mapeo de ambientes (Modo Ilustración y Modo Foto)
     const AMBIENTS = {
         pixelart: { name: 'Habitación Pixel-Art', file_art: 'assets/pixelart_art.png', file_photo: 'assets/pixelart_photo.png' },
-        retro: { name: 'Retro Vintage Años 50', file_art: 'assets/retro_art.png', file_photo: 'assets/retro_photo.png' },
+        xativa: { name: 'Castell de Xàtiva', file_art: 'assets/xativa_art.png', file_photo: 'assets/xativa_photo.png' },
         cyberpunk: { name: 'Ciberpunk Futurista', file_art: 'assets/cyberpunk_art.png', file_photo: 'assets/cyberpunk_photo.png' },
         nature: { name: 'Cabaña y Naturaleza', file_art: 'assets/nature_art.png', file_photo: 'assets/nature_photo.png' },
         space: { name: 'Estación Espacial sobre Valencia', file_art: 'assets/space_art.png', file_photo: 'assets/space_photo.png' },
