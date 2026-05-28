@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         lonja_mercado: { name: 'Mercat Central (1920)', file_art: 'assets/lonja_mercado_art.png', file_photo: 'assets/brooklyn_photo.png' },
         cac: { name: 'Ciutat de les Arts i les Ciències', file_art: 'assets/cac_art.png?v=2', file_photo: 'assets/cac_photo.png?v=2' },
         valencia: { name: 'Barraca en la Albufera', file_art: 'assets/valencia_art.png', file_photo: 'assets/valencia_photo.png' },
-        virgen_360: { name: 'Plaza de la Virgen 360º', file_art: 'assets/virgen_360_art.png', is360: true }
+        virgen_360: { name: 'Plaza de la Virgen 360º', file_art: 'assets/virgen_360_art.png?v=2', is360: true }
     };
 
     let currentAmbient = '';
