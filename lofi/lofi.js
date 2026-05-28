@@ -475,21 +475,43 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function startGyroscopeParallax() {
+        let targetX = 50;
+        let targetY = 50;
+        let currentX = 50;
+        let currentY = 50;
+        
+        // Factor de suavizado: menor es más lento/suave (efecto cinemático)
+        const easing = 0.04;
+
         window.addEventListener('deviceorientation', (e) => {
             if (e.gamma === null || e.beta === null) return;
 
-            // gamma: inclinación izq/der (-90 a 90) -> Limitamos a [-45, 45]
+            // gamma: inclinación izq/der -> Limitamos a [-45, 45]
             let gamma = Math.max(-45, Math.min(45, e.gamma));
             
-            // beta: inclinación adelante/atrás (-180 a 180) -> Limitamos a [0, 90] (agarre natural a 45º)
+            // beta: inclinación adelante/atrás -> Limitamos a [0, 90] (agarre natural a 45º)
             let beta = Math.max(0, Math.min(90, e.beta));
 
-            // Mapear inclinaciones a porcentajes [0%, 100%]
-            let xPos = 50 + (gamma / 45) * 50;
-            let yPos = 50 + ((beta - 45) / 45) * 50;
-
-            // Aplicar la posición a la imagen de fondo
-            bgContainer.style.backgroundPosition = `${xPos}% ${yPos}%`;
+            // Establecer el objetivo (target) en porcentaje [0%, 100%]
+            targetX = 50 + (gamma / 45) * 50;
+            targetY = 50 + ((beta - 45) / 45) * 50;
         });
+
+        // Bucle de animación constante para aplicar interpolación lineal (LERP)
+        function animateParallax() {
+            // Calcular el paso hacia el objetivo
+            currentX += (targetX - currentX) * easing;
+            currentY += (targetY - currentY) * easing;
+
+            // Solo actualizar el DOM si realmente se está moviendo, para no saturar
+            if (Math.abs(targetX - currentX) > 0.01 || Math.abs(targetY - currentY) > 0.01) {
+                bgContainer.style.backgroundPosition = `${currentX.toFixed(2)}% ${currentY.toFixed(2)}%`;
+            }
+            
+            requestAnimationFrame(animateParallax);
+        }
+
+        // Iniciar el bucle
+        animateParallax();
     }
 });
