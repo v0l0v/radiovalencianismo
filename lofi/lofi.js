@@ -13,7 +13,8 @@ document.addEventListener('DOMContentLoaded', () => {
         space: { name: 'Estación Espacial sobre Valencia', file_art: 'assets/space_art.png?v=3', file_photo: 'assets/space_photo.png' },
         lonja_mercado: { name: 'Mercat Central (1920)', file_art: 'assets/lonja_mercado_art.png', file_photo: 'assets/brooklyn_photo.png' },
         cac: { name: 'Ciutat de les Arts i les Ciències', file_art: 'assets/cac_art.png?v=2', file_photo: 'assets/cac_photo.png?v=2' },
-        valencia: { name: 'Barraca en la Albufera', file_art: 'assets/valencia_art.png', file_photo: 'assets/valencia_photo.png' }
+        valencia: { name: 'Barraca en la Albufera', file_art: 'assets/valencia_art.png', file_photo: 'assets/valencia_photo.png' },
+        virgen_360: { name: 'Plaza de la Virgen 360º', file_art: 'assets/virgen_360_art.png', is360: true }
     };
 
     let currentAmbient = '';
@@ -89,6 +90,15 @@ document.addEventListener('DOMContentLoaded', () => {
         // Cambiar la imagen de fondo con transición CSS3 suave
         bgContainer.style.backgroundImage = `url(${bgUrl})`;
         ambientNameDisplay.textContent = amb.name;
+
+        // Configuración especial para fondos 360
+        if (amb.is360) {
+            bgContainer.style.backgroundSize = 'auto 100%';
+            bgContainer.style.backgroundRepeat = 'repeat-x';
+        } else {
+            bgContainer.style.backgroundSize = 'cover';
+            bgContainer.style.backgroundRepeat = 'no-repeat';
+        }
 
         // Actualizar estados de botones de selección
         ambientButtons.forEach(btn => {
@@ -480,21 +490,50 @@ document.addEventListener('DOMContentLoaded', () => {
         let currentX = 50;
         let currentY = 50;
         
+        let lastAlpha = null;
+        let accumulatedAlpha = 0;
+        
         // Factor de suavizado: menor es más lento/suave (efecto cinemático)
         const easing = 0.04;
 
         window.addEventListener('deviceorientation', (e) => {
-            if (e.gamma === null || e.beta === null) return;
+            const amb = AMBIENTS[currentAmbient];
 
-            // gamma: inclinación izq/der -> Limitamos a [-45, 45]
-            let gamma = Math.max(-45, Math.min(45, e.gamma));
-            
-            // beta: inclinación adelante/atrás -> Limitamos a [0, 90] (agarre natural a 45º)
-            let beta = Math.max(0, Math.min(90, e.beta));
+            if (amb && amb.is360) {
+                // MODO 360: Rotación completa basada en la brújula (alpha)
+                if (e.alpha !== null) {
+                    if (lastAlpha === null) lastAlpha = e.alpha;
+                    let delta = e.alpha - lastAlpha;
+                    
+                    // Manejar el salto de la brújula de 360 a 0
+                    if (delta > 180) delta -= 360;
+                    if (delta < -180) delta += 360;
+                    
+                    accumulatedAlpha += delta; // Sumar la rotación continua
+                    lastAlpha = e.alpha;
+                    
+                    // Multiplicador de sensibilidad para que coincida el giro físico
+                    targetX = accumulatedAlpha * 8; 
+                }
+                
+                if (e.beta !== null) {
+                    let beta = Math.max(0, Math.min(90, e.beta));
+                    targetY = 50 + ((beta - 45) / 45) * 50;
+                }
+            } else {
+                // MODO NORMAL (Lofi Parallax): Inclinación (gamma)
+                if (e.gamma === null || e.beta === null) return;
+                
+                // gamma: inclinación izq/der -> Limitamos a [-45, 45]
+                let gamma = Math.max(-45, Math.min(45, e.gamma));
+                
+                // beta: inclinación adelante/atrás -> Limitamos a [0, 90] (agarre natural a 45º)
+                let beta = Math.max(0, Math.min(90, e.beta));
 
-            // Establecer el objetivo (target) en porcentaje [0%, 100%]
-            targetX = 50 + (gamma / 45) * 50;
-            targetY = 50 + ((beta - 45) / 45) * 50;
+                // Establecer el objetivo (target) en porcentaje [0%, 100%]
+                targetX = 50 + (gamma / 45) * 50;
+                targetY = 50 + ((beta - 45) / 45) * 50;
+            }
         });
 
         // Bucle de animación constante para aplicar interpolación lineal (LERP)
@@ -503,9 +542,17 @@ document.addEventListener('DOMContentLoaded', () => {
             currentX += (targetX - currentX) * easing;
             currentY += (targetY - currentY) * easing;
 
+            const amb = AMBIENTS[currentAmbient];
+
             // Solo actualizar el DOM si realmente se está moviendo, para no saturar
             if (Math.abs(targetX - currentX) > 0.01 || Math.abs(targetY - currentY) > 0.01) {
-                bgContainer.style.backgroundPosition = `${currentX.toFixed(2)}% ${currentY.toFixed(2)}%`;
+                if (amb && amb.is360) {
+                    // En 360 movemos en píxeles horizontalmente para giro infinito
+                    bgContainer.style.backgroundPosition = `${currentX}px ${currentY.toFixed(2)}%`;
+                } else {
+                    // En normal movemos en porcentaje
+                    bgContainer.style.backgroundPosition = `${currentX.toFixed(2)}% ${currentY.toFixed(2)}%`;
+                }
             }
             
             requestAnimationFrame(animateParallax);
