@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Mapeo de ambientes (Modo Ilustración y Modo Foto)
     const AMBIENTS = {
-        pixelart: { name: 'Habitación Pixel-Art', file_art: 'assets/pixelart_art.png', file_photo: 'assets/pixelart_photo.png' },
+        serranos: { name: 'Torres de Serrans y la Senyera', file_art: 'assets/serranos_art.png', file_photo: 'assets/pixelart_photo.png' },
         xativa: { name: 'Castell de Xàtiva', file_art: 'assets/xativa_art.png', file_photo: 'assets/xativa_photo.png' },
         cyberpunk: { name: 'Ciutat de les Arts Cyberpunk', file_art: 'assets/cyberpunk_cac_art.png', file_photo: 'assets/cyberpunk_photo.png' },
         malvarrosa: { name: 'Amanecer en la Malvarrosa', file_art: 'assets/malvarrosa_sorolla_art.png', file_photo: 'assets/malvarrosa_photo.png' },
