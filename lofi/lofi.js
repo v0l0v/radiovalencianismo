@@ -78,15 +78,13 @@ document.addEventListener('DOMContentLoaded', () => {
     musicIcon.classList.add('paused');
 
     // --- Sintonización de Ambientes (Estéticas) ---
-    let currentVisualType = 'art'; // 'art' o 'photo'
 
-    function loadAmbientVisual(ambientKey, visualType) {
+    function loadAmbientVisual(ambientKey) {
         if (!AMBIENTS[ambientKey]) return;
         currentAmbient = ambientKey;
-        currentVisualType = visualType;
         
         const amb = AMBIENTS[ambientKey];
-        const bgUrl = visualType === 'photo' ? amb.file_photo : amb.file_art;
+        const bgUrl = amb.file_art;
 
         // Cambiar la imagen de fondo con transición CSS3 suave
         bgContainer.style.backgroundImage = `url(${bgUrl})`;
@@ -103,9 +101,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     function setAmbient(ambientKey) {
-        // Al sintonizar un nuevo ambiente, alternamos el tipo visual actual
-        const nextVisualType = currentVisualType === 'art' ? 'photo' : 'art';
-        loadAmbientVisual(ambientKey, nextVisualType);
+        loadAmbientVisual(ambientKey);
     }
 
     // Inicializar ambientes con click simple
