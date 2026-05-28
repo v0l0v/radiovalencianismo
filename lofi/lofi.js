@@ -12,7 +12,7 @@ document.addEventListener('DOMContentLoaded', () => {
         nature: { name: 'Cabaña y Naturaleza', file_art: 'assets/nature_art.png', file_photo: 'assets/nature_photo.png' },
         space: { name: 'Estación Espacial sobre Valencia', file_art: 'assets/space_art.png', file_photo: 'assets/space_photo.png' },
         brooklyn: { name: 'Loft en Brooklyn', file_art: 'assets/brooklyn_art.png', file_photo: 'assets/brooklyn_photo.png' },
-        nyc: { name: 'Rascacielos en Manhattan', file_art: 'assets/nyc_art.png', file_photo: 'assets/nyc_photo.png' },
+        cac: { name: 'Ciutat de les Arts i les Ciències', file_art: 'assets/cac_art.png', file_photo: 'assets/cac_photo.png' },
         valencia: { name: 'Barraca en la Albufera', file_art: 'assets/valencia_art.png', file_photo: 'assets/valencia_photo.png' }
     };
 
