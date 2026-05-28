@@ -111,6 +111,44 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
+    // --- Navegación de Ambientes con Ratón/Teclado ---
+    const ambientKeys = Object.keys(AMBIENTS);
+    function cycleAmbient(direction) {
+        if (!currentAmbient) return;
+        let currentIndex = ambientKeys.indexOf(currentAmbient);
+        if (currentIndex === -1) return;
+        
+        currentIndex += direction;
+        if (currentIndex < 0) currentIndex = ambientKeys.length - 1;
+        if (currentIndex >= ambientKeys.length) currentIndex = 0;
+        
+        setAmbient(ambientKeys[currentIndex]);
+    }
+
+    // Rueda del ratón
+    window.addEventListener('wheel', (e) => {
+        // Evitar el cambio si se hace scroll sobre el panel del reproductor o modales
+        if (e.target.closest('#player-panel') || e.target.closest('.modal')) return;
+        
+        if (e.deltaY > 0) {
+            cycleAmbient(1); // Scroll abajo = siguiente
+        } else if (e.deltaY < 0) {
+            cycleAmbient(-1); // Scroll arriba = anterior
+        }
+    });
+
+    // Cursores del teclado
+    window.addEventListener('keydown', (e) => {
+        // Ignorar si el usuario está escribiendo en algún input (por si acaso hubiera)
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
+            cycleAmbient(1);
+        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
+            cycleAmbient(-1);
+        }
+    });
+
     // --- Minimizar / Maximizar Reproductor ---
     const playerPanel = document.getElementById('player-panel');
     const togglePlayerBtn = document.getElementById('toggle-player-btn');
