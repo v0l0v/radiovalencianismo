@@ -216,7 +216,6 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     // Cargar un ambiente aleatorio distinto cada vez que se entra a la página
-    const ambientKeys = Object.keys(AMBIENTS);
     const randomAmbient = ambientKeys[Math.floor(Math.random() * ambientKeys.length)];
     setAmbient(randomAmbient);
 
