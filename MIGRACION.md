@@ -2,7 +2,12 @@
 
 Este documento detalla, paso por paso, cómo exportar todo el ecosistema de **Valencianismo Radio** (Frontend, Lofi, Icecast, Liquidsoap, Piper TTS y n8n) desde tu servidor actual e importarlo/duplicarlo en un nuevo servidor VPS.
 
-El proyecto está diseñado bajo una arquitectura de contenedores con **Docker Compose**, lo que facilita enormemente la migración al mantener aislados los servicios y configuraciones principales.
+> [!TIP]
+> **MIGRACIÓN AUTOMATIZADA:** Para agilizar este proceso, he creado dos scripts autoejecutables en la raíz del proyecto:
+> 1. `./exportar_servidor.sh` (en el servidor de origen): Empaqueta el proyecto automáticamente, te permite elegir si incluir la música de `/mp3` y apaga ordenadamente los contenedores.
+> 2. `./importar_servidor.sh` (en el nuevo servidor): Instala Docker/Compose si no existen, configura los puertos en el cortafuegos (UFW), modifica automáticamente tu dominio en el `Caddyfile` y despliega todo.
+>
+> Puedes seguir la guía paso a paso detallada a continuación o usar estos scripts para hacer el 90% del trabajo de forma automatizada.
 
 ---
 
