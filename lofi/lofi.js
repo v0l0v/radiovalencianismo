@@ -15,7 +15,7 @@ document.addEventListener('DOMContentLoaded', () => {
         cac: { name: 'Ciutat de les Arts i les Ciències', file_art: 'assets/cac_art.png?v=2', file_photo: 'assets/cac_photo.png?v=2' },
         valencia: { name: 'Barraca en la Albufera', file_art: 'assets/valencia_art.png', file_photo: 'assets/valencia_photo.png' },
         naranjos_360: { name: 'Campo de Naranjos', file_art: 'assets/naranjos_360_art.png' },
-        mestalla: { name: 'Estadio de Mestalla', file_art: 'assets/mestalla_art.png' }
+        mestalla: { name: 'Estadio de Mestalla', file_art: 'assets/mestallavcf_art.png' }
     };
 
     let currentAmbient = '';
