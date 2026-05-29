@@ -147,17 +147,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-    // Cursores del teclado
-    window.addEventListener('keydown', (e) => {
-        // Ignorar si el usuario está escribiendo en algún input (por si acaso hubiera)
-        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
-        if (e.key === 'ArrowRight' || e.key === 'ArrowDown') {
-            cycleAmbient(1);
-        } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp') {
-            cycleAmbient(-1);
-        }
-    });
 
     // --- Minimizar / Maximizar Reproductor ---
     const playerPanel = document.getElementById('player-panel');
@@ -552,6 +542,39 @@ document.addEventListener('DOMContentLoaded', () => {
     function endBgDrag() {
         isBgDragging = false;
     }
+
+    // Navegación panorámica con cursores del teclado
+    window.addEventListener('keydown', (e) => {
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+        const amb = AMBIENTS[currentAmbient];
+        const stepNormal = 5; // Porcentaje de movimiento por pulsación
+        const step360 = 60;   // Píxeles de movimiento en modo 360
+
+        if (e.key === 'ArrowRight') {
+            if (amb && amb.is360) {
+                accumulatedX360 -= step360;
+                bgTargetX = accumulatedX360;
+            } else {
+                bgTargetX = Math.max(0, Math.min(100, bgTargetX + stepNormal));
+            }
+            e.preventDefault();
+        } else if (e.key === 'ArrowLeft') {
+            if (amb && amb.is360) {
+                accumulatedX360 += step360;
+                bgTargetX = accumulatedX360;
+            } else {
+                bgTargetX = Math.max(0, Math.min(100, bgTargetX - stepNormal));
+            }
+            e.preventDefault();
+        } else if (e.key === 'ArrowUp') {
+            bgTargetY = Math.max(0, Math.min(100, bgTargetY - stepNormal));
+            e.preventDefault();
+        } else if (e.key === 'ArrowDown') {
+            bgTargetY = Math.max(0, Math.min(100, bgTargetY + stepNormal));
+            e.preventDefault();
+        }
+    });
 
     // Bucle de renderizado para aplicar la inercia (LERP)
     function animateBgParallax() {
