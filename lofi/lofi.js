@@ -461,104 +461,119 @@ document.addEventListener('DOMContentLoaded', () => {
         playerPanel.classList.remove('dragging');
     }
 
-    // --- Efecto Parallax con Giroscopio (Especial Móviles) ---
-    let gyroscopeEnabled = false;
+    // --- Efecto Panning con Arrastre (Touch / Mouse Drag) ---
+    // Sustituye al giroscopio por ser más cómodo y permitir ver la pantalla siempre.
+    
+    let isBgDragging = false;
+    let bgStartX = 0;
+    let bgStartY = 0;
+    
+    // Posiciones objetivo (a donde el usuario quiere ir arrastrando)
+    let bgTargetX = 50; 
+    let bgTargetY = 50;
+    let accumulatedX360 = 0; // Para el modo 360 infinito (en pixeles)
 
-    // Detectar si es un dispositivo móvil (touch)
-    if (window.matchMedia("(pointer: coarse)").matches) {
-        // En iOS 13+, DeviceOrientationEvent requiere permiso mediante interacción del usuario.
-        document.body.addEventListener('click', () => {
-            if (!gyroscopeEnabled && typeof DeviceOrientationEvent !== 'undefined' && typeof DeviceOrientationEvent.requestPermission === 'function') {
-                DeviceOrientationEvent.requestPermission()
-                    .then(permissionState => {
-                        if (permissionState === 'granted') {
-                            gyroscopeEnabled = true;
-                            startGyroscopeParallax();
-                        }
-                    })
-                    .catch(console.error);
-            } else if (!gyroscopeEnabled) {
-                gyroscopeEnabled = true;
-                startGyroscopeParallax();
-            }
-        }, { once: true });
+    // Posiciones actuales (las que se renderizan y persiguen al objetivo con inercia)
+    let bgCurrentX = 50;
+    let bgCurrentY = 50;
+
+    const bgEasing = 0.05; // Velocidad de la inercia (menor = más inercia)
+    const dragSensitivityNormal = 0.08; // Sensibilidad del porcentaje por pixel arrastrado
+    const dragSensitivity360 = 1.2; // Sensibilidad de los píxeles en modo 360
+
+    // Eventos de arrastre en el body
+    document.body.addEventListener('mousedown', startBgDrag);
+    document.body.addEventListener('touchstart', startBgDrag, { passive: false });
+
+    document.body.addEventListener('mousemove', onBgDrag);
+    document.body.addEventListener('touchmove', onBgDrag, { passive: false });
+
+    document.body.addEventListener('mouseup', endBgDrag);
+    document.body.addEventListener('touchend', endBgDrag);
+    document.body.addEventListener('mouseleave', endBgDrag);
+
+    function startBgDrag(e) {
+        // Ignorar si hace clic dentro del panel del reproductor o modales
+        if (e.target.closest('#player-panel') || e.target.closest('.modal')) return;
+        
+        isBgDragging = true;
+        
+        if (e.type === 'touchstart') {
+            bgStartX = e.touches[0].clientX;
+            bgStartY = e.touches[0].clientY;
+        } else {
+            bgStartX = e.clientX;
+            bgStartY = e.clientY;
+        }
     }
 
-    function startGyroscopeParallax() {
-        let targetX = 50;
-        let targetY = 50;
-        let currentX = 50;
-        let currentY = 50;
+    function onBgDrag(e) {
+        if (!isBgDragging) return;
         
-        let lastAlpha = null;
-        let accumulatedAlpha = 0;
-        
-        // Factor de suavizado: menor es más lento/suave (efecto cinemático)
-        const easing = 0.04;
-
-        window.addEventListener('deviceorientation', (e) => {
-            const amb = AMBIENTS[currentAmbient];
-
-            if (amb && amb.is360) {
-                // MODO 360: Rotación completa basada en la brújula (alpha)
-                if (e.alpha !== null) {
-                    if (lastAlpha === null) lastAlpha = e.alpha;
-                    let delta = e.alpha - lastAlpha;
-                    
-                    // Manejar el salto de la brújula de 360 a 0
-                    if (delta > 180) delta -= 360;
-                    if (delta < -180) delta += 360;
-                    
-                    accumulatedAlpha += delta; // Sumar la rotación continua
-                    lastAlpha = e.alpha;
-                    
-                    // Multiplicador de sensibilidad para que coincida el giro físico
-                    targetX = accumulatedAlpha * 8; 
-                }
-                
-                if (e.beta !== null) {
-                    let beta = Math.max(0, Math.min(90, e.beta));
-                    targetY = 50 + ((beta - 45) / 45) * 50;
-                }
-            } else {
-                // MODO NORMAL (Lofi Parallax): Inclinación (gamma)
-                if (e.gamma === null || e.beta === null) return;
-                
-                // gamma: inclinación izq/der -> Limitamos a [-45, 45]
-                let gamma = Math.max(-45, Math.min(45, e.gamma));
-                
-                // beta: inclinación adelante/atrás -> Limitamos a [0, 90] (agarre natural a 45º)
-                let beta = Math.max(0, Math.min(90, e.beta));
-
-                // Establecer el objetivo (target) en porcentaje [0%, 100%]
-                targetX = 50 + (gamma / 45) * 50;
-                targetY = 50 + ((beta - 45) / 45) * 50;
-            }
-        });
-
-        // Bucle de animación constante para aplicar interpolación lineal (LERP)
-        function animateParallax() {
-            // Calcular el paso hacia el objetivo
-            currentX += (targetX - currentX) * easing;
-            currentY += (targetY - currentY) * easing;
-
-            const amb = AMBIENTS[currentAmbient];
-
-            // Solo actualizar el DOM si realmente se está moviendo, para no saturar
-            if (Math.abs(targetX - currentX) > 0.01 || Math.abs(targetY - currentY) > 0.01) {
-                if (amb && amb.is360) {
-                    // En 360 movemos en píxeles horizontalmente para giro infinito
-                    bgContainer.style.backgroundPosition = `${currentX}px ${currentY.toFixed(2)}%`;
-                } else {
-                    // En normal movemos en porcentaje
-                    bgContainer.style.backgroundPosition = `${currentX.toFixed(2)}% ${currentY.toFixed(2)}%`;
-                }
-            }
-            
-            requestAnimationFrame(animateParallax);
+        let clientX, clientY;
+        if (e.type === 'touchmove') {
+            clientX = e.touches[0].clientX;
+            clientY = e.touches[0].clientY;
+        } else {
+            clientX = e.clientX;
+            clientY = e.clientY;
         }
 
-        // Iniciar el bucle
-        animateParallax();
+        let deltaX = clientX - bgStartX;
+        let deltaY = clientY - bgStartY;
+        
+        // Actualizar punto de inicio para el siguiente frame de movimiento
+        bgStartX = clientX;
+        bgStartY = clientY;
+
+        const amb = AMBIENTS[currentAmbient];
+
+        if (amb && amb.is360) {
+            // Modo 360: infinito horizontal (en píxeles)
+            // Si arrastro a la izquierda (deltaX negativo), el fondo va a la izquierda
+            accumulatedX360 += deltaX * dragSensitivity360;
+            bgTargetX = accumulatedX360;
+            
+            // Limitamos un poco el Y para no salirnos demasiado de la imagen (porcentaje)
+            bgTargetY -= deltaY * dragSensitivityNormal;
+            bgTargetY = Math.max(0, Math.min(100, bgTargetY));
+        } else {
+            // Modo Normal: limitado a 0-100%
+            bgTargetX -= deltaX * dragSensitivityNormal;
+            bgTargetX = Math.max(0, Math.min(100, bgTargetX));
+            
+            bgTargetY -= deltaY * dragSensitivityNormal;
+            bgTargetY = Math.max(0, Math.min(100, bgTargetY));
+        }
+        
+        if (e.cancelable) e.preventDefault();
     }
+
+    function endBgDrag() {
+        isBgDragging = false;
+    }
+
+    // Bucle de renderizado para aplicar la inercia (LERP)
+    function animateBgParallax() {
+        // Interpolar hacia el objetivo
+        bgCurrentX += (bgTargetX - bgCurrentX) * bgEasing;
+        bgCurrentY += (bgTargetY - bgCurrentY) * bgEasing;
+
+        const amb = AMBIENTS[currentAmbient];
+
+        if (Math.abs(bgTargetX - bgCurrentX) > 0.01 || Math.abs(bgTargetY - bgCurrentY) > 0.01) {
+            if (amb && amb.is360) {
+                // En 360 aplicamos píxeles a X y porcentaje a Y
+                bgContainer.style.backgroundPosition = `${bgCurrentX}px ${bgCurrentY.toFixed(2)}%`;
+            } else {
+                // En normal aplicamos porcentaje a ambos
+                bgContainer.style.backgroundPosition = `${bgCurrentX.toFixed(2)}% ${bgCurrentY.toFixed(2)}%`;
+            }
+        }
+        
+        requestAnimationFrame(animateBgParallax);
+    }
+
+    // Iniciar bucle
+    animateBgParallax();
 });
