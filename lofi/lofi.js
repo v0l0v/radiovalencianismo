@@ -14,7 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         lonja_mercado: { name: 'Mercat Central (1920)', file_art: 'assets/lonja_mercado_art.png', file_photo: 'assets/brooklyn_photo.png' },
         cac: { name: 'Ciutat de les Arts i les Ciències', file_art: 'assets/cac_art.png?v=2', file_photo: 'assets/cac_photo.png?v=2' },
         valencia: { name: 'Barraca en la Albufera', file_art: 'assets/valencia_art.png', file_photo: 'assets/valencia_photo.png' },
-        naranjos_360: { name: 'Campo de Naranjos 360º', file_art: 'assets/naranjos_360_art.png', is360: true }
+        naranjos_360: { name: 'Campo de Naranjos', file_art: 'assets/naranjos_360_art.png' }
     };
 
     let currentAmbient = '';
@@ -91,16 +91,8 @@ document.addEventListener('DOMContentLoaded', () => {
         bgContainer.style.backgroundImage = `url(${bgUrl})`;
         ambientNameDisplay.textContent = amb.name;
 
-        // Configuración especial para fondos 360
-        if (amb.is360) {
-            // Ampliamos el alto al 300vh para asegurar que el ancho se escale mucho.
-            // Esto evita ver repetida la imagen en portátiles muy anchos.
-            bgContainer.style.backgroundSize = 'auto 300vh';
-            bgContainer.style.backgroundRepeat = 'repeat-x';
-        } else {
-            bgContainer.style.backgroundSize = 'cover';
-            bgContainer.style.backgroundRepeat = 'no-repeat';
-        }
+        bgContainer.style.backgroundSize = 'cover';
+        bgContainer.style.backgroundRepeat = 'no-repeat';
 
         // Actualizar estados de botones de selección
         ambientButtons.forEach(btn => {
@@ -463,7 +455,6 @@ document.addEventListener('DOMContentLoaded', () => {
     // Posiciones objetivo (a donde el usuario quiere ir arrastrando)
     let bgTargetX = 50; 
     let bgTargetY = 50;
-    let accumulatedX360 = 0; // Para el modo 360 infinito (en pixeles)
 
     // Posiciones actuales (las que se renderizan y persiguen al objetivo con inercia)
     let bgCurrentX = 50;
@@ -471,7 +462,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const bgEasing = 0.05; // Velocidad de la inercia (menor = más inercia)
     const dragSensitivityNormal = 0.08; // Sensibilidad del porcentaje por pixel arrastrado
-    const dragSensitivity360 = 1.2; // Sensibilidad de los píxeles en modo 360
 
     // Eventos de arrastre en el body
     document.body.addEventListener('mousedown', startBgDrag);
@@ -520,23 +510,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const amb = AMBIENTS[currentAmbient];
 
-        if (amb && amb.is360) {
-            // Modo 360: infinito horizontal (en píxeles)
-            // Si arrastro a la izquierda (deltaX negativo), el fondo va a la izquierda
-            accumulatedX360 += deltaX * dragSensitivity360;
-            bgTargetX = accumulatedX360;
-            
-            // Limitamos un poco el Y para no salirnos demasiado de la imagen (porcentaje)
-            bgTargetY -= deltaY * dragSensitivityNormal;
-            bgTargetY = Math.max(0, Math.min(100, bgTargetY));
-        } else {
-            // Modo Normal: limitado a 0-100%
-            bgTargetX -= deltaX * dragSensitivityNormal;
-            bgTargetX = Math.max(0, Math.min(100, bgTargetX));
-            
-            bgTargetY -= deltaY * dragSensitivityNormal;
-            bgTargetY = Math.max(0, Math.min(100, bgTargetY));
-        }
+        // Modo Normal: limitado a 0-100%
+        bgTargetX -= deltaX * dragSensitivityNormal;
+        bgTargetX = Math.max(0, Math.min(100, bgTargetX));
+        
+        bgTargetY -= deltaY * dragSensitivityNormal;
+        bgTargetY = Math.max(0, Math.min(100, bgTargetY));
         
         if (e.cancelable) e.preventDefault();
     }
@@ -551,23 +530,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
         const amb = AMBIENTS[currentAmbient];
         const stepNormal = 5; // Porcentaje de movimiento por pulsación
-        const step360 = 60;   // Píxeles de movimiento en modo 360
 
         if (e.key === 'ArrowRight') {
-            if (amb && amb.is360) {
-                accumulatedX360 -= step360;
-                bgTargetX = accumulatedX360;
-            } else {
-                bgTargetX = Math.max(0, Math.min(100, bgTargetX + stepNormal));
-            }
+            bgTargetX = Math.max(0, Math.min(100, bgTargetX + stepNormal));
             e.preventDefault();
         } else if (e.key === 'ArrowLeft') {
-            if (amb && amb.is360) {
-                accumulatedX360 += step360;
-                bgTargetX = accumulatedX360;
-            } else {
-                bgTargetX = Math.max(0, Math.min(100, bgTargetX - stepNormal));
-            }
+            bgTargetX = Math.max(0, Math.min(100, bgTargetX - stepNormal));
             e.preventDefault();
         } else if (e.key === 'ArrowUp') {
             bgTargetY = Math.max(0, Math.min(100, bgTargetY - stepNormal));
@@ -587,13 +555,8 @@ document.addEventListener('DOMContentLoaded', () => {
         const amb = AMBIENTS[currentAmbient];
 
         if (Math.abs(bgTargetX - bgCurrentX) > 0.01 || Math.abs(bgTargetY - bgCurrentY) > 0.01) {
-            if (amb && amb.is360) {
-                // En 360 aplicamos píxeles a X y porcentaje a Y
-                bgContainer.style.backgroundPosition = `${bgCurrentX}px ${bgCurrentY.toFixed(2)}%`;
-            } else {
-                // En normal aplicamos porcentaje a ambos
-                bgContainer.style.backgroundPosition = `${bgCurrentX.toFixed(2)}% ${bgCurrentY.toFixed(2)}%`;
-            }
+            // Aplicamos porcentaje a ambos
+            bgContainer.style.backgroundPosition = `${bgCurrentX.toFixed(2)}% ${bgCurrentY.toFixed(2)}%`;
         }
         
         requestAnimationFrame(animateBgParallax);
