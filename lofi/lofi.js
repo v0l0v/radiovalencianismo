@@ -68,6 +68,9 @@ document.addEventListener('DOMContentLoaded', () => {
     const trackTitle = document.getElementById('track-title');
     const musicIcon = document.querySelector('.music-icon');
     const ambientButtons = document.querySelectorAll('.ambient-btn[data-ambient]');
+    // Hotspot y punto de proximidad (declarados aquí para evitar TDZ en loadAmbientVisual)
+    const hotspotBtn   = document.getElementById('hotspot-lupa');
+    const proxDot      = document.getElementById('prox-dot');
 
     // --- Lógica del Reproductor de Audio ---
     let isPlaying = false;
@@ -618,8 +621,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // --- Hotspot: Lupa flotante sobre el fondo ---
-    const hotspotBtn = document.getElementById('hotspot-lupa');
-    const hotspotModal = document.getElementById('hotspot-modal');
+    const hotspotModal      = document.getElementById('hotspot-modal');
     const hotspotModalTitle = document.getElementById('hotspot-modal-title');
     const hotspotModalDesc  = document.getElementById('hotspot-modal-desc');
     const hotspotModalLink  = document.getElementById('hotspot-modal-link');
@@ -647,7 +649,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // --- Punto de proximidad: sigue al ratón, cambia de blanco a azul VCF ---
-    const proxDot = document.getElementById('prox-dot');
     const PROX_RADIUS = 280; // px de influencia
 
     document.body.addEventListener('mousemove', (e) => {
