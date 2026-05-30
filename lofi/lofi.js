@@ -566,6 +566,33 @@ document.addEventListener('DOMContentLoaded', () => {
     const bgEasing = 0.05; // Velocidad de la inercia (menor = más inercia)
     const dragSensitivityNormal = 0.08; // Sensibilidad del porcentaje por pixel arrastrado
 
+    // Zoom (Zoom in / Zoom out)
+    let bgZoomTarget = 1.0;
+    let bgZoomCurrent = 1.0;
+    const ZOOM_STEP = 0.35;
+    const ZOOM_MIN = 1.0;
+    const ZOOM_MAX = 3.0;
+
+    const zoomInBtn  = document.getElementById('zoom-in-btn');
+    const zoomOutBtn = document.getElementById('zoom-out-btn');
+
+    if (zoomInBtn && zoomOutBtn) {
+        zoomInBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            bgZoomTarget = Math.min(ZOOM_MAX, bgZoomTarget + ZOOM_STEP);
+        });
+        zoomOutBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            bgZoomTarget = Math.max(ZOOM_MIN, bgZoomTarget - ZOOM_STEP);
+        });
+        
+        // Evitar que el drag empiece al hacer mousedown o touchstart en los botones de zoom
+        zoomInBtn.addEventListener('mousedown', (e) => e.stopPropagation());
+        zoomOutBtn.addEventListener('mousedown', (e) => e.stopPropagation());
+        zoomInBtn.addEventListener('touchstart', (e) => e.stopPropagation());
+        zoomOutBtn.addEventListener('touchstart', (e) => e.stopPropagation());
+    }
+
     // Eventos de arrastre en el body
     document.body.addEventListener('mousedown', startBgDrag);
     document.body.addEventListener('touchstart', startBgDrag, { passive: false });
@@ -578,8 +605,8 @@ document.addEventListener('DOMContentLoaded', () => {
     document.body.addEventListener('mouseleave', endBgDrag);
 
     function startBgDrag(e) {
-        // Ignorar si hace clic dentro del panel del reproductor o modales
-        if (e.target.closest('#player-panel') || e.target.closest('.modal')) return;
+        // Ignorar si hace clic dentro del panel del reproductor, modales o los controles de zoom
+        if (e.target.closest('#player-panel') || e.target.closest('.modal') || e.target.closest('.zoom-controls')) return;
         
         isBgDragging = true;
         
@@ -660,12 +687,18 @@ document.addEventListener('DOMContentLoaded', () => {
         // Interpolar hacia el objetivo
         bgCurrentX += (bgTargetX - bgCurrentX) * bgEasing;
         bgCurrentY += (bgTargetY - bgCurrentY) * bgEasing;
+        bgZoomCurrent += (bgZoomTarget - bgZoomCurrent) * bgEasing;
 
-        // Mover el contenedor completo del fondo usando translate3d en lugar de backgroundPosition
-        // 50% es centro (translate 0), 0% es traslación positiva (+10vw/+10vh), 100% es traslación negativa (-10vw/-10vh)
-        const transX = ((50 - bgCurrentX) / 50) * 10;
-        const transY = ((50 - bgCurrentY) / 50) * 10;
-        bgContainer.style.transform = `translate3d(${transX.toFixed(2)}vw, ${transY.toFixed(2)}vh, 0) scale(1.02)`;
+        // Calcular escala final (1.02 de base multiplicado por el zoom actual)
+        const scaleVal = 1.02 * bgZoomCurrent;
+
+        // Limitar la traslación máxima para que la imagen cubra exactamente la pantalla
+        const maxOffsetW = 60 * scaleVal - 50; // en vw
+        const maxOffsetH = 60 * scaleVal - 50; // en vh
+
+        const transX = ((50 - bgCurrentX) / 50) * maxOffsetW;
+        const transY = ((50 - bgCurrentY) / 50) * maxOffsetH;
+        bgContainer.style.transform = `translate3d(${transX.toFixed(2)}vw, ${transY.toFixed(2)}vh, 0) scale(${scaleVal.toFixed(3)})`;
         
         requestAnimationFrame(animateBgParallax);
     }

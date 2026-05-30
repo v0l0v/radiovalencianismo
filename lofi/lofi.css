@@ -864,4 +864,51 @@ body, html {
     margin-bottom: 0;
 }
 
+/* --- Controles de zoom al estilo Google Maps --- */
+.zoom-controls {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 100;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    background: rgba(12, 14, 22, 0.82);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    border: 1px solid rgba(255, 255, 255, 0.08);
+    border-radius: 10px;
+    padding: 2px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
+    overflow: hidden;
+}
+
+.zoom-btn {
+    width: 38px;
+    height: 38px;
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 1.3rem;
+    font-weight: 600;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    transition: background 0.2s, color 0.2s, transform 0.1s;
+    user-select: none;
+    outline: none;
+}
+
+.zoom-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+}
+
+.zoom-btn:active {
+    transform: scale(0.92);
+}
+
+
 
