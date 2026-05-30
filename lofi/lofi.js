@@ -6,16 +6,56 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Mapeo de ambientes (Modo Ilustración y Modo Foto)
     const AMBIENTS = {
-        serranos: { name: 'Torres de Serrans y la Senyera', file_art: 'assets/serranos_art.png', file_photo: 'assets/pixelart_photo.png' },
-        xativa: { name: 'Castell de Xàtiva', file_art: 'assets/xativa_art.png', file_photo: 'assets/xativa_photo.png' },
-        cyberpunk: { name: 'Ciutat de les Arts Cyberpunk', file_art: 'assets/cyberpunk_cac_art.png', file_photo: 'assets/cyberpunk_photo.png' },
-        malvarrosa: { name: 'Amanecer en la Malvarrosa', file_art: 'assets/malvarrosa_sorolla_art.png', file_photo: 'assets/malvarrosa_photo.png' },
-        space: { name: 'Estación Espacial sobre Valencia', file_art: 'assets/space_art.png?v=3', file_photo: 'assets/space_photo.png' },
-        lonja_mercado: { name: 'Mercat Central (1920)', file_art: 'assets/lonja_mercado_art.png', file_photo: 'assets/brooklyn_photo.png' },
-        cac: { name: 'Ciutat de les Arts i les Ciències', file_art: 'assets/cac_art.png?v=2', file_photo: 'assets/cac_photo.png?v=2' },
-        valencia: { name: 'Barraca en la Albufera', file_art: 'assets/valencia_art.png', file_photo: 'assets/valencia_photo.png' },
-        naranjos_360: { name: 'Campo de Naranjos', file_art: 'assets/naranjos_360_art.png' },
-        mestalla: { name: 'Estadio de Mestalla', file_art: 'assets/mestallavcf_art.png' }
+        serranos: {
+            name: 'Torres de Serrans y la Senyera',
+            file_art: 'assets/serranos_art.png', file_photo: 'assets/pixelart_photo.png',
+            hotspot: { x: 68, y: 22, title: 'Torres de Serrans', desc: 'Monument gòtic del s. XIV i porta d\'entrada a la ciutat de València.', url: 'https://lenciclopedia.org/Torres_de_Serrans' }
+        },
+        xativa: {
+            name: 'Castell de Xàtiva',
+            file_art: 'assets/xativa_art.png', file_photo: 'assets/xativa_photo.png',
+            hotspot: { x: 55, y: 18, title: 'Castell de Xàtiva', desc: 'Fortalesa ibèrica, romana i àrab. Una de les més importants del País Valencià.', url: 'https://lenciclopedia.org/Castell_de_X%C3%A0tiva' }
+        },
+        cyberpunk: {
+            name: 'Ciutat de les Arts Cyberpunk',
+            file_art: 'assets/cyberpunk_cac_art.png', file_photo: 'assets/cyberpunk_photo.png',
+            hotspot: { x: 72, y: 30, title: 'Ciutat de les Arts i les Ciències', desc: 'Complex cultural i arquitectònic dissenyat per Santiago Calatrava i Félix Candela.', url: 'https://lenciclopedia.org/Ciutat_de_les_Arts_i_les_Ci%C3%A8ncies' }
+        },
+        malvarrosa: {
+            name: 'Amanecer en la Malvarrosa',
+            file_art: 'assets/malvarrosa_sorolla_art.png', file_photo: 'assets/malvarrosa_photo.png',
+            hotspot: { x: 20, y: 55, title: 'Platja de la Malva-rosa', desc: 'La platja de València, immortalitzada per Joaquín Sorolla en les seues obres.', url: 'https://lenciclopedia.org/Platja_de_la_Malva-rosa' }
+        },
+        space: {
+            name: 'Estación Espacial sobre Valencia',
+            file_art: 'assets/space_art.png?v=3', file_photo: 'assets/space_photo.png',
+            hotspot: { x: 60, y: 15, title: 'València des de l\'espai', desc: 'La llum de la capital del País Valencià vista des de l\'òrbita terrestre.', url: 'https://lenciclopedia.org/Val%C3%A8ncia' }
+        },
+        lonja_mercado: {
+            name: 'Mercat Central (1920)',
+            file_art: 'assets/lonja_mercado_art.png', file_photo: 'assets/brooklyn_photo.png',
+            hotspot: { x: 35, y: 35, title: 'Mercat Central de València', desc: 'Un dels mercats coberts més grans d\'Europa, inaugurat en 1928. Joia modernista.', url: 'https://lenciclopedia.org/Mercat_Central_de_Val%C3%A8ncia' }
+        },
+        cac: {
+            name: 'Ciutat de les Arts i les Ciències',
+            file_art: 'assets/cac_art.png?v=2', file_photo: 'assets/cac_photo.png?v=2',
+            hotspot: { x: 65, y: 40, title: 'L\'Hemisfèric', desc: 'Edifici en forma d\'ull humà que acull un planetari i cinema IMAX, obra de Calatrava.', url: 'https://lenciclopedia.org/L%27Hemisf%C3%A8ric' }
+        },
+        valencia: {
+            name: 'Barraca en la Albufera',
+            file_art: 'assets/valencia_art.png', file_photo: 'assets/valencia_photo.png',
+            hotspot: { x: 25, y: 60, title: 'L\'Albufera de València', desc: 'Llac costaner d\'aigua dolça i parc natural. Bressol de l\'arròs valencià i la paella.', url: 'https://lenciclopedia.org/Albufera_de_Val%C3%A8ncia' }
+        },
+        naranjos_360: {
+            name: 'Campo de Naranjos',
+            file_art: 'assets/naranjos_360_art.png',
+            hotspot: { x: 50, y: 50, title: 'La taronja valenciana', desc: 'El fruit símbol del País Valencià, exportat a tot el món des del s. XIX.', url: 'https://lenciclopedia.org/Taronja' }
+        },
+        mestalla: {
+            name: 'Estadio de Mestalla',
+            file_art: 'assets/mestallavcf_art.png',
+            hotspot: { x: 50, y: 25, title: 'Estadi de Mestalla', desc: 'Estadi del Valencia CF, inaugurat en 1923. Un dels estadis més emblemàtics d\'Espanya.', url: 'https://lenciclopedia.org/Estadi_de_Mestalla' }
+        }
     };
 
     let currentAmbient = '';
@@ -103,6 +143,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 btn.classList.remove('active');
             }
         });
+
+        // Mover el hotspot de lupa a la posición del nuevo ambiente
+        if (amb.hotspot) {
+            hotspotBtn.style.left  = amb.hotspot.x + '%';
+            hotspotBtn.style.top   = amb.hotspot.y + '%';
+            hotspotBtn.style.display = 'flex';
+            hotspotBtn.title = amb.hotspot.title;
+        } else {
+            hotspotBtn.style.display = 'none';
+        }
     }
 
     function setAmbient(ambientKey) {
@@ -565,4 +615,33 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Iniciar bucle
     animateBgParallax();
+
+
+    // --- Hotspot: Lupa flotante sobre el fondo ---
+    const hotspotBtn = document.getElementById('hotspot-lupa');
+    const hotspotModal = document.getElementById('hotspot-modal');
+    const hotspotModalTitle = document.getElementById('hotspot-modal-title');
+    const hotspotModalDesc  = document.getElementById('hotspot-modal-desc');
+    const hotspotModalLink  = document.getElementById('hotspot-modal-link');
+    const hotspotModalClose = document.getElementById('hotspot-modal-close');
+
+    hotspotBtn.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const amb = AMBIENTS[currentAmbient];
+        if (!amb || !amb.hotspot) return;
+        hotspotModalTitle.textContent = amb.hotspot.title;
+        hotspotModalDesc.textContent  = amb.hotspot.desc;
+        hotspotModalLink.href         = amb.hotspot.url;
+        hotspotModal.classList.add('visible');
+    });
+
+    hotspotModalClose.addEventListener('click', (e) => {
+        e.stopPropagation();
+        hotspotModal.classList.remove('visible');
+    });
+
+    // Cerrar modal al clicar fuera
+    hotspotModal.addEventListener('click', (e) => {
+        if (e.target === hotspotModal) hotspotModal.classList.remove('visible');
+    });
 });

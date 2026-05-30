@@ -719,3 +719,125 @@ body, html {
         font-size: 1.4rem;
     }
 }
+
+/* --- Hotspot invisible sobre el fondo --- */
+#hotspot-lupa {
+    position: fixed;
+    z-index: 5;
+    width: 80px;
+    height: 80px;
+    transform: translate(-50%, -50%);
+    background: transparent;
+    border: none;
+    cursor: zoom-in;
+    border-radius: 50%;
+    display: none; /* activado por JS al cargar el ambiente */
+    padding: 0;
+    outline: none;
+}
+
+#hotspot-lupa:hover {
+    background: rgba(255, 255, 255, 0.03);
+}
+
+/* --- Modal pequeño de información --- */
+#hotspot-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 200;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.25s ease;
+}
+
+#hotspot-modal.visible {
+    pointer-events: auto;
+    opacity: 1;
+}
+
+#hotspot-modal-box {
+    position: relative;
+    background: rgba(12, 14, 22, 0.93);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1.4rem;
+    padding: 1.8rem 2rem 1.6rem;
+    max-width: 300px;
+    width: 88vw;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.04);
+    text-align: center;
+    transform: translateY(10px);
+    transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+#hotspot-modal.visible #hotspot-modal-box {
+    transform: translateY(0);
+}
+
+#hotspot-modal-close {
+    position: absolute;
+    top: 0.75rem;
+    right: 0.85rem;
+    background: rgba(255,255,255,0.06);
+    border: none;
+    color: rgba(255,255,255,0.5);
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    font-size: 0.75rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+}
+
+#hotspot-modal-close:hover {
+    background: rgba(255,255,255,0.14);
+    color: #fff;
+}
+
+#hotspot-modal-icon {
+    font-size: 2rem;
+    margin-bottom: 0.55rem;
+    line-height: 1;
+}
+
+#hotspot-modal-title {
+    font-family: var(--font-serif);
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 0.5rem;
+    line-height: 1.3;
+}
+
+#hotspot-modal-desc {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.58);
+    line-height: 1.55;
+    margin-bottom: 1.1rem;
+}
+
+#hotspot-modal-link {
+    display: inline-block;
+    background: linear-gradient(135deg, var(--primary-color), #d97000);
+    color: #0c0d12;
+    font-weight: 700;
+    font-size: 0.78rem;
+    padding: 0.5rem 1.15rem;
+    border-radius: 50px;
+    text-decoration: none;
+    letter-spacing: 0.3px;
+    transition: all 0.2s;
+    box-shadow: 0 4px 14px rgba(255,159,28,0.35);
+}
+
+#hotspot-modal-link:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 6px 20px rgba(255,159,28,0.5);
+}
