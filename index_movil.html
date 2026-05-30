@@ -416,6 +416,35 @@
                     </button>
                 </div>
 
+                <!-- Opción: Jocs i Entreteniment -->
+                <div class="option-card-slot" data-id="opt-jocs" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 15px; display: flex; flex-direction: column; justify-content: space-between; text-align: left; border-left: 4px solid #ffd700; min-height: 140px;">
+                    <div>
+                        <div style="font-weight: 700; margin-bottom: 6px; color: #ffd700; font-size: 0.95rem;">Jocs i Entreteniment:</div>
+                        <div style="margin-bottom: 12px; font-size: 0.8rem; color: #ccc;">Juga al Tir al Moniato i aprén les Normes d'El Puig.</div>
+                    </div>
+                    <div style="display: flex; gap: 8px;">
+                        <button onclick="document.getElementById('game-modal').classList.add('active'); closeOptionsModal();" style="background: #ffd700; color: #0a0a0f; border: none; padding: 8px 15px; border-radius: 20px; font-size: 0.8rem; cursor: pointer; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">
+                            Jugar modal
+                        </button>
+                        <a href="juego_normes.html" style="background: rgba(255,255,255,0.08); color: #fff; border: 1px solid rgba(255,255,255,0.15); padding: 8px 15px; border-radius: 20px; font-size: 0.8rem; text-decoration: none; font-weight: 600; text-align: center; display: inline-flex; align-items: center;">
+                            Obrir
+                        </a>
+                    </div>
+                </div>
+
+                <!-- Opción: Reproductor Lofi -->
+                <div class="option-card-slot" data-id="opt-lofi" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 15px; display: flex; flex-direction: column; justify-content: space-between; text-align: left; border-left: 4px solid #ff7a00; min-height: 140px;">
+                    <div>
+                        <div style="font-weight: 700; margin-bottom: 6px; color: #ff7a00; font-size: 0.95rem;">Reproductor Lofi:</div>
+                        <div style="margin-bottom: 12px; font-size: 0.8rem; color: #ccc;">Fons inmersius en 360º de Valéncia i efectes paralax.</div>
+                    </div>
+                    <div>
+                        <a href="lofi/index.html" style="background: #ff7a00; color: #fff; padding: 8px 16px; border-radius: 20px; font-size: 0.8rem; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 6px;">
+                            Obrir Lofi
+                        </a>
+                    </div>
+                </div>
+
                 <!-- Opción 4: Programación -->
                 <div class="option-card-slot" data-id="opt-horarios" onclick="openScheduleModal()" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 15px; display: flex; flex-direction: column; justify-content: space-between; text-align: left; border-left: 4px solid var(--secondary); min-height: 140px; cursor: pointer;">
                     <div>
