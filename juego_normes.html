@@ -724,54 +724,196 @@
                 octx.quadraticCurveTo(size * 0.2, -size * 0.6, size * 0.1, -size * 0.4);
                 octx.fill();
             } else {
-                // Efecto "Edad Media": Agujero quemado con bola de brea ardiendo
+                // ── FOTO FINAL: 4 tipos de llamas canvas, integradas en la bandera ──
                 octx.save();
-                
-                const fireScale = size * 1.8;
-                const seedVal = seed * 123.45;
-                
-                // Tela quemada fina y sutil integrándose en el fondo
-                octx.globalCompositeOperation = "source-over"; 
-                octx.globalAlpha = 0.7; // Más transparente para que la tela se sienta muy fina
-                
-                // 1. Dibujar el impacto: Agujero en tela fotorrealista
-                const tiltHole = (seedVal % 5 - 2) * 0.3; // Rotar aleatoriamente el impacto
-                octx.rotate(tiltHole);
 
+                // Tamaño base: más grande para aciertos, más pequeño para fallos
+                const fireScale = isCorrect ? size * 2.6 : size * 1.6;
+                const seedVal = (seed * 137.508);
+                const flameType = index % 4; // 4 tipos distintos de llama
+
+                // 1. Agujero quemado base (igual para todos los tipos)
+                octx.globalCompositeOperation = "source-over";
+                const holeR = fireScale * 0.32;
                 if (agujeroImg.complete && agujeroImg.naturalHeight !== 0) {
-                    const aW = fireScale * 2.0; // Mucho más pequeño y delicado
-                    const aH = fireScale * 2.0;
-                    octx.drawImage(agujeroImg, -aW / 2, -aH / 2, aW, aH);
+                    const aW = holeR * 3.2;
+                    octx.drawImage(agujeroImg, -aW / 2, -aW / 2, aW, aW);
                 } else {
-                    // Fallback negro
-                    octx.fillStyle = "#0a0500";
+                    // Agujero quemado dibujado a mano (fallback)
+                    const burnGrad = octx.createRadialGradient(0, 0, 0, 0, 0, holeR);
+                    burnGrad.addColorStop(0,   "rgba(5,2,0,1)");
+                    burnGrad.addColorStop(0.6, "rgba(30,8,0,0.9)");
+                    burnGrad.addColorStop(1,   "rgba(80,20,0,0)");
+                    octx.fillStyle = burnGrad;
                     octx.beginPath();
-                    octx.arc(0, 0, fireScale * 0.8, 0, Math.PI*2);
+                    octx.arc(0, 0, holeR * 1.4, 0, Math.PI*2);
                     octx.fill();
                 }
-                
-                octx.rotate(-tiltHole); // reset rotation for fire
-                octx.globalAlpha = 1.0; // reset opacidad
 
-                // 2. Fuego hiperrealista saliendo del agujero
-                octx.globalCompositeOperation = "screen"; // "screen" elimina el fondo negro del fuego fotorrealista
-                
-                const tilt = (seedVal % 3 - 1) * 0.2;
-                octx.rotate(tilt);
+                // ── HELPERS DE LLAMA ──────────────────────────────────────────────
 
-                if (fuegoRealImg.complete && fuegoRealImg.naturalHeight !== 0) {
-                    const fWidth = fireScale * 4.5;
-                    const fHeight = fireScale * 4.5;
-                    // Centrar horizontalmente y que la base del fuego coincida con el centro de la bola
-                    octx.drawImage(fuegoRealImg, -fWidth * 0.5, -fHeight * 0.65, fWidth, fHeight);
-                } else {
-                    // Fallback por si la imagen no ha cargado
-                    octx.fillStyle = "rgba(255, 180, 0, 0.9)";
+                // Dibuja una llama tipo "lengua" con gradiente
+                function drawTongue(cx, cy, w, h, lean, colors) {
+                    const grad = octx.createLinearGradient(cx, cy, cx + lean * w, cy - h);
+                    grad.addColorStop(0,   colors[0]);
+                    grad.addColorStop(0.4, colors[1]);
+                    grad.addColorStop(0.75, colors[2]);
+                    grad.addColorStop(1,   colors[3]);
+                    octx.fillStyle = grad;
                     octx.beginPath();
-                    octx.arc(0, fireScale * 0.1, fireScale * 0.25, 0, Math.PI*2);
+                    octx.moveTo(cx - w * 0.5, cy);
+                    octx.bezierCurveTo(
+                        cx - w * 0.6,  cy - h * 0.35,
+                        cx + lean * w - w * 0.3, cy - h * 0.65,
+                        cx + lean * w, cy - h
+                    );
+                    octx.bezierCurveTo(
+                        cx + lean * w + w * 0.3, cy - h * 0.65,
+                        cx + w * 0.6,  cy - h * 0.35,
+                        cx + w * 0.5, cy
+                    );
+                    octx.closePath();
                     octx.fill();
                 }
-                
+
+                // Brasas/destellos alrededor del agujero
+                function drawEmbers(count, radius, col) {
+                    for (let e = 0; e < count; e++) {
+                        const a = (e * Math.PI * 2 / count) + (seedVal % 1.5);
+                        const d = radius * (0.9 + (seedVal * e % 3) / 10);
+                        const r = radius * 0.08 * (0.5 + (seedVal * e % 5) / 10);
+                        octx.fillStyle = col;
+                        octx.beginPath();
+                        octx.arc(Math.cos(a) * d, Math.sin(a) * d, r, 0, Math.PI*2);
+                        octx.fill();
+                    }
+                }
+
+                // ── TIPO 0: Llama medieval clásica (naranja dorada) ───────────────
+                if (flameType === 0) {
+                    // Aura exterior difusa
+                    const aura = octx.createRadialGradient(0, 0, holeR * 0.3, 0, -fireScale * 0.2, fireScale * 0.9);
+                    aura.addColorStop(0,   "rgba(255,120,0,0.35)");
+                    aura.addColorStop(0.5, "rgba(255,60,0,0.15)");
+                    aura.addColorStop(1,   "rgba(255,0,0,0)");
+                    octx.fillStyle = aura;
+                    octx.beginPath();
+                    octx.ellipse(0, -fireScale * 0.1, fireScale * 0.85, fireScale * 1.1, 0, 0, Math.PI*2);
+                    octx.fill();
+                    // Lenguas
+                    drawTongue(-fireScale*0.18, 0, fireScale*0.55, fireScale*1.35, -0.12,
+                        ["rgba(255,60,0,0.9)","rgba(255,120,0,0.85)","rgba(255,200,0,0.7)","rgba(255,240,100,0)"]);
+                    drawTongue(0, 0, fireScale*0.42, fireScale*1.65, 0.05,
+                        ["rgba(255,80,0,0.95)","rgba(255,160,0,0.9)","rgba(255,220,50,0.7)","rgba(255,255,200,0)"]);
+                    drawTongue(fireScale*0.2, 0, fireScale*0.45, fireScale*1.1, 0.18,
+                        ["rgba(255,50,0,0.88)","rgba(255,130,0,0.8)","rgba(255,200,0,0.6)","rgba(255,240,80,0)"]);
+                    // Núcleo brillante
+                    const core0 = octx.createRadialGradient(0, -fireScale*0.05, 0, 0, -fireScale*0.05, holeR * 1.2);
+                    core0.addColorStop(0,   "rgba(255,255,180,1)");
+                    core0.addColorStop(0.4, "rgba(255,220,80,0.9)");
+                    core0.addColorStop(1,   "rgba(255,100,0,0)");
+                    octx.fillStyle = core0;
+                    octx.beginPath();
+                    octx.arc(0, -fireScale*0.05, holeR * 1.2, 0, Math.PI*2);
+                    octx.fill();
+                    drawEmbers(8, holeR * 1.8, "rgba(255,140,0,0.9)");
+                }
+
+                // ── TIPO 1: Llama azul mística ────────────────────────────────────
+                if (flameType === 1) {
+                    const aura1 = octx.createRadialGradient(0, 0, holeR*0.2, 0, -fireScale*0.3, fireScale);
+                    aura1.addColorStop(0,   "rgba(80,120,255,0.4)");
+                    aura1.addColorStop(0.6, "rgba(0,80,200,0.15)");
+                    aura1.addColorStop(1,   "rgba(0,0,100,0)");
+                    octx.fillStyle = aura1;
+                    octx.beginPath();
+                    octx.ellipse(0, -fireScale*0.2, fireScale*0.8, fireScale*1.2, 0, 0, Math.PI*2);
+                    octx.fill();
+                    drawTongue(-fireScale*0.15, 0, fireScale*0.48, fireScale*1.2, -0.08,
+                        ["rgba(0,80,220,0.9)","rgba(40,140,255,0.85)","rgba(120,200,255,0.7)","rgba(200,240,255,0)"]);
+                    drawTongue(0, 0, fireScale*0.36, fireScale*1.55, 0.0,
+                        ["rgba(0,60,200,0.95)","rgba(60,160,255,0.9)","rgba(160,220,255,0.65)","rgba(240,255,255,0)"]);
+                    drawTongue(fireScale*0.18, 0, fireScale*0.4, fireScale*1.0, 0.15,
+                        ["rgba(0,100,240,0.85)","rgba(80,170,255,0.8)","rgba(180,230,255,0.55)","rgba(255,255,255,0)"]);
+                    const core1 = octx.createRadialGradient(0,-fireScale*0.08,0, 0,-fireScale*0.08, holeR*1.1);
+                    core1.addColorStop(0,   "rgba(255,255,255,1)");
+                    core1.addColorStop(0.3, "rgba(180,220,255,0.95)");
+                    core1.addColorStop(1,   "rgba(40,100,255,0)");
+                    octx.fillStyle = core1;
+                    octx.beginPath();
+                    octx.arc(0, -fireScale*0.08, holeR*1.1, 0, Math.PI*2);
+                    octx.fill();
+                    drawEmbers(7, holeR * 1.7, "rgba(100,180,255,0.95)");
+                }
+
+                // ── TIPO 2: Llamarada explosiva (roja-rojiza de fallo visual) ─────
+                if (flameType === 2) {
+                    // Muchas lenguas cortas y anchas tipo explosión
+                    const numPetals = 6;
+                    for (let p = 0; p < numPetals; p++) {
+                        const pa = (p * Math.PI * 2 / numPetals) + (seedVal % 0.8);
+                        octx.save();
+                        octx.rotate(pa);
+                        const pLen = fireScale * (0.8 + (seedVal * p % 4) / 10);
+                        const pW   = fireScale * (0.32 + (seedVal * p % 3) / 10);
+                        drawTongue(0, 0, pW, pLen, (seedVal * p % 3 - 1) * 0.15,
+                            ["rgba(220,20,0,0.9)","rgba(255,80,0,0.8)","rgba(255,160,0,0.55)","rgba(255,220,50,0)"]);
+                        octx.restore();
+                    }
+                    const core2 = octx.createRadialGradient(0,0,0, 0,0, holeR*1.3);
+                    core2.addColorStop(0,   "rgba(255,255,200,1)");
+                    core2.addColorStop(0.35,"rgba(255,200,0,0.95)");
+                    core2.addColorStop(0.7, "rgba(255,80,0,0.7)");
+                    core2.addColorStop(1,   "rgba(200,0,0,0)");
+                    octx.fillStyle = core2;
+                    octx.beginPath();
+                    octx.arc(0, 0, holeR*1.3, 0, Math.PI*2);
+                    octx.fill();
+                    drawEmbers(10, holeR * 2.0, "rgba(255,80,0,0.85)");
+                }
+
+                // ── TIPO 3: Llama simpática estilo cartoon/medieval ───────────────
+                if (flameType === 3) {
+                    // Base naranja suave
+                    const aura3 = octx.createRadialGradient(0,0,holeR*0.1, 0,-fireScale*0.25, fireScale*0.95);
+                    aura3.addColorStop(0,   "rgba(255,140,0,0.5)");
+                    aura3.addColorStop(0.55,"rgba(255,80,0,0.2)");
+                    aura3.addColorStop(1,   "rgba(255,30,0,0)");
+                    octx.fillStyle = aura3;
+                    octx.beginPath();
+                    octx.ellipse(0,-fireScale*0.1, fireScale*0.9, fireScale*1.15, 0, 0, Math.PI*2);
+                    octx.fill();
+                    // Lenguas redondeadas y expresivas
+                    const tongues3 = [
+                        {ox:-fireScale*0.22, w:fireScale*0.5,  h:fireScale*1.05, lean:-0.2},
+                        {ox: 0,              w:fireScale*0.38, h:fireScale*1.5,  lean: 0.05},
+                        {ox: fireScale*0.25, w:fireScale*0.45, h:fireScale*0.95, lean: 0.22},
+                        {ox:-fireScale*0.08, w:fireScale*0.3,  h:fireScale*1.25, lean:-0.1},
+                    ];
+                    tongues3.forEach(t => {
+                        drawTongue(t.ox, 0, t.w, t.h, t.lean,
+                            ["rgba(255,70,0,0.9)","rgba(255,150,0,0.85)","rgba(255,220,60,0.7)","rgba(255,255,180,0)"]);
+                    });
+                    // Núcleo blanco cálido
+                    const core3 = octx.createRadialGradient(0,-holeR*0.5,0, 0,-holeR*0.5, holeR*1.0);
+                    core3.addColorStop(0,   "rgba(255,255,220,1)");
+                    core3.addColorStop(0.5, "rgba(255,230,100,0.9)");
+                    core3.addColorStop(1,   "rgba(255,130,0,0)");
+                    octx.fillStyle = core3;
+                    octx.beginPath();
+                    octx.arc(0, -holeR*0.5, holeR*1.0, 0, Math.PI*2);
+                    octx.fill();
+                    // Brillo exterior cálido (integración con la tela)
+                    const glow3 = octx.createRadialGradient(0,-fireScale*0.1,holeR, 0,-fireScale*0.1, fireScale*0.75);
+                    glow3.addColorStop(0,   "rgba(255,160,0,0.18)");
+                    glow3.addColorStop(1,   "rgba(255,80,0,0)");
+                    octx.fillStyle = glow3;
+                    octx.beginPath();
+                    octx.arc(0,-fireScale*0.1, fireScale*0.75, 0, Math.PI*2);
+                    octx.fill();
+                    drawEmbers(9, holeR * 1.9, "rgba(255,160,20,0.9)");
+                }
+
                 octx.restore();
             }
 
