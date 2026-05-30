@@ -661,12 +661,11 @@ document.addEventListener('DOMContentLoaded', () => {
         bgCurrentX += (bgTargetX - bgCurrentX) * bgEasing;
         bgCurrentY += (bgTargetY - bgCurrentY) * bgEasing;
 
-        const amb = AMBIENTS[currentAmbient];
-
-        if (Math.abs(bgTargetX - bgCurrentX) > 0.01 || Math.abs(bgTargetY - bgCurrentY) > 0.01) {
-            // Aplicamos porcentaje a ambos
-            bgContainer.style.backgroundPosition = `${bgCurrentX.toFixed(2)}% ${bgCurrentY.toFixed(2)}%`;
-        }
+        // Mover el contenedor completo del fondo usando translate3d en lugar de backgroundPosition
+        // 50% es centro (translate 0), 0% es traslación positiva (+10vw/+10vh), 100% es traslación negativa (-10vw/-10vh)
+        const transX = ((50 - bgCurrentX) / 50) * 10;
+        const transY = ((50 - bgCurrentY) / 50) * 10;
+        bgContainer.style.transform = `translate3d(${transX.toFixed(2)}vw, ${transY.toFixed(2)}vh, 0) scale(1.02)`;
         
         requestAnimationFrame(animateBgParallax);
     }
@@ -732,18 +731,21 @@ document.addEventListener('DOMContentLoaded', () => {
         HS_COLORS.forEach(c => {
             const dot  = proxDots[c];
             const ring = hsRings[c];
-            if (!dot) return;
+            const btn  = hsButtons[c];
+            if (!dot || !btn || !ring) return;
 
             dot.style.left = e.clientX + 'px';
             dot.style.top  = e.clientY + 'px';
 
-            if (overUI || !amb || !amb.hotspots) { dot.style.opacity = '0'; if (ring) { ring.style.opacity = '0'; ring.classList.remove('pulse'); } return; }
+            if (overUI || !amb || !amb.hotspots) { dot.style.opacity = '0'; ring.style.opacity = '0'; ring.classList.remove('pulse'); return; }
 
             const hs = amb.hotspots.find(h => h.color === c);
             if (!hs) { dot.style.opacity = '0'; return; }
 
-            const hx   = (hs.x / 100) * window.innerWidth;
-            const hy   = (hs.y / 100) * window.innerHeight;
+            // Medir la posición real del botón de hotspot en pantalla usando getBoundingClientRect()
+            const rect = btn.getBoundingClientRect();
+            const hx   = rect.left + rect.width / 2;
+            const hy   = rect.top + rect.height / 2;
             const dist = Math.sqrt((e.clientX - hx) ** 2 + (e.clientY - hy) ** 2);
 
             if (dist > PROX_RADIUS) { dot.style.opacity = '0'; ring.style.opacity = '0'; ring.classList.remove('pulse'); return; }

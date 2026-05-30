@@ -29,16 +29,16 @@ body, html {
 /* Contenedor de Fondos de Ambiente */
 .background-container {
     position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
+    top: -10vh;
+    left: -10vw;
+    width: 120vw;
+    height: 120vh;
     z-index: 1;
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
     transition: background-image 1.2s cubic-bezier(0.4, 0, 0.2, 1);
-    transform: scale(1.02);
+    transform: translate3d(0, 0, 0) scale(1.02);
     filter: brightness(0.7) contrast(1.05);
 }
 
@@ -738,7 +738,7 @@ body, html {
 
 /* --- Anell fi sobre el hotspot (apareix en apropar-se) --- */
 .hs-ring {
-    position: fixed;
+    position: absolute;
     width: 72px;
     height: 72px;
     border-radius: 50%;
@@ -763,7 +763,7 @@ body, html {
 
 /* --- Hotspots invisibles sobre el fondo (4 botons) --- */
 .hs-btn {
-    position: fixed;
+    position: absolute;
     z-index: 5;
     width: 80px;
     height: 80px;

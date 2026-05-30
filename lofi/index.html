@@ -15,25 +15,25 @@
 </head>
 <body>
     <!-- Capa de Fondo (Ambiente) -->
-    <div class="background-container" id="bg-container"></div>
+    <div class="background-container" id="bg-container">
+        <!-- 4 Hotspots invisibles (zona clicable con cursor zoom-in por color) -->
+        <button class="hs-btn" id="hs-blue"   aria-label="Punt d'informació"></button>
+        <button class="hs-btn" id="hs-red"    aria-label="Punt d'informació"></button>
+        <button class="hs-btn" id="hs-green"  aria-label="Punt d'informació"></button>
+        <button class="hs-btn" id="hs-yellow" aria-label="Punt d'informació"></button>
 
-    <!-- 4 Hotspots invisibles (zona clicable con cursor zoom-in por color) -->
-    <button class="hs-btn" id="hs-blue"   aria-label="Punt d'informació"></button>
-    <button class="hs-btn" id="hs-red"    aria-label="Punt d'informació"></button>
-    <button class="hs-btn" id="hs-green"  aria-label="Punt d'informació"></button>
-    <button class="hs-btn" id="hs-yellow" aria-label="Punt d'informació"></button>
+        <!-- Anillos finos sobre cada hotspot (aparecen al acercarse) -->
+        <div class="hs-ring" id="hr-blue"></div>
+        <div class="hs-ring" id="hr-red"></div>
+        <div class="hs-ring" id="hr-green"></div>
+        <div class="hs-ring" id="hr-yellow"></div>
+    </div>
 
     <!-- 4 Punts de proximitat (un per color) -->
     <div class="prox-dot" id="pd-blue"></div>
     <div class="prox-dot" id="pd-green"></div>
     <div class="prox-dot" id="pd-red"></div>
     <div class="prox-dot" id="pd-yellow"></div>
-
-    <!-- Anillos finos sobre cada hotspot (aparecen al acercarse) -->
-    <div class="hs-ring" id="hr-blue"></div>
-    <div class="hs-ring" id="hr-red"></div>
-    <div class="hs-ring" id="hr-green"></div>
-    <div class="hs-ring" id="hr-yellow"></div>
 
     <!-- Modal d'informació (més gran, sense enllaç extern) -->
     <div id="hotspot-modal" role="dialog" aria-modal="true">
