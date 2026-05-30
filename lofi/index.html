@@ -17,24 +17,28 @@
     <!-- Capa de Fondo (Ambiente) -->
     <div class="background-container" id="bg-container"></div>
 
-    <!-- Hotspot invisible: zona del fondo con cursor lupa -->
-    <button id="hotspot-lupa" aria-label="Saber més sobre este lloc"></button>
+    <!-- 4 Hotspots invisibles (zona clicable con cursor zoom-in por color) -->
+    <button class="hs-btn" id="hs-blue"   aria-label="Punt d'informació"></button>
+    <button class="hs-btn" id="hs-red"    aria-label="Punt d'informació"></button>
+    <button class="hs-btn" id="hs-green"  aria-label="Punt d'informació"></button>
+    <button class="hs-btn" id="hs-yellow" aria-label="Punt d'informació"></button>
 
-    <!-- Punto de proximidad: sigue al ratón y cambia de color cerca del hotspot -->
-    <div id="prox-dot"></div>
+    <!-- 4 Punts de proximitat (un per color) -->
+    <div class="prox-dot" id="pd-blue"></div>
+    <div class="prox-dot" id="pd-green"></div>
+    <div class="prox-dot" id="pd-red"></div>
+    <div class="prox-dot" id="pd-yellow"></div>
 
-    <!-- Modal d'informació del hotspot -->
+    <!-- Modal d'informació (més gran, sense enllaç extern) -->
     <div id="hotspot-modal" role="dialog" aria-modal="true">
         <div id="hotspot-modal-box">
             <button id="hotspot-modal-close" aria-label="Tancar">✕</button>
             <div id="hotspot-modal-icon">📖</div>
             <h3 id="hotspot-modal-title"></h3>
             <p id="hotspot-modal-desc"></p>
-            <a id="hotspot-modal-link" href="#" target="_blank" rel="noopener noreferrer">
-                Llegir a l'Enciclopèdia →
-            </a>
         </div>
     </div>
+
     
     <!-- Contenedor Principal (Experiencia Minimalista) -->
     <div class="app-container">

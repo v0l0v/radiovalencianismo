@@ -720,8 +720,8 @@ body, html {
     }
 }
 
-/* --- Punto de proximidad al hotspot --- */
-#prox-dot {
+/* --- Punts de proximitat (4 colors) --- */
+.prox-dot {
     position: fixed;
     width: 10px;
     height: 10px;
@@ -736,8 +736,8 @@ body, html {
     will-change: left, top, opacity, background;
 }
 
-/* --- Hotspot invisible sobre el fondo --- */
-#hotspot-lupa {
+/* --- Hotspots invisibles sobre el fondo (4 botons) --- */
+.hs-btn {
     position: fixed;
     z-index: 5;
     width: 80px;
@@ -752,7 +752,7 @@ body, html {
     outline: none;
 }
 
-#hotspot-lupa:hover {
+.hs-btn:hover {
     background: rgba(255, 255, 255, 0.03);
 }
 
@@ -779,11 +779,11 @@ body, html {
     background: rgba(12, 14, 22, 0.93);
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
+    border: 1px solid var(--hs-color, rgba(255,255,255,0.1));
     border-radius: 1.4rem;
-    padding: 1.8rem 2rem 1.6rem;
-    max-width: 300px;
-    width: 88vw;
+    padding: 2rem 2.2rem 2rem;
+    max-width: 380px;
+    width: 90vw;
     box-shadow: 0 20px 60px rgba(0,0,0,0.7), 0 0 0 1px rgba(255,255,255,0.04);
     text-align: center;
     transform: translateY(10px);
@@ -833,27 +833,10 @@ body, html {
 }
 
 #hotspot-modal-desc {
-    font-size: 0.8rem;
-    color: rgba(255,255,255,0.58);
-    line-height: 1.55;
-    margin-bottom: 1.1rem;
+    font-size: 0.88rem;
+    color: rgba(255,255,255,0.65);
+    line-height: 1.65;
+    margin-bottom: 0;
 }
 
-#hotspot-modal-link {
-    display: inline-block;
-    background: linear-gradient(135deg, var(--primary-color), #d97000);
-    color: #0c0d12;
-    font-weight: 700;
-    font-size: 0.78rem;
-    padding: 0.5rem 1.15rem;
-    border-radius: 50px;
-    text-decoration: none;
-    letter-spacing: 0.3px;
-    transition: all 0.2s;
-    box-shadow: 0 4px 14px rgba(255,159,28,0.35);
-}
 
-#hotspot-modal-link:hover {
-    transform: translateY(-1px);
-    box-shadow: 0 6px 20px rgba(255,159,28,0.5);
-}

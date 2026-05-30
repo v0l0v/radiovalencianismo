@@ -7,54 +7,94 @@ document.addEventListener('DOMContentLoaded', () => {
     // Mapeo de ambientes (Modo Ilustración y Modo Foto)
     const AMBIENTS = {
         serranos: {
-            name: 'Torres de Serrans y la Senyera',
-            file_art: 'assets/serranos_art.png', file_photo: 'assets/pixelart_photo.png',
-            hotspot: { x: 68, y: 22, title: 'Torres de Serrans', desc: 'Monument gòtic del s. XIV i porta d\'entrada a la ciutat de València.', url: 'https://lenciclopedia.org/Torres_de_Serrans' }
+            name: 'Torres de Serrans y la Senyera', file_art: 'assets/serranos_art.png', file_photo: 'assets/pixelart_photo.png',
+            hotspots: [
+                { color:'blue',   x:68, y:22, icon:'🏛️', title:'Torres de Serrans', content:'Portal gòtic del s. XIV, una de les millors mostres de l\'arquitectura gòtica civil europea. Va ser presó reial i porta principal d\'entrada a la ciutat de València.' },
+                { color:'red',    x:42, y:58, icon:'⚔️', title:'Muralla Medieval', content:'València va tindre 6 km de muralla medieval amb 12 portes. Quasi tota fou enderrocada en el s. XIX per a permetre el creixement de la ciutat.' },
+                { color:'green',  x:22, y:72, icon:'🌿', title:'Jardí del Túria', content:'Antic llit del riu Túria convertit en parc urbà de 9 km després de les catastròfiques inundacions del 29 d\'octubre de 1957. Hui és el pulmó verd de la ciutat.' },
+                { color:'yellow', x:78, y:48, icon:'🚩', title:'La Senyera Valenciana', content:'La bandera del Regne de València, quatre barres roges sobre fons daurat. Símbol d\'identitat i d\'independència. La seua història es remunta al s. XIII amb la Reconquista.' }
+            ]
         },
         xativa: {
-            name: 'Castell de Xàtiva',
-            file_art: 'assets/xativa_art.png', file_photo: 'assets/xativa_photo.png',
-            hotspot: { x: 55, y: 18, title: 'Castell de Xàtiva', desc: 'Fortalesa ibèrica, romana i àrab. Una de les més importants del País Valencià.', url: 'https://lenciclopedia.org/Castell_de_X%C3%A0tiva' }
+            name: 'Castell de Xàtiva', file_art: 'assets/xativa_art.png', file_photo: 'assets/xativa_photo.png',
+            hotspots: [
+                { color:'blue',   x:55, y:18, icon:'🏰', title:'Castell de Xàtiva', content:'Una de les fortaleses més importants de la península ibèrica. D\'origen ibèric i romà, ampliat pels àrabs i reconquerit per Jaume I en 1244. Ofereix vistes espectaculars de la Costera.' },
+                { color:'red',    x:35, y:45, icon:'🔥', title:'Incendi de Xàtiva (1707)', content:'Felip V va ordenar cremar i resar Xàtiva com a càstig per la seua resistència durant la Guerra de Successió. El rei apareix penjat del cap al Museu de l\'Almodí de Xàtiva.' },
+                { color:'green',  x:72, y:65, icon:'💧', title:'Fonts de Xàtiva', content:'La muntanya de Xàtiva té nombroses fonts naturals que han fet de la ciutat un lloc fèrtil des de l\'antiguitat. El paper va arribar a Europa a través d\'ací al s. XII.' },
+                { color:'yellow', x:25, y:55, icon:'⚜️', title:'Els Papes valencians', content:'Xàtiva és el bressol de dos papes: Calixt III (1455) i Alexandre VI (1492), tots dos de la família Borja. Un dels llinatges més influents i controvertits del Renaixement europeu.' }
+            ]
         },
         cyberpunk: {
-            name: 'Ciutat de les Arts Cyberpunk',
-            file_art: 'assets/cyberpunk_cac_art.png', file_photo: 'assets/cyberpunk_photo.png',
-            hotspot: { x: 72, y: 30, title: 'Ciutat de les Arts i les Ciències', desc: 'Complex cultural i arquitectònic dissenyat per Santiago Calatrava i Félix Candela.', url: 'https://lenciclopedia.org/Ciutat_de_les_Arts_i_les_Ci%C3%A8ncies' }
+            name: 'Ciutat de les Arts Cyberpunk', file_art: 'assets/cyberpunk_cac_art.png', file_photo: 'assets/cyberpunk_photo.png',
+            hotspots: [
+                { color:'blue',   x:72, y:30, icon:'🎭', title:'Palau de les Arts Reina Sofia', content:'Ópera i centre cultural dissenyat per Calatrava. Amb 75.000 m², és el segon teatre d\'òpera més gran del món. La seua silueta recorda un casc futurista o un ocell en vol.' },
+                { color:'red',    x:40, y:55, icon:'🏎️', title:'Fórmula 1 a València (2008-2012)', content:'El circuit urbà de València va acollir el Gran Premi d\'Europa de F1 durant cinc anys. Va ser el circuit urbà permanent més llarg de l\'era moderna amb 5,419 km al voltant del port.' },
+                { color:'green',  x:20, y:70, icon:'🌱', title:'L\'Umbracle', content:'Jardí lineal cobert situat sobre el pàrquing del complex. Conté plantes autòctones valencianes i una col·lecció d\'escultures d\'art contemporani. Accés gratuït.' },
+                { color:'yellow', x:60, y:65, icon:'🌉', title:'Pont de l\'Assut de l\'Or', content:'Pont atirantat de Calatrava de 125 metres d\'alçada, el punt més alt de la silueta de la Ciutat de les Arts. El seu nom fa referència a un antic rec d\'irrigació.' }
+            ]
         },
         malvarrosa: {
-            name: 'Amanecer en la Malvarrosa',
-            file_art: 'assets/malvarrosa_sorolla_art.png', file_photo: 'assets/malvarrosa_photo.png',
-            hotspot: { x: 20, y: 55, title: 'Platja de la Malva-rosa', desc: 'La platja de València, immortalitzada per Joaquín Sorolla en les seues obres.', url: 'https://lenciclopedia.org/Platja_de_la_Malva-rosa' }
+            name: 'Amanecer en la Malvarrosa', file_art: 'assets/malvarrosa_sorolla_art.png', file_photo: 'assets/malvarrosa_photo.png',
+            hotspots: [
+                { color:'blue',   x:20, y:55, icon:'🏖️', title:'Platja de la Malva-rosa', content:'Platja urbana de 5 km de llarg, símbol de l\'oci mediterrani valencià. El seu nom prové d\'una fàbrica de perfums que hi havia al s. XIX que elaborava oli de malva-rosa.' },
+                { color:'red',    x:50, y:35, icon:'✍️', title:'Blasco Ibáñez', content:'L\'escriptor valencià Vicente Blasco Ibáñez va viure i escriure ací. La seua novel·la "La Barraca" retrata la vida dels llauradors valencians. Va ser el primer autor de best-sellers en anglés.' },
+                { color:'green',  x:72, y:70, icon:'🐚', title:'Dunes protegides', content:'Les dunes del litoral valencià allotgen ecosistemes únics amb espècies vegetals adaptades. Malgrat la pressió urbanística, alguns trams han sigut recuperats com a hàbitat protegit.' },
+                { color:'yellow', x:35, y:25, icon:'🎨', title:'Sorolla i la llum', content:'Joaquín Sorolla (1863-1923) és el pintor de la llum mediterrània per excel·lència. Moltes de les seues obres més famoses estan pintades ací, capturant el reflex del sol a les ones.' }
+            ]
         },
         space: {
-            name: 'Estación Espacial sobre Valencia',
-            file_art: 'assets/space_art.png?v=3', file_photo: 'assets/space_photo.png',
-            hotspot: { x: 60, y: 15, title: 'València des de l\'espai', desc: 'La llum de la capital del País Valencià vista des de l\'òrbita terrestre.', url: 'https://lenciclopedia.org/Val%C3%A8ncia' }
+            name: 'Estación Espacial sobre Valencia', file_art: 'assets/space_art.png?v=3', file_photo: 'assets/space_photo.png',
+            hotspots: [
+                { color:'blue',   x:60, y:15, icon:'🛰️', title:'València des de l\'espai', content:'La llum de València és visible des de l\'Estació Espacial Internacional. El seu litoral, l\'Albufera i l\'Horta formen un mosaic inconfusible vist des de l\'òrbita terrestre a 400 km d\'altura.' },
+                { color:'red',    x:30, y:35, icon:'🌊', title:'Riuada del 1957', content:'El 29 d\'octubre de 1957 el riu Túria va desbordar-se causant 81 morts i devastant la ciutat. Com a conseqüència, el curs del Túria es va desviar al sud i el llit es va convertir en parc.' },
+                { color:'green',  x:75, y:60, icon:'🦆', title:'Parc Natural de l\'Albufera', content:'Vist des de l\'espai, l\'Albufera apareix com una taca fosca just al sud de València. És el llac d\'aigua dolça més gran de la península ibèrica i reserva natural d\'aus migratòries.' },
+                { color:'yellow', x:45, y:72, icon:'🍊', title:'L\'Horta valenciana', content:'El sistema de regadiu de l\'Horta valenciana, visible des de l\'espai com una trama geomètrica verda, és Patrimoni Immaterial de la UNESCO. Té origen romà i àrab, i més de 1.000 anys d\'història.' }
+            ]
         },
         lonja_mercado: {
-            name: 'Mercat Central (1920)',
-            file_art: 'assets/lonja_mercado_art.png', file_photo: 'assets/brooklyn_photo.png',
-            hotspot: { x: 35, y: 35, title: 'Mercat Central de València', desc: 'Un dels mercats coberts més grans d\'Europa, inaugurat en 1928. Joia modernista.', url: 'https://lenciclopedia.org/Mercat_Central_de_Val%C3%A8ncia' }
+            name: 'Mercat Central (1920)', file_art: 'assets/lonja_mercado_art.png', file_photo: 'assets/brooklyn_photo.png',
+            hotspots: [
+                { color:'blue',   x:35, y:35, icon:'🏪', title:'Mercat Central de València', content:'Inaugurat en 1928, és un dels mercats coberts més grans d\'Europa amb 8.000 m². La seua cúpula central amb vitralls modernistes és una obra d\'art. Cada dia hi passen milers de persones.' },
+                { color:'red',    x:58, y:52, icon:'🏛️', title:'La Llotja de la Seda', content:'Declarada Patrimoni de la Humanitat per la UNESCO en 1996. Construïda entre 1482 i 1548, és el millor exemple de l\'arquitectura gòtica civil valenciana i símbol de la riquesa mercantil de la ciutat.' },
+                { color:'green',  x:25, y:65, icon:'🎨', title:'El Carme', content:'El barri del Carme és el cor medieval de València. Ple de galerietres d\'art, bars i botigues de disseny, és el barri bohemi per excel·lència. Conserva restes de la muralla àrab del s. XI.' },
+                { color:'yellow', x:68, y:25, icon:'🏺', title:'Ceràmica valenciana', content:'La tradició ceràmica valenciana, famosa pels azulejos blaus i blancs, es remunta al s. XV a Manises i Paterna. Va influir en la ceràmica de tot Europa i en l\'estil mudèjar hispànic.' }
+            ]
         },
         cac: {
-            name: 'Ciutat de les Arts i les Ciències',
-            file_art: 'assets/cac_art.png?v=2', file_photo: 'assets/cac_photo.png?v=2',
-            hotspot: { x: 65, y: 40, title: 'L\'Hemisfèric', desc: 'Edifici en forma d\'ull humà que acull un planetari i cinema IMAX, obra de Calatrava.', url: 'https://lenciclopedia.org/L%27Hemisf%C3%A8ric' }
+            name: 'Ciutat de les Arts i les Ciències', file_art: 'assets/cac_art.png?v=2', file_photo: 'assets/cac_photo.png?v=2',
+            hotspots: [
+                { color:'blue',   x:65, y:40, icon:'🔭', title:'L\'Hemisfèric', content:'Edifici en forma d\'ull humà amb una parpella mòbil que s\'obre i es tanca. Acull un cinema IMAX, un planetari i una sala làser. La seua superfície és una xarxa de formigó blanc i acer.' },
+                { color:'red',    x:40, y:58, icon:'🐋', title:'L\'Oceanogràfic', content:'El parc aquàtic més gran d\'Europa per volum d\'aigua (42 milions de litres). Dissenyat per Félix Candela, acull dofins, belugas, morses, taurons i més de 45.000 animals de 500 espècies.' },
+                { color:'green',  x:22, y:32, icon:'🌴', title:'L\'Umbracle', content:'Passeig escultòric cobert de 300 metres de llarg ple de palmeres, tarongers i plantes del Mediterrani. A la nit es converteix en un dels espais d\'oci nocturn més glamurosos de la ciutat.' },
+                { color:'yellow', x:72, y:68, icon:'🎶', title:'Palau de les Arts', content:'Una de les sales d\'òpera més importants del món. El seu disseny de Calatrava imita un casc medieval. La temporada inclou òpera, dansa i música clàssica d\'alt nivell internacional.' }
+            ]
         },
         valencia: {
-            name: 'Barraca en la Albufera',
-            file_art: 'assets/valencia_art.png', file_photo: 'assets/valencia_photo.png',
-            hotspot: { x: 25, y: 60, title: 'L\'Albufera de València', desc: 'Llac costaner d\'aigua dolça i parc natural. Bressol de l\'arròs valencià i la paella.', url: 'https://lenciclopedia.org/Albufera_de_Val%C3%A8ncia' }
+            name: 'Barraca en la Albufera', file_art: 'assets/valencia_art.png', file_photo: 'assets/valencia_photo.png',
+            hotspots: [
+                { color:'blue',   x:25, y:60, icon:'🦢', title:'L\'Albufera de València', content:'El llac costaner d\'aigua dolça més gran de la península ibèrica, amb 21.000 hectàrees. Hàbitat de centenars d\'espècies d\'aus, és un espai natural protegit i bressol de la paella valenciana.' },
+                { color:'red',    x:55, y:35, icon:'🍚', title:'El bressol de la paella', content:'La paella valenciana va nàixer a les vores de l\'Albufera. La recepta autèntica porta arròs de la zona, pollastre, conill, bajoqueta, garrofó, tomaca, oli i safrà. Cap altra cosa és paella.' },
+                { color:'green',  x:40, y:72, icon:'🌾', title:'L\'arrossar de l\'Albufera', content:'Els camps d\'arròs de l\'Albufera creen un paisatge únic que canvia de color amb les estacions. L\'arròs es cultiva ací des del s. X àrab. Unes 14.000 hectàrees de cultiu envolten el llac.' },
+                { color:'yellow', x:70, y:50, icon:'🏡', title:'La Barraca valenciana', content:'Casa tradicional dels llauradors valencians, amb sostre de palla de dos aigües i façana encalada. Hui quasi no en queden, però la barraca és un dels símbols més poètics de la identitat del camp valencià.' }
+            ]
         },
         naranjos_360: {
-            name: 'Campo de Naranjos',
-            file_art: 'assets/naranjos_360_art.png',
-            hotspot: { x: 50, y: 50, title: 'La taronja valenciana', desc: 'El fruit símbol del País Valencià, exportat a tot el món des del s. XIX.', url: 'https://lenciclopedia.org/Taronja' }
+            name: 'Campo de Naranjos', file_art: 'assets/naranjos_360_art.png',
+            hotspots: [
+                { color:'blue',   x:50, y:50, icon:'🍊', title:'La taronja valenciana', content:'Valencia i les seues comarques produeixen el 60% de les taronges d\'Espanya. Des del s. XIX s\'exporta a tot el món. La varietat Navel, la Clementina i la Navelina són les més famoses.' },
+                { color:'red',    x:28, y:30, icon:'🐛', title:'La plaga de la Tristesa (1957)', content:'Un virus devastador va destruir la pràctica totalitat dels tarongers valencians en la dècada dels 50. Gràcies a l\'esforç dels llauradors i nous patrons resistents, la taronja es va recuperar.' },
+                { color:'green',  x:70, y:40, icon:'💧', title:'Séquia Reial del Xúquer', content:'L\'antic sistema de reg de l\'Horta valenciana, d\'origen àrab, és Patrimoni Mundial. El Tribunal de les Aigües de València porta més de 1.000 anys resolent disputes de reg cada dijous davant la Catedral.' },
+                { color:'yellow', x:38, y:68, icon:'✈️', title:'La caixa de taronges', content:'Les caixes de taronges amb paper setinat i etiquetes de colors vius foren un art gràfic propi del País Valencià. Les etiquetes dels anys 20-60 són objectes de col·leccionisme arreu del món.' }
+            ]
         },
         mestalla: {
-            name: 'Estadio de Mestalla',
-            file_art: 'assets/mestallavcf_art.png',
-            hotspot: { x: 50, y: 25, title: 'Estadi de Mestalla', desc: 'Estadi del Valencia CF, inaugurat en 1923. Un dels estadis més emblemàtics d\'Espanya.', url: 'https://lenciclopedia.org/Estadi_de_Mestalla' }
+            name: 'Estadio de Mestalla', file_art: 'assets/mestallavcf_art.png',
+            hotspots: [
+                { color:'blue',   x:50, y:25, icon:'🏟️', title:'Estadi de Mestalla', content:'Inaugurat el 1923, és un dels estadis amb més història d\'Espanya. Amb capacitat per a 49.430 espectadors, és famós per la seua gran inclinació de graderies, que crea una atmosfera intimidant per als visitants.' },
+                { color:'red',    x:30, y:55, icon:'🏆', title:'València CF: la grandesa', content:'Fundat en 1919, el Valencia CF ha sigut campió de Lliga en 1942, 1944, 1947, 2002 i 2004. Dos vegades campió de la UEFA (1980, 2004) i finalista de la Champions en 2001. Cinc vegades campió de Copa.' },
+                { color:'green',  x:65, y:60, icon:'🧣', title:'La Graderia de Mestalla', content:'Les grades de Mestalla, especialment el Fondo Nord, són famoses per la seua passió i la seua presència sonora. La penya "Yomus" és un dels colectius ultres més antics i actius del futbol espanyol.' },
+                { color:'yellow', x:20, y:35, icon:'🦇', title:'El Murciélago de la Llegenda', content:'Segons la llegenda, durant la Reconquista de València per Jaume I en 1238, un ratpenat va apareixer sobre el seu elm aturant-lo d\'una emboscada. Per agraïment, el ratpenat es va incloure a l\'escut del regne i del club.' }
+            ]
         }
     };
 
@@ -68,9 +108,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const trackTitle = document.getElementById('track-title');
     const musicIcon = document.querySelector('.music-icon');
     const ambientButtons = document.querySelectorAll('.ambient-btn[data-ambient]');
-    // Hotspot y punto de proximidad (declarados aquí para evitar TDZ en loadAmbientVisual)
-    const hotspotBtn   = document.getElementById('hotspot-lupa');
-    const proxDot      = document.getElementById('prox-dot');
+    // Hotspots (4 colores) y puntos de proximidad
+    const HS_COLORS = ['blue','red','green','yellow'];
+    const hsButtons = {};
+    const proxDots  = {};
+    HS_COLORS.forEach(c => {
+        hsButtons[c] = document.getElementById('hs-' + c);
+        proxDots[c]  = document.getElementById('pd-' + c);
+    });
 
     // --- Lógica del Reproductor de Audio ---
     let isPlaying = false;
@@ -147,15 +192,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Mover el hotspot de lupa a la posición del nuevo ambiente
-        if (amb.hotspot) {
-            hotspotBtn.style.left  = amb.hotspot.x + '%';
-            hotspotBtn.style.top   = amb.hotspot.y + '%';
-            hotspotBtn.style.display = 'flex';
-            hotspotBtn.title = amb.hotspot.title;
-        } else {
-            hotspotBtn.style.display = 'none';
-        }
+        // Posicionar los 4 hotspots del nuevo ambiente
+        HS_COLORS.forEach(c => {
+            const btn = hsButtons[c];
+            if (!btn) return;
+            const hs = (amb.hotspots || []).find(h => h.color === c);
+            if (hs) {
+                btn.style.left    = hs.x + '%';
+                btn.style.top     = hs.y + '%';
+                btn.style.display = 'flex';
+            } else {
+                btn.style.display = 'none';
+            }
+        });
     }
 
     function setAmbient(ambientKey) {
@@ -183,17 +232,13 @@ document.addEventListener('DOMContentLoaded', () => {
         setAmbient(ambientKeys[currentIndex]);
     }
 
-    // Rueda del ratón
+    // Rueda del ratón / trackpad → mueve el fondo (pan), NO cambia de ambiente
     window.addEventListener('wheel', (e) => {
-        // Evitar el cambio si se hace scroll sobre el panel del reproductor o modales
-        if (e.target.closest('#player-panel') || e.target.closest('.modal')) return;
-        
-        if (e.deltaY > 0) {
-            cycleAmbient(1); // Scroll abajo = siguiente
-        } else if (e.deltaY < 0) {
-            cycleAmbient(-1); // Scroll arriba = anterior
-        }
-    });
+        if (e.target.closest('#player-panel') || e.target.closest('#hotspot-modal')) return;
+        e.preventDefault();
+        bgTargetX = Math.max(0, Math.min(100, bgTargetX + e.deltaX * 0.04));
+        bgTargetY = Math.max(0, Math.min(100, bgTargetY + e.deltaY * 0.04));
+    }, { passive: false });
 
 
 
@@ -579,11 +624,11 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Navegación panorámica con cursores del teclado
+    // Cambio de ambiente solo con AvPág / RePág (+ botones numerados)
     window.addEventListener('keydown', (e) => {
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
-        const amb = AMBIENTS[currentAmbient];
-        const stepNormal = 5; // Porcentaje de movimiento por pulsación
+        const stepNormal = 5;
 
         if (e.key === 'ArrowRight') {
             bgTargetX = Math.max(0, Math.min(100, bgTargetX + stepNormal));
@@ -596,6 +641,12 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
         } else if (e.key === 'ArrowDown') {
             bgTargetY = Math.max(0, Math.min(100, bgTargetY + stepNormal));
+            e.preventDefault();
+        } else if (e.key === 'PageDown') {
+            cycleAmbient(1);
+            e.preventDefault();
+        } else if (e.key === 'PageUp') {
+            cycleAmbient(-1);
             e.preventDefault();
         }
     });
@@ -620,21 +671,42 @@ document.addEventListener('DOMContentLoaded', () => {
     animateBgParallax();
 
 
-    // --- Hotspot: Lupa flotante sobre el fondo ---
+    // --- Hotspots (4 colores) ---
     const hotspotModal      = document.getElementById('hotspot-modal');
+    const hotspotModalIcon  = document.getElementById('hotspot-modal-icon');
     const hotspotModalTitle = document.getElementById('hotspot-modal-title');
     const hotspotModalDesc  = document.getElementById('hotspot-modal-desc');
-    const hotspotModalLink  = document.getElementById('hotspot-modal-link');
     const hotspotModalClose = document.getElementById('hotspot-modal-close');
 
-    hotspotBtn.addEventListener('click', (e) => {
-        e.stopPropagation();
+    // Colores finales de cada punto (para la interpolación blanco → color)
+    const HS_TARGET_COLORS = {
+        blue:   [0,   120, 255],
+        red:    [220,  30,  30],
+        green:  [0,   185,  80],
+        yellow: [230, 180,   0]
+    };
+
+    function openHotspotModal(color) {
         const amb = AMBIENTS[currentAmbient];
-        if (!amb || !amb.hotspot) return;
-        hotspotModalTitle.textContent = amb.hotspot.title;
-        hotspotModalDesc.textContent  = amb.hotspot.desc;
-        hotspotModalLink.href         = amb.hotspot.url;
+        if (!amb || !amb.hotspots) return;
+        const hs = amb.hotspots.find(h => h.color === color);
+        if (!hs) return;
+        hotspotModalIcon.textContent  = hs.icon  || '📍';
+        hotspotModalTitle.textContent = hs.title;
+        hotspotModalDesc.textContent  = hs.content;
+        // Color del borde según el punto
+        const [r,g,b] = HS_TARGET_COLORS[color];
+        hotspotModal.style.setProperty('--hs-color', `rgb(${r},${g},${b})`);
         hotspotModal.classList.add('visible');
+    }
+
+    HS_COLORS.forEach(c => {
+        const btn = hsButtons[c];
+        if (!btn) return;
+        btn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            openHotspotModal(c);
+        });
     });
 
     hotspotModalClose.addEventListener('click', (e) => {
@@ -642,65 +714,52 @@ document.addEventListener('DOMContentLoaded', () => {
         hotspotModal.classList.remove('visible');
     });
 
-    // Cerrar modal al clicar fuera
     hotspotModal.addEventListener('click', (e) => {
         if (e.target === hotspotModal) hotspotModal.classList.remove('visible');
     });
 
-
-    // --- Punto de proximidad: sigue al ratón, cambia de blanco a azul VCF ---
-    const PROX_RADIUS = 280; // px de influencia
+    // --- Proximidad: 4 puntos de colores siguen al ratón ---
+    const PROX_RADIUS = 260;
 
     document.body.addEventListener('mousemove', (e) => {
-        // Ocultar sobre el panel del reproductor o el modal
-        if (e.target.closest('#player-panel') || e.target.closest('#hotspot-modal')) {
-            proxDot.style.opacity = '0';
-            return;
-        }
-
+        const overUI = e.target.closest('#player-panel') || e.target.closest('#hotspot-modal');
         const amb = AMBIENTS[currentAmbient];
-        if (!amb || !amb.hotspot) {
-            proxDot.style.opacity = '0';
-            return;
-        }
 
-        // Posición del hotspot en píxeles reales
-        const hx = (amb.hotspot.x / 100) * window.innerWidth;
-        const hy = (amb.hotspot.y / 100) * window.innerHeight;
+        HS_COLORS.forEach(c => {
+            const dot = proxDots[c];
+            if (!dot) return;
 
-        // Distancia ratón → hotspot
-        const dist = Math.sqrt((e.clientX - hx) ** 2 + (e.clientY - hy) ** 2);
+            dot.style.left = e.clientX + 'px';
+            dot.style.top  = e.clientY + 'px';
 
-        // Mover el punto al cursor
-        proxDot.style.left = e.clientX + 'px';
-        proxDot.style.top  = e.clientY + 'px';
+            if (overUI || !amb || !amb.hotspots) { dot.style.opacity = '0'; return; }
 
-        if (dist > PROX_RADIUS) {
-            proxDot.style.opacity = '0';
-            return;
-        }
+            const hs = amb.hotspots.find(h => h.color === c);
+            if (!hs) { dot.style.opacity = '0'; return; }
 
-        // t: 0 = borde del radio, 1 = encima del hotspot
-        const t = 1 - (dist / PROX_RADIUS);
+            const hx   = (hs.x / 100) * window.innerWidth;
+            const hy   = (hs.y / 100) * window.innerHeight;
+            const dist = Math.sqrt((e.clientX - hx) ** 2 + (e.clientY - hy) ** 2);
 
-        // Interpolación blanco → azul VCF (0, 74, 153)
-        const r = Math.round(255 * (1 - t));
-        const g = Math.round(255 - t * (255 - 74));
-        const b = Math.round(255 - t * (255 - 220));
+            if (dist > PROX_RADIUS) { dot.style.opacity = '0'; return; }
 
-        // Escala y opacidad crecen con la proximidad
-        const scale  = 0.7 + t * 1.1;
-        const opacity = 0.25 + t * 0.75;
-        const glow   = Math.round(t * 16);
+            const t   = 1 - dist / PROX_RADIUS;
+            const [tr, tg, tb] = HS_TARGET_COLORS[c];
+            const r   = Math.round(255 + (tr - 255) * t);
+            const g   = Math.round(255 + (tg - 255) * t);
+            const b   = Math.round(255 + (tb - 255) * t);
+            const sc  = (0.7 + t * 1.1).toFixed(2);
+            const op  = (0.25 + t * 0.75).toFixed(2);
+            const glow = Math.round(t * 18);
 
-        proxDot.style.opacity   = opacity.toFixed(2);
-        proxDot.style.background = `rgb(${r},${g},${b})`;
-        proxDot.style.boxShadow = `0 0 ${glow}px rgba(${r},${g},${b},0.7)`;
-        proxDot.style.transform = `translate(-50%,-50%) scale(${scale.toFixed(2)})`;
+            dot.style.opacity    = op;
+            dot.style.background = `rgb(${r},${g},${b})`;
+            dot.style.boxShadow  = `0 0 ${glow}px rgba(${r},${g},${b},0.8)`;
+            dot.style.transform  = `translate(-50%,-50%) scale(${sc})`;
+        });
     });
 
-    // Ocultar el punto si el ratón sale de la ventana
     document.body.addEventListener('mouseleave', () => {
-        proxDot.style.opacity = '0';
+        HS_COLORS.forEach(c => { if (proxDots[c]) proxDots[c].style.opacity = '0'; });
     });
 });
