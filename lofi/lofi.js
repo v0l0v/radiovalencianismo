@@ -108,13 +108,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const trackTitle = document.getElementById('track-title');
     const musicIcon = document.querySelector('.music-icon');
     const ambientButtons = document.querySelectorAll('.ambient-btn[data-ambient]');
-    // Hotspots (4 colores) y puntos de proximidad
+    // Hotspots (4 colores), puntos de proximidad y anillos
     const HS_COLORS = ['blue','red','green','yellow'];
     const hsButtons = {};
     const proxDots  = {};
+    const hsRings   = {};
     HS_COLORS.forEach(c => {
         hsButtons[c] = document.getElementById('hs-' + c);
         proxDots[c]  = document.getElementById('pd-' + c);
+        hsRings[c]   = document.getElementById('hr-' + c);
     });
 
     // --- Lógica del Reproductor de Audio ---
@@ -192,17 +194,19 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
 
-        // Posicionar los 4 hotspots del nuevo ambiente
+        // Posicionar los 4 hotspots y sus anillos en el nuevo ambiente
         HS_COLORS.forEach(c => {
-            const btn = hsButtons[c];
-            if (!btn) return;
-            const hs = (amb.hotspots || []).find(h => h.color === c);
+            const btn  = hsButtons[c];
+            const ring = hsRings[c];
+            const hs   = (amb.hotspots || []).find(h => h.color === c);
             if (hs) {
-                btn.style.left    = hs.x + '%';
-                btn.style.top     = hs.y + '%';
-                btn.style.display = 'flex';
+                const lft = hs.x + '%';
+                const top = hs.y + '%';
+                if (btn)  { btn.style.left  = lft; btn.style.top  = top; btn.style.display = 'flex'; }
+                if (ring) { ring.style.left = lft; ring.style.top = top; ring.style.opacity = '0'; ring.classList.remove('pulse'); }
             } else {
-                btn.style.display = 'none';
+                if (btn)  btn.style.display  = 'none';
+                if (ring) ring.style.opacity = '0';
             }
         });
     }
@@ -726,13 +730,14 @@ document.addEventListener('DOMContentLoaded', () => {
         const amb = AMBIENTS[currentAmbient];
 
         HS_COLORS.forEach(c => {
-            const dot = proxDots[c];
+            const dot  = proxDots[c];
+            const ring = hsRings[c];
             if (!dot) return;
 
             dot.style.left = e.clientX + 'px';
             dot.style.top  = e.clientY + 'px';
 
-            if (overUI || !amb || !amb.hotspots) { dot.style.opacity = '0'; return; }
+            if (overUI || !amb || !amb.hotspots) { dot.style.opacity = '0'; if (ring) { ring.style.opacity = '0'; ring.classList.remove('pulse'); } return; }
 
             const hs = amb.hotspots.find(h => h.color === c);
             if (!hs) { dot.style.opacity = '0'; return; }
@@ -741,7 +746,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const hy   = (hs.y / 100) * window.innerHeight;
             const dist = Math.sqrt((e.clientX - hx) ** 2 + (e.clientY - hy) ** 2);
 
-            if (dist > PROX_RADIUS) { dot.style.opacity = '0'; return; }
+            if (dist > PROX_RADIUS) { dot.style.opacity = '0'; ring.style.opacity = '0'; ring.classList.remove('pulse'); return; }
 
             const t   = 1 - dist / PROX_RADIUS;
             const [tr, tg, tb] = HS_TARGET_COLORS[c];
@@ -756,6 +761,13 @@ document.addEventListener('DOMContentLoaded', () => {
             dot.style.background = `rgb(${r},${g},${b})`;
             dot.style.boxShadow  = `0 0 ${glow}px rgba(${r},${g},${b},0.8)`;
             dot.style.transform  = `translate(-50%,-50%) scale(${sc})`;
+
+            // Anillo sobre el hotspot: aparece y pulsa al acercarse
+            const ringOp = (t * 0.75).toFixed(2);
+            ring.style.opacity     = ringOp;
+            ring.style.borderColor = `rgba(${r},${g},${b},0.85)`;
+            if (t > 0.55 && !ring.classList.contains('pulse')) ring.classList.add('pulse');
+            if (t <= 0.55) ring.classList.remove('pulse');
         });
     });
 

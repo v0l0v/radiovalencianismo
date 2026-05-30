@@ -736,6 +736,31 @@ body, html {
     will-change: left, top, opacity, background;
 }
 
+/* --- Anell fi sobre el hotspot (apareix en apropar-se) --- */
+.hs-ring {
+    position: fixed;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 4;
+    opacity: 0;
+    border: 1.5px solid rgba(255, 255, 255, 0.7);
+    transform: translate(-50%, -50%) scale(0.85);
+    transition: opacity 0.35s ease, transform 0.35s ease, border-color 0.35s ease;
+    will-change: opacity, transform;
+}
+
+.hs-ring.pulse {
+    animation: ring-pulse 1.8s ease-in-out infinite;
+}
+
+@keyframes ring-pulse {
+    0%   { transform: translate(-50%, -50%) scale(0.95); }
+    50%  { transform: translate(-50%, -50%) scale(1.08); }
+    100% { transform: translate(-50%, -50%) scale(0.95); }
+}
+
 /* --- Hotspots invisibles sobre el fondo (4 botons) --- */
 .hs-btn {
     position: fixed;
