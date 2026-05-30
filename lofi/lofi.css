@@ -720,6 +720,22 @@ body, html {
     }
 }
 
+/* --- Punto de proximidad al hotspot --- */
+#prox-dot {
+    position: fixed;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 6;
+    opacity: 0;
+    background: rgba(255, 255, 255, 0.9);
+    transform: translate(-50%, -50%) scale(1);
+    transition: background 0.3s ease, opacity 0.3s ease, transform 0.2s ease;
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
+    will-change: left, top, opacity, background;
+}
+
 /* --- Hotspot invisible sobre el fondo --- */
 #hotspot-lupa {
     position: fixed;

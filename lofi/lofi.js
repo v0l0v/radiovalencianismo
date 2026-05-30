@@ -644,4 +644,62 @@ document.addEventListener('DOMContentLoaded', () => {
     hotspotModal.addEventListener('click', (e) => {
         if (e.target === hotspotModal) hotspotModal.classList.remove('visible');
     });
+
+
+    // --- Punto de proximidad: sigue al ratón, cambia de blanco a azul VCF ---
+    const proxDot = document.getElementById('prox-dot');
+    const PROX_RADIUS = 280; // px de influencia
+
+    document.body.addEventListener('mousemove', (e) => {
+        // Ocultar sobre el panel del reproductor o el modal
+        if (e.target.closest('#player-panel') || e.target.closest('#hotspot-modal')) {
+            proxDot.style.opacity = '0';
+            return;
+        }
+
+        const amb = AMBIENTS[currentAmbient];
+        if (!amb || !amb.hotspot) {
+            proxDot.style.opacity = '0';
+            return;
+        }
+
+        // Posición del hotspot en píxeles reales
+        const hx = (amb.hotspot.x / 100) * window.innerWidth;
+        const hy = (amb.hotspot.y / 100) * window.innerHeight;
+
+        // Distancia ratón → hotspot
+        const dist = Math.sqrt((e.clientX - hx) ** 2 + (e.clientY - hy) ** 2);
+
+        // Mover el punto al cursor
+        proxDot.style.left = e.clientX + 'px';
+        proxDot.style.top  = e.clientY + 'px';
+
+        if (dist > PROX_RADIUS) {
+            proxDot.style.opacity = '0';
+            return;
+        }
+
+        // t: 0 = borde del radio, 1 = encima del hotspot
+        const t = 1 - (dist / PROX_RADIUS);
+
+        // Interpolación blanco → azul VCF (0, 74, 153)
+        const r = Math.round(255 * (1 - t));
+        const g = Math.round(255 - t * (255 - 74));
+        const b = Math.round(255 - t * (255 - 220));
+
+        // Escala y opacidad crecen con la proximidad
+        const scale  = 0.7 + t * 1.1;
+        const opacity = 0.25 + t * 0.75;
+        const glow   = Math.round(t * 16);
+
+        proxDot.style.opacity   = opacity.toFixed(2);
+        proxDot.style.background = `rgb(${r},${g},${b})`;
+        proxDot.style.boxShadow = `0 0 ${glow}px rgba(${r},${g},${b},0.7)`;
+        proxDot.style.transform = `translate(-50%,-50%) scale(${scale.toFixed(2)})`;
+    });
+
+    // Ocultar el punto si el ratón sale de la ventana
+    document.body.addEventListener('mouseleave', () => {
+        proxDot.style.opacity = '0';
+    });
 });
