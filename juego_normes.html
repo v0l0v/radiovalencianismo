@@ -819,99 +819,94 @@
                     drawEmbers(8, holeR * 1.8, "rgba(255,140,0,0.9)");
                 }
 
-                // ── TIPO 1: Llama azul mística ────────────────────────────────────
+                // ── TIPO 1: Llama roja intensa (carmesí, 4 lenguas anchas) ─────────
                 if (flameType === 1) {
-                    const aura1 = octx.createRadialGradient(0, 0, holeR*0.2, 0, -fireScale*0.3, fireScale);
-                    aura1.addColorStop(0,   "rgba(80,120,255,0.4)");
-                    aura1.addColorStop(0.6, "rgba(0,80,200,0.15)");
-                    aura1.addColorStop(1,   "rgba(0,0,100,0)");
+                    const aura1 = octx.createRadialGradient(0, 0, holeR * 0.2, 0, -fireScale * 0.15, fireScale * 0.95);
+                    aura1.addColorStop(0,   "rgba(255,40,0,0.45)");
+                    aura1.addColorStop(0.5, "rgba(220,20,0,0.2)");
+                    aura1.addColorStop(1,   "rgba(180,0,0,0)");
                     octx.fillStyle = aura1;
                     octx.beginPath();
-                    octx.ellipse(0, -fireScale*0.2, fireScale*0.8, fireScale*1.2, 0, 0, Math.PI*2);
+                    octx.ellipse(0, -fireScale * 0.08, fireScale * 0.8, fireScale * 1.05, 0, 0, Math.PI*2);
                     octx.fill();
-                    drawTongue(-fireScale*0.15, 0, fireScale*0.48, fireScale*1.2, -0.08,
-                        ["rgba(0,80,220,0.9)","rgba(40,140,255,0.85)","rgba(120,200,255,0.7)","rgba(200,240,255,0)"]);
-                    drawTongue(0, 0, fireScale*0.36, fireScale*1.55, 0.0,
-                        ["rgba(0,60,200,0.95)","rgba(60,160,255,0.9)","rgba(160,220,255,0.65)","rgba(240,255,255,0)"]);
-                    drawTongue(fireScale*0.18, 0, fireScale*0.4, fireScale*1.0, 0.15,
-                        ["rgba(0,100,240,0.85)","rgba(80,170,255,0.8)","rgba(180,230,255,0.55)","rgba(255,255,255,0)"]);
-                    const core1 = octx.createRadialGradient(0,-fireScale*0.08,0, 0,-fireScale*0.08, holeR*1.1);
-                    core1.addColorStop(0,   "rgba(255,255,255,1)");
-                    core1.addColorStop(0.3, "rgba(180,220,255,0.95)");
-                    core1.addColorStop(1,   "rgba(40,100,255,0)");
+                    drawTongue(-fireScale*0.22, 0, fireScale*0.52, fireScale*1.2, -0.18,
+                        ["rgba(200,10,0,0.95)","rgba(255,50,0,0.9)","rgba(255,140,0,0.7)","rgba(255,220,60,0)"]);
+                    drawTongue(-fireScale*0.05, 0, fireScale*0.44, fireScale*1.55, -0.04,
+                        ["rgba(220,20,0,0.98)","rgba(255,80,0,0.92)","rgba(255,170,0,0.68)","rgba(255,240,80,0)"]);
+                    drawTongue(fireScale*0.15, 0, fireScale*0.48, fireScale*1.28, 0.12,
+                        ["rgba(210,15,0,0.9)","rgba(255,60,0,0.85)","rgba(255,150,0,0.65)","rgba(255,230,50,0)"]);
+                    drawTongue(fireScale*0.28, 0, fireScale*0.35, fireScale*0.95, 0.25,
+                        ["rgba(190,8,0,0.85)","rgba(255,45,0,0.8)","rgba(255,120,0,0.55)","rgba(255,210,40,0)"]);
+                    const core1 = octx.createRadialGradient(0, -fireScale*0.04, 0, 0, -fireScale*0.04, holeR * 1.15);
+                    core1.addColorStop(0,   "rgba(255,240,150,1)");
+                    core1.addColorStop(0.35,"rgba(255,190,30,0.95)");
+                    core1.addColorStop(0.75,"rgba(255,80,0,0.6)");
+                    core1.addColorStop(1,   "rgba(200,10,0,0)");
                     octx.fillStyle = core1;
                     octx.beginPath();
-                    octx.arc(0, -fireScale*0.08, holeR*1.1, 0, Math.PI*2);
+                    octx.arc(0, -fireScale*0.04, holeR * 1.15, 0, Math.PI*2);
                     octx.fill();
-                    drawEmbers(7, holeR * 1.7, "rgba(100,180,255,0.95)");
+                    drawEmbers(10, holeR * 1.9, "rgba(255,90,0,0.95)");
                 }
 
-                // ── TIPO 2: Llamarada explosiva (roja-rojiza de fallo visual) ─────
+                // ── TIPO 2: Llama alta y esbelta (amarillo-naranja, muy caliente) ───
                 if (flameType === 2) {
-                    // Muchas lenguas cortas y anchas tipo explosión
-                    const numPetals = 6;
-                    for (let p = 0; p < numPetals; p++) {
-                        const pa = (p * Math.PI * 2 / numPetals) + (seedVal % 0.8);
-                        octx.save();
-                        octx.rotate(pa);
-                        const pLen = fireScale * (0.8 + (seedVal * p % 4) / 10);
-                        const pW   = fireScale * (0.32 + (seedVal * p % 3) / 10);
-                        drawTongue(0, 0, pW, pLen, (seedVal * p % 3 - 1) * 0.15,
-                            ["rgba(220,20,0,0.9)","rgba(255,80,0,0.8)","rgba(255,160,0,0.55)","rgba(255,220,50,0)"]);
-                        octx.restore();
-                    }
-                    const core2 = octx.createRadialGradient(0,0,0, 0,0, holeR*1.3);
-                    core2.addColorStop(0,   "rgba(255,255,200,1)");
-                    core2.addColorStop(0.35,"rgba(255,200,0,0.95)");
-                    core2.addColorStop(0.7, "rgba(255,80,0,0.7)");
-                    core2.addColorStop(1,   "rgba(200,0,0,0)");
+                    const aura2 = octx.createRadialGradient(0, -fireScale*0.1, holeR*0.2, 0, -fireScale*0.4, fireScale*0.85);
+                    aura2.addColorStop(0,   "rgba(255,160,0,0.4)");
+                    aura2.addColorStop(0.5, "rgba(255,90,0,0.18)");
+                    aura2.addColorStop(1,   "rgba(255,30,0,0)");
+                    octx.fillStyle = aura2;
+                    octx.beginPath();
+                    octx.ellipse(0, -fireScale*0.25, fireScale*0.7, fireScale*1.25, 0, 0, Math.PI*2);
+                    octx.fill();
+                    drawTongue(-fireScale*0.14, 0, fireScale*0.4, fireScale*1.7, -0.08,
+                        ["rgba(255,80,0,0.92)","rgba(255,160,0,0.88)","rgba(255,230,60,0.72)","rgba(255,255,180,0)"]);
+                    drawTongue(0, 0, fireScale*0.34, fireScale*2.05, 0.02,
+                        ["rgba(255,100,0,0.96)","rgba(255,180,0,0.9)","rgba(255,240,80,0.7)","rgba(255,255,200,0)"]);
+                    drawTongue(fireScale*0.16, 0, fireScale*0.38, fireScale*1.55, 0.14,
+                        ["rgba(255,70,0,0.88)","rgba(255,150,0,0.85)","rgba(255,220,50,0.65)","rgba(255,255,160,0)"]);
+                    const core2 = octx.createRadialGradient(0, -fireScale*0.1, 0, 0, -fireScale*0.1, holeR * 1.3);
+                    core2.addColorStop(0,   "rgba(255,255,220,1)");
+                    core2.addColorStop(0.3, "rgba(255,240,100,0.95)");
+                    core2.addColorStop(0.65,"rgba(255,160,0,0.7)");
+                    core2.addColorStop(1,   "rgba(255,60,0,0)");
                     octx.fillStyle = core2;
                     octx.beginPath();
-                    octx.arc(0, 0, holeR*1.3, 0, Math.PI*2);
+                    octx.arc(0, -fireScale*0.1, holeR * 1.3, 0, Math.PI*2);
                     octx.fill();
-                    drawEmbers(10, holeR * 2.0, "rgba(255,80,0,0.85)");
+                    drawEmbers(7, holeR * 1.75, "rgba(255,180,0,0.9)");
                 }
 
-                // ── TIPO 3: Llama simpática estilo cartoon/medieval ───────────────
+                // ── TIPO 3: Llama ancha de hoguera (5 lenguas, naranja profundo) ───
                 if (flameType === 3) {
-                    // Base naranja suave
-                    const aura3 = octx.createRadialGradient(0,0,holeR*0.1, 0,-fireScale*0.25, fireScale*0.95);
-                    aura3.addColorStop(0,   "rgba(255,140,0,0.5)");
-                    aura3.addColorStop(0.55,"rgba(255,80,0,0.2)");
-                    aura3.addColorStop(1,   "rgba(255,30,0,0)");
+                    const aura3 = octx.createRadialGradient(0, 0, holeR*0.1, 0, -fireScale*0.2, fireScale*1.0);
+                    aura3.addColorStop(0,   "rgba(255,130,0,0.42)");
+                    aura3.addColorStop(0.5, "rgba(255,70,0,0.18)");
+                    aura3.addColorStop(1,   "rgba(255,20,0,0)");
                     octx.fillStyle = aura3;
                     octx.beginPath();
-                    octx.ellipse(0,-fireScale*0.1, fireScale*0.9, fireScale*1.15, 0, 0, Math.PI*2);
+                    octx.ellipse(0, -fireScale*0.1, fireScale*1.0, fireScale*1.1, 0, 0, Math.PI*2);
                     octx.fill();
-                    // Lenguas redondeadas y expresivas
-                    const tongues3 = [
-                        {ox:-fireScale*0.22, w:fireScale*0.5,  h:fireScale*1.05, lean:-0.2},
-                        {ox: 0,              w:fireScale*0.38, h:fireScale*1.5,  lean: 0.05},
-                        {ox: fireScale*0.25, w:fireScale*0.45, h:fireScale*0.95, lean: 0.22},
-                        {ox:-fireScale*0.08, w:fireScale*0.3,  h:fireScale*1.25, lean:-0.1},
-                    ];
-                    tongues3.forEach(t => {
-                        drawTongue(t.ox, 0, t.w, t.h, t.lean,
-                            ["rgba(255,70,0,0.9)","rgba(255,150,0,0.85)","rgba(255,220,60,0.7)","rgba(255,255,180,0)"]);
-                    });
-                    // Núcleo blanco cálido
-                    const core3 = octx.createRadialGradient(0,-holeR*0.5,0, 0,-holeR*0.5, holeR*1.0);
-                    core3.addColorStop(0,   "rgba(255,255,220,1)");
-                    core3.addColorStop(0.5, "rgba(255,230,100,0.9)");
-                    core3.addColorStop(1,   "rgba(255,130,0,0)");
+                    drawTongue(-fireScale*0.32, 0, fireScale*0.45, fireScale*0.98, -0.28,
+                        ["rgba(220,30,0,0.9)","rgba(255,90,0,0.85)","rgba(255,180,0,0.65)","rgba(255,240,80,0)"]);
+                    drawTongue(-fireScale*0.12, 0, fireScale*0.52, fireScale*1.3, -0.1,
+                        ["rgba(240,40,0,0.95)","rgba(255,110,0,0.88)","rgba(255,200,0,0.7)","rgba(255,250,120,0)"]);
+                    drawTongue(fireScale*0.02, 0, fireScale*0.4, fireScale*1.55, 0.04,
+                        ["rgba(255,60,0,0.98)","rgba(255,140,0,0.92)","rgba(255,220,50,0.72)","rgba(255,255,180,0)"]);
+                    drawTongue(fireScale*0.2, 0, fireScale*0.5, fireScale*1.18, 0.16,
+                        ["rgba(235,35,0,0.9)","rgba(255,100,0,0.85)","rgba(255,190,0,0.65)","rgba(255,240,70,0)"]);
+                    drawTongue(fireScale*0.35, 0, fireScale*0.38, fireScale*0.88, 0.3,
+                        ["rgba(210,20,0,0.85)","rgba(255,75,0,0.8)","rgba(255,160,0,0.58)","rgba(255,230,60,0)"]);
+                    const core3 = octx.createRadialGradient(0, -holeR*0.4, 0, 0, -holeR*0.4, holeR * 1.25);
+                    core3.addColorStop(0,   "rgba(255,255,190,1)");
+                    core3.addColorStop(0.4, "rgba(255,210,60,0.95)");
+                    core3.addColorStop(0.75,"rgba(255,120,0,0.7)");
+                    core3.addColorStop(1,   "rgba(255,40,0,0)");
                     octx.fillStyle = core3;
                     octx.beginPath();
-                    octx.arc(0, -holeR*0.5, holeR*1.0, 0, Math.PI*2);
+                    octx.arc(0, -holeR*0.4, holeR * 1.25, 0, Math.PI*2);
                     octx.fill();
-                    // Brillo exterior cálido (integración con la tela)
-                    const glow3 = octx.createRadialGradient(0,-fireScale*0.1,holeR, 0,-fireScale*0.1, fireScale*0.75);
-                    glow3.addColorStop(0,   "rgba(255,160,0,0.18)");
-                    glow3.addColorStop(1,   "rgba(255,80,0,0)");
-                    octx.fillStyle = glow3;
-                    octx.beginPath();
-                    octx.arc(0,-fireScale*0.1, fireScale*0.75, 0, Math.PI*2);
-                    octx.fill();
-                    drawEmbers(9, holeR * 1.9, "rgba(255,160,20,0.9)");
+                    drawEmbers(11, holeR * 2.1, "rgba(255,120,0,0.9)");
                 }
 
                 octx.restore();
