@@ -283,36 +283,85 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(positionPanel, 150);
     });
 
+    // Helpers cross-browser para fullscreen
+    function isFullscreen() {
+        return !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement || document.msFullscreenElement);
+    }
+
+    function enterFullscreen(elem) {
+        if (elem.requestFullscreen) {
+            return elem.requestFullscreen();
+        } else if (elem.webkitRequestFullscreen) {
+            const p = elem.webkitRequestFullscreen();
+            return p instanceof Promise ? p : Promise.resolve();
+        } else if (elem.mozRequestFullScreen) {
+            const p = elem.mozRequestFullScreen();
+            return p instanceof Promise ? p : Promise.resolve();
+        } else if (elem.msRequestFullscreen) {
+            const p = elem.msRequestFullscreen();
+            return p instanceof Promise ? p : Promise.resolve();
+        }
+        return Promise.reject(new Error("Fullscreen API no soportada"));
+    }
+
+    function exitFullscreen() {
+        if (document.exitFullscreen) {
+            return document.exitFullscreen();
+        } else if (document.webkitExitFullscreen) {
+            const p = document.webkitExitFullscreen();
+            return p instanceof Promise ? p : Promise.resolve();
+        } else if (document.mozCancelFullScreen) {
+            const p = document.mozCancelFullScreen();
+            return p instanceof Promise ? p : Promise.resolve();
+        } else if (document.msExitFullscreen) {
+            const p = document.msExitFullscreen();
+            return p instanceof Promise ? p : Promise.resolve();
+        }
+        return Promise.reject(new Error("Fullscreen API no soportada"));
+    }
+
     // Botón de Pantalla Completa (Full Screen API)
     const fullscreenBtn = document.getElementById('fullscreen-btn');
     
-    fullscreenBtn.addEventListener('click', () => {
-        if (!document.fullscreenElement) {
-            document.documentElement.requestFullscreen()
-                .then(() => {
-                    fullscreenBtn.textContent = '🗗';
-                    fullscreenBtn.title = 'Salir de Pantalla Completa';
-                })
-                .catch(err => {
-                    console.error(`Error al activar pantalla completa: ${err.message}`);
+    if (fullscreenBtn) {
+        fullscreenBtn.addEventListener('click', () => {
+            if (!isFullscreen()) {
+                enterFullscreen(document.documentElement)
+                    .then(() => {
+                        fullscreenBtn.textContent = '🗗';
+                        fullscreenBtn.title = 'Salir de Pantalla Completa';
+                    })
+                    .catch(err => {
+                        console.error(`Error al activar pantalla completa: ${err.message}`);
+                    });
+            } else {
+                exitFullscreen().then(() => {
+                    fullscreenBtn.textContent = '⛶';
+                    fullscreenBtn.title = 'Pantalla Completa';
+                }).catch(err => {
+                    console.error(`Error al salir de pantalla completa: ${err.message}`);
                 });
-        } else {
-            document.exitFullscreen();
-            fullscreenBtn.textContent = '⛶';
-            fullscreenBtn.title = 'Pantalla Completa';
-        }
-    });
+            }
+        });
+    }
 
     // Sincronizar el botón si se sale pulsando ESC
-    document.addEventListener('fullscreenchange', () => {
-        if (!document.fullscreenElement) {
-            fullscreenBtn.textContent = '⛶';
-            fullscreenBtn.title = 'Pantalla Completa';
-        } else {
-            fullscreenBtn.textContent = '🗗';
-            fullscreenBtn.title = 'Salir de Pantalla Completa';
+    const syncFullscreenState = () => {
+        if (fullscreenBtn) {
+            if (!isFullscreen()) {
+                fullscreenBtn.textContent = '⛶';
+                fullscreenBtn.title = 'Pantalla Completa';
+            } else {
+                fullscreenBtn.textContent = '🗗';
+                fullscreenBtn.title = 'Salir de Pantalla Completa';
+            }
         }
-    });
+    };
+
+    document.addEventListener('fullscreenchange', syncFullscreenState);
+    document.addEventListener('webkitfullscreenchange', syncFullscreenState);
+    document.addEventListener('mozfullscreenchange', syncFullscreenState);
+    document.addEventListener('MSFullscreenChange', syncFullscreenState);
 
     // Cargar un ambiente aleatorio distinto cada vez que se entra a la página
     const randomAmbient = ambientKeys[Math.floor(Math.random() * ambientKeys.length)];
@@ -600,12 +649,12 @@ document.addEventListener('DOMContentLoaded', () => {
     if (zoomFullscreenBtn) {
         zoomFullscreenBtn.addEventListener('click', (e) => {
             e.stopPropagation();
-            if (!document.fullscreenElement) {
-                document.documentElement.requestFullscreen().catch(err => {
+            if (!isFullscreen()) {
+                enterFullscreen(document.documentElement).catch(err => {
                     console.error("Error al activar pantalla completa:", err);
                 });
             } else {
-                document.exitFullscreen().catch(err => {
+                exitFullscreen().catch(err => {
                     console.error("Error al salir de pantalla completa:", err);
                 });
             }
@@ -614,8 +663,8 @@ document.addEventListener('DOMContentLoaded', () => {
         zoomFullscreenBtn.addEventListener('touchstart', (e) => e.stopPropagation());
     }
 
-    document.addEventListener('fullscreenchange', () => {
-        const isFs = !!document.fullscreenElement;
+    const syncZoomFullscreenState = () => {
+        const isFs = isFullscreen();
         const enterIcon = document.querySelector('.fs-enter-icon');
         const exitIcon = document.querySelector('.fs-exit-icon');
         if (enterIcon && exitIcon) {
@@ -631,7 +680,12 @@ document.addEventListener('DOMContentLoaded', () => {
         bgTargetX = 50;
         bgTargetY = 50;
         bgZoomTarget = 1.0;
-    });
+    };
+
+    document.addEventListener('fullscreenchange', syncZoomFullscreenState);
+    document.addEventListener('webkitfullscreenchange', syncZoomFullscreenState);
+    document.addEventListener('mozfullscreenchange', syncZoomFullscreenState);
+    document.addEventListener('MSFullscreenChange', syncZoomFullscreenState);
 
     // Eventos de arrastre en el body
     document.body.addEventListener('mousedown', startBgDrag);
