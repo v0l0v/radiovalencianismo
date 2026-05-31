@@ -38,20 +38,12 @@
     <!-- Modal d'informació (més gran, sense enllaç extern) -->
     <div id="hotspot-modal" role="dialog" aria-modal="true">
         <div id="hotspot-modal-box">
-            <button id="hotspot-modal-expand" title="Ampliar en l'Enciclopèdia">+</button>
             <button id="hotspot-modal-close" aria-label="Tancar">✕</button>
             <div id="hotspot-modal-icon">📖</div>
             <h3 id="hotspot-modal-title"></h3>
             <p id="hotspot-modal-desc"></p>
-            <div id="hotspot-wiki-container" class="hidden">
-                <div class="wiki-loader">
-                    <span class="wiki-spinner"></span>
-                    Carregant L'Enciclopèdia...
-                </div>
-                <iframe id="hotspot-wiki-iframe" src="" frameborder="0"></iframe>
-                <div class="wiki-fallback">
-                    <a id="hotspot-wiki-link" href="#" target="_blank" rel="noopener">Llegir l'artícul complet en L'Enciclopèdia (lenciclopedia.org) ↗</a>
-                </div>
+            <div id="hotspot-wiki-link-container">
+                <a id="hotspot-wiki-link" href="#" target="_blank" rel="noopener">Llegir l'artícul complet en L'Enciclopèdia (lenciclopedia.org) ↗</a>
             </div>
         </div>
     </div>

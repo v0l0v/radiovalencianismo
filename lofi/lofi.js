@@ -756,18 +756,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
 
     // --- Hotspots (4 colores) ---
-    const hotspotModal         = document.getElementById('hotspot-modal');
-    const hotspotModalBox      = document.getElementById('hotspot-modal-box');
-    const hotspotModalExpand   = document.getElementById('hotspot-modal-expand');
-    const hotspotModalIcon     = document.getElementById('hotspot-modal-icon');
-    const hotspotModalTitle    = document.getElementById('hotspot-modal-title');
-    const hotspotModalDesc     = document.getElementById('hotspot-modal-desc');
-    const hotspotModalClose    = document.getElementById('hotspot-modal-close');
-    const hotspotWikiContainer = document.getElementById('hotspot-wiki-container');
-    const hotspotWikiIframe    = document.getElementById('hotspot-wiki-iframe');
-    const hotspotWikiLink      = document.getElementById('hotspot-wiki-link');
-
-    let activeHotspot = null;
+    const hotspotModal             = document.getElementById('hotspot-modal');
+    const hotspotModalBox          = document.getElementById('hotspot-modal-box');
+    const hotspotModalIcon         = document.getElementById('hotspot-modal-icon');
+    const hotspotModalTitle        = document.getElementById('hotspot-modal-title');
+    const hotspotModalDesc         = document.getElementById('hotspot-modal-desc');
+    const hotspotModalClose        = document.getElementById('hotspot-modal-close');
+    const hotspotWikiLinkContainer = document.getElementById('hotspot-wiki-link-container');
+    const hotspotWikiLink          = document.getElementById('hotspot-wiki-link');
 
     // Colores finales de cada punto (para la interpolación blanco → color)
     const HS_TARGET_COLORS = {
@@ -783,18 +779,18 @@ document.addEventListener('DOMContentLoaded', () => {
         const hs = amb.hotspots.find(h => h.color === color);
         if (!hs) return;
         
-        activeHotspot = hs;
-        
-        // Reiniciar estado de expansión
-        hotspotModalBox.classList.remove('expanded');
-        hotspotModalExpand.textContent = '+';
-        hotspotWikiContainer.classList.add('hidden');
-        hotspotWikiIframe.src = '';
-        hotspotWikiIframe.classList.remove('loaded');
-        
         hotspotModalIcon.textContent  = hs.icon  || '📍';
         hotspotModalTitle.textContent = hs.title;
         hotspotModalDesc.textContent  = hs.content;
+        
+        // Enlace a L'Enciclopèdia
+        if (hs.wiki) {
+            hotspotWikiLink.href = `https://www.lenciclopedia.org/wiki/${hs.wiki}`;
+            hotspotWikiLinkContainer.style.display = 'block';
+        } else {
+            hotspotWikiLink.href = `https://www.lenciclopedia.org/index.php?search=${encodeURIComponent(hs.title)}`;
+            hotspotWikiLinkContainer.style.display = 'block';
+        }
         
         // Color del borde según el punto
         const [r,g,b] = HS_TARGET_COLORS[color];
@@ -804,14 +800,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function closeHotspotModal() {
         hotspotModal.classList.remove('visible');
-        setTimeout(() => {
-            hotspotModalBox.classList.remove('expanded');
-            hotspotModalExpand.textContent = '+';
-            hotspotWikiContainer.classList.add('hidden');
-            hotspotWikiIframe.src = '';
-            hotspotWikiIframe.classList.remove('loaded');
-            activeHotspot = null;
-        }, 250); // esperar a que termine la transición de opacidad
     }
 
     HS_COLORS.forEach(c => {
@@ -830,42 +818,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     hotspotModal.addEventListener('click', (e) => {
         if (e.target === hotspotModal) closeHotspotModal();
-    });
-
-    hotspotModalExpand.addEventListener('click', (e) => {
-        e.stopPropagation();
-        if (!activeHotspot) return;
-
-        const isExpanded = hotspotModalBox.classList.contains('expanded');
-        if (isExpanded) {
-            hotspotModalBox.classList.remove('expanded');
-            hotspotModalExpand.textContent = '+';
-            hotspotWikiContainer.classList.add('hidden');
-            hotspotWikiIframe.src = '';
-            hotspotWikiIframe.classList.remove('loaded');
-        } else {
-            hotspotModalBox.classList.add('expanded');
-            hotspotModalExpand.textContent = '−';
-            hotspotWikiContainer.classList.remove('hidden');
-            
-            const loader = hotspotWikiContainer.querySelector('.wiki-loader');
-            if (loader) loader.style.display = 'flex';
-            hotspotWikiIframe.classList.remove('loaded');
-
-            if (activeHotspot.wiki) {
-                hotspotWikiIframe.src = `https://www.lenciclopedia.org/w/index.php?title=${activeHotspot.wiki}&action=render`;
-                hotspotWikiLink.href = `https://www.lenciclopedia.org/wiki/${activeHotspot.wiki}`;
-            } else {
-                hotspotWikiIframe.src = `https://www.lenciclopedia.org/w/index.php?search=${encodeURIComponent(activeHotspot.title)}&action=render`;
-                hotspotWikiLink.href = `https://www.lenciclopedia.org/index.php?search=${encodeURIComponent(activeHotspot.title)}`;
-            }
-        }
-    });
-
-    hotspotWikiIframe.addEventListener('load', () => {
-        const loader = hotspotWikiContainer.querySelector('.wiki-loader');
-        if (loader) loader.style.display = 'none';
-        hotspotWikiIframe.classList.add('loaded');
     });
 
     // --- Proximidad: 4 puntos de colores siguen al ratón ---
