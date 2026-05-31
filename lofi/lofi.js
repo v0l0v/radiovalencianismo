@@ -618,8 +618,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const dragSensitivityNormal = 0.15; // Sensibilidad del porcentaje por pixel arrastrado
 
     // Zoom (Zoom in / Zoom out)
-    let bgZoomTarget = 1.0;
-    let bgZoomCurrent = 1.0;
+    let bgZoomTarget = 0.825;
+    let bgZoomCurrent = 0.825;
     const ZOOM_STEP = 0.35;
     const ZOOM_MIN = 0.825; // Deja el máximo de fondo posible cubriendo la pantalla, escala resultante aprox 0.84
     const ZOOM_MAX = 3.0;
@@ -679,7 +679,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Restablecer el zoom a 1.0 y centrar para el menor desplazamiento posible
         bgTargetX = 50;
         bgTargetY = 50;
-        bgZoomTarget = 1.0;
+        bgZoomTarget = 0.825;
     };
 
     document.addEventListener('fullscreenchange', syncZoomFullscreenState);
