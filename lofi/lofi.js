@@ -113,6 +113,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const hsButtons = {};
     const proxDots  = {};
     const hsRings   = {};
+    let revealHotspots = false;
     HS_COLORS.forEach(c => {
         hsButtons[c] = document.getElementById('hs-' + c);
         proxDots[c]  = document.getElementById('pd-' + c);
@@ -209,6 +210,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (ring) ring.style.opacity = '0';
             }
         });
+        updateHotspotReveal();
     }
 
     function setAmbient(ambientKey) {
@@ -697,6 +699,14 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('keydown', (e) => {
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
+        // Revelar posiciones de círculos (Hotspots) con Windows + X o Ctrl + X
+        if ((e.key === 'x' || e.key === 'X') && (e.metaKey || e.ctrlKey)) {
+            e.preventDefault();
+            revealHotspots = !revealHotspots;
+            updateHotspotReveal();
+            return;
+        }
+
         const stepNormal = 5;
 
         if (e.key === 'ArrowRight') {
@@ -808,10 +818,23 @@ document.addEventListener('DOMContentLoaded', () => {
             dot.style.left = e.clientX + 'px';
             dot.style.top  = e.clientY + 'px';
 
-            if (overUI || !amb || !amb.hotspots) { dot.style.opacity = '0'; ring.style.opacity = '0'; ring.classList.remove('pulse'); return; }
+            const hs = (amb && amb.hotspots) ? amb.hotspots.find(h => h.color === c) : null;
 
-            const hs = amb.hotspots.find(h => h.color === c);
-            if (!hs) { dot.style.opacity = '0'; return; }
+            if (overUI || !amb || !amb.hotspots || !hs) {
+                dot.style.opacity = '0';
+                if (revealHotspots && hs) {
+                    const [r, g, b] = HS_TARGET_COLORS[c];
+                    ring.style.opacity = '0.75';
+                    ring.style.borderColor = `rgba(${r},${g},${b},0.85)`;
+                    ring.classList.add('reveal');
+                    ring.classList.remove('pulse');
+                } else {
+                    ring.style.opacity = '0';
+                    ring.classList.remove('reveal');
+                    ring.classList.remove('pulse');
+                }
+                return;
+            }
 
             // Medir la posición real del botón de hotspot en pantalla usando getBoundingClientRect()
             const rect = btn.getBoundingClientRect();
@@ -819,7 +842,21 @@ document.addEventListener('DOMContentLoaded', () => {
             const hy   = rect.top + rect.height / 2;
             const dist = Math.sqrt((e.clientX - hx) ** 2 + (e.clientY - hy) ** 2);
 
-            if (dist > PROX_RADIUS) { dot.style.opacity = '0'; ring.style.opacity = '0'; ring.classList.remove('pulse'); return; }
+            if (dist > PROX_RADIUS) {
+                dot.style.opacity = '0';
+                if (revealHotspots) {
+                    const [r, g, b] = HS_TARGET_COLORS[c];
+                    ring.style.opacity = '0.75';
+                    ring.style.borderColor = `rgba(${r},${g},${b},0.85)`;
+                    ring.classList.add('reveal');
+                    ring.classList.remove('pulse');
+                } else {
+                    ring.style.opacity = '0';
+                    ring.classList.remove('reveal');
+                    ring.classList.remove('pulse');
+                }
+                return;
+            }
 
             const t   = 1 - dist / PROX_RADIUS;
             const [tr, tg, tb] = HS_TARGET_COLORS[c];
@@ -835,16 +872,48 @@ document.addEventListener('DOMContentLoaded', () => {
             dot.style.boxShadow  = `0 0 ${glow}px rgba(${r},${g},${b},0.8)`;
             dot.style.transform  = `translate(-50%,-50%) scale(${sc})`;
 
-            // Anillo sobre el hotspot: aparece y pulsa al acercarse
-            const ringOp = (t * 0.75).toFixed(2);
+            // Anillo sobre el hotspot: aparece y pulsa al acercarse (o se mantiene fijo si está revelado)
+            const ringOp = Math.max(revealHotspots ? 0.75 : 0.0, t * 0.75).toFixed(2);
             ring.style.opacity     = ringOp;
             ring.style.borderColor = `rgba(${r},${g},${b},0.85)`;
-            if (t > 0.55 && !ring.classList.contains('pulse')) ring.classList.add('pulse');
-            if (t <= 0.55) ring.classList.remove('pulse');
+            if (revealHotspots) {
+                ring.classList.add('reveal');
+            } else {
+                ring.classList.remove('reveal');
+            }
+            
+            if (t > 0.55 && !ring.classList.contains('pulse')) {
+                ring.classList.add('pulse');
+            }
+            if (t <= 0.55) {
+                ring.classList.remove('pulse');
+            }
         });
     });
 
     document.body.addEventListener('mouseleave', () => {
         HS_COLORS.forEach(c => { if (proxDots[c]) proxDots[c].style.opacity = '0'; });
     });
+
+    // Revelar todos los hotspots del ambiente actual con su color respectivo
+    function updateHotspotReveal() {
+        const amb = AMBIENTS[currentAmbient];
+        HS_COLORS.forEach(c => {
+            const ring = hsRings[c];
+            if (!ring) return;
+            const hs = (amb && amb.hotspots) ? amb.hotspots.find(h => h.color === c) : null;
+            if (revealHotspots && hs) {
+                const [r, g, b] = HS_TARGET_COLORS[c];
+                ring.style.borderColor = `rgba(${r},${g},${b},0.85)`;
+                ring.style.opacity = '0.75';
+                ring.classList.add('reveal');
+            } else {
+                if (!revealHotspots) {
+                    ring.style.opacity = '0';
+                    ring.classList.remove('reveal');
+                    ring.classList.remove('pulse');
+                }
+            }
+        });
+    }
 });
