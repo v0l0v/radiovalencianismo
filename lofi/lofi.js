@@ -593,6 +593,44 @@ document.addEventListener('DOMContentLoaded', () => {
         zoomOutBtn.addEventListener('touchstart', (e) => e.stopPropagation());
     }
 
+    const zoomFullscreenBtn = document.getElementById('zoom-fullscreen-btn');
+
+    if (zoomFullscreenBtn) {
+        zoomFullscreenBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            if (!document.fullscreenElement) {
+                document.documentElement.requestFullscreen().catch(err => {
+                    console.error("Error al activar pantalla completa:", err);
+                });
+            } else {
+                document.exitFullscreen().catch(err => {
+                    console.error("Error al salir de pantalla completa:", err);
+                });
+            }
+        });
+        zoomFullscreenBtn.addEventListener('mousedown', (e) => e.stopPropagation());
+        zoomFullscreenBtn.addEventListener('touchstart', (e) => e.stopPropagation());
+    }
+
+    document.addEventListener('fullscreenchange', () => {
+        const isFs = !!document.fullscreenElement;
+        const enterIcon = document.querySelector('.fs-enter-icon');
+        const exitIcon = document.querySelector('.fs-exit-icon');
+        if (enterIcon && exitIcon) {
+            if (isFs) {
+                enterIcon.classList.add('hidden');
+                exitIcon.classList.remove('hidden');
+            } else {
+                enterIcon.classList.remove('hidden');
+                exitIcon.classList.add('hidden');
+            }
+        }
+        // Restablecer el zoom a 1.0 y centrar para el menor desplazamiento posible
+        bgTargetX = 50;
+        bgTargetY = 50;
+        bgZoomTarget = 1.0;
+    });
+
     // Eventos de arrastre en el body
     document.body.addEventListener('mousedown', startBgDrag);
     document.body.addEventListener('touchstart', startBgDrag, { passive: false });
