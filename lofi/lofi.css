@@ -3,7 +3,7 @@
 :root {
     --primary-color: #ff9f1c; /* Naranja valencianista cálido */
     --accent-color: #2ec4b6;  /* Azul relajante */
-    --bg-glass: rgba(15, 18, 26, 0.45);
+    --bg-glass: rgba(12, 14, 20, 0.22);
     --border-glass: rgba(255, 255, 255, 0.08);
     --shadow-premium: 0 20px 50px rgba(0, 0, 0, 0.5);
     --font-sans: 'Outfit', sans-serif;
@@ -676,47 +676,91 @@ body, html {
         gap: 1.2rem;
     }
 
-    /* En móvil, al minimizar, se oculta todo excepto la flecha en un círculo abajo izquierda */
+    /* En móvil, al minimizar, se muestra de forma compacta en la esquina inferior izquierda */
     .player-panel.minimized {
-        background: transparent !important;
-        border: none !important;
-        box-shadow: none !important;
-        backdrop-filter: none !important;
-        -webkit-backdrop-filter: none !important;
-        padding: 0 !important;
-        width: 50px !important;
-        height: 50px !important;
+        background: var(--bg-glass) !important;
+        border: 1px solid var(--border-glass) !important;
+        box-shadow: var(--shadow-premium) !important;
+        backdrop-filter: blur(25px) !important;
+        -webkit-backdrop-filter: blur(25px) !important;
+        padding: 0.6rem 0.8rem !important;
+        width: 300px !important;
+        max-width: calc(100% - 30px) !important;
+        height: auto !important;
         bottom: 15px !important;
         left: 15px !important;
-        overflow: visible !important;
+        border-radius: 1.2rem !important;
+        overflow: hidden !important;
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
     }
 
-    .player-panel.minimized .player-header-text,
-    .player-panel.minimized .player-header-actions .play-btn,
-    .player-panel.minimized .player-header-actions .player-fullscreen-btn {
-        display: none !important;
+    .player-panel.minimized .player-header-text {
+        display: flex !important;
+        flex: 1 !important;
+        overflow: hidden !important;
+    }
+
+    .player-panel.minimized .title-row {
+        width: auto !important;
+        gap: 0.5rem !important;
+    }
+
+    .player-panel.minimized .player-header-actions {
+        display: flex !important;
+        align-items: center !important;
+        gap: 0.4rem !important;
+        flex-shrink: 0 !important;
     }
 
     .player-panel.minimized .player-toggle-btn {
         position: relative !important;
         top: 0 !important;
         right: 0 !important;
-        width: 44px !important;
-        height: 44px !important;
+        width: 32px !important;
+        height: 32px !important;
         border-radius: 50% !important;
-        background: var(--bg-glass) !important;
-        border: 1px solid var(--border-glass) !important;
-        box-shadow: var(--shadow-premium) !important;
-        backdrop-filter: blur(15px) !important;
-        -webkit-backdrop-filter: blur(15px) !important;
+        background: rgba(255, 255, 255, 0.04) !important;
+        border: 1px solid rgba(255, 255, 255, 0.06) !important;
+        color: rgba(255, 255, 255, 0.55) !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
-        color: #ffffff !important;
+        box-shadow: none !important;
+        backdrop-filter: none !important;
+        -webkit-backdrop-filter: none !important;
+    }
+
+    .player-panel.minimized .player-logo {
+        width: 32px !important;
+        height: 32px !important;
+    }
+
+    .player-panel.minimized .radio-title {
+        font-size: 1.05rem !important;
+    }
+
+    .player-panel.minimized .header-play-btn {
+        width: 28px !important;
+        height: 28px !important;
+        display: flex !important;
+    }
+
+    .player-panel.minimized .header-play-btn svg {
+        width: 10px !important;
+        height: 10px !important;
     }
 
     .radio-title {
         font-size: 1.4rem;
+    }
+
+    /* Ocultar botón de minimizar en desktop */
+    @media (min-width: 581px) {
+        .player-toggle-btn {
+            display: none !important;
+        }
     }
 }
 
