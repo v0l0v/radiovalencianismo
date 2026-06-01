@@ -40,12 +40,11 @@
         }
         
         /* Modal Question */
-        #q-modal, #mode-modal { 
+        #q-modal { 
             position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
             background: rgba(0,0,0,0.85); backdrop-filter: blur(8px); 
             z-index: 100; display: none; flex-direction: column; align-items: center; justify-content: center; 
         }
-        #mode-modal { display: flex; z-index: 200; }
         .q-box { 
             background: #1a1a24; padding: 40px; border-radius: 20px; max-width: 90%; width: 500px; 
             text-align: center; border: 2px solid #00d2ff; box-shadow: 0 10px 40px rgba(0,210,255,0.3); 
@@ -80,7 +79,7 @@
 </head>
 <body>
     <div class="ui">
-        <h1 id="title-text" style="color: #ffd700; margin: 0 0 5px 0;">🔥 Tir al Moniato 2</h1>
+        <h1 id="title-text" style="color: #ffd700; margin: 0 0 5px 0;">🪶 Tir al Moniato</h1>
         <p style="margin: 0; color: #ccc;">Apunta, dispara i demostra els teus coneiximents.<br>Tens 9 intents. ¡Encerta el centre (9 punts) per a fer la màxima puntuació!</p>
         <div class="score-board" id="scoreboard">
             <!-- 9 indicators -->
@@ -110,15 +109,6 @@
         <div class="q-box">
             <h2 id="question-text" style="color:#ffd700; margin-top:0; font-size: 1.5rem; line-height: 1.4;">Pregunta</h2>
             <div id="options"></div>
-        </div>
-    </div>
-
-    <div id="mode-modal">
-        <div class="q-box">
-            <h2 style="color:#ffd700; margin-top:0; font-size: 2rem;">Tir al Moniato</h2>
-            <p style="color:#ccc; font-size: 1.1rem; margin-bottom: 20px;">Tria el teu mode de joc:</p>
-            <button class="q-btn" id="btn-mode-1" style="font-size: 1.2rem; padding: 20px; text-align: left;">🪶 Joc 1: Pluma i Tinta</button>
-            <button class="q-btn" id="btn-mode-2" style="font-size: 1.2rem; padding: 20px; text-align: left;">🔥 Joc 2: La Moniata Estelada</button>
         </div>
     </div>
 
@@ -158,25 +148,9 @@
         let hasBeenWarned = false;
         let aimStartTime = 0;
         let gameEnded = false;
-        let gameMode = 2; // Default a fuego
-        
-        document.getElementById('btn-mode-1').addEventListener('click', () => {
-            gameMode = 1;
-            document.getElementById('title-text').innerText = '🪶 Tir al Moniato 1';
-            document.getElementById('mode-modal').style.display = 'none';
-            document.getElementById('game-container').style.backgroundImage = "url('assets/diana_juego.webp')";
-            bgImg.src = 'assets/diana_juego.webp';
-            startAim();
-        });
-        
-        document.getElementById('btn-mode-2').addEventListener('click', () => {
-            gameMode = 2;
-            document.getElementById('title-text').innerText = '🔥 La Moniata Estelada';
-            document.getElementById('mode-modal').style.display = 'none';
-            document.getElementById('game-container').style.backgroundImage = "url('assets/diana2_juego2.webp')";
-            bgImg.src = 'assets/diana2_juego2.webp';
-            startAim();
-        });
+        let gameMode = 1; // 1 = Pluma i Tinta
+        document.getElementById('game-container').style.backgroundImage = "url('assets/diana_juego.webp')";
+        bgImg.src = 'assets/diana_juego.webp';
         
         function startAim() {
             isAiming = true;
@@ -1050,6 +1024,7 @@
             }
         });
 
+        startAim();
         loop();
     </script>
 </body>
