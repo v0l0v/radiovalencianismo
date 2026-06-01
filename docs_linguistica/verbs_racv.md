@@ -532,74 +532,118 @@ Este índex conté els **140 verbs model** que servixen de referència per a con
 
 | Núm. | Verb Model | Pàgina | | Núm. | Verb Model | Pàgina |
 | :--- | :--- | :--- | :--- | :--- | :--- | :--- |
-| **1** | [Absoldre](conjugacions/001_absoldre.md) | 50 | | **71** | Gemecar | 190 |
-| **2** | [Acodir](conjugacions/002_acodir.md) | 52 | | **72** | Gojar | 192 |
-| **3** | [Adequar](conjugacions/003_adequar.md) | 54 | | **73** | Grunyir | 194 |
-| **4** | [Afegir](conjugacions/004_afegir.md) | 56 | | **74** | Haver | 196 |
-| **5** | [Afonar](conjugacions/005_afonar.md) | 58 | | **75** | Iniciar | 198 |
-| **6** | [Agarrar](conjugacions/006_agarrar.md) | 60 | | **76** | Interrompre | 200 |
-| **7** | [Agrair](conjugacions/007_agrair.md) | 62 | | **77** | Jaure | 202 |
-| **8** | [Agranar](conjugacions/008_agranar.md) | 64 | | **78** | Junyir | 204 |
-| **9** | [Ajopir](conjugacions/009_ajopir.md) | 66 | | **79** | Liquar | 206 |
-| **10** | [Alçar](conjugacions/010_alçar.md) | 68 | | **80** | Llegir | 208 |
-| **11** | [Alluntar](conjugacions/011_alluntar.md) | 70 | | **81** | Llegislar | 210 |
-| **12** | [Anar](conjugacions/012_anar.md) | 72 | | **82** | Lluir | 212 |
-| **13** | [Aplegar](conjugacions/013_aplegar.md) | 74 | | **83** | Maular | 214 |
-| **14** | [Argüir](conjugacions/014_argüir.md) | 76 | | **84** | Mentir | 216 |
-| **15** | [Arredonir](conjugacions/015_arredonir.md) | 78 | | **85** | Meréixer | 218 |
-| **16** | [Assessorar](conjugacions/016_assessorar.md) | 80 | | **86** | Moldre | 220 |
-| **17** | [Atendre](conjugacions/017_atendre.md) | 82 | | **87** | Montar | 222 |
-| **18** | [Baixar](conjugacions/018_baixar.md) | 84 | | **88** | Monyir | 224 |
-| **19** | [Beure](conjugacions/019_beure.md) | 86 | | **89** | Morir | 226 |
-| **20** | [Bollir](conjugacions/020_bollir.md) | 88 | | **90** | Moure | 228 |
-| **21** | [Brunyir](conjugacions/021_brunyir.md) | 90 | | **91** | Nàixer | 230 |
-| **22** | [Cabre](conjugacions/022_cabre.md) | 92 | | **92** | Nugar | 232 |
-| **23** | [Caldre](conjugacions/023_caldre.md) | 94 | | **93** | Obeir | 234 |
-| **24** | [Caure](conjugacions/024_caure.md) | 96 | | **94** | Obrir | 236 |
-| **25** | [Cerndre](conjugacions/025_cerndre.md) | 98 | | **95** | Ofendre | 238 |
-| **26** | [Charrar](conjugacions/026_charrar.md) | 100 | | **96** | Ometre | 240 |
-| **27** | [Chuplar](conjugacions/027_chuplar.md) | 102 | | **97** | Omplir | 242 |
-| **28** | [Cloixir](conjugacions/028_cloixir.md) | 104 | | **98** | Oure | 244 |
-| **29** | [Collir](conjugacions/029_collir.md) | 106 | | **99** | Paréixer | 246 |
-| **30** | [Combatre](conjugacions/030_combatre.md) | 108 | | **100** | Passar | 248 |
-| **31** | [Compondre](conjugacions/031_compondre.md) | 110 | | **101** | Percebre | 250 |
-| **32** | [Concebre](conjugacions/032_concebre.md) | 112 | | **102** | Perdre | 252 |
-| **33** | [Concloure](conjugacions/033_concloure.md) | 114 | | **103** | Pessigar | 254 |
-| **34** | [Conduir](conjugacions/034_conduir.md) | 116 | | **104** | Poder | 256 |
-| **35** | [Conéixer](conjugacions/035_conéixer.md) | 118 | | **105** | Pondre | 258 |
-| **36** | [Corregir](conjugacions/036_corregir.md) | 120 | | **106** | Posar | 260 |
-| **37** | [Córrer](conjugacions/037_córrer.md) | 122 | | **107** | Prear | 262 |
-| **38** | [Cosir](conjugacions/038_cosir.md) | 124 | | **108** | Prémer | 264 |
-| **39** | [Còure](conjugacions/039_còure.md) | 126 | | **109** | Promiscuar | 266 |
-| **40** | [Creure](conjugacions/040_creure.md) | 128 | | **110** | Pudir | 268 |
-| **41** | [Defendre](conjugacions/041_defendre.md) | 130 | | **111** | Raure | 270 |
-| **42** | [Desaiguar](conjugacions/042_desaiguar.md) | 132 | | **112** | Rebre | 272 |
-| **43** | [Desenrollar](conjugacions/043_desenrollar.md) | 134 | | **113** | Regir | 274 |
-| **44** | [Difondre](conjugacions/044_difondre.md) | 136 | | **114** | Renyir | 276 |
-| **45** | [Dir](conjugacions/045_dir.md) | 138 | | **115** | Retre | 278 |
-| **46** | [Distinguir](conjugacions/046_distinguir.md) | 140 | | **116** | Riure | 280 |
-| **47** | [Doldre](conjugacions/047_doldre.md) | 142 | | **117** | Rostir | 282 |
-| **48** | [Donar](conjugacions/048_donar.md) | 144 | | **118** | Rugir | 284 |
-| **49** | [Dormir](conjugacions/049_dormir.md) | 146 | | **119** | Saber | 286 |
-| **50** | [Dur](conjugacions/050_dur.md) | 148 | | **120** | Sentir | 288 |
-| **51** | [Eixercir](conjugacions/051_eixercir.md) | 150 | | **121** | Ser | 290 |
-| **52** | [Eixir](conjugacions/052_eixir.md) | 152 | | **122** | Sobreeixir | 292 |
-| **53** | [Encendre](conjugacions/053_encendre.md) | 154 | | **123** | Suar | 294 |
-| **54** | [Enfollir](conjugacions/054_enfollir.md) | 156 | | **124** | Teixir | 296 |
-| **55** | [Engolir](conjugacions/055_engolir.md) | 158 | | **125** | Témer | 298 |
-| **56** | [Engroguir](conjugacions/056_engroguir.md) | 160 | | **126** | Tenyir | 300 |
-| **57** | [Engrunsar](conjugacions/057_engrunsar.md) | 162 | | **127** | Tindre | 302 |
-| **58** | Ensomiar | 164 | | **128** | Tòrcer | 304 |
-| **59** | Escopir | 166 | | **129** | Tossir | 306 |
-| **60** | Escriure | 168 | | **130** | Traçar | 308 |
-| **61** | Espentar | 170 | | **131** | Traure | 310 |
-| **62** | Estar | 172 | | **132** | Unflar | 312 |
-| **63** | Esvarar | 174 | | **133** | Utilisar | 314 |
-| **64** | Expondre | 176 | | **134** | Valdre | 316 |
-| **65** | Fendre | 178 | | **135** | Véncer | 318 |
-| **66** | Fényer | 180 | | **136** | Vestir | 320 |
-| **67** | Fer | 182 | | **137** | Vindre | 322 |
-| **68** | Fregir | 184 | | **138** | Viure | 324 |
-| **69** | Fruir | 186 | | **139** | Voler | 326 |
-| **70** | Fugir | 188 | | **140** | Vore | 328 |
+| **1** | [Absoldre](conjugacions/001_absoldre.md) | 50 | | **71** | [Gemecar](conjugacions/071_gemecar.md) | 190 |
+| **2** | [Acodir](conjugacions/002_acodir.md) | 52 | | **72** | [Gojar](conjugacions/072_gojar.md) | 192 |
+| **3** | [Adequar](conjugacions/003_adequar.md) | 54 | | **73** | [Grunyir](conjugacions/073_grunyir.md) | 194 |
+| **4** | [Afegir](conjugacions/004_afegir.md) | 56 | | **74** | [Haver](conjugacions/074_haver.md) | 196 |
+| **5** | [Afonar](conjugacions/005_afonar.md) | 58 | | **75** | [Iniciar](conjugacions/075_iniciar.md) | 198 |
+| **6** | [Agarrar](conjugacions/006_agarrar.md) | 60 | | **76** | [Interrompre](conjugacions/076_interrompre.md) | 200 |
+| **7** | [Agrair](conjugacions/007_agrair.md) | 62 | | **77** | [Jaure](conjugacions/077_jaure.md) | 202 |
+| **8** | [Agranar](conjugacions/008_agranar.md) | 64 | | **78** | [Junyir](conjugacions/078_junyir.md) | 204 |
+| **9** | [Ajopir](conjugacions/009_ajopir.md) | 66 | | **79** | [Liquar](conjugacions/079_liquar.md) | 206 |
+| **10** | [Alçar](conjugacions/010_alçar.md) | 68 | | **80** | [Llegir](conjugacions/080_llegir.md) | 208 |
+| **11** | [Alluntar](conjugacions/011_alluntar.md) | 70 | | **81** | [Llegislar](conjugacions/081_llegislar.md) | 210 |
+| **12** | [Anar](conjugacions/012_anar.md) | 72 | | **82** | [Lluir](conjugacions/082_lluir.md) | 212 |
+| **13** | [Aplegar](conjugacions/013_aplegar.md) | 74 | | **83** | [Maular](conjugacions/083_maular.md) | 214 |
+| **14** | [Argüir](conjugacions/014_argüir.md) | 76 | | **84** | [Mentir](conjugacions/084_mentir.md) | 216 |
+| **15** | [Arredonir](conjugacions/015_arredonir.md) | 78 | | **85** | [Meréixer](conjugacions/085_meréixer.md) | 218 |
+| **16** | [Assessorar](conjugacions/016_assessorar.md) | 80 | | **86** | [Moldre](conjugacions/086_moldre.md) | 220 |
+| **17** | [Atendre](conjugacions/017_atendre.md) | 82 | | **87** | [Montar](conjugacions/087_montar.md) | 222 |
+| **18** | [Baixar](conjugacions/018_baixar.md) | 84 | | **88** | [Monyir](conjugacions/088_monyir.md) | 224 |
+| **19** | [Beure](conjugacions/019_beure.md) | 86 | | **89** | [Morir](conjugacions/089_morir.md) | 226 |
+| **20** | [Bollir](conjugacions/020_bollir.md) | 88 | | **90** | [Moure](conjugacions/090_moure.md) | 228 |
+| **21** | [Brunyir](conjugacions/021_brunyir.md) | 90 | | **91** | [Nàixer](conjugacions/091_nàixer.md) | 230 |
+| **22** | [Cabre](conjugacions/022_cabre.md) | 92 | | **92** | [Nugar](conjugacions/092_nugar.md) | 232 |
+| **23** | [Caldre](conjugacions/023_caldre.md) | 94 | | **93** | [Obeir](conjugacions/093_obeir.md) | 234 |
+| **24** | [Caure](conjugacions/024_caure.md) | 96 | | **94** | [Obrir](conjugacions/094_obrir.md) | 236 |
+| **25** | [Cerndre](conjugacions/025_cerndre.md) | 98 | | **95** | [Ofendre](conjugacions/095_ofendre.md) | 238 |
+| **26** | [Charrar](conjugacions/026_charrar.md) | 100 | | **96** | [Ometre](conjugacions/096_ometre.md) | 240 |
+| **27** | [Chuplar](conjugacions/027_chuplar.md) | 102 | | **97** | [Omplir](conjugacions/097_omplir.md) | 242 |
+| **28** | [Cloixir](conjugacions/028_cloixir.md) | 104 | | **98** | [Oure](conjugacions/098_oure.md) | 244 |
+| **29** | [Collir](conjugacions/029_collir.md) | 106 | | **99** | [Paréixer](conjugacions/099_paréixer.md) | 246 |
+| **30** | [Combatre](conjugacions/030_combatre.md) | 108 | | **100** | [Passar](conjugacions/100_passar.md) | 248 |
+| **31** | [Compondre](conjugacions/031_compondre.md) | 110 | | **101** | [Percebre](conjugacions/101_percebre.md) | 250 |
+| **32** | [Concebre](conjugacions/032_concebre.md) | 112 | | **102** | [Perdre](conjugacions/102_perdre.md) | 252 |
+| **33** | [Concloure](conjugacions/033_concloure.md) | 114 | | **103** | [Pessigar](conjugacions/103_pessigar.md) | 254 |
+| **34** | [Conduir](conjugacions/034_conduir.md) | 116 | | **104** | [Poder](conjugacions/104_poder.md) | 256 |
+| **35** | [Conéixer](conjugacions/035_conéixer.md) | 118 | | **105** | [Pondre](conjugacions/105_pondre.md) | 258 |
+| **36** | [Corregir](conjugacions/036_corregir.md) | 120 | | **106** | [Posar](conjugacions/106_posar.md) | 260 |
+| **37** | [Córrer](conjugacions/037_córrer.md) | 122 | | **107** | [Prear](conjugacions/107_prear.md) | 262 |
+| **38** | [Cosir](conjugacions/038_cosir.md) | 124 | | **108** | [Prémer](conjugacions/108_prémer.md) | 264 |
+| **39** | [Còure](conjugacions/039_còure.md) | 126 | | **109** | [Promiscuar](conjugacions/109_promiscuar.md) | 266 |
+| **40** | [Creure](conjugacions/040_creure.md) | 128 | | **110** | [Pudir](conjugacions/110_pudir.md) | 268 |
+| **41** | [Defendre](conjugacions/041_defendre.md) | 130 | | **111** | [Raure](conjugacions/111_raure.md) | 270 |
+| **42** | [Desaiguar](conjugacions/042_desaiguar.md) | 132 | | **112** | [Rebre](conjugacions/112_rebre.md) | 272 |
+| **43** | [Desenrollar](conjugacions/043_desenrollar.md) | 134 | | **113** | [Regir](conjugacions/113_regir.md) | 274 |
+| **44** | [Difondre](conjugacions/044_difondre.md) | 136 | | **114** | [Renyir](conjugacions/114_renyir.md) | 276 |
+| **45** | [Dir](conjugacions/045_dir.md) | 138 | | **115** | [Retre](conjugacions/115_retre.md) | 278 |
+| **46** | [Distinguir](conjugacions/046_distinguir.md) | 140 | | **116** | [Riure](conjugacions/116_riure.md) | 280 |
+| **47** | [Doldre](conjugacions/047_doldre.md) | 142 | | **117** | [Rostir](conjugacions/117_rostir.md) | 282 |
+| **48** | [Donar](conjugacions/048_donar.md) | 144 | | **118** | [Rugir](conjugacions/118_rugir.md) | 284 |
+| **49** | [Dormir](conjugacions/049_dormir.md) | 146 | | **119** | [Saber](conjugacions/119_saber.md) | 286 |
+| **50** | [Dur](conjugacions/050_dur.md) | 148 | | **120** | [Sentir](conjugacions/120_sentir.md) | 288 |
+| **51** | [Eixercir](conjugacions/051_eixercir.md) | 150 | | **121** | [Ser](conjugacions/121_ser.md) | 290 |
+| **52** | [Eixir](conjugacions/052_eixir.md) | 152 | | **122** | [Sobreeixir](conjugacions/122_sobreeixir.md) | 292 |
+| **53** | [Encendre](conjugacions/053_encendre.md) | 154 | | **123** | [Suar](conjugacions/123_suar.md) | 294 |
+| **54** | [Enfollir](conjugacions/054_enfollir.md) | 156 | | **124** | [Teixir](conjugacions/124_teixir.md) | 296 |
+| **55** | [Engolir](conjugacions/055_engolir.md) | 158 | | **125** | [Témer](conjugacions/125_témer.md) | 298 |
+| **56** | [Engroguir](conjugacions/056_engroguir.md) | 160 | | **126** | [Tenyir](conjugacions/126_tenyir.md) | 300 |
+| **57** | [Engrunsar](conjugacions/057_engrunsar.md) | 162 | | **127** | [Tindre](conjugacions/127_tindre.md) | 302 |
+| **58** | [Ensomiar](conjugacions/058_ensomiar.md) | 164 | | **128** | [Tòrcer](conjugacions/128_tòrcer.md) | 304 |
+| **59** | [Escopir](conjugacions/059_escopir.md) | 166 | | **129** | [Tossir](conjugacions/129_tossir.md) | 306 |
+| **60** | [Escriure](conjugacions/060_escriure.md) | 168 | | **130** | [Traçar](conjugacions/130_traçar.md) | 308 |
+| **61** | [Espentar](conjugacions/061_espentar.md) | 170 | | **131** | [Traure](conjugacions/131_traure.md) | 310 |
+| **62** | [Estar](conjugacions/062_estar.md) | 172 | | **132** | [Unflar](conjugacions/132_unflar.md) | 312 |
+| **63** | [Esvarar](conjugacions/063_esvarar.md) | 174 | | **133** | [Utilisar](conjugacions/133_utilisar.md) | 314 |
+| **64** | [Expondre](conjugacions/064_expondre.md) | 176 | | **134** | [Valdre](conjugacions/134_valdre.md) | 316 |
+| **65** | [Fendre](conjugacions/065_fendre.md) | 178 | | **135** | [Véncer](conjugacions/135_véncer.md) | 318 |
+| **66** | [Fényer](conjugacions/066_fényer.md) | 180 | | **136** | [Vestir](conjugacions/136_vestir.md) | 320 |
+| **67** | [Fer](conjugacions/067_fer.md) | 182 | | **137** | [Vindre](conjugacions/137_vindre.md) | 322 |
+| **68** | [Fregir](conjugacions/068_fregir.md) | 184 | | **138** | [Viure](conjugacions/138_viure.md) | 324 |
+| **69** | [Fruir](conjugacions/069_fruir.md) | 186 | | **139** | [Voler](conjugacions/139_voler.md) | 326 |
+| **70** | [Fugir](conjugacions/070_fugir.md) | 188 | | **140** | [Vore](conjugacions/140_vore.md) | 328 |
+
+
+---
+
+## Bibliografia
+
+Esta és la bibliografia de referència utilitzada per la Secció de Llengua i Lliteratura Valencianes de la RACV per a l'elaboració de l'obra:
+
+* **ADLERT, M.** *El pensament valencianiste de Miquel Adlert.* Ed. L'oronella-AELLVA. Valéncia, 1999.
+* **ALCOVER, A.** *Diccionari Català-Valencià-Balear.* (X vols.) Ed. Moll. Palma de Mallorca, 1985.
+* **CASTELLANO, M.** *La conjugació verbal valenciana.* Ed. Acció Bibliogràfica Valenciana. Valéncia, 2001.
+* **COSTA, J.** *El valencià: llengua viva.* Ed. Lo Rat Penat. Valéncia, 1984.
+* **ESCALANTE, E.** *Teatre original complet.* Ed. Alfons el Magnànim. Valéncia, 1995.
+* **ESCRIG, J. I LLOMBART, C.** *Diccionario Valenciano-Castellano.* Valéncia 1887. Edició facsímil. Ed. Librería París-Valencia. Valéncia, 1987.
+* **FONTELLES, A. GARCÍA, L. LANUZA, J.** *Gramàtica de la Llengua Valenciana.* (2ª edició corregida) Ed. Lo Rat Penat. Valéncia, 1996.
+* **FONTELLES, A.** *La flexió verbal en la llengua valenciana.* (2ª edició) Ed. Lo Rat Penat. Valéncia, 1993.
+* **FULLANA, LL.** *Compendi de la Gramàtica Valenciana.* Ed. Llibreria de la Vda. de Ramón Ortega. Valéncia, 1921.
+* **FULLANA, LL.** *Vocabulari Ortogràfic Valencià-Castellà.* Valéncia, 1921. Edició facsímil. Ed. Grup d’Acció Valencianista. Valéncia 1979.
+* **GIMENO, M.** *El lèxic valencià proscrit a través dels clàssics.* Ed. Lo Rat Penat. Valéncia, 1993.
+* **GIMENO, M.** *El parlar apichat de la comarca de l’Horta de Valéncia.* Ed. Lo Rat Penat. Valéncia, 1998.
+* **GIMENO, M.** *Introducció a la dialectologia. Els dialectes valencians.* Ed. Lo Rat Penat. Valéncia, 1996.
+* **GUINOT, J. Mª.** *Gramàtica Normativa de la Llengua Valenciana.* Ed. Lo Rat Penat. Valéncia, 1987.
+* **GUINOT, J. Mª.** *El Valencià: Fonètica Verbal.* Ed. Lo Rat Penat. Valéncia, 1987.
+* **LÓPEZ, V.** *Introducció a la lexicografia valenciana.* En Série Filològica, núm. 13. Ed. RACV. Valéncia, 1994.
+* **LÓPEZ, V.** *El parlar de l’Horta de Valéncia dins del dialecte apichat.* Ed. RACV. Valéncia, 2003.
+* **LÓPEZ, V.** *L’arcaisme en la comarca de l’Horta Sur.* Tesis Doctoral. Universitat de Valéncia. (Biblioteca RACV). Valéncia, 2002.
+* **LÓPEZ, V.** *Les normes de l’Acadèmia o normes ortogràfiques del Puig.* En Série Filològica núm. 19. Ed. RACV. Valéncia, 1998.
+* **LÓPEZ, V.** *Proposta d’un “standard” oral valencià.* Ed. L'Oronella. Valéncia 1997.
+* **MARTÍ GADEA, J.** *Diccionario General Valenciano-Castellano.* Valéncia, 1891.
+* **MIEDES, E.** *Vocabulari elemental de la Llengua Valenciana.* Ed. Valéncia 2000. Valéncia, 1983.
+* **PAGÈS, A.** *Les obres d’Auzias March.* Ed.Consell Valencià de Cultura. Valéncia, 1995.
+* **PUIG, R.** *La conjugació verbal valenciana.* (5ª edició). Ed. Lo Rat Penat. Valéncia, 1983.
+* **RENAT, G.** *La conjugació dels verbs en valencià.* Ed. Societat Castellonenca de Cultura. Castelló, 1933.
+* **ROS, C.** *Diccionario Valenciano-Castellano.* Valéncia, 1764. Edició facsímil. Ed. Librería París-Valencia. Valéncia, 1979.
+* **RUIZ, A.** *Diccionari valencià de sinònims, afins i antònims.* Ed. RACV. Valéncia, 2004.
+* **S. REIG, E.** *Valencià en perill d’extinció.* (2ª edició). Ed. a càrrec de l’autor. Valéncia, 2005.
+* **VALOR, E.** *La flexió verbal.* (21ª edició). Ed. E. Climent. Valéncia, 1996.
+* **V. A.** *Diccionari Ortogràfic Valencià-Castellà. Castellà-Valencià.* RACV. (2ª edició). Ed. RACV, 2004.
+* **V. A.** *Diccionari Ortogràfic Valencià-Castellà. Castellà-Valencià.* RACV. (3ª edició). Ed. RACV, 2005.
+* **V. A.** *Diccionari valencià.* (2ª edició). Institut Interuniversitari de Filologia Valenciana. Ed. Bromera. Alzira, 1996.
+* **V. A.** *Diccionari Valencià-Castellà i Castellà-Valencià.* Real Acadèmia de Cultura Valenciana. (II vols.). Ed. Del Sénia al Segura. Valéncia, 1992.
+* **V. A.** *Documentació formal de l’ortografia de la llengua valenciana.* Ed. Ajuntament de Valéncia. Valéncia, 1994.
+* **V. A.** *Els verbs valencians.* (3ª edició). Institut Interuniversitari de Filologia Valenciana. Ed. Bromera. Alzira, 1996.
+* **V. A.** *Ortografia de la Llengua Valenciana i Estàndart Oral Valencià.* En Série Filològica núm. 27. Ed. RACV. Valéncia, 2005.
 
