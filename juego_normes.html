@@ -202,24 +202,57 @@
             }, 5000);
         }
         
-        // Preguntes
-        let availableQuestions = [];
-        
+        // Preguntes persistents en localStorage
+        let activeQuestionIndices = [];
+
         function initQuestions() {
-            availableQuestions = questionsRACV.map((_, i) => i);
-            // Shuffle
-            for (let i = availableQuestions.length - 1; i > 0; i--) {
+            let playedIndices = [];
+            try {
+                playedIndices = JSON.parse(localStorage.getItem('moniato_played_questions')) || [];
+            } catch(e) {
+                playedIndices = [];
+            }
+
+            // Si s'han jugat totes, es reinicia l'historial
+            if (playedIndices.length >= questionsRACV.length) {
+                playedIndices = [];
+                localStorage.setItem('moniato_played_questions', JSON.stringify([]));
+            }
+
+            // Filtrar les preguntes que encara no s'han jugat
+            let available = [];
+            for (let i = 0; i < questionsRACV.length; i++) {
+                if (!playedIndices.includes(i)) {
+                    available.push(i);
+                }
+            }
+
+            // Si queden menys de 9 per a completar la partida, reiniciem l'historial
+            if (available.length < 9) {
+                playedIndices = [];
+                localStorage.setItem('moniato_played_questions', JSON.stringify([]));
+                available = questionsRACV.map((_, i) => i);
+            }
+
+            // Barallar de forma aleatòria les preguntes disponibles
+            for (let i = available.length - 1; i > 0; i--) {
                 const j = Math.floor(Math.random() * (i + 1));
-                [availableQuestions[i], availableQuestions[j]] = [availableQuestions[j], availableQuestions[i]];
+                [available[i], available[j]] = [available[j], available[i]];
             }
+
+            // Agafar 9 preguntes per a esta partida i marcar-les com a jugades
+            activeQuestionIndices = available.slice(0, 9);
+            playedIndices = playedIndices.concat(activeQuestionIndices);
+            localStorage.setItem('moniato_played_questions', JSON.stringify(playedIndices));
         }
+
         initQuestions();
-        
+
         function getNextQuestion() {
-            if (availableQuestions.length === 0) {
-                initQuestions(); // Reload if all 100 played
+            if (activeQuestionIndices.length === 0) {
+                initQuestions();
             }
-            return availableQuestions.pop();
+            return activeQuestionIndices.pop();
         }
 
         function drawTarget() {
@@ -319,6 +352,10 @@
                     ind.style.color = '';
                 }
                 hasBeenWarned = false;
+                
+                // Carregar un nou set de 9 preguntes lliures de repeticions per a la nova partida
+                initQuestions();
+                
                 startAim();
                 return;
             }
