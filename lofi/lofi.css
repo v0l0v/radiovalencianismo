@@ -714,6 +714,10 @@ body, html {
         flex-shrink: 0 !important;
     }
 
+    .player-panel.minimized .player-fullscreen-btn {
+        display: none !important;
+    }
+
     .player-panel.minimized .player-toggle-btn {
         position: relative !important;
         top: 0 !important;
