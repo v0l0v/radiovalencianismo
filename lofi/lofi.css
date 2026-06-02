@@ -741,6 +741,16 @@ body, html {
 
 /* --- Adaptación Responsive --- */
 @media (max-width: 580px) {
+    .background-container {
+        /* En móvil, para que no se recorte tanta imagen con "cover",
+           ajustamos el contenedor para que mantenga proporción 16:9 
+           (120vh * 16 / 9 = 213.33vh). Así se puede desplazar por el fondo. */
+        width: 213.33vh;
+        height: 120vh;
+        left: calc(50vw - 106.66vh); /* Centrado por defecto */
+        top: -10vh;
+    }
+
     .app-container {
         padding: 1rem;
     }

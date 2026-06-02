@@ -903,9 +903,16 @@ document.addEventListener('DOMContentLoaded', () => {
         // Calcular escala final (1.02 de base multiplicado por el zoom actual)
         const scaleVal = 1.02 * bgZoomCurrent;
 
-        // Limitar la traslación máxima para que la imagen cubra exactamente la pantalla
-        const maxOffsetW = 60 * scaleVal - 50; // en vw
-        const maxOffsetH = 60 * scaleVal - 50; // en vh
+        // Obtener dimensiones base actuales del contenedor de fondo en vw/vh
+        const baseW_vw = (bgContainer.offsetWidth / window.innerWidth) * 100;
+        const baseH_vh = (bgContainer.offsetHeight / window.innerHeight) * 100;
+
+        // Limitar la traslación máxima basándonos en el tamaño real del contenedor
+        let maxOffsetW = (baseW_vw / 2) * scaleVal - 50;
+        let maxOffsetH = (baseH_vh / 2) * scaleVal - 50;
+        
+        maxOffsetW = Math.max(0, maxOffsetW);
+        maxOffsetH = Math.max(0, maxOffsetH);
 
         const transX = ((50 - bgCurrentX) / 50) * maxOffsetW;
         const transY = ((50 - bgCurrentY) / 50) * maxOffsetH;
