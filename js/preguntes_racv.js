@@ -1644,7 +1644,7 @@ const questionsRACV = [
         "o": [
             "Agranar",
             "Ensomiar",
-            "Model 32"
+            "Concebre"
         ],
         "a": 1
     },
@@ -1652,7 +1652,7 @@ const questionsRACV = [
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'reposar' segons la RACV?",
         "o": [
             "Dormir",
-            "Model 106",
+            "Posar",
             "Ensomiar"
         ],
         "a": 1
@@ -1660,7 +1660,7 @@ const questionsRACV = [
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'riure' segons la RACV?",
         "o": [
-            "Model 116",
+            "Riure",
             "Desenrollar",
             "Absoldre"
         ],
@@ -1669,9 +1669,9 @@ const questionsRACV = [
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'mortificar' segons la RACV?",
         "o": [
-            "Model 38",
+            "Cosir",
             "Ensomiar",
-            "Model 71"
+            "Gemecar"
         ],
         "a": 2
     },
@@ -1680,16 +1680,16 @@ const questionsRACV = [
         "o": [
             "Enfollir",
             "Desenrollar",
-            "Model 31"
+            "Compondre"
         ],
         "a": 1
     },
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'malmenjar' segons la RACV?",
         "o": [
-            "Model 41",
-            "Model 44",
-            "Model 72"
+            "Defendre",
+            "Difondre",
+            "Gojar"
         ],
         "a": 2
     },
@@ -1697,17 +1697,17 @@ const questionsRACV = [
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'argollar' segons la RACV?",
         "o": [
             "Desenrollar",
-            "Model 59",
-            "Model 23"
+            "Escopir",
+            "Caldre"
         ],
         "a": 0
     },
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'catalanisar' segons la RACV?",
         "o": [
-            "Model 40",
-            "Model 133",
-            "Model 19"
+            "Creure",
+            "Utilisar",
+            "Beure"
         ],
         "a": 1
     },
@@ -1715,7 +1715,7 @@ const questionsRACV = [
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'establir' segons la RACV?",
         "o": [
             "Adequar",
-            "Model 45",
+            "Dir",
             "Acodir"
         ],
         "a": 2
@@ -1723,8 +1723,8 @@ const questionsRACV = [
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'glopejar' segons la RACV?",
         "o": [
-            "Model 72",
-            "Model 31",
+            "Gojar",
+            "Compondre",
             "Conduir"
         ],
         "a": 0
@@ -1733,24 +1733,24 @@ const questionsRACV = [
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'estranyar' segons la RACV?",
         "o": [
             "Donar",
-            "Model 45",
-            "Model 33"
+            "Dir",
+            "Concloure"
         ],
         "a": 0
     },
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'puntualisar' segons la RACV?",
         "o": [
-            "Model 31",
+            "Compondre",
             "Anar",
-            "Model 133"
+            "Utilisar"
         ],
         "a": 2
     },
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'desencaminar' segons la RACV?",
         "o": [
-            "Model 52",
+            "Eixir",
             "Agranar",
             "Absoldre"
         ],
@@ -1759,7 +1759,7 @@ const questionsRACV = [
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'esboldregar' segons la RACV?",
         "o": [
-            "Model 23",
+            "Caldre",
             "Afonar",
             "Atendre"
         ],
@@ -1768,16 +1768,16 @@ const questionsRACV = [
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'capturar' segons la RACV?",
         "o": [
-            "Model 63",
+            "Esvarar",
             "Desaiguar",
-            "Model 36"
+            "Corregir"
         ],
         "a": 0
     },
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'adormir' segons la RACV?",
         "o": [
-            "Model 55",
+            "Engolir",
             "Dormir",
             "Agrair"
         ],
@@ -1786,8 +1786,8 @@ const questionsRACV = [
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'tergiversar' segons la RACV?",
         "o": [
-            "Model 133",
-            "Model 24",
+            "Utilisar",
+            "Caure",
             "Adequar"
         ],
         "a": 0
@@ -1795,9 +1795,9 @@ const questionsRACV = [
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'estimular' segons la RACV?",
         "o": [
-            "Model 83",
-            "Model 36",
-            "Model 44"
+            "Maular",
+            "Corregir",
+            "Difondre"
         ],
         "a": 0
     },
@@ -1813,7 +1813,7 @@ const questionsRACV = [
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'insacular' segons la RACV?",
         "o": [
-            "Model 83",
+            "Maular",
             "Baixar",
             "Ensomiar"
         ],
@@ -1822,8 +1822,8 @@ const questionsRACV = [
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'emmoriscar' segons la RACV?",
         "o": [
-            "Model 71",
-            "Model 45",
+            "Gemecar",
+            "Dir",
             "Alluntar"
         ],
         "a": 0
@@ -1831,9 +1831,9 @@ const questionsRACV = [
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'desobstruir' segons la RACV?",
         "o": [
-            "Model 21",
+            "Brunyir",
             "Atendre",
-            "Model 69"
+            "Fruir"
         ],
         "a": 2
     },
@@ -1850,7 +1850,7 @@ const questionsRACV = [
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'olivar-se' segons la RACV?",
         "o": [
             "Afegir",
-            "Model 29",
+            "Collir",
             "Donar"
         ],
         "a": 2
@@ -1858,18 +1858,18 @@ const questionsRACV = [
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'desforrellar' segons la RACV?",
         "o": [
-            "Model 21",
+            "Brunyir",
             "Desenrollar",
-            "Model 47"
+            "Doldre"
         ],
         "a": 1
     },
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'rearpar' segons la RACV?",
         "o": [
-            "Model 59",
-            "Model 20",
-            "Model 107"
+            "Escopir",
+            "Bollir",
+            "Prear"
         ],
         "a": 2
     },
@@ -1878,7 +1878,7 @@ const questionsRACV = [
         "o": [
             "Arredonir",
             "Donar",
-            "Model 60"
+            "Escriure"
         ],
         "a": 1
     },
@@ -1886,7 +1886,7 @@ const questionsRACV = [
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'interpelar' segons la RACV?",
         "o": [
             "Baixar",
-            "Model 83",
+            "Maular",
             "Engrunsar"
         ],
         "a": 1
@@ -1894,16 +1894,16 @@ const questionsRACV = [
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'acovardir' segons la RACV?",
         "o": [
-            "Model 20",
+            "Bollir",
             "Acodir",
-            "Model 36"
+            "Corregir"
         ],
         "a": 1
     },
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'conquerir' segons la RACV?",
         "o": [
-            "Model 40",
+            "Creure",
             "Agarrar",
             "Acodir"
         ],
@@ -1912,9 +1912,9 @@ const questionsRACV = [
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'parcelar' segons la RACV?",
         "o": [
-            "Model 25",
-            "Model 83",
-            "Model 51"
+            "Cerndre",
+            "Maular",
+            "Eixercir"
         ],
         "a": 1
     },
@@ -1922,7 +1922,7 @@ const questionsRACV = [
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'callar' segons la RACV?",
         "o": [
             "Desenrollar",
-            "Model 21",
+            "Brunyir",
             "Anar"
         ],
         "a": 0
@@ -1930,7 +1930,7 @@ const questionsRACV = [
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'aficonar' segons la RACV?",
         "o": [
-            "Model 46",
+            "Distinguir",
             "Anar",
             "Afonar"
         ],
@@ -1939,25 +1939,25 @@ const questionsRACV = [
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'abarrancar' segons la RACV?",
         "o": [
-            "Model 51",
-            "Model 71",
-            "Model 38"
+            "Eixercir",
+            "Gemecar",
+            "Cosir"
         ],
         "a": 1
     },
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'glatir' segons la RACV?",
         "o": [
-            "Model 47",
+            "Doldre",
             "Acodir",
-            "Model 28"
+            "Cloixir"
         ],
         "a": 1
     },
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'arropir-se' segons la RACV?",
         "o": [
-            "Model 40",
+            "Creure",
             "Acodir",
             "Absoldre"
         ],
@@ -1966,18 +1966,18 @@ const questionsRACV = [
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'encobertar' segons la RACV?",
         "o": [
-            "Model 35",
-            "Model 37",
-            "Model 61"
+            "Conéixer",
+            "Córrer",
+            "Espentar"
         ],
         "a": 2
     },
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'ferir' segons la RACV?",
         "o": [
-            "Model 33",
+            "Concloure",
             "Acodir",
-            "Model 22"
+            "Cabre"
         ],
         "a": 1
     },
@@ -1986,16 +1986,16 @@ const questionsRACV = [
         "o": [
             "Desenrollar",
             "Afegir",
-            "Model 72"
+            "Gojar"
         ],
         "a": 2
     },
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'desvarar' segons la RACV?",
         "o": [
-            "Model 63",
+            "Esvarar",
             "Ensomiar",
-            "Model 26"
+            "Charrar"
         ],
         "a": 0
     },
@@ -2003,7 +2003,7 @@ const questionsRACV = [
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'evangelisar' segons la RACV?",
         "o": [
             "Enfollir",
-            "Model 133",
+            "Utilisar",
             "Combatre"
         ],
         "a": 1
@@ -2011,7 +2011,7 @@ const questionsRACV = [
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'blasfemar' segons la RACV?",
         "o": [
-            "Model 56",
+            "Engroguir",
             "Conduir",
             "Donar"
         ],
@@ -2022,15 +2022,15 @@ const questionsRACV = [
         "o": [
             "Acodir",
             "Agranar",
-            "Model 72"
+            "Gojar"
         ],
         "a": 2
     },
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'eterisar' segons la RACV?",
         "o": [
-            "Model 52",
-            "Model 133",
+            "Eixir",
+            "Utilisar",
             "Adequar"
         ],
         "a": 1
@@ -2038,17 +2038,17 @@ const questionsRACV = [
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'nebulisar' segons la RACV?",
         "o": [
-            "Model 61",
-            "Model 28",
-            "Model 22"
+            "Espentar",
+            "Cloixir",
+            "Cabre"
         ],
         "a": 0
     },
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'martirisar' segons la RACV?",
         "o": [
-            "Model 133",
-            "Model 24",
+            "Utilisar",
+            "Caure",
             "Agarrar"
         ],
         "a": 0
@@ -2057,8 +2057,8 @@ const questionsRACV = [
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'engrandir' segons la RACV?",
         "o": [
             "Acodir",
-            "Model 50",
-            "Model 56"
+            "Dur",
+            "Engroguir"
         ],
         "a": 0
     },
@@ -2067,7 +2067,7 @@ const questionsRACV = [
         "o": [
             "Desaiguar",
             "Argüir",
-            "Model 133"
+            "Utilisar"
         ],
         "a": 2
     },
@@ -2076,7 +2076,7 @@ const questionsRACV = [
         "o": [
             "Atendre",
             "Ensomiar",
-            "Model 72"
+            "Gojar"
         ],
         "a": 2
     },
@@ -2084,7 +2084,7 @@ const questionsRACV = [
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'reprovar' segons la RACV?",
         "o": [
             "Donar",
-            "Model 51",
+            "Eixercir",
             "Adequar"
         ],
         "a": 0
@@ -2094,7 +2094,7 @@ const questionsRACV = [
         "o": [
             "Arredonir",
             "Agranar",
-            "Model 132"
+            "Unflar"
         ],
         "a": 2
     },
@@ -2102,8 +2102,8 @@ const questionsRACV = [
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'celar' segons la RACV?",
         "o": [
             "Agranar",
-            "Model 83",
-            "Model 45"
+            "Maular",
+            "Dir"
         ],
         "a": 1
     },
@@ -2112,15 +2112,15 @@ const questionsRACV = [
         "o": [
             "Alçar",
             "Combatre",
-            "Model 21"
+            "Brunyir"
         ],
         "a": 0
     },
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'preseleccionar' segons la RACV?",
         "o": [
-            "Model 22",
-            "Model 21",
+            "Cabre",
+            "Brunyir",
             "Afonar"
         ],
         "a": 2
@@ -2129,15 +2129,15 @@ const questionsRACV = [
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'hostajar' segons la RACV?",
         "o": [
             "Alluntar",
-            "Model 28",
-            "Model 72"
+            "Cloixir",
+            "Gojar"
         ],
         "a": 2
     },
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'desconvindre' segons la RACV?",
         "o": [
-            "Model 137",
+            "Vindre",
             "Afegir",
             "Desaiguar"
         ],
@@ -2147,7 +2147,7 @@ const questionsRACV = [
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'exhibir' segons la RACV?",
         "o": [
             "Acodir",
-            "Model 46",
+            "Distinguir",
             "Assessorar"
         ],
         "a": 0
@@ -2156,15 +2156,15 @@ const questionsRACV = [
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'mig' segons la RACV?",
         "o": [
             "Alluntar",
-            "Model 51",
-            "Model 94"
+            "Eixercir",
+            "Obrir"
         ],
         "a": 2
     },
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'argumentar' segons la RACV?",
         "o": [
-            "Model 61",
+            "Espentar",
             "Agrair",
             "Combatre"
         ],
@@ -2174,7 +2174,7 @@ const questionsRACV = [
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'adverbialisar' segons la RACV?",
         "o": [
             "Agranar",
-            "Model 133",
+            "Utilisar",
             "Engrunsar"
         ],
         "a": 1
@@ -2182,17 +2182,17 @@ const questionsRACV = [
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'exiliar' segons la RACV?",
         "o": [
-            "Model 75",
-            "Model 52",
-            "Model 27"
+            "Iniciar",
+            "Eixir",
+            "Chuplar"
         ],
         "a": 0
     },
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'repesar' segons la RACV?",
         "o": [
-            "Model 44",
-            "Model 133",
+            "Difondre",
+            "Utilisar",
             "Atendre"
         ],
         "a": 1
@@ -2200,7 +2200,7 @@ const questionsRACV = [
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'desacalorar' segons la RACV?",
         "o": [
-            "Model 63",
+            "Esvarar",
             "Argüir",
             "Alçar"
         ],
@@ -2209,7 +2209,7 @@ const questionsRACV = [
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'remar' segons la RACV?",
         "o": [
-            "Model 41",
+            "Defendre",
             "Desaiguar",
             "Donar"
         ],
@@ -2218,26 +2218,26 @@ const questionsRACV = [
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'dessuar' segons la RACV?",
         "o": [
-            "Model 123",
-            "Model 22",
-            "Model 23"
+            "Suar",
+            "Cabre",
+            "Caldre"
         ],
         "a": 0
     },
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'melificar' segons la RACV?",
         "o": [
-            "Model 71",
+            "Gemecar",
             "Baixar",
-            "Model 36"
+            "Corregir"
         ],
         "a": 0
     },
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'flotar' segons la RACV?",
         "o": [
-            "Model 87",
-            "Model 29",
+            "Montar",
+            "Collir",
             "Engrunsar"
         ],
         "a": 0
@@ -2246,17 +2246,17 @@ const questionsRACV = [
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'llavujar' segons la RACV?",
         "o": [
             "Desaiguar",
-            "Model 46",
-            "Model 72"
+            "Distinguir",
+            "Gojar"
         ],
         "a": 2
     },
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'desapoyar' segons la RACV?",
         "o": [
-            "Model 29",
+            "Collir",
             "Donar",
-            "Model 45"
+            "Dir"
         ],
         "a": 1
     },
@@ -2264,7 +2264,7 @@ const questionsRACV = [
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'insubordinar' segons la RACV?",
         "o": [
             "Anar",
-            "Model 52",
+            "Eixir",
             "Agranar"
         ],
         "a": 2
@@ -2273,8 +2273,8 @@ const questionsRACV = [
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'caquejar' segons la RACV?",
         "o": [
             "Atendre",
-            "Model 72",
-            "Model 25"
+            "Gojar",
+            "Cerndre"
         ],
         "a": 1
     },
@@ -2290,27 +2290,27 @@ const questionsRACV = [
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'rufianejar' segons la RACV?",
         "o": [
-            "Model 20",
+            "Bollir",
             "Absoldre",
-            "Model 72"
+            "Gojar"
         ],
         "a": 2
     },
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'dotar' segons la RACV?",
         "o": [
-            "Model 51",
-            "Model 53",
-            "Model 87"
+            "Eixercir",
+            "Encendre",
+            "Montar"
         ],
         "a": 2
     },
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'engatussar' segons la RACV?",
         "o": [
-            "Model 26",
-            "Model 39",
-            "Model 100"
+            "Charrar",
+            "Còure",
+            "Passar"
         ],
         "a": 2
     },
@@ -2318,7 +2318,7 @@ const questionsRACV = [
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'estafar' segons la RACV?",
         "o": [
             "Donar",
-            "Model 52",
+            "Eixir",
             "Agarrar"
         ],
         "a": 0
@@ -2336,7 +2336,7 @@ const questionsRACV = [
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'xerografiar' segons la RACV?",
         "o": [
             "Absoldre",
-            "Model 75",
+            "Iniciar",
             "Desaiguar"
         ],
         "a": 1
@@ -2344,26 +2344,26 @@ const questionsRACV = [
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'nevarsar' segons la RACV?",
         "o": [
-            "Model 72",
+            "Gojar",
             "Conduir",
-            "Model 28"
+            "Cloixir"
         ],
         "a": 0
     },
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'retrotraure' segons la RACV?",
         "o": [
-            "Model 131",
-            "Model 27",
-            "Model 25"
+            "Traure",
+            "Chuplar",
+            "Cerndre"
         ],
         "a": 0
     },
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'remelar' segons la RACV?",
         "o": [
-            "Model 22",
-            "Model 83",
+            "Cabre",
+            "Maular",
             "Dormir"
         ],
         "a": 1
@@ -2372,16 +2372,16 @@ const questionsRACV = [
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'protestar' segons la RACV?",
         "o": [
             "Combatre",
-            "Model 59",
-            "Model 61"
+            "Escopir",
+            "Espentar"
         ],
         "a": 2
     },
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'suplantar' segons la RACV?",
         "o": [
-            "Model 61",
-            "Model 28",
+            "Espentar",
+            "Cloixir",
             "Argüir"
         ],
         "a": 0
@@ -2389,17 +2389,17 @@ const questionsRACV = [
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'ajardinar' segons la RACV?",
         "o": [
-            "Model 59",
+            "Escopir",
             "Agranar",
-            "Model 21"
+            "Brunyir"
         ],
         "a": 1
     },
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'fermentar' segons la RACV?",
         "o": [
-            "Model 35",
-            "Model 61",
+            "Conéixer",
+            "Espentar",
             "Dormir"
         ],
         "a": 1
@@ -2407,8 +2407,8 @@ const questionsRACV = [
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'embarrerar' segons la RACV?",
         "o": [
-            "Model 63",
-            "Model 38",
+            "Esvarar",
+            "Cosir",
             "Anar"
         ],
         "a": 0
@@ -2418,16 +2418,16 @@ const questionsRACV = [
         "o": [
             "Afegir",
             "Enfollir",
-            "Model 63"
+            "Esvarar"
         ],
         "a": 2
     },
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'emmaixquerar' segons la RACV?",
         "o": [
-            "Model 36",
+            "Corregir",
             "Argüir",
-            "Model 63"
+            "Esvarar"
         ],
         "a": 2
     },
@@ -2435,7 +2435,7 @@ const questionsRACV = [
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'resembrar' segons la RACV?",
         "o": [
             "Agranar",
-            "Model 63",
+            "Esvarar",
             "Enfollir"
         ],
         "a": 1
@@ -2445,25 +2445,25 @@ const questionsRACV = [
         "o": [
             "Engrunsar",
             "Ajopir",
-            "Model 133"
+            "Utilisar"
         ],
         "a": 2
     },
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'caducar' segons la RACV?",
         "o": [
-            "Model 31",
-            "Model 60",
-            "Model 71"
+            "Compondre",
+            "Escriure",
+            "Gemecar"
         ],
         "a": 2
     },
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'velarisar' segons la RACV?",
         "o": [
-            "Model 47",
+            "Doldre",
             "Alluntar",
-            "Model 133"
+            "Utilisar"
         ],
         "a": 2
     },
@@ -2471,7 +2471,7 @@ const questionsRACV = [
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'acormullar' segons la RACV?",
         "o": [
             "Desenrollar",
-            "Model 31",
+            "Compondre",
             "Ajopir"
         ],
         "a": 0
@@ -2479,7 +2479,7 @@ const questionsRACV = [
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'pernoctar' segons la RACV?",
         "o": [
-            "Model 87",
+            "Montar",
             "Adequar",
             "Aplegar"
         ],
@@ -2488,25 +2488,25 @@ const questionsRACV = [
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'enverniçar' segons la RACV?",
         "o": [
-            "Model 136",
+            "Vestir",
             "Atendre",
-            "Model 36"
+            "Corregir"
         ],
         "a": 0
     },
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'descobrir' segons la RACV?",
         "o": [
-            "Model 25",
+            "Cerndre",
             "Acodir",
-            "Model 19"
+            "Beure"
         ],
         "a": 1
     },
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'coacusar' segons la RACV?",
         "o": [
-            "Model 133",
+            "Utilisar",
             "Anar",
             "Agrair"
         ],
@@ -2515,18 +2515,18 @@ const questionsRACV = [
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'aclimatar' segons la RACV?",
         "o": [
-            "Model 39",
+            "Còure",
             "Enfollir",
-            "Model 61"
+            "Espentar"
         ],
         "a": 2
     },
     {
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'permetre' segons la RACV?",
         "o": [
-            "Model 96",
-            "Model 25",
-            "Model 31"
+            "Ometre",
+            "Cerndre",
+            "Compondre"
         ],
         "a": 0
     },
@@ -2534,8 +2534,8 @@ const questionsRACV = [
         "q": "¿Quin és el verp model de referència per a flexionar el verp 'venjar' segons la RACV?",
         "o": [
             "Agrair",
-            "Model 41",
-            "Model 72"
+            "Defendre",
+            "Gojar"
         ],
         "a": 2
     }

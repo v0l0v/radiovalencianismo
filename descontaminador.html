@@ -316,8 +316,8 @@ SE HA DETECTADO UNA FUGA DE NEOCATALANISMOS EN LOS SERVIDORES OFICIALES.
 EL CÓDIGO FUENTE DE NUESTROS ABUELOS ESTÁ CORROMPIDO.
 ERES EL ÚLTIMO OPERADOR ACTIVO.
 TU MISIÓN:
-← DESLIZA A LA IZQUIERDA PARA INCINERAR EL VIRUS (AVL/CAT)
-→ DESLIZA A LA DERECHA PARA GUARDAR EN EL BÚNKER (RACV/VAL)
+← DESLIZA A LA IZQ / CURSOR IZQ: INCINERAR VIRUS (AVL/CAT)
+→ DESLIZA A LA DER / CURSOR DER: GUARDAR BÚNKER (RACV/VAL)
         </div>
         <button class="btn" id="start-btn" style="opacity: 0;">INICIAR PURGA</button>
     </div>
@@ -328,8 +328,8 @@ TU MISIÓN:
             <!-- Las cartas se generan aquí -->
         </div>
         <div class="controls-hint">
-            <span class="hint-left">← INCINERAR (AVL)</span>
-            <span class="hint-right">GUARDAR (RACV) →</span>
+            <span class="hint-left">← INCINERAR (AVL) [CURSOR IZQ]</span>
+            <span class="hint-right">[CURSOR DER] GUARDAR (RACV) →</span>
         </div>
     </div>
 
@@ -384,6 +384,7 @@ TU MISIÓN:
         let currentIndex = 0;
         let mistakes = 0;
         let totalCards = 15; // Número de cartas por partida
+        let isSwiping = false;
         
         const stackEl = document.getElementById('card-stack');
         const introScreen = document.getElementById('intro-screen');
@@ -530,6 +531,27 @@ TU MISIÓN:
             document.addEventListener('touchend', onEnd);
         }
 
+        // Listener de teclado para cursores Izq/Der
+        document.addEventListener('keydown', (e) => {
+            if (gameContainer.classList.contains('hidden') || currentIndex >= totalCards || isSwiping) return;
+            
+            const topCard = document.querySelector('.card:not(.dragging)');
+            if (!topCard) return;
+            
+            const item = deck[currentIndex];
+            if (e.key === 'ArrowLeft') {
+                const stampInc = topCard.querySelector('.incinerate');
+                stampInc.style.opacity = 1;
+                stampInc.style.transform = 'rotate(15deg) scale(1.2)';
+                handleSwipe('left', item, topCard);
+            } else if (e.key === 'ArrowRight') {
+                const stampSave = topCard.querySelector('.save');
+                stampSave.style.opacity = 1;
+                stampSave.style.transform = 'rotate(-15deg) scale(1.2)';
+                handleSwipe('right', item, topCard);
+            }
+        });
+
         function triggerErrorGlitch() {
             document.body.classList.add('glitching');
             setTimeout(() => {
@@ -538,6 +560,9 @@ TU MISIÓN:
         }
 
         function handleSwipe(direction, item, card) {
+            if (isSwiping) return;
+            isSwiping = true;
+
             const isLeft = direction === 'left';
             const endX = isLeft ? -window.innerWidth : window.innerWidth;
             card.style.transition = 'transform 0.4s ease-out';
@@ -557,6 +582,7 @@ TU MISIÓN:
             updateHUD();
 
             setTimeout(() => {
+                isSwiping = false;
                 if (currentIndex >= totalCards) {
                     endGame();
                 } else {
