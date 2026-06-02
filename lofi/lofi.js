@@ -618,12 +618,22 @@ document.addEventListener('DOMContentLoaded', () => {
     let startX, startY;
     let initialLeft, initialTop;
 
-    // Posicionar el panel en la esquina inferior izquierda
+    // Posicionar el panel
     function positionPanel() {
+        const isMobile = window.innerWidth <= 580;
+        
+        // En móvil y minimizado, anclar rígidamente a la esquina inferior izquierda
+        if (isMobile && playerPanel.classList.contains('minimized')) {
+            playerPanel.style.left = '15px';
+            playerPanel.style.bottom = '15px';
+            playerPanel.style.top = 'auto';
+            playerPanel.style.right = 'auto';
+            playerPanel.style.margin = '0';
+            return;
+        }
+
         const panelWidth = playerPanel.offsetWidth;
         const panelHeight = playerPanel.offsetHeight;
-        
-        const isMobile = window.innerWidth <= 580;
         const margin = isMobile ? 15 : 20;
         
         // Esquina inferior izquierda
@@ -907,16 +917,21 @@ document.addEventListener('DOMContentLoaded', () => {
         const baseW_vw = (bgContainer.offsetWidth / window.innerWidth) * 100;
         const baseH_vh = (bgContainer.offsetHeight / window.innerHeight) * 100;
 
+        // Forzar una escala mínima de seguridad para evitar que se vea el "fuera de la imagen"
+        const minScaleW = 100 / baseW_vw;
+        const minScaleH = 100 / baseH_vh;
+        const safeScale = Math.max(scaleVal, minScaleW, minScaleH, 1.0);
+
         // Limitar la traslación máxima basándonos en el tamaño real del contenedor
-        let maxOffsetW = (baseW_vw / 2) * scaleVal - 50;
-        let maxOffsetH = (baseH_vh / 2) * scaleVal - 50;
+        let maxOffsetW = (baseW_vw / 2) * safeScale - 50;
+        let maxOffsetH = (baseH_vh / 2) * safeScale - 50;
         
         maxOffsetW = Math.max(0, maxOffsetW);
         maxOffsetH = Math.max(0, maxOffsetH);
 
         const transX = ((50 - bgCurrentX) / 50) * maxOffsetW;
         const transY = ((50 - bgCurrentY) / 50) * maxOffsetH;
-        bgContainer.style.transform = `translate3d(${transX.toFixed(2)}vw, ${transY.toFixed(2)}vh, 0) scale(${scaleVal.toFixed(3)})`;
+        bgContainer.style.transform = `translate3d(${transX.toFixed(2)}vw, ${transY.toFixed(2)}vh, 0) scale(${safeScale.toFixed(3)})`;
         
         requestAnimationFrame(animateBgParallax);
     }
