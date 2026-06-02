@@ -766,20 +766,27 @@ body, html {
         gap: 1.2rem;
     }
 
-    /* En móvil, al minimizar, se muestra de forma compacta en la esquina inferior izquierda */
+    /* En móvil ocultamos el reloj y dejamos solo el conmutador de idiomas */
+    .clock-widget {
+        display: none !important;
+    }
+
+    /* En móvil, al minimizar, se muestra como una pequeña píldora en la esquina inferior izquierda */
     .player-panel.minimized {
         background: var(--bg-glass) !important;
         border: 1px solid var(--border-glass) !important;
         box-shadow: var(--shadow-premium) !important;
         backdrop-filter: blur(25px) !important;
         -webkit-backdrop-filter: blur(25px) !important;
-        padding: 0.4rem 0.5rem !important;
+        padding: 0.3rem 0.4rem !important;
         width: auto !important;
-        min-width: 0 !important;
-        max-width: 120px !important;
         height: auto !important;
+        min-width: 0 !important;
+        max-width: none !important;
         bottom: 15px !important;
         left: 15px !important;
+        top: auto !important;
+        right: auto !important;
         border-radius: 50px !important;
         overflow: hidden !important;
         display: flex !important;
@@ -790,17 +797,35 @@ body, html {
 
     .player-panel.minimized .player-header {
         width: auto !important;
+        height: 100% !important;
         display: flex !important;
         flex-direction: row !important;
         align-items: center !important;
-        gap: 0.5rem !important;
+        justify-content: center !important;
+        gap: 0.6rem !important;
+        padding: 0 !important;
     }
 
     .player-panel.minimized .player-header-text {
         display: none !important;
     }
 
+    .player-panel.minimized .logo-link {
+        display: flex !important;
+        align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .player-panel.minimized .player-logo {
+        width: 36px !important;
+        height: 36px !important;
+        display: block !important;
+        border-radius: 50%;
+    }
+
     .player-panel.minimized .player-header-actions {
+        width: auto !important;
+        height: 100% !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
@@ -808,16 +833,14 @@ body, html {
         flex-shrink: 0 !important;
     }
 
-    .player-panel.minimized .player-fullscreen-btn {
+    .player-panel.minimized .player-fullscreen-btn,
+    .player-panel.minimized .header-play-btn {
         display: none !important;
     }
 
     .player-panel.minimized .player-toggle-btn {
-        position: relative !important;
-        top: 0 !important;
-        right: 0 !important;
-        width: 32px !important;
-        height: 32px !important;
+        width: 36px !important;
+        height: 36px !important;
         border-radius: 50% !important;
         background: rgba(255, 255, 255, 0.08) !important;
         border: 1px solid rgba(255, 255, 255, 0.12) !important;
@@ -826,24 +849,15 @@ body, html {
         align-items: center !important;
         justify-content: center !important;
         box-shadow: none !important;
-        backdrop-filter: none !important;
-        -webkit-backdrop-filter: none !important;
-        font-size: 0.85rem !important;
+        font-size: 1rem !important;
         transition: transform 0.2s ease, background-color 0.2s ease !important;
+        padding: 0 !important;
+        margin: 0 !important;
     }
 
     .player-panel.minimized .player-toggle-btn:hover {
         background: rgba(255, 255, 255, 0.18) !important;
         transform: scale(1.05);
-    }
-
-    .player-panel.minimized .player-logo {
-        width: 32px !important;
-        height: 32px !important;
-    }
-
-    .player-panel.minimized .header-play-btn {
-        display: none !important;
     }
 
     .radio-title {
