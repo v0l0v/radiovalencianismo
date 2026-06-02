@@ -72,9 +72,91 @@ body, html {
     pointer-events: auto;
 }
 
+/* --- Área de Widgets Superior Derecha --- */
+.top-right-area {
+    align-self: flex-end;
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    pointer-events: none;
+    z-index: 100;
+}
+
+.top-right-area * {
+    pointer-events: auto;
+}
+
+/* --- Conmutador de Idioma Premium (VAL/CAS) --- */
+.lang-switcher {
+    background: var(--bg-glass);
+    border: 1px solid var(--border-glass);
+    padding: 3px;
+    border-radius: 50px;
+    display: inline-flex;
+    position: relative;
+    box-shadow: var(--shadow-premium);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    height: 38px;
+    align-items: center;
+    user-select: none;
+    transition: var(--transition-smooth);
+}
+
+.lang-switcher:hover {
+    border-color: rgba(255, 255, 255, 0.15);
+    background: rgba(15, 18, 26, 0.55);
+}
+
+.lang-slider {
+    position: absolute;
+    top: 3px;
+    bottom: 3px;
+    left: 3px;
+    width: 44px;
+    background: linear-gradient(135deg, var(--primary-color), #ffb84d);
+    border-radius: 50px;
+    transition: transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+    box-shadow: 0 4px 10px rgba(255, 159, 28, 0.35);
+    z-index: 1;
+}
+
+.lang-btn {
+    background: transparent;
+    border: none;
+    color: rgba(255, 255, 255, 0.55);
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 1px;
+    width: 44px;
+    height: 30px;
+    cursor: pointer;
+    border-radius: 50px;
+    position: relative;
+    z-index: 2;
+    transition: color 0.35s ease;
+    outline: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.lang-btn:hover {
+    color: #ffffff;
+}
+
+.lang-btn.active {
+    color: #0c0d12 !important;
+}
+
+/* Slider transition positions */
+.lang-switcher[data-active-lang="cas"] .lang-slider {
+    transform: translateX(44px);
+}
+
 /* --- Widget del Reloj Analógico --- */
 .clock-widget {
-    align-self: flex-end;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -663,9 +745,17 @@ body, html {
         padding: 1rem;
     }
     
-    .clock-widget {
+    .top-right-area {
         align-self: center;
         margin-top: 1rem;
+        display: flex;
+        flex-direction: row;
+        gap: 0.8rem;
+    }
+    
+    .clock-widget {
+        align-self: auto;
+        margin-top: 0;
     }
     
     .player-panel {

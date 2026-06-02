@@ -52,15 +52,25 @@
     <!-- Contenedor Principal (Experiencia Minimalista) -->
     <div class="app-container">
         
-        <!-- Reloj Analógico (Esquina Superior Derecha) -->
-        <div class="clock-widget">
-            <div class="clock">
-                <div class="hand hour" id="hour-hand"></div>
-                <div class="hand minute" id="min-hand"></div>
-                <div class="hand second" id="sec-hand"></div>
-                <div class="center-dot"></div>
+        <!-- Área Superior Derecha (Reloj + Conmutador de Idioma VAL/CAS) -->
+        <div class="top-right-area">
+            <!-- Conmutador de Idioma Premium -->
+            <div class="lang-switcher" id="lang-switcher" data-active-lang="val">
+                <div class="lang-slider"></div>
+                <button class="lang-btn active" data-lang="val" aria-label="Cambiar a Valenciano">VAL</button>
+                <button class="lang-btn" data-lang="cas" aria-label="Cambiar a Castellano">CAS</button>
             </div>
-            <div class="digital-time" id="digital-time">00:00:00</div>
+            
+            <!-- Reloj Analógico -->
+            <div class="clock-widget">
+                <div class="clock">
+                    <div class="hand hour" id="hour-hand"></div>
+                    <div class="hand minute" id="min-hand"></div>
+                    <div class="hand second" id="sec-hand"></div>
+                    <div class="center-dot"></div>
+                </div>
+                <div class="digital-time" id="digital-time">00:00:00</div>
+            </div>
         </div>
 
         <!-- Panel del Reproductor (Glassmorphism abajo a la izquierda) -->
@@ -134,7 +144,7 @@
                 </div>
                 
                 <div class="ambient-selector-wrapper collapsed" id="ambient-selector-wrapper">
-                    <span class="ambient-label">AMBIENTE ACTUAL: <strong id="ambient-name">Cargando...</strong></span>
+                    <span class="ambient-label"><span id="ambient-label-text">AMBIENTE ACTUAL:</span> <strong id="ambient-name">Cargando...</strong></span>
                     <div class="ambient-selector">
                         <button class="ambient-btn" data-ambient="serranos" title="🛡️ Torres de Serrans y la Senyera">1</button>
                         <button class="ambient-btn" data-ambient="xativa" title="🏰 Castell de Xàtiva">2</button>

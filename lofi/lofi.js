@@ -3,6 +3,98 @@
 document.addEventListener('DOMContentLoaded', () => {
     // --- Configuración y Referencias ---
     const ICECAST_JSON_URL = '/status-json.xsl';
+
+    // --- Diccionario de Traducciones ---
+    const TRANSLATIONS = {
+        val: {
+            badge: "EMISSIÓ EN DIRECTE",
+            tagline: "La teua companyia de fons per a treballar i estudiar",
+            playingLabel: "SONANT ARA",
+            loadingEmision: "Carregant emissió...",
+            ambientLabel: "AMBIENT ACTUAL:",
+            loadingAmbient: "Carregant...",
+            btnPlay: "Reproduir",
+            btnPause: "Pausar",
+            btnFullscreenEnter: "Pantalla Completa",
+            btnFullscreenExit: "Eixir de Pantalla Completa",
+            btnMinimize: "Minimitzar Reproductor",
+            btnMaximize: "Maximitzar Reproductor",
+            btnShowAmbients: "Mostrar ambients",
+            btnHideAmbients: "Ocultar ambients",
+            comingNext: "PRÒXIMAMENT",
+            onTheDot: "A LES EN PUNT: EL MÓN DE JUAN Y PATRI",
+            defaultTitle: "Valencianismo Radio - Directe",
+            ambients: {
+                serranos: "Torres de Serrans i la Senyera",
+                xativa: "Castell de Xàtiva",
+                cyberpunk: "Ciutat de les Arts Cyberpunk",
+                malvarrosa: "Alba en la Malva-rosa",
+                space: "Estació Espacial sobre València",
+                lonja_mercado: "Mercat Central (1920)",
+                cac: "Ciutat de les Arts i les Ciències",
+                valencia: "Barraca en l'Albufera",
+                naranjos_360: "Camp de Tarongers",
+                mestalla: "Estadi de Mestalla"
+            },
+            ambientsTitles: {
+                serranos: "🛡️ Torres de Serrans i la Senyera",
+                xativa: "🏰 Castell de Xàtiva",
+                cyberpunk: "⚡ Ciutat de les Arts Cyberpunk",
+                malvarrosa: "🌅 Alba en la Malva-rosa",
+                space: "🚀 Estació Espacial sobre València",
+                lonja_mercado: "🕰️ Mercat Central (1920)",
+                cac: "🏙️ Ciutat de les Arts i les Ciències",
+                valencia: "🍊 Barraca en l'Albufera",
+                naranjos_360: "🍊 Camp de Tarongers",
+                mestalla: "🦇 Estadi de Mestalla"
+            }
+        },
+        cas: {
+            badge: "EMISIÓN EN DIRECTO",
+            tagline: "Tu compañía de fondo para trabajar y estudiar",
+            playingLabel: "SONANDO AHORA",
+            loadingEmision: "Cargando emisión...",
+            ambientLabel: "AMBIENTE ACTUAL:",
+            loadingAmbient: "Cargando...",
+            btnPlay: "Reproducir",
+            btnPause: "Pausar",
+            btnFullscreenEnter: "Pantalla Completa",
+            btnFullscreenExit: "Salir de Pantalla Completa",
+            btnMinimize: "Minimizar Reproductor",
+            btnMaximize: "Maximizar Reproductor",
+            btnShowAmbients: "Mostrar ambientes",
+            btnHideAmbients: "Ocultar ambientes",
+            comingNext: "PRÓXIMAMENTE",
+            onTheDot: "A LAS EN PUNTO: EL MÓN DE JUAN Y PATRI",
+            defaultTitle: "Valencianismo Radio - Directo",
+            ambients: {
+                serranos: "Torres de Serranos y la Senyera",
+                xativa: "Castell de Xàtiva",
+                cyberpunk: "Ciutat de les Arts Cyberpunk",
+                malvarrosa: "Amanecer en la Malvarrosa",
+                space: "Estación Espacial sobre Valencia",
+                lonja_mercado: "Mercado Central (1920)",
+                cac: "Ciutat de les Arts i les Ciències",
+                valencia: "Barraca en la Albufera",
+                naranjos_360: "Campo de Naranjos",
+                mestalla: "Estadio de Mestalla"
+            },
+            ambientsTitles: {
+                serranos: "🛡️ Torres de Serranos y la Senyera",
+                xativa: "🏰 Castell de Xàtiva",
+                cyberpunk: "⚡ Ciutat de las Arts Cyberpunk",
+                malvarrosa: "🌅 Amanecer en la Malvarrosa",
+                space: "🚀 Estación Espacial sobre Valencia",
+                lonja_mercado: "🕰️ Mercado Central (1920)",
+                cac: "🏙️ Ciudad de las Artes y las Ciencias",
+                valencia: "🍊 Barraca en la Albufera",
+                naranjos_360: "🍊 Campo de Naranjos",
+                mestalla: "🦇 Estadio de Mestalla"
+            }
+        }
+    };
+
+    let currentLang = localStorage.getItem('lofi-lang') || 'val';
     
     // Mapeo de ambientes (Modo Ilustración y Modo Foto)
     const AMBIENTS = {
@@ -103,6 +195,9 @@ document.addEventListener('DOMContentLoaded', () => {
     // Elementos DOM
     const bgContainer = document.getElementById('bg-container');
     const ambientNameDisplay = document.getElementById('ambient-name');
+    const ambientLabelText = document.getElementById('ambient-label-text');
+    const langSwitcher = document.getElementById('lang-switcher');
+    const langBtns = document.querySelectorAll('.lang-btn');
     const playButtons = document.querySelectorAll('.play-btn');
     const radioAudio = document.getElementById('radio-audio');
     const trackTitle = document.getElementById('track-title');
@@ -127,6 +222,7 @@ document.addEventListener('DOMContentLoaded', () => {
     radioAudio.volume = 0.8;
 
     function updatePlayUI(playing) {
+        const dict = TRANSLATIONS[currentLang];
         playButtons.forEach(btn => {
             const playSvg = btn.querySelector('.play-icon');
             const pauseSvg = btn.querySelector('.pause-icon');
@@ -134,11 +230,11 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (playing) {
                     playSvg.classList.add('hidden');
                     pauseSvg.classList.remove('hidden');
-                    btn.setAttribute('aria-label', 'Pausar');
+                    btn.setAttribute('aria-label', dict.btnPause);
                 } else {
                     playSvg.classList.remove('hidden');
                     pauseSvg.classList.add('hidden');
-                    btn.setAttribute('aria-label', 'Reproducir');
+                    btn.setAttribute('aria-label', dict.btnPlay);
                 }
             }
         });
@@ -181,7 +277,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // Cambiar la imagen de fondo con transición CSS3 suave
         bgContainer.style.backgroundImage = `url(${bgUrl})`;
-        ambientNameDisplay.textContent = amb.name;
+        
+        const dict = TRANSLATIONS[currentLang];
+        ambientNameDisplay.textContent = dict.ambients[ambientKey] || amb.name;
 
         bgContainer.style.backgroundSize = 'cover';
         bgContainer.style.backgroundRepeat = 'no-repeat';
@@ -254,8 +352,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     function togglePlayerMinimize() {
         const isMinimized = playerPanel.classList.toggle('minimized');
+        const dict = TRANSLATIONS[currentLang];
         togglePlayerBtn.textContent = isMinimized ? '▲' : '▼';
-        togglePlayerBtn.title = isMinimized ? 'Maximizar Reproductor' : 'Minimizar Reproductor';
+        togglePlayerBtn.title = isMinimized ? dict.btnMaximize : dict.btnMinimize;
         
         // Recalcular posicionamiento de margen de 5px tras redimensionarse
         setTimeout(positionPanel, 150);
@@ -265,9 +364,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // En dispositivos móviles (ancho <= 580px) arranca minimizado por defecto
     if (window.innerWidth <= 580) {
+        const dict = TRANSLATIONS[currentLang];
         playerPanel.classList.add('minimized');
         togglePlayerBtn.textContent = '▲';
-        togglePlayerBtn.title = 'Maximizar Reproductor';
+        togglePlayerBtn.title = dict.btnMaximize;
     }
 
     // --- Desplegar / Colapsar Selector de Ambientes ---
@@ -276,8 +376,9 @@ document.addEventListener('DOMContentLoaded', () => {
 
     toggleSelectorBtn.addEventListener('click', () => {
         const isCollapsed = ambientSelectorWrapper.classList.toggle('collapsed');
+        const dict = TRANSLATIONS[currentLang];
         toggleSelectorBtn.textContent = isCollapsed ? '▲' : '▼';
-        toggleSelectorBtn.title = isCollapsed ? 'Mostrar ambientes' : 'Ocultar ambientes';
+        toggleSelectorBtn.title = isCollapsed ? dict.btnShowAmbients : dict.btnHideAmbients;
         
         // Ajustar posición del panel al cambiar de altura
         setTimeout(positionPanel, 150);
@@ -325,11 +426,12 @@ document.addEventListener('DOMContentLoaded', () => {
     
     if (fullscreenBtn) {
         fullscreenBtn.addEventListener('click', () => {
+            const dict = TRANSLATIONS[currentLang];
             if (!isFullscreen()) {
                 enterFullscreen(document.documentElement)
                     .then(() => {
                         fullscreenBtn.textContent = '🗗';
-                        fullscreenBtn.title = 'Salir de Pantalla Completa';
+                        fullscreenBtn.title = dict.btnFullscreenExit;
                     })
                     .catch(err => {
                         console.error(`Error al activar pantalla completa: ${err.message}`);
@@ -337,7 +439,7 @@ document.addEventListener('DOMContentLoaded', () => {
             } else {
                 exitFullscreen().then(() => {
                     fullscreenBtn.textContent = '⛶';
-                    fullscreenBtn.title = 'Pantalla Completa';
+                    fullscreenBtn.title = dict.btnFullscreenEnter;
                 }).catch(err => {
                     console.error(`Error al salir de pantalla completa: ${err.message}`);
                 });
@@ -347,13 +449,14 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Sincronizar el botón si se sale pulsando ESC
     const syncFullscreenState = () => {
+        const dict = TRANSLATIONS[currentLang];
         if (fullscreenBtn) {
             if (!isFullscreen()) {
                 fullscreenBtn.textContent = '⛶';
-                fullscreenBtn.title = 'Pantalla Completa';
+                fullscreenBtn.title = dict.btnFullscreenEnter;
             } else {
                 fullscreenBtn.textContent = '🗗';
-                fullscreenBtn.title = 'Salir de Pantalla Completa';
+                fullscreenBtn.title = dict.btnFullscreenExit;
             }
         }
     };
@@ -426,15 +529,17 @@ document.addEventListener('DOMContentLoaded', () => {
         // Si estamos en los últimos 15 segundos del minuto, no mostrar aviso (para que rote la canción)
         if (curS >= 45) return null;
 
+        const dict = TRANSLATIONS[currentLang];
+
         for (const prog of SCHEDULE) {
             const progTotalMinutes = prog.h * 60 + prog.m;
             const diff = progTotalMinutes - totalMinutesNow;
             if (diff > 0 && diff <= 5) {
-                return `PRÓXIMAMENTE (${prog.h}:${prog.m.toString().padStart(2,'0')}h): ${prog.name}`;
+                return `${dict.comingNext} (${prog.h}:${prog.m.toString().padStart(2,'0')}h): ${prog.name}`;
             }
         }
         if (curM >= 57 && curM < 60) {
-            return `A LAS EN PUNTO: EL MÓN DE JUAN Y PATRI`;
+            return dict.onTheDot;
         }
         return null;
     }
@@ -495,7 +600,8 @@ document.addEventListener('DOMContentLoaded', () => {
             console.error("Error al refrescar metadatos:", e);
             // Fallback si falla la petición a Icecast
             if (!lastTrack) {
-                trackTitle.textContent = 'Valencianismo Radio - Directo';
+                const dict = TRANSLATIONS[currentLang];
+                trackTitle.textContent = dict.defaultTitle;
             }
         }
     }
@@ -991,4 +1097,84 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
+
+    // --- Lógica del Conmutador de Idiomas ---
+    function updateLanguageUI() {
+        const dict = TRANSLATIONS[currentLang];
+        
+        // 1. Slider del switcher e indicador de estado activo
+        if (langSwitcher) {
+            langSwitcher.setAttribute('data-active-lang', currentLang);
+        }
+        langBtns.forEach(btn => {
+            if (btn.getAttribute('data-lang') === currentLang) {
+                btn.classList.add('active');
+            } else {
+                btn.classList.remove('active');
+            }
+        });
+        
+        // 2. Badge de cabecera
+        const badge = playerPanel.querySelector('.badge');
+        if (badge) badge.textContent = dict.badge;
+        
+        // 3. Tagline
+        const tagline = playerPanel.querySelector('.tagline');
+        if (tagline) tagline.textContent = dict.tagline;
+        
+        // 4. Sonando ahora label
+        const nowPlayingLabel = playerPanel.querySelector('.now-playing-label');
+        if (nowPlayingLabel) nowPlayingLabel.textContent = dict.playingLabel;
+        
+        // 5. Ambient label text y ambient actual
+        if (ambientLabelText) ambientLabelText.textContent = dict.ambientLabel;
+        if (ambientNameDisplay && currentAmbient) {
+            ambientNameDisplay.textContent = dict.ambients[currentAmbient] || dict.loadingAmbient;
+        }
+        
+        // 6. Títulos de los botones principales del panel
+        if (togglePlayerBtn) {
+            const isMin = playerPanel.classList.contains('minimized');
+            togglePlayerBtn.title = isMin ? dict.btnMaximize : dict.btnMinimize;
+        }
+        if (fullscreenBtn) {
+            const isFs = isFullscreen();
+            fullscreenBtn.title = isFs ? dict.btnFullscreenExit : dict.btnFullscreenEnter;
+        }
+        if (toggleSelectorBtn) {
+            const isCollapsed = ambientSelectorWrapper.classList.contains('collapsed');
+            toggleSelectorBtn.title = isCollapsed ? dict.btnShowAmbients : dict.btnHideAmbients;
+        }
+        
+        // 7. Títulos de los ambientes en la cuadrícula
+        ambientButtons.forEach(btn => {
+            const ambKey = btn.getAttribute('data-ambient');
+            if (ambKey && dict.ambientsTitles[ambKey]) {
+                btn.title = dict.ambientsTitles[ambKey];
+            }
+        });
+        
+        // Sincronizar el estado del botón de Play/Pause en aria-labels
+        updatePlayUI(isPlaying);
+        
+        // Refrescar metadatos de la canción
+        fetchMetadata();
+    }
+
+    if (langBtns.length > 0) {
+        langBtns.forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const selectedLang = btn.getAttribute('data-lang');
+                if (selectedLang && selectedLang !== currentLang) {
+                    currentLang = selectedLang;
+                    localStorage.setItem('lofi-lang', currentLang);
+                    updateLanguageUI();
+                }
+            });
+        });
+    }
+
+    // Inicialización del idioma
+    updateLanguageUI();
 });
