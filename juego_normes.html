@@ -701,88 +701,178 @@
             const seed = (index * 123.456) % 100;
             const hitColor = isCorrect ? "#00ff41" : "#ff003c";
 
+            // 1. Draw the physical/digital impact mark on the board FIRST (at x, y)
+            octx.save();
             octx.translate(x, y);
 
-            // Digital impact ring
+            // A circular digital burn mark
+            const burnGrad = octx.createRadialGradient(0, 0, 2, 0, 0, size * 1.2);
+            burnGrad.addColorStop(0, "#000000");
+            burnGrad.addColorStop(0.3, isCorrect ? "rgba(0, 255, 65, 0.45)" : "rgba(255, 0, 60, 0.45)");
+            burnGrad.addColorStop(1, "rgba(0, 0, 0, 0)");
+            octx.fillStyle = burnGrad;
             octx.beginPath();
-            octx.arc(0, 0, size * 0.8, 0, Math.PI * 2);
+            octx.arc(0, 0, size * 1.2, 0, Math.PI * 2);
+            octx.fill();
+
+            // Puncture hole (needle hole)
+            octx.fillStyle = "#000000";
+            octx.beginPath();
+            octx.arc(0, 0, size * 0.18, 0, Math.PI * 2);
+            octx.fill();
             octx.strokeStyle = hitColor;
-            octx.lineWidth = size * 0.1;
+            octx.lineWidth = 1;
             octx.stroke();
 
-            // Glitch horizontal lines at impact
+            // Radial crack/fracture lines for realism
+            octx.strokeStyle = "rgba(255, 255, 255, 0.25)";
+            octx.lineWidth = 1.2;
+            const numCracks = 4 + (index % 3);
+            for (let i = 0; i < numCracks; i++) {
+                const angle = (i * Math.PI * 2 / numCracks) + (seed * 0.1);
+                const len = size * (0.4 + (seed % 0.4));
+                octx.beginPath();
+                octx.moveTo(0, 0);
+                octx.lineTo(Math.cos(angle) * len, Math.sin(angle) * len);
+                octx.stroke();
+            }
+
+            // Digital impact concentric ring
+            octx.beginPath();
+            octx.arc(0, 0, size * 0.7, 0, Math.PI * 2);
+            octx.strokeStyle = hitColor;
+            octx.lineWidth = size * 0.08;
+            octx.stroke();
+
+            // Glitch horizontal lines
             octx.fillStyle = hitColor;
             for(let i=0; i<3; i++) {
-                const gw = size * (1.5 + (seed % 3));
-                const gh = size * 0.15;
-                const gy = (i - 1) * size * 0.4;
-                const gx = ((seed * (i+1)) % 20) - 10;
+                const gw = size * (1.2 + (seed % 2));
+                const gh = size * 0.1;
+                const gy = (i - 1) * size * 0.35;
+                const gx = ((seed * (i+1)) % 16) - 8;
                 octx.fillRect(gx - gw/2, gy - gh/2, gw, gh);
             }
 
+            octx.restore(); // restore from the impact mark translation
+
+            // 2. Draw the dart if drawObject is true
             if (drawObject) {
-                // Cyber dart body
+                octx.save();
+                octx.translate(x, y);
+                
                 const rotations = [-Math.PI/6, -Math.PI/4, -Math.PI/12, -Math.PI/3];
                 const rot = rotations[index % rotations.length] || -Math.PI/4;
                 octx.rotate(rot);
 
-                // Glow shadow
-                octx.shadowColor = hitColor;
-                octx.shadowBlur = 15;
-
-                // Cyber stem
+                // Tip/needle (stuck in the board)
+                octx.strokeStyle = "#888888";
+                octx.lineWidth = size * 0.08;
                 octx.beginPath();
                 octx.moveTo(0, 0);
-                octx.lineTo(size * 2.5, -size * 2.5);
-                octx.strokeStyle = "#ffffff";
-                octx.lineWidth = size * 0.15;
-                octx.lineCap = "round";
+                octx.lineTo(size * 0.4, -size * 0.4);
                 octx.stroke();
 
-                // Cyber neon core in the stem
+                // Barrel (main metallic weight with grip and neon strip)
+                const barrelLength = size * 1.1;
+                const barrelWidth = size * 0.22;
+                
+                octx.save();
+                octx.translate(size * 0.4, -size * 0.4);
+                octx.rotate(-Math.PI/4); // align horizontally for drawing gradient
+                
+                // Chrome steel gradient for the barrel
+                const barrelGrad = octx.createLinearGradient(0, -barrelWidth/2, 0, barrelWidth/2);
+                barrelGrad.addColorStop(0, "#444444");
+                barrelGrad.addColorStop(0.3, "#ffffff");
+                barrelGrad.addColorStop(0.5, "#aaaaaa");
+                barrelGrad.addColorStop(0.8, "#333333");
+                barrelGrad.addColorStop(1, "#222222");
+
+                octx.fillStyle = barrelGrad;
+                octx.fillRect(0, -barrelWidth/2, barrelLength, barrelWidth);
+
+                // Knurling grooves (grip texture)
+                octx.strokeStyle = "#111111";
+                octx.lineWidth = 1.5;
+                for (let i = 2; i < barrelLength - 2; i += 4) {
+                    octx.beginPath();
+                    octx.moveTo(i, -barrelWidth/2);
+                    octx.lineTo(i, barrelWidth/2);
+                    octx.stroke();
+                }
+
+                // Cyber neon stripe in the center of the barrel
+                octx.fillStyle = hitColor;
+                octx.shadowColor = hitColor;
+                octx.shadowBlur = 8;
+                octx.fillRect(2, -barrelWidth * 0.1, barrelLength - 4, barrelWidth * 0.2);
+                octx.shadowBlur = 0; // reset shadow
+                
+                octx.restore();
+
+                // Shaft (connecting stem)
+                octx.strokeStyle = "#2b2b2b";
+                octx.lineWidth = size * 0.1;
                 octx.beginPath();
-                octx.moveTo(size * 0.2, -size * 0.2);
-                octx.lineTo(size * 2.3, -size * 2.3);
+                octx.moveTo(size * 1.18, -size * 1.18);
+                octx.lineTo(size * 1.75, -size * 1.75);
+                octx.stroke();
+
+                // Glow shadow for neon fins/flights
+                octx.shadowColor = hitColor;
+                octx.shadowBlur = 12;
+
+                // Flight / wings (stiff futuristic cyber flight)
+                octx.fillStyle = "rgba(17, 17, 17, 0.9)";
                 octx.strokeStyle = hitColor;
                 octx.lineWidth = size * 0.08;
+
+                // Top fin
+                octx.beginPath();
+                octx.moveTo(size * 1.6, -size * 1.6);
+                octx.lineTo(size * 2.5, -size * 2.2);
+                octx.lineTo(size * 2.2, -size * 2.5);
+                octx.lineTo(size * 1.7, -size * 1.7);
+                octx.closePath();
+                octx.fill(); octx.stroke();
+
+                // Bottom fin (slightly larger/asymmetrical for 3D effect)
+                octx.beginPath();
+                octx.moveTo(size * 1.6, -size * 1.6);
+                octx.lineTo(size * 2.2, -size * 2.5);
+                octx.lineTo(size * 2.8, -size * 2.0);
+                octx.lineTo(size * 1.7, -size * 1.7);
+                octx.closePath();
+                octx.fill(); octx.stroke();
+
+                // Neon flight core
+                octx.strokeStyle = "#ffffff";
+                octx.lineWidth = size * 0.04;
+                octx.beginPath();
+                octx.moveTo(size * 1.7, -size * 1.7);
+                octx.lineTo(size * 2.3, -size * 2.3);
                 octx.stroke();
-                
-                octx.shadowBlur = 0; // reset
 
-                // Tech fins (cola)
-                octx.fillStyle = "#111";
-                octx.strokeStyle = hitColor;
-                octx.lineWidth = size * 0.05;
-
-                octx.beginPath();
-                octx.moveTo(size * 1.8, -size * 1.8);
-                octx.lineTo(size * 2.8, -size * 1.5);
-                octx.lineTo(size * 2.5, -size * 2.5);
-                octx.fill(); octx.stroke();
-
-                octx.beginPath();
-                octx.moveTo(size * 1.8, -size * 1.8);
-                octx.lineTo(size * 1.5, -size * 2.8);
-                octx.lineTo(size * 2.5, -size * 2.5);
-                octx.fill(); octx.stroke();
+                octx.restore();
             } else {
                 // For the final picture, just draw a big digital burn mark
                 const scale = isCorrect ? 2.5 : 1.5;
                 octx.fillStyle = isCorrect ? "rgba(0,255,65,0.2)" : "rgba(255,0,60,0.2)";
                 octx.beginPath();
-                octx.arc(0, 0, size * scale, 0, Math.PI * 2);
+                octx.arc(x, y, size * scale, 0, Math.PI * 2);
                 octx.fill();
                 
                 // Tech rings
                 octx.strokeStyle = hitColor;
                 octx.lineWidth = size * 0.1;
-                octx.beginPath(); octx.arc(0, 0, size * scale * 0.8, 0, Math.PI * 2); octx.stroke();
-                octx.beginPath(); octx.arc(0, 0, size * scale * 0.4, 0, Math.PI * 2); octx.stroke();
+                octx.beginPath(); octx.arc(x, y, size * scale * 0.8, 0, Math.PI * 2); octx.stroke();
+                octx.beginPath(); octx.arc(x, y, size * scale * 0.4, 0, Math.PI * 2); octx.stroke();
 
                 // Cross
                 octx.beginPath();
-                octx.moveTo(-size * scale, 0); octx.lineTo(size * scale, 0);
-                octx.moveTo(0, -size * scale); octx.lineTo(0, size * scale);
+                octx.moveTo(x - size * scale, y); octx.lineTo(x + size * scale, y);
+                octx.moveTo(x, y - size * scale); octx.lineTo(x, y + size * scale);
                 octx.stroke();
 
                 // Hexagon
@@ -790,8 +880,8 @@
                 for (let i = 0; i < 6; i++) {
                     const angle = i * Math.PI / 3;
                     const r = size * scale * 1.1;
-                    if (i === 0) octx.moveTo(Math.cos(angle)*r, Math.sin(angle)*r);
-                    else octx.lineTo(Math.cos(angle)*r, Math.sin(angle)*r);
+                    if (i === 0) octx.moveTo(x + Math.cos(angle)*r, y + Math.sin(angle)*r);
+                    else octx.lineTo(x + Math.cos(angle)*r, y + Math.sin(angle)*r);
                 }
                 octx.closePath();
                 octx.lineWidth = size * 0.05;
@@ -842,7 +932,7 @@
             octx.font = `bold ${fontSize}px sans-serif`;
             octx.textAlign = "center";
             octx.textBaseline = "middle";
-            const scoreText = gameMode === 1 ? `Puntuació al Tir al Moniato suecà: ${totalScore} punts!` : `Puntuació a La Moniata Estelada: ${totalScore} punts!`;
+            const scoreText = gameMode === 1 ? `Puntuació al Tir al Moniato suecà: ${totalScore} punts!` : `Puntuació al Tir al Moniato 2: ${totalScore} punts!`;
             octx.fillText(scoreText, offCanvas.width/2, offCanvas.height - (barHeight / 2));
 
             return offCanvas;
@@ -862,7 +952,7 @@
         document.getElementById('btn-share').addEventListener('click', async (e) => {
             e.stopPropagation();
             const offCanvas = generateMoniatoImage();
-            const shareTitle = gameMode === 1 ? '🪶 Tir al Moniato 1' : '🔥 La Moniata Estelada';
+            const shareTitle = gameMode === 1 ? '🪶 Tir al Moniato 1' : '⚡ Tir al Moniato 2';
             const shareText = `He fet ${totalScore} punts al "${shareTitle}" de Valencianismo Radio! ¿Pots superar-ho? Juga ací: https://valencianismo.com`;
             
             if (navigator.canShare) {
