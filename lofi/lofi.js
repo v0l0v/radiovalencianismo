@@ -517,9 +517,12 @@ document.addEventListener('DOMContentLoaded', () => {
         const panelWidth = playerPanel.offsetWidth;
         const panelHeight = playerPanel.offsetHeight;
         
-        // Esquina inferior izquierda (20px de margen)
-        let left = 20;
-        let top = window.innerHeight - panelHeight - 20; 
+        const isMobile = window.innerWidth <= 580;
+        const margin = isMobile ? 15 : 20;
+        
+        // Esquina inferior izquierda
+        let left = margin;
+        let top = window.innerHeight - panelHeight - margin; 
         
         // Limitar al margen de 5px en pantallas muy pequeñas
         left = Math.max(5, Math.min(left, window.innerWidth - panelWidth - 5));

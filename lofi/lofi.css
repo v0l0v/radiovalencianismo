@@ -683,34 +683,38 @@ body, html {
         box-shadow: var(--shadow-premium) !important;
         backdrop-filter: blur(25px) !important;
         -webkit-backdrop-filter: blur(25px) !important;
-        padding: 0.6rem 0.8rem !important;
-        width: 300px !important;
-        max-width: calc(100% - 30px) !important;
+        padding: 0.4rem 0.5rem !important;
+        width: auto !important;
+        min-width: 0 !important;
+        max-width: 120px !important;
         height: auto !important;
         bottom: 15px !important;
         left: 15px !important;
-        border-radius: 1.2rem !important;
+        border-radius: 50px !important;
         overflow: hidden !important;
         display: flex !important;
         flex-direction: row !important;
         align-items: center !important;
+        justify-content: center !important;
+    }
+
+    .player-panel.minimized .player-header {
+        width: auto !important;
+        display: flex !important;
+        flex-direction: row !important;
+        align-items: center !important;
+        gap: 0.5rem !important;
     }
 
     .player-panel.minimized .player-header-text {
-        display: flex !important;
-        flex: 1 !important;
-        overflow: hidden !important;
-    }
-
-    .player-panel.minimized .title-row {
-        width: auto !important;
-        gap: 0.5rem !important;
+        display: none !important;
     }
 
     .player-panel.minimized .player-header-actions {
         display: flex !important;
         align-items: center !important;
-        gap: 0.4rem !important;
+        justify-content: center !important;
+        gap: 0 !important;
         flex-shrink: 0 !important;
     }
 
@@ -725,15 +729,22 @@ body, html {
         width: 32px !important;
         height: 32px !important;
         border-radius: 50% !important;
-        background: rgba(255, 255, 255, 0.04) !important;
-        border: 1px solid rgba(255, 255, 255, 0.06) !important;
-        color: rgba(255, 255, 255, 0.55) !important;
+        background: rgba(255, 255, 255, 0.08) !important;
+        border: 1px solid rgba(255, 255, 255, 0.12) !important;
+        color: #ffffff !important;
         display: flex !important;
         align-items: center !important;
         justify-content: center !important;
         box-shadow: none !important;
         backdrop-filter: none !important;
         -webkit-backdrop-filter: none !important;
+        font-size: 0.85rem !important;
+        transition: transform 0.2s ease, background-color 0.2s ease !important;
+    }
+
+    .player-panel.minimized .player-toggle-btn:hover {
+        background: rgba(255, 255, 255, 0.18) !important;
+        transform: scale(1.05);
     }
 
     .player-panel.minimized .player-logo {
@@ -741,19 +752,8 @@ body, html {
         height: 32px !important;
     }
 
-    .player-panel.minimized .radio-title {
-        font-size: 1.05rem !important;
-    }
-
     .player-panel.minimized .header-play-btn {
-        width: 28px !important;
-        height: 28px !important;
-        display: flex !important;
-    }
-
-    .player-panel.minimized .header-play-btn svg {
-        width: 10px !important;
-        height: 10px !important;
+        display: none !important;
     }
 
     .radio-title {
