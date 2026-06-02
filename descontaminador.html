@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>EL DESCONTAMINADOR | Valencianismo Radio</title>
+    <meta name="description" content="Año 2026. Aísla el virus lingüístico e incinera los vocablos infectados. Protege la lengua valenciana.">
+    <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=Outfit:wght@400;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --bg-color: #050505;
+            --term-green: #00ff41;
+            --term-red: #ff003c;
+            --term-dim: #008f11;
+            --card-bg: #111;
+        }
+
+        * {
+            box-sizing: border-box;
+            user-select: none;
+            -webkit-user-select: none;
+        }
+
+        body {
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-color);
+            color: var(--term-green);
+            font-family: 'Share Tech Mono', monospace;
+            height: 100vh;
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+            background-image: 
+                linear-gradient(rgba(0, 255, 65, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 65, 0.03) 1px, transparent 1px);
+            background-size: 20px 20px;
+        }
+
+        /* CRT Scanline effect */
+        body::after {
+            content: " ";
+            display: block;
+            position: absolute;
+            top: 0;
+            left: 0;
+            bottom: 0;
+            right: 0;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+            z-index: 2;
+            background-size: 100% 2px, 3px 100%;
+            pointer-events: none;
+        }
+
+        header {
+            padding: 20px;
+            text-align: center;
+            border-bottom: 2px solid var(--term-dim);
+            position: relative;
+            z-index: 10;
+            background: rgba(5,5,5,0.8);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: 1.5rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px var(--term-green);
+        }
+
+        .subtitle {
+            font-size: 0.8rem;
+            color: var(--term-dim);
+            margin-top: 5px;
+        }
+
+        #game-container {
+            flex: 1;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            z-index: 10;
+        }
+
+        /* TINDER CARDS */
+        .card-stack {
+            position: relative;
+            width: 300px;
+            height: 400px;
+        }
+
+        .card {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: var(--card-bg);
+            border: 2px solid var(--term-dim);
+            border-radius: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-family: 'Outfit', sans-serif;
+            font-size: 2.5rem;
+            font-weight: 800;
+            color: #fff;
+            box-shadow: 0 0 20px rgba(0, 143, 17, 0.2);
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            cursor: grab;
+            text-align: center;
+            padding: 20px;
+            word-break: break-word;
+            will-change: transform;
+        }
+
+        .card.dragging {
+            transition: none;
+            cursor: grabbing;
+        }
+
+        /* STAMPS */
+        .stamp {
+            position: absolute;
+            top: 40px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 2rem;
+            font-weight: bold;
+            text-transform: uppercase;
+            padding: 5px 10px;
+            border: 4px solid;
+            border-radius: 10px;
+            opacity: 0;
+            transform: scale(0.5);
+            pointer-events: none;
+            z-index: 100;
+        }
+
+        .stamp.incinerate {
+            right: 20px;
+            color: var(--term-red);
+            border-color: var(--term-red);
+            text-shadow: 0 0 10px var(--term-red);
+            box-shadow: 0 0 10px var(--term-red), inset 0 0 10px var(--term-red);
+            transform: rotate(15deg) scale(0.5);
+        }
+
+        .stamp.save {
+            left: 20px;
+            color: var(--term-green);
+            border-color: var(--term-green);
+            text-shadow: 0 0 10px var(--term-green);
+            box-shadow: 0 0 10px var(--term-green), inset 0 0 10px var(--term-green);
+            transform: rotate(-15deg) scale(0.5);
+        }
+
+        .controls-hint {
+            position: absolute;
+            bottom: 30px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 30px;
+            font-size: 0.9rem;
+            opacity: 0.5;
+            z-index: 10;
+        }
+
+        .hint-left { color: var(--term-red); }
+        .hint-right { color: var(--term-green); }
+
+        /* SCREENS */
+        .screen {
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(5,5,5,0.95);
+            z-index: 50;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 30px;
+            text-align: center;
+        }
+
+        .hidden { display: none !important; }
+
+        .btn {
+            background: transparent;
+            color: var(--term-green);
+            border: 2px solid var(--term-green);
+            padding: 15px 30px;
+            font-family: 'Share Tech Mono', monospace;
+            font-size: 1.2rem;
+            cursor: pointer;
+            margin-top: 30px;
+            text-transform: uppercase;
+            transition: all 0.2s;
+            box-shadow: 0 0 10px rgba(0, 255, 65, 0.3);
+        }
+
+        .btn:hover {
+            background: var(--term-green);
+            color: #000;
+            box-shadow: 0 0 20px var(--term-green);
+        }
+
+        .typewriter {
+            overflow: hidden;
+            border-right: .15em solid var(--term-green);
+            white-space: pre-wrap;
+            margin: 0 auto;
+            letter-spacing: .1em;
+            animation: typing 3s steps(40, end), blink-caret .75s step-end infinite;
+            text-align: left;
+            max-width: 600px;
+            line-height: 1.6;
+        }
+
+        @keyframes blink-caret {
+            from, to { border-color: transparent }
+            50% { border-color: var(--term-green); }
+        }
+
+        /* Glitch effect for mistakes */
+        @keyframes glitch {
+            0% { transform: translate(0) }
+            20% { transform: translate(-5px, 5px) }
+            40% { transform: translate(-5px, -5px) }
+            60% { transform: translate(5px, 5px) }
+            80% { transform: translate(5px, -5px) }
+            100% { transform: translate(0) }
+        }
+        .glitching {
+            animation: glitch 0.2s linear infinite;
+            filter: hue-rotate(90deg) drop-shadow(0 0 20px red);
+        }
+        
+        #hud {
+            position: absolute;
+            top: 90px;
+            width: 100%;
+            display: flex;
+            justify-content: space-between;
+            padding: 0 20px;
+            z-index: 10;
+            font-size: 0.9rem;
+        }
+
+        .biohazard-icon {
+            font-size: 3rem;
+            color: var(--term-red);
+            margin-bottom: 20px;
+            text-shadow: 0 0 20px var(--term-red);
+            animation: pulse 2s infinite;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 0.5; transform: scale(0.95); }
+            50% { opacity: 1; transform: scale(1.05); }
+            100% { opacity: 0.5; transform: scale(0.95); }
+        }
+
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>[ EL DESCONTAMINADOR ]</h1>
+        <div class="subtitle">SISTEMA DE CUARENTENA LINGÜÍSTICA V.1.0</div>
+    </header>
+
+    <div id="hud" class="hidden">
+        <div>MUESTRAS: <span id="count-display">0/0</span></div>
+        <div>NIVEL DE INFECCIÓN: <span id="infection-display">0%</span></div>
+    </div>
+
+    <!-- PANTALLA DE INICIO -->
+    <div id="intro-screen" class="screen">
+        <div class="biohazard-icon">☣️</div>
+        <div class="typewriter" id="intro-text">
+INICIANDO SISTEMA...
+AÑO 2026. 
+SE HA DETECTADO UNA FUGA DE NEOCATALANISMOS EN LOS SERVIDORES OFICIALES. 
+EL CÓDIGO FUENTE DE NUESTROS ABUELOS ESTÁ CORROMPIDO.
+ERES EL ÚLTIMO OPERADOR ACTIVO.
+TU MISIÓN:
+← DESLIZA A LA IZQUIERDA PARA INCINERAR EL VIRUS (AVL/CAT)
+→ DESLIZA A LA DERECHA PARA GUARDAR EN EL BÚNKER (RACV/VAL)
+        </div>
+        <button class="btn" id="start-btn" style="opacity: 0;">INICIAR PURGA</button>
+    </div>
+
+    <!-- CONTENEDOR DEL JUEGO -->
+    <div id="game-container" class="hidden">
+        <div class="card-stack" id="card-stack">
+            <!-- Las cartas se generan aquí -->
+        </div>
+        <div class="controls-hint">
+            <span class="hint-left">← INCINERAR (AVL)</span>
+            <span class="hint-right">GUARDAR (RACV) →</span>
+        </div>
+    </div>
+
+    <!-- PANTALLA FINAL -->
+    <div id="end-screen" class="screen hidden">
+        <h2 id="end-title" style="font-size: 2.5rem; margin-bottom: 10px;">ANÁLISIS COMPLETADO</h2>
+        <p id="end-desc" style="font-size: 1.2rem; max-width: 600px; line-height: 1.5;"></p>
+        <div style="font-size: 4rem; margin: 20px 0; text-shadow: 0 0 20px var(--term-green);" id="end-score">100%</div>
+        <p style="color: var(--term-dim);">CERTIFICADO DE PUREZA LINGÜÍSTICA</p>
+        
+        <div style="display: flex; gap: 15px; margin-top: 20px;">
+            <button class="btn" onclick="location.reload()">REINICIAR SISTEMA</button>
+            <button class="btn" style="border-color: #1da1f2; color: #1da1f2;" onclick="shareResult()">COMPARTIR REPORTE</button>
+            <button class="btn" style="border-color: #ff9900; color: #ff9900;" onclick="window.location.href='index.html'">VOLVER A LA RADIO</button>
+        </div>
+    </div>
+
+    <script>
+        // BASE DE DATOS DEL VIRUS (AVL = infected, RACV = pure)
+        const vocabulary = [
+            { word: "Vacances", type: "infected" },
+            { word: "Vacacions", type: "pure" },
+            { word: "Aleshores", type: "infected" },
+            { word: "Llavors", type: "pure" },
+            { word: "València", type: "infected" }, 
+            { word: "Valéncia", type: "pure" }, 
+            { word: "Gairebé", type: "infected" },
+            { word: "Quasi", type: "pure" },
+            { word: "Sortida", type: "infected" },
+            { word: "Eixida", type: "pure" },
+            { word: "Esport", type: "infected" },
+            { word: "Deporte", type: "pure" },
+            { word: "Servei", type: "infected" },
+            { word: "Servici", type: "pure" },
+            { word: "Meva", type: "infected" },
+            { word: "Meua", type: "pure" },
+            { word: "Aquest", type: "infected" },
+            { word: "Este", type: "pure" },
+            { word: "Amb", type: "infected" },
+            { word: "En", type: "pure" },
+            { word: "Aviat", type: "infected" },
+            { word: "Proumpte", type: "pure" },
+            { word: "Despesa", type: "infected" },
+            { word: "Gasto", type: "pure" },
+            { word: "Nogensmenys", type: "infected" },
+            { word: "Aixina i tot", type: "pure" },
+            { word: "Recerca", type: "infected" },
+            { word: "Investigació", type: "pure" }
+        ];
+
+        let deck = [];
+        let currentIndex = 0;
+        let mistakes = 0;
+        let totalCards = 15; // Número de cartas por partida
+        
+        const stackEl = document.getElementById('card-stack');
+        const introScreen = document.getElementById('intro-screen');
+        const gameContainer = document.getElementById('game-container');
+        const endScreen = document.getElementById('end-screen');
+        const hud = document.getElementById('hud');
+
+        // Mostrar botón de inicio tras la animación de tecleo
+        setTimeout(() => {
+            document.getElementById('start-btn').style.opacity = '1';
+        }, 3500);
+
+        document.getElementById('start-btn').addEventListener('click', startGame);
+
+        function shuffle(array) {
+            return array.sort(() => Math.random() - 0.5);
+        }
+
+        function startGame() {
+            introScreen.classList.add('hidden');
+            gameContainer.classList.remove('hidden');
+            hud.classList.remove('hidden');
+            
+            // Preparar mazo
+            deck = shuffle([...vocabulary]).slice(0, totalCards);
+            currentIndex = 0;
+            mistakes = 0;
+            updateHUD();
+            renderCards();
+        }
+
+        function updateHUD() {
+            document.getElementById('count-display').innerText = `${currentIndex}/${totalCards}`;
+            const infectionRate = currentIndex === 0 ? 0 : Math.round((mistakes / currentIndex) * 100);
+            const infDisplay = document.getElementById('infection-display');
+            infDisplay.innerText = `${infectionRate}%`;
+            
+            if(infectionRate > 30) infDisplay.style.color = 'var(--term-red)';
+            else infDisplay.style.color = 'var(--term-green)';
+        }
+
+        function renderCards() {
+            stackEl.innerHTML = '';
+            // Renderizamos desde la última hasta la actual para que la actual quede arriba (z-index natural)
+            for (let i = deck.length - 1; i >= currentIndex; i--) {
+                const item = deck[i];
+                const isTopCard = (i === currentIndex);
+                
+                const card = document.createElement('div');
+                card.className = 'card';
+                card.innerText = item.word;
+                
+                // Efecto de apilamiento visual
+                const offset = i - currentIndex;
+                if (!isTopCard) {
+                    card.style.transform = `scale(${1 - offset * 0.05}) translateY(${offset * 15}px)`;
+                    card.style.zIndex = -offset;
+                    card.style.opacity = 1 - (offset * 0.2);
+                } else {
+                    card.style.zIndex = 10;
+                    initDrag(card, item);
+                }
+
+                // Sellos
+                const stampInc = document.createElement('div');
+                stampInc.className = 'stamp incinerate';
+                stampInc.innerText = 'INCINERADO';
+                
+                const stampSave = document.createElement('div');
+                stampSave.className = 'stamp save';
+                stampSave.innerText = 'BÚNKER';
+
+                card.appendChild(stampInc);
+                card.appendChild(stampSave);
+                stackEl.appendChild(card);
+            }
+        }
+
+        function initDrag(card, item) {
+            let isDragging = false;
+            let startX = 0;
+            let startY = 0;
+            let currentX = 0;
+            let currentY = 0;
+
+            const onStart = (e) => {
+                isDragging = true;
+                card.classList.add('dragging');
+                const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+                const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+                startX = clientX;
+                startY = clientY;
+            };
+
+            const onMove = (e) => {
+                if (!isDragging) return;
+                const clientX = e.type.includes('mouse') ? e.clientX : e.touches[0].clientX;
+                const clientY = e.type.includes('mouse') ? e.clientY : e.touches[0].clientY;
+                currentX = clientX - startX;
+                currentY = clientY - startY;
+                
+                const rotate = currentX * 0.05;
+                card.style.transform = `translate(${currentX}px, ${currentY}px) rotate(${rotate}deg)`;
+
+                // Opacidad de los sellos
+                const stampInc = card.querySelector('.incinerate');
+                const stampSave = card.querySelector('.save');
+                
+                if (currentX < 0) {
+                    stampInc.style.opacity = Math.min(1, Math.abs(currentX) / 100);
+                    stampInc.style.transform = `rotate(15deg) scale(${0.5 + Math.abs(currentX)/300})`;
+                    stampSave.style.opacity = 0;
+                } else {
+                    stampSave.style.opacity = Math.min(1, currentX / 100);
+                    stampSave.style.transform = `rotate(-15deg) scale(${0.5 + Math.abs(currentX)/300})`;
+                    stampInc.style.opacity = 0;
+                }
+            };
+
+            const onEnd = () => {
+                if (!isDragging) return;
+                isDragging = false;
+                card.classList.remove('dragging');
+
+                const threshold = 100;
+                if (currentX < -threshold) {
+                    handleSwipe('left', item, card);
+                } else if (currentX > threshold) {
+                    handleSwipe('right', item, card);
+                } else {
+                    // Reset
+                    card.style.transform = `translate(0px, 0px) rotate(0deg)`;
+                    card.querySelector('.incinerate').style.opacity = 0;
+                    card.querySelector('.save').style.opacity = 0;
+                }
+            };
+
+            card.addEventListener('mousedown', onStart);
+            document.addEventListener('mousemove', onMove);
+            document.addEventListener('mouseup', onEnd);
+
+            card.addEventListener('touchstart', onStart, { passive: true });
+            document.addEventListener('touchmove', onMove, { passive: false });
+            document.addEventListener('touchend', onEnd);
+        }
+
+        function triggerErrorGlitch() {
+            document.body.classList.add('glitching');
+            setTimeout(() => {
+                document.body.classList.remove('glitching');
+            }, 300);
+        }
+
+        function handleSwipe(direction, item, card) {
+            const isLeft = direction === 'left';
+            const endX = isLeft ? -window.innerWidth : window.innerWidth;
+            card.style.transition = 'transform 0.4s ease-out';
+            card.style.transform = `translate(${endX}px, ${isLeft ? 100 : -100}px) rotate(${isLeft ? -30 : 30}deg)`;
+
+            // Verificar si es correcto
+            // Infected -> Must swipe LEFT (Incinerate)
+            // Pure -> Must swipe RIGHT (Save)
+            const isCorrect = (item.type === 'infected' && isLeft) || (item.type === 'pure' && !isLeft);
+            
+            if (!isCorrect) {
+                mistakes++;
+                triggerErrorGlitch();
+            }
+
+            currentIndex++;
+            updateHUD();
+
+            setTimeout(() => {
+                if (currentIndex >= totalCards) {
+                    endGame();
+                } else {
+                    renderCards();
+                }
+            }, 300);
+        }
+
+        function endGame() {
+            gameContainer.classList.add('hidden');
+            hud.classList.add('hidden');
+            endScreen.classList.remove('hidden');
+
+            const scorePercent = Math.round(((totalCards - mistakes) / totalCards) * 100);
+            const scoreEl = document.getElementById('end-score');
+            const descEl = document.getElementById('end-desc');
+            const titleEl = document.getElementById('end-title');
+
+            scoreEl.innerText = `${scorePercent}% PUREZA`;
+
+            if (scorePercent === 100) {
+                scoreEl.style.color = '#00ff41';
+                titleEl.innerText = "SISTEMA DESCONTAMINADO";
+                descEl.innerText = "Precisión absoluta. Has erradicado la infección institucional y protegido el valenciano auténtico. La resistencia te saluda.";
+            } else if (scorePercent >= 70) {
+                scoreEl.style.color = '#ffb84d';
+                titleEl.innerText = "CONTENCIÓN ACEPTABLE";
+                descEl.innerText = "Has salvado la mayor parte de nuestra lengua, pero algunos catalanismos han logrado filtrarse en el búnker. Revisa tus diccionarios RACV.";
+            } else {
+                scoreEl.style.color = '#ff003c';
+                titleEl.innerText = "BRECHA DE SEGURIDAD";
+                descEl.innerText = "¡Alarma! Has permitido que el virus de la AVL contamine nuestro búnker. Tu memoria lingüística ha sido comprometida. Necesitas repasar L'Enciclopèdia urgentemente.";
+            }
+        }
+
+        function shareResult() {
+            const scorePercent = Math.round(((totalCards - mistakes) / totalCards) * 100);
+            const text = `He conseguido un ${scorePercent}% de pureza valenciana en EL DESCONTAMINADOR ☣️📻\n\n¿Puedes superar mi puntuación y salvar las Normes d'El Puig?\n\nJuega aquí: https://valencianismo.com/descontaminador.html`;
+            const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+        }
+
+    </script>
+</body>
+</html>
