@@ -226,17 +226,18 @@
         }
 
         /* Glitch effect for mistakes */
-        @keyframes glitch {
+        @keyframes glitch-shake {
             0% { transform: translate(0) }
-            20% { transform: translate(-5px, 5px) }
-            40% { transform: translate(-5px, -5px) }
-            60% { transform: translate(5px, 5px) }
-            80% { transform: translate(5px, -5px) }
+            20% { transform: translate(-15px, 15px) }
+            40% { transform: translate(-15px, -15px) }
+            60% { transform: translate(15px, 15px) }
+            80% { transform: translate(15px, -15px) }
             100% { transform: translate(0) }
         }
         .glitching {
-            animation: glitch 0.2s linear infinite;
-            filter: hue-rotate(90deg) drop-shadow(0 0 20px red);
+            animation: glitch-shake 0.15s linear infinite;
+            background-color: #ff0000 !important;
+            filter: hue-rotate(90deg) contrast(200%);
         }
         
         #hud {
@@ -262,6 +263,33 @@
             0% { opacity: 0.5; transform: scale(0.95); }
             50% { opacity: 1; transform: scale(1.05); }
             100% { opacity: 0.5; transform: scale(0.95); }
+        }
+
+        /* RESPONSIVE MÓVIL */
+        @media (max-width: 600px) {
+            h1 {
+                font-size: 1.1rem; /* Evita que salte de línea */
+            }
+            .subtitle {
+                font-size: 0.65rem;
+            }
+            .btn {
+                padding: 12px 15px;
+                font-size: 0.9rem;
+                width: 100%; /* Botones en bloque para que no desborden */
+                margin-top: 10px;
+            }
+            #end-screen > div {
+                flex-direction: column !important; /* Botones en vertical en vez de horizontal */
+                width: 100%;
+                gap: 10px !important;
+            }
+            #end-title {
+                font-size: 1.8rem !important;
+            }
+            #end-score {
+                font-size: 3rem !important;
+            }
         }
 
     </style>
