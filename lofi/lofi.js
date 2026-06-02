@@ -633,20 +633,17 @@ document.addEventListener('DOMContentLoaded', () => {
         }
 
         const panelWidth = playerPanel.offsetWidth;
-        const panelHeight = playerPanel.offsetHeight;
         const margin = isMobile ? 15 : 20;
         
         // Esquina inferior izquierda
         let left = margin;
-        let top = window.innerHeight - panelHeight - margin; 
         
-        // Limitar al margen de 5px en pantallas muy pequeñas
+        // Limitar al margen en pantallas muy pequeñas
         left = Math.max(5, Math.min(left, window.innerWidth - panelWidth - 5));
-        top = Math.max(5, Math.min(top, window.innerHeight - panelHeight - 5));
         
         playerPanel.style.left = `${left}px`;
-        playerPanel.style.top = `${top}px`;
-        playerPanel.style.bottom = 'auto'; // Desactivar bottom de CSS
+        playerPanel.style.bottom = `${margin}px`;
+        playerPanel.style.top = 'auto'; // Dejar que CSS expanda el alto hacia arriba naturalmente
         playerPanel.style.margin = '0';
     }
 
@@ -676,8 +673,10 @@ document.addEventListener('DOMContentLoaded', () => {
         startX = clientX;
         startY = clientY;
         
-        initialLeft = parseFloat(playerPanel.style.left) || 0;
-        initialTop = parseFloat(playerPanel.style.top) || 0;
+        // Usar offsetLeft y offsetTop en lugar de style.left y style.top porque
+        // positionPanel resetea top a 'auto', lo que causaría parseFloat('auto') = NaN = 0.
+        initialLeft = playerPanel.offsetLeft;
+        initialTop = playerPanel.offsetTop;
     }
 
     function drag(e) {
