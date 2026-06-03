@@ -586,10 +586,11 @@ body, html {
     align-items: center;
     gap: 0.4rem;
     transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
-    max-height: 160px;
+    max-height: 180px;
     opacity: 1;
     overflow: hidden;
     margin-top: 0.1rem;
+    padding-bottom: 0.8rem;
 }
 
 .ambient-selector-wrapper.collapsed {
@@ -639,7 +640,7 @@ body, html {
     padding: 0;
     width: 32px;
     height: 32px;
-    border-radius: 50%;
+    border-radius: 8px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -727,12 +728,15 @@ body, html {
 
 /* --- Marca de agua y extras --- */
 .watermark {
+    position: fixed;
+    bottom: 32px;
+    right: 80px;
     font-size: 0.75rem;
     letter-spacing: 5px;
     color: rgba(255, 255, 255, 0.12);
     font-weight: 800;
     text-transform: uppercase;
-    margin-top: 1rem;
+    z-index: 90;
 }
 
 .hidden {
@@ -879,6 +883,13 @@ body, html {
         .player-toggle-btn {
             display: none !important;
         }
+    }
+
+    .watermark {
+        position: static !important;
+        margin-top: 1rem !important;
+        text-align: center;
+        width: auto;
     }
 }
 
