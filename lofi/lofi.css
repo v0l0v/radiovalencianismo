@@ -748,11 +748,11 @@ body, html {
     .background-container {
         /* En móvil, para que no se recorte tanta imagen con "cover",
            ajustamos el contenedor para que mantenga proporción 16:9 
-           (120vh * 16 / 9 = 213.33vh). Así se puede desplazar por el fondo. */
-        width: 213.33vh;
-        height: 120vh;
-        left: calc(50vw - 106.66vh); /* Centrado por defecto */
-        top: -10vh;
+           y el menor zoom posible (100vh * 16 / 9 = 177.77vh). */
+        width: 177.77vh;
+        height: 100vh;
+        left: calc(50vw - 88.88vh); /* Centrado por defecto */
+        top: 0;
     }
 
     .app-container {

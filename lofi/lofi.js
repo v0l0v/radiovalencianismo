@@ -209,10 +209,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const dragSensitivityNormal = 0.15; // Sensibilidad del porcentaje por pixel arrastrado
 
     // Zoom (Zoom in / Zoom out)
-    let bgZoomTarget = 0.825;
-    let bgZoomCurrent = 0.825;
+    const ZOOM_MIN = 0.5; // Deja el máximo de fondo posible cubriendo la pantalla
+    let bgZoomTarget = ZOOM_MIN;
+    let bgZoomCurrent = ZOOM_MIN;
     const ZOOM_STEP = 0.35;
-    const ZOOM_MIN = 0.825; // Deja el máximo de fondo posible cubriendo la pantalla, escala resultante aprox 0.84
     const ZOOM_MAX = 3.0;
 
     // Elementos DOM
@@ -298,7 +298,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Restablecer el zoom al mínimo y centrar para ver el máximo de fondo
         bgTargetX = 50;
         bgTargetY = 50;
-        bgZoomTarget = 0.825;
+        bgZoomTarget = ZOOM_MIN;
         
         const amb = AMBIENTS[ambientKey];
         const bgUrl = amb.file_art;
@@ -803,7 +803,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Restablecer el zoom a 1.0 y centrar para el menor desplazamiento posible
         bgTargetX = 50;
         bgTargetY = 50;
-        bgZoomTarget = 0.825;
+        bgZoomTarget = ZOOM_MIN;
     };
 
     document.addEventListener('fullscreenchange', syncZoomFullscreenState);
@@ -925,7 +925,7 @@ document.addEventListener('DOMContentLoaded', () => {
         // Forzar una escala mínima de seguridad para evitar que se vea el "fuera de la imagen"
         const minScaleW = 100 / baseW_vw;
         const minScaleH = 100 / baseH_vh;
-        const safeScale = Math.max(scaleVal, minScaleW, minScaleH, 1.0);
+        const safeScale = Math.max(scaleVal, minScaleW, minScaleH);
 
         // Limitar la traslación máxima basándonos en el tamaño real del contenedor
         let maxOffsetW = (baseW_vw / 2) * safeScale - 50;
