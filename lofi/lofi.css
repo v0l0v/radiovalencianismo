@@ -875,7 +875,9 @@ body, html {
     }
 
     .radio-title {
-        font-size: 1.4rem;
+        font-size: 1.3rem;
+        white-space: normal;
+        line-height: 1.25;
     }
 
     /* Ocultar botón de minimizar en desktop */
