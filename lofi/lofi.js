@@ -192,6 +192,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let currentAmbient = '';
 
+    // --- Variables de Estado del Fondo y Zoom ---
+    let isBgDragging = false;
+    let bgStartX = 0;
+    let bgStartY = 0;
+    
+    // Posiciones objetivo (a donde el usuario quiere ir arrastrando)
+    let bgTargetX = 50; 
+    let bgTargetY = 50;
+
+    // Posiciones actuales (las que se renderizan y persiguen al objetivo con inercia)
+    let bgCurrentX = 50;
+    let bgCurrentY = 50;
+
+    const bgEasing = 0.12; // Velocidad de la inercia (menor = más inercia)
+    const dragSensitivityNormal = 0.15; // Sensibilidad del porcentaje por pixel arrastrado
+
+    // Zoom (Zoom in / Zoom out)
+    let bgZoomTarget = 0.825;
+    let bgZoomCurrent = 0.825;
+    const ZOOM_STEP = 0.35;
+    const ZOOM_MIN = 0.825; // Deja el máximo de fondo posible cubriendo la pantalla, escala resultante aprox 0.84
+    const ZOOM_MAX = 3.0;
+
     // Elementos DOM
     const bgContainer = document.getElementById('bg-container');
     const ambientNameDisplay = document.getElementById('ambient-name');
@@ -271,6 +294,11 @@ document.addEventListener('DOMContentLoaded', () => {
     function loadAmbientVisual(ambientKey) {
         if (!AMBIENTS[ambientKey]) return;
         currentAmbient = ambientKey;
+        
+        // Restablecer el zoom al mínimo y centrar para ver el máximo de fondo
+        bgTargetX = 50;
+        bgTargetY = 50;
+        bgZoomTarget = 0.825;
         
         const amb = AMBIENTS[ambientKey];
         const bgUrl = amb.file_art;
@@ -719,28 +747,6 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Efecto Panning con Arrastre (Touch / Mouse Drag) ---
     // Sustituye al giroscopio por ser más cómodo y permitir ver la pantalla siempre.
-    
-    let isBgDragging = false;
-    let bgStartX = 0;
-    let bgStartY = 0;
-    
-    // Posiciones objetivo (a donde el usuario quiere ir arrastrando)
-    let bgTargetX = 50; 
-    let bgTargetY = 50;
-
-    // Posiciones actuales (las que se renderizan y persiguen al objetivo con inercia)
-    let bgCurrentX = 50;
-    let bgCurrentY = 50;
-
-    const bgEasing = 0.12; // Velocidad de la inercia (menor = más inercia)
-    const dragSensitivityNormal = 0.15; // Sensibilidad del porcentaje por pixel arrastrado
-
-    // Zoom (Zoom in / Zoom out)
-    let bgZoomTarget = 0.825;
-    let bgZoomCurrent = 0.825;
-    const ZOOM_STEP = 0.35;
-    const ZOOM_MIN = 0.825; // Deja el máximo de fondo posible cubriendo la pantalla, escala resultante aprox 0.84
-    const ZOOM_MAX = 3.0;
 
     const zoomInBtn  = document.getElementById('zoom-in-btn');
     const zoomOutBtn = document.getElementById('zoom-out-btn');

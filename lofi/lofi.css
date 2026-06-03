@@ -29,10 +29,10 @@ body, html {
 /* Contenedor de Fondos de Ambiente */
 .background-container {
     position: absolute;
-    top: -10vh;
-    left: -10vw;
     width: 120vw;
-    height: 120vh;
+    height: 120vw;
+    left: -10vw;
+    top: calc(50vh - 60vw);
     z-index: 1;
     background-size: cover;
     background-position: center;
