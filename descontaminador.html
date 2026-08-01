@@ -338,7 +338,7 @@ TU MISIÓN:
         <h2 id="end-title" style="font-size: 2.5rem; margin-bottom: 10px;">ANÁLISIS COMPLETADO</h2>
         <p id="end-desc" style="font-size: 1.2rem; max-width: 600px; line-height: 1.5;"></p>
         <div style="font-size: 4rem; margin: 20px 0; text-shadow: 0 0 20px var(--term-green);" id="end-score">100%</div>
-        <p style="color: var(--term-dim);">CERTIFICADO DE PUREZA LINGÜÍSTICA</p>
+        <p style="color: var(--term-dim);">CERTIFICADO DE VALENCIANIDAD</p>
         
         <div style="display: flex; gap: 15px; margin-top: 20px;">
             <button class="btn" onclick="location.reload()">REINICIAR SISTEMA</button>
@@ -601,7 +601,7 @@ TU MISIÓN:
             const descEl = document.getElementById('end-desc');
             const titleEl = document.getElementById('end-title');
 
-            scoreEl.innerText = `${scorePercent}% PUREZA`;
+            scoreEl.innerText = `${scorePercent}% VALENCIANIDAD`;
 
             if (scorePercent === 100) {
                 scoreEl.style.color = '#00ff41';
@@ -620,7 +620,7 @@ TU MISIÓN:
 
         function shareResult() {
             const scorePercent = Math.round(((totalCards - mistakes) / totalCards) * 100);
-            const text = `He conseguido un ${scorePercent}% de pureza valenciana en EL DESCONTAMINADOR ☣️📻\n\n¿Puedes superar mi puntuación y salvar las Normes d'El Puig?\n\nJuega aquí: https://valencianismo.com/descontaminador.html`;
+            const text = `He conseguido un ${scorePercent}% de valencianidad en EL DESCONTAMINADOR ☣️📻\n\n¿Puedes superar mi puntuación y salvar las Normes d'El Puig?\n\nJuega aquí: https://valencianismo.com/descontaminador.html`;
             const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
             window.open(url, '_blank');
         }

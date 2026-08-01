@@ -248,6 +248,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 currentSongEl.textContent = songName;
                 checkMarquee();
                 addToHistory(songName);
+                if (document.querySelector('.history-panel').classList.contains('active')) {
+                    loadHistoryLog();
+                }
             }
         } catch (error) {
             console.error("Metadata error:", error);
@@ -392,6 +395,52 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    async function loadHistoryLog() {
+        if (!historyList) return;
+        historyList.innerHTML = '<li style="color: #aaa; font-style: italic; list-style: none; text-align: center; padding: 15px;">Cargando historial...</li>';
+        try {
+            const response = await fetch('/backend/mp3/historial_emision.log?t=' + Date.now());
+            if (!response.ok) throw new Error();
+            const text = await response.text();
+            const lines = text.split('\n').filter(l => l.trim() !== '');
+            if (lines.length === 0) {
+                renderHistory(); // Fallback
+                return;
+            }
+
+            historyList.innerHTML = '';
+            // Mostrar los últimos 10
+            const recentLines = lines.slice(-10).reverse();
+            recentLines.forEach(line => {
+                const parts = line.split(' | ');
+                if (parts.length < 3) return;
+                const dateStr = parts[0]; // YYYY-MM-DD HH:MM:SS
+                const titleStr = parts[2].trim();
+
+                // Formatear la hora HH:MM
+                let timeStr = "";
+                try {
+                    const timePart = dateStr.split(' ')[1];
+                    timeStr = timePart.substring(0, 5);
+                } catch(e) {
+                    timeStr = "--:--";
+                }
+
+                const li = document.createElement('li');
+                li.innerHTML = `
+                    <div class="history-item-info" style="display: flex; justify-content: space-between; width: 100%; align-items: center;">
+                        <span class="history-song-title" style="flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">${titleStr}</span>
+                        <span class="history-song-time" style="font-size: 0.8rem; opacity: 0.5; margin-left: 10px;">${timeStr}</span>
+                    </div>
+                `;
+                historyList.appendChild(li);
+            });
+        } catch(e) {
+            renderHistory(); // Fallback
+        }
+    }
+    window.loadHistoryLog = loadHistoryLog;
+
     // 4. Initialize
     loadRefran();
     setRandomCover();
@@ -442,7 +491,11 @@ document.addEventListener('DOMContentLoaded', () => {
         });
         vinylBtn.addEventListener('dblclick', (e) => {
             clearTimeout(clickTimer);
-            document.querySelector('.history-panel').classList.toggle('active');
+            const panel = document.querySelector('.history-panel');
+            panel.classList.toggle('active');
+            if (panel.classList.contains('active')) {
+                loadHistoryLog();
+            }
         });
     }
 

@@ -617,7 +617,7 @@
                 </div>
             </div>
 
-            <div class="refran-text-container" id="refran-text" onclick="document.getElementById('game-modal').classList.add('active')" style="cursor: pointer;" title="🎯 ¡Haz clic para jugar a les Normes d'El Puig!">
+            <div class="refran-text-container" id="refran-text">
                 "A poc a poc s'ompli la gerra"<br><span style="font-size:0.8rem; opacity:0.6; font-style: normal;">(refrán valenciano)</span>
             </div>
 
@@ -677,7 +677,7 @@
 
             <div class="history-panel" id="history-panel">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 8px;">
-                    <h3 style="margin: 0; border: none; padding: 0; font-size: 1.1rem; color: #ffd700; font-weight: 800;">INFORMACIÓN</h3>
+                    <h3 style="margin: 0; border: none; padding: 0; font-size: 1.1rem; color: #ffd700; font-weight: 800;">HISTORIAL / INFORMACIÓN</h3>
                     <div id="collapse-history-btn" style="width: 28px; height: 28px; border-radius: 50%; background: rgba(255,255,255,0.1); display: flex; align-items: center; justify-content: center; cursor: pointer; transition: all 0.3s ease; border: 1px solid rgba(255,255,255,0.2);" title="Plegar historial" onclick="document.querySelector('.history-panel').classList.remove('active');">
                         <svg viewBox="0 0 24 24" style="width: 16px; height: 16px; fill: none; stroke: #fff; stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round;">
                             <polyline points="7 13 12 18 17 13"></polyline>
@@ -695,16 +695,13 @@
                     </div>
                 </div>
                 
-                <ul class="modern-history-list" id="history-list" style="display:none;"></ul>
+                <ul class="modern-history-list" id="history-list"></ul>
                 <div class="history-footer" style="text-align: center; margin-top: 15px; opacity: 0.3; display: flex; justify-content: center; gap: 15px;">
                     <svg id="easter-egg-zap" viewBox="0 0 24 24" style="width: 16px; height: 16px; cursor: pointer;" title="Zap Sim">
                         <path fill="#FFD700" d="M7,2V13H10V22L17,10H13L17,2H7Z" />
                     </svg>
                     <svg id="easter-egg-cd" viewBox="0 0 24 24" style="width: 16px; height: 16px; cursor: pointer;" title="Cambiar Disco">
                         <path id="cd-icon-path" fill="#ccc" d="M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2M12,16.5C9.5,16.5 7.5,14.5 7.5,12C7.5,9.5 9.5,7.5 12,7.5C14.5,7.5 16.5,9.5 16.5,12C16.5,14.5 14.5,16.5 12,16.5M12,10.5C11.17,10.5 10.5,11.17 10.5,12C10.5,12.83 11.17,13.5 12,13.5C12.83,13.5 13.5,12.83 13.5,12C13.5,11.17 12.83,10.5 12,10.5Z" />
-                    </svg>
-                    <svg id="easter-egg-joc" viewBox="0 0 24 24" style="width: 16px; height: 16px; cursor: pointer;" title="Tir al Moniato (Juego)" onclick="document.getElementById('game-modal').classList.add('active')">
-                        <path fill="#ffd700" d="M19.59 3.41a3 3 0 0 0-4.24 0L9 9.76l-1.59-1.59a1 1 0 0 0-1.41 1.41l1.59 1.59-3.3 3.3a1 1 0 0 0-.22.33L3 18.12V21h2.88l3.32-1.07a1 1 0 0 0 .33-.22l3.3-3.3 1.59 1.59a1 1 0 0 0 1.41-1.41l-1.59-1.59 6.35-6.35a3 3 0 0 0 0-4.24zm-6.35 9.17l-1.41-1.41 5.65-5.65 1.41 1.41-5.65 5.65z" />
                     </svg>
                 </div>
             </div>
@@ -826,27 +823,22 @@
                     </div>
                 </div>
 
-                <!-- Opción: Jocs i Entreteniment -->
-                <div class="option-card-slot" data-id="opt-jocs" draggable="true" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; text-align: left; border-left: 4px solid #ffd700; min-height: 180px; cursor: grab;">
+                
+
+                <!-- Opción: El Descontaminador -->
+                <div class="option-card-slot" data-id="opt-descontaminador" draggable="true" onclick="openDescontaminadorModal()" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; text-align: left; border-left: 4px solid #00ff41; min-height: 180px; cursor: pointer;">
                     <div>
-                        <div style="font-weight: 700; margin-bottom: 6px; color: #ffd700; font-size: 1rem;">Juegos:</div>
-                        <div style="margin-bottom: 12px; font-size: 0.85rem; color: #ccc;">Juga al Tir al Moniato i aprén les Normes d'El Puig.</div>
+                        <div style="font-weight: 700; margin-bottom: 6px; color: #00ff41; font-size: 1rem;">Valencianidad:</div>
+                        <div style="margin-bottom: 12px; font-size: 0.85rem; color: #ccc;">Juga al Descontaminador ☣️ i aísla els virus lingüístics.</div>
                     </div>
-                    <div style="display: flex; gap: 8px; flex-wrap: wrap;">
-                        <button onclick="document.getElementById('game-modal').classList.add('active'); closeOptionsModal();" style="background: #ffd700; color: #0a0a0f; border: none; padding: 10px 24px; border-radius: 25px; font-size: 0.85rem; cursor: pointer; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 10px rgba(255, 215, 0, 0.3); transition: transform 0.2s ease;">
+                    <div>
+                        <button onclick="event.stopPropagation(); openDescontaminadorModal();" style="background: #00ff41; color: #0a0a0f; border: none; padding: 10px 20px; border-radius: 25px; font-size: 0.85rem; cursor: pointer; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 10px rgba(0, 255, 65, 0.3); transition: transform 0.2s ease;">
                             <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;">
-                                <path d="M18 8h1a4 4 0 0 1 0 8h-1"></path>
-                                <path d="M2 8h16v8H2z"></path>
-                                <line x1="6" y1="12" x2="10" y2="12"></line>
-                                <line x1="8" y1="10" x2="8" y2="14"></line>
+                                <circle cx="12" cy="12" r="10"></circle>
+                                <line x1="12" y1="8" x2="12" y2="12"></line>
+                                <line x1="12" y1="16" x2="12.01" y2="16"></line>
                             </svg>
-                            Tir al Moniato
-                        </button>
-                        <button onclick="window.open('descontaminador.html', '_blank'); closeOptionsModal();" style="background: #00ff41; color: #0a0a0f; border: none; padding: 10px 24px; border-radius: 25px; font-size: 0.85rem; cursor: pointer; font-weight: 800; display: inline-flex; align-items: center; gap: 8px; box-shadow: 0 4px 10px rgba(0, 255, 65, 0.3); transition: transform 0.2s ease;">
-                            <svg viewBox="0 0 24 24" style="width: 18px; height: 18px; fill: none; stroke: currentColor; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round;">
-                                <path d="M2 12h4l2-9 5 18 2-9h5"></path>
-                            </svg>
-                            Descontaminador ☣️
+                            Jugar ☣️
                         </button>
                     </div>
                 </div>
@@ -894,20 +886,15 @@
                     </button>
                 </div>
 
-                <!-- Opción 9: Desarrollador -->
-                <div class="option-card-slot" data-id="opt-desarrollador" draggable="true" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; text-align: left; border-left: 4px solid #00ffaa; min-height: 180px; cursor: grab;">
+                <!-- Opción 9: Historial de Emisión -->
+                <div class="option-card-slot" data-id="opt-historial" draggable="true" onclick="closeOptionsModal(); document.querySelector('.history-panel').classList.add('active'); if(window.loadHistoryLog) window.loadHistoryLog();" style="background: rgba(255, 255, 255, 0.05); border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 14px; padding: 20px; display: flex; flex-direction: column; justify-content: space-between; text-align: left; border-left: 4px solid #ffd700; min-height: 180px; cursor: pointer;">
                     <div>
-                        <div style="font-weight: 700; margin-bottom: 8px; color: #00ffaa; font-size: 1.05rem;">Desarrollador Web</div>
-                        <div style="font-size: 0.85rem; color: #ccc;">Perfil profesional verificado de Víctor L. en Domestiko.</div>
+                        <div style="font-weight: 700; margin-bottom: 8px; color: #ffd700; font-size: 1.05rem;">Historial de Emisión</div>
+                        <div style="font-size: 0.85rem; color: #ccc;">Consulta las últimas canciones y programas transmitidos.</div>
                     </div>
-                    <div style="display: flex; align-items: center; justify-content: space-between; margin-top: 10px;">
-                        <a href="https://www.domestiko.com/directorio/6a1f540c717bab37d9a325eb/?utm_source=Domestiko&utm_medium=profiles&utm_campaign=badge" target="_blank" rel="noopener noreferrer" style="display: flex; align-items: center; justify-content: center; transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                            <img src="https://www.domestiko.com/assets/img/banners/c360v1.png" alt="victor L." style="width: 75px; height: 75px; border-radius: 50%; border: 2px solid #00ffaa; box-shadow: 0 4px 15px rgba(0, 255, 170, 0.3);">
-                        </a>
-                        <a href="https://www.domestiko.com/directorio/6a1f540c717bab37d9a325eb/?utm_source=Domestiko&utm_medium=profiles&utm_campaign=badge" target="_blank" rel="noopener noreferrer" style="background: #00ffaa; color: #0a0a0f; border: none; padding: 8px 16px; border-radius: 20px; font-size: 0.8rem; font-weight: 700; text-decoration: none; display: inline-flex; align-items: center; gap: 6px; box-shadow: 0 4px 10px rgba(0, 255, 170, 0.2); transition: transform 0.2s ease;" onmouseover="this.style.transform='scale(1.05)'" onmouseout="this.style.transform='scale(1)'">
-                            Ver Perfil
-                        </a>
-                    </div>
+                    <button style="background: #ffd700; color: #0a0a0f; border: none; padding: 10px 18px; border-radius: 20px; font-size: 0.8rem; font-weight: 600; cursor: pointer; display: inline-flex; align-items: center; gap: 8px; align-self: flex-start;">
+                        Ver Historial
+                    </button>
                 </div>
             </div>
 
@@ -1910,11 +1897,40 @@ La Real Acadèmia de Cultura Valenciana reafirma, una volta més, el seu comprom
             }
         }
 
+        function openDescontaminadorModal() {
+            const iframe = document.getElementById('descontaminador-iframe');
+            if (iframe) iframe.src = 'descontaminador.html';
+            const modal = document.getElementById('descontaminador-modal');
+            if (modal) {
+                modal.style.display = 'flex';
+                setTimeout(() => modal.classList.add('active'), 10);
+            }
+            closeOptionsModal();
+        }
+
+        function closeDescontaminadorModal() {
+            const modal = document.getElementById('descontaminador-modal');
+            if (modal) {
+                modal.classList.remove('active');
+                setTimeout(() => modal.style.display = 'none', 300);
+            }
+            const iframe = document.getElementById('descontaminador-iframe');
+            if (iframe) iframe.src = '';
+        }
+
         document.addEventListener('DOMContentLoaded', () => {
             loadFeeds();
             loadProgramMetadata();
         });
     </script>
+
+    <!-- Modal Descontaminador -->
+    <div class="modern-modal" id="descontaminador-modal" onclick="closeDescontaminadorModal()" style="display: none;">
+        <div class="modal-content" onclick="event.stopPropagation()" style="width: 95vw; max-width: 800px; height: 90vh; max-height: 700px; padding: 0; position: relative; border-radius: 20px; overflow: hidden; display: flex; flex-direction: column; background: #050505; border: 2px solid var(--secondary);">
+            <button class="close-modal" id="close-descontaminador" onclick="closeDescontaminadorModal()" style="position: absolute; top: 15px; right: 15px; width: 40px; height: 40px; border-radius: 50%; padding: 0; display: flex; justify-content: center; align-items: center; z-index: 1000; background: var(--secondary); color: #0a0a0f; border: none; font-weight: bold; font-size: 1.5rem; cursor: pointer; box-shadow: 0 4px 10px rgba(255, 215, 0, 0.4);">&times;</button>
+            <iframe id="descontaminador-iframe" src="" style="width: 100%; height: 100%; border: none; background: #050505;" title="El Descontaminador"></iframe>
+        </div>
+    </div>
 
     <!-- Modal About -->
     <div class="modern-modal" id="about-modal">
@@ -1977,17 +1993,7 @@ La Real Acadèmia de Cultura Valenciana reafirma, una volta més, el seu comprom
     </div>
     </div>
 
-    <!-- Huevo de Pascua: Modal del Juego de las Normes -->
-    <div id="game-modal" class="modern-modal" onclick="document.getElementById('game-modal').classList.remove('active')">
-        <div class="modal-content" onclick="event.stopPropagation()" style="width: 95vw; max-width: 650px; height: 90vh; max-height: 850px; padding: 0; background: transparent; box-shadow: none; border: none; display: flex; flex-direction: column;">
-            <div style="background: rgba(10, 10, 15, 0.95); border: 2px solid #ffd700; border-radius: 20px; overflow: hidden; flex: 1; display: flex; flex-direction: column; box-shadow: 0 0 50px rgba(0,0,0,0.8);">
-                <div style="display: flex; justify-content: flex-end; padding: 12px; background: rgba(0,0,0,0.5); border-bottom: 1px solid rgba(255,215,0,0.3);">
-                    <button onclick="document.getElementById('game-modal').classList.remove('active')" style="background: rgba(255,255,255,0.1); color: #fff; border: 1px solid rgba(255,255,255,0.2); width: 35px; height: 35px; border-radius: 50%; cursor: pointer; display: flex; justify-content: center; align-items: center; font-weight: bold; transition: all 0.2s;">✕</button>
-                </div>
-                <iframe src="juego_normes.html?v=4" style="width: 100%; height: 100%; border: none;" allow="web-share"></iframe>
-            </div>
-        </div>
-    </div>
+
 
 </body>
 </html>
