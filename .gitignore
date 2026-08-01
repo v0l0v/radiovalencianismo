@@ -13,3 +13,4 @@ scripts/ultimo_id_*.txt
 n8n_data/database.sqlite
 nostr_bot/published_news.json
 *.wav
+lofi/assets/backup/
