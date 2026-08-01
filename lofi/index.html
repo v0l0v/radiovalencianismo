@@ -12,8 +12,15 @@
     
     <!-- CSS Estilos -->
     <link rel="stylesheet" href="lofi.css">
+    
+    <!-- Phaser 3 Engine y Lógica del Minijuego -->
+    <script src="https://cdn.jsdelivr.net/npm/phaser@3.60.0/dist/phaser.min.js"></script>
+
 </head>
 <body>
+    <!-- Contenedor del Juego (Aventura Gráfica) -->
+
+
     <!-- Capa de Fondo (Ambiente) -->
     <div class="background-container" id="bg-container">
         <!-- 4 Hotspots invisibles (zona clicable con cursor zoom-in por color) -->
@@ -81,28 +88,26 @@
                     <img src="assets/logoVR180.png" alt="Logo Valencianismo Radio" class="player-logo">
                 </a>
                 
-                <div class="player-header-text">
-                    <span class="badge">EMISIÓN EN DIRECTO</span>
-                    <div class="title-row">
-                        <h1 class="radio-title">Valencianismo Radio</h1>
-                        <!-- Botón Play/Pausa en cabecera (solo visible si está minimizado) -->
-                        <button class="control-btn play-btn header-play-btn" id="play-pause-btn-header" aria-label="Reproducir">
-                            <svg class="play-icon" viewBox="0 0 24 24">
-                                <path d="M8 5v14l11-7z"/>
-                            </svg>
-                            <svg class="pause-icon hidden" viewBox="0 0 24 24">
-                                <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
-                            </svg>
-                        </button>
-                    </div>
-                    <p class="tagline">Tu compañía de fondo para trabajar y estudiar</p>
-                </div>
-                
                 <div class="player-header-actions">
+                    <!-- Botón Play/Pausa en cabecera (visible al minimizar) -->
+                    <button class="control-btn play-btn header-play-btn" id="play-pause-btn-header" aria-label="Reproducir">
+                        <svg class="play-icon" viewBox="0 0 24 24">
+                            <path d="M8 5v14l11-7z"/>
+                        </svg>
+                        <svg class="pause-icon hidden" viewBox="0 0 24 24">
+                            <path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/>
+                        </svg>
+                    </button>
+                    <!-- Botón de Fondos -->
+                    <button class="player-action-btn" id="ambient-toggle-btn" title="Cambiar Fondo">🖼️</button>
+                    <!-- Botón de Historial de Emisión -->
+                    <button class="player-action-btn" id="history-btn" title="Historial de Emisión">🕒</button>
+                    <!-- Botón de Aventura Gráfica -->
+
                     <!-- Botón de Pantalla Completa (Fullscreen) -->
-                    <button class="player-fullscreen-btn" id="fullscreen-btn" title="Pantalla Completa">⛶</button>
+                    <button class="player-action-btn player-fullscreen-btn" id="fullscreen-btn" title="Pantalla Completa">⛶</button>
                     <!-- Botón para Minimizar / Maximizar el reproductor -->
-                    <button class="player-toggle-btn" id="toggle-player-btn" title="Minimizar Reproductor">▼</button>
+                    <button class="player-action-btn player-toggle-btn" id="toggle-player-btn" title="Minimizar Reproductor">▼</button>
                 </div>
             </header>
 
@@ -134,31 +139,41 @@
                         </svg>
                     </button>
                 </div>
-            </div>
 
-            <!-- Panel de Sintonización de Ambiente (Desplegable integrado) -->
-            <footer class="player-footer" id="player-footer">
-                <div class="ambient-controls">
-                    <!-- Solo el botón de despliegue inferior -->
-                    <button class="footer-btn" id="toggle-selector-btn" title="Mostrar ambientes">▲</button>
-                </div>
-                
-                <div class="ambient-selector-wrapper collapsed" id="ambient-selector-wrapper">
-                    <span class="ambient-label"><span id="ambient-label-text">AMBIENTE ACTUAL:</span> <strong id="ambient-name">Cargando...</strong></span>
+                <!-- Panel de Sintonización de Ambiente Integrado (Desplegable) -->
+                <div class="history-wrapper collapsed" id="ambient-selector-wrapper">
+                    <div class="history-header">
+                        <span id="ambient-label-text">AMBIENTE ACTUAL:</span> <strong id="ambient-name">Cargando...</strong>
+                    </div>
                     <div class="ambient-selector">
                         <button class="ambient-btn" data-ambient="serranos" title="🛡️ Torres de Serrans y la Senyera">1</button>
-                        <button class="ambient-btn" data-ambient="xativa" title="🏰 Castell de Xàtiva">2</button>
+                        <button class="ambient-btn" data-ambient="plaza_redonda" title="🕰️ Plaça Redona">2</button>
                         <button class="ambient-btn" data-ambient="cyberpunk" title="⚡ Ciutat de les Arts Cyberpunk">3</button>
-                        <button class="ambient-btn" data-ambient="malvarrosa" title="🌅 Amanecer en la Malvarrosa">4</button>
+                        <button class="ambient-btn" data-ambient="malvarrosa" title="🏊 Balneario de las Arenas">4</button>
                         <button class="ambient-btn" data-ambient="space" title="🚀 Órbita sobre Valencia">5</button>
                         <button class="ambient-btn" data-ambient="lonja_mercado" title="🕰️ Lonja y Mercat Central (1920)">6</button>
-                        <button class="ambient-btn" data-ambient="cac" title="🏙️ Ciutat de les Arts i les Ciències">7</button>
+                        <button class="ambient-btn" data-ambient="plaza_toros" title="🐂 Plaza de Toros">7</button>
                         <button class="ambient-btn" data-ambient="valencia" title="🍊 Barraca en la Albufera">8</button>
                         <button class="ambient-btn" data-ambient="naranjos_360" title="🍊 Campo de Naranjos">9</button>
                         <button class="ambient-btn" data-ambient="mestalla" title="🦇 Estadio de Mestalla">10</button>
+                        <button class="ambient-btn" data-ambient="fallas" title="🔥 Fallas y Mascletà">11</button>
+                        <button class="ambient-btn" data-ambient="parque_cabecera" title="🌳 Tarde en el Parque Cabecera">12</button>
+                        <button class="ambient-btn" data-ambient="virgen" title="🕊️ Plaza de la Virgen">13</button>
+                        <button class="ambient-btn" data-ambient="estacion_norte" title="🚂 La Estación del Norte">14</button>
+                        <button class="ambient-btn" data-ambient="torres_quart" title="🛡️ Las Torres de Quart">15</button>
                     </div>
                 </div>
-            </footer>
+
+                <!-- Panel de Historial Integrado (Desplegable) -->
+                <div class="history-wrapper collapsed" id="history-wrapper">
+                    <div class="history-header">
+                        <span>Historial (Últimas 3h)</span>
+                    </div>
+                    <ul id="history-list">
+                        <li class="history-loading">Cargando historial...</li>
+                    </ul>
+                </div>
+            </div>
         </main>
         
         <!-- Marca de Agua Sutil -->
@@ -171,6 +186,6 @@
     <audio id="radio-audio" src="https://valencianismo.com/stream_musical" preload="none" crossorigin="anonymous"></audio>
 
     <!-- JS Lógica -->
-    <script src="lofi.js"></script>
+    <script src="lofi.js?v=3"></script>
 </body>
 </html>

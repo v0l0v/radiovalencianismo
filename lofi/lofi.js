@@ -26,27 +26,37 @@ document.addEventListener('DOMContentLoaded', () => {
             defaultTitle: "Valencianismo Radio - Directe",
             ambients: {
                 serranos: "Torres de Serrans i la Senyera",
-                xativa: "Castell de Xàtiva",
+                plaza_redonda: "Plaça Redona",
                 cyberpunk: "Ciutat de les Arts Cyberpunk",
                 malvarrosa: "Alba en la Malva-rosa",
                 space: "Estació Espacial sobre València",
                 lonja_mercado: "Mercat Central (1920)",
-                cac: "Ciutat de les Arts i les Ciències",
+                plaza_toros: "Plaça de Bous",
                 valencia: "Barraca en l'Albufera",
                 naranjos_360: "Camp de Tarongers",
-                mestalla: "Estadi de Mestalla"
+                mestalla: "Estadi de Mestalla",
+                fallas: "Falles i Mascletà",
+                parque_cabecera: "Parc de Capçalera",
+                virgen: "Plaça de la Mare de Déu",
+                estacion_norte: "Estació del Nord",
+                torres_quart: "Torres de Quart"
             },
             ambientsTitles: {
                 serranos: "🛡️ Torres de Serrans i la Senyera",
-                xativa: "🏰 Castell de Xàtiva",
+                plaza_redonda: "🕰️ Plaça Redona",
                 cyberpunk: "⚡ Ciutat de les Arts Cyberpunk",
                 malvarrosa: "🌅 Alba en la Malva-rosa",
                 space: "🚀 Estació Espacial sobre València",
                 lonja_mercado: "🕰️ Mercat Central (1920)",
-                cac: "🏙️ Ciutat de les Arts i les Ciències",
+                plaza_toros: "🐂 Plaça de Bous",
                 valencia: "🍊 Barraca en l'Albufera",
                 naranjos_360: "🍊 Camp de Tarongers",
-                mestalla: "🦇 Estadi de Mestalla"
+                mestalla: "🦇 Estadi de Mestalla",
+                fallas: "🔥 Falles i Mascletà en la Plaça",
+                parque_cabecera: "🌳 Tarde en el Parc de Capçalera",
+                virgen: "🕊️ Plaça de la Mare de Déu",
+                estacion_norte: "🚂 L'Estació del Nord",
+                torres_quart: "🛡️ Les Torres de Quart"
             }
         },
         cas: {
@@ -69,27 +79,37 @@ document.addEventListener('DOMContentLoaded', () => {
             defaultTitle: "Valencianismo Radio - Directo",
             ambients: {
                 serranos: "Torres de Serranos y la Senyera",
-                xativa: "Castell de Xàtiva",
+                plaza_redonda: "Plaça Redona",
                 cyberpunk: "Ciutat de les Arts Cyberpunk",
                 malvarrosa: "Amanecer en la Malvarrosa",
                 space: "Estación Espacial sobre Valencia",
                 lonja_mercado: "Mercado Central (1920)",
-                cac: "Ciutat de les Arts i les Ciències",
+                plaza_toros: "Plaza de Toros",
                 valencia: "Barraca en la Albufera",
                 naranjos_360: "Campo de Naranjos",
-                mestalla: "Estadio de Mestalla"
+                mestalla: "Estadio de Mestalla",
+                fallas: "Fallas y Mascletà",
+                parque_cabecera: "Parque Cabecera",
+                virgen: "Plaza de la Virgen",
+                estacion_norte: "Estación del Norte",
+                torres_quart: "Torres de Quart"
             },
             ambientsTitles: {
                 serranos: "🛡️ Torres de Serranos y la Senyera",
-                xativa: "🏰 Castell de Xàtiva",
+                plaza_redonda: "🕰️ Plaça Redona",
                 cyberpunk: "⚡ Ciutat de las Arts Cyberpunk",
                 malvarrosa: "🌅 Amanecer en la Malvarrosa",
                 space: "🚀 Estación Espacial sobre Valencia",
                 lonja_mercado: "🕰️ Mercado Central (1920)",
-                cac: "🏙️ Ciudad de las Artes y las Ciencias",
+                plaza_toros: "🐂 Plaza de Toros",
                 valencia: "🍊 Barraca en la Albufera",
                 naranjos_360: "🍊 Campo de Naranjos",
-                mestalla: "🦇 Estadio de Mestalla"
+                mestalla: "🦇 Estadio de Mestalla",
+                fallas: "🔥 Fallas y Mascletà en la Plaza",
+                parque_cabecera: "🌳 Tarde en el Parque Cabecera",
+                virgen: "🕊️ Plaza de la Virgen",
+                estacion_norte: "🚂 La Estación del Norte",
+                torres_quart: "🛡️ Las Torres de Quart"
             }
         }
     };
@@ -99,25 +119,25 @@ document.addEventListener('DOMContentLoaded', () => {
     // Mapeo de ambientes (Modo Ilustración y Modo Foto)
     const AMBIENTS = {
         serranos: {
-            name: 'Torres de Serrans y la Senyera', file_art: 'assets/serranos_art.png', file_photo: 'assets/pixelart_photo.png',
+            name: 'Torres de Serrans y la Senyera', file_art: 'assets/serranos_comic.png?v=6', file_photo: 'assets/pixelart_photo.png',
             hotspots: [
-                { color:'blue',   x:68, y:22, icon:'🏛️', title:'Torres de Serrans', wiki:'Torres_de_Serrans', content:'Portal gòtic del s. XIV, una de les millors mostres de l\'arquitectura gòtica civil europea. Va ser presó reial i porta principal d\'entrada a la ciutat de València.' },
-                { color:'red',    x:42, y:58, icon:'⚔️', title:'Muralla Medieval', wiki:'Muralles_de_Val%C3%A9ncia', content:'València va tindre 6 km de muralla medieval amb 12 portes. Quasi tota fou enderrocada en el s. XIX per a permetre el creixement de la ciutat.' },
-                { color:'green',  x:22, y:72, icon:'🌿', title:'Jardí del Túria', wiki:'Jard%C3%AD_del_T%C3%BAria', content:'Antic llit del riu Túria convertit en parc urbà de 9 km després de les catastròfiques inundacions del 29 d\'octubre de 1957. Hui és el pulmó verd de la ciutat.' },
-                { color:'yellow', x:78, y:48, icon:'🚩', title:'La Senyera Valenciana', wiki:'Senyera_valenciana', content:'La bandera del Regne de València, quatre barres roges sobre fons daurat. Símbol d\'identitat i d\'independència. La seua història es remunta al s. XIII amb la Reconquista.' }
+                { color:'blue',   x:68, y:38, icon:'🏛️', title:'Torres de Serrans', wiki:'Torres_de_Serrans', content:'Portal gòtic del s. XIV, una de les millors mostres de l\'arquitectura gòtica civil europea. Va ser presó reial i porta principal d\'entrada a la ciutat de València.' },
+                { color:'red',    x:50, y:63, icon:'⚔️', title:'Muralla Medieval', wiki:'Muralles_de_Val%C3%A9ncia', content:'València va tindre 6 km de muralla medieval amb 12 portes. Quasi tota fou enderrocada en el s. XIX per a permetre el creixement de la ciutat.' },
+                { color:'green',  x:20, y:75, icon:'🌿', title:'Jardí del Túria', wiki:'Jard%C3%AD_del_T%C3%BAria', content:'Antic llit del riu Túria convertit en parc urbà de 9 km després de les catastròfiques inundacions del 29 d\'octubre de 1957. Hui és el pulmó verd de la ciutat.' },
+                { color:'yellow', x:48, y:10, icon:'🚩', title:'La Senyera Valenciana', wiki:'Senyera_valenciana', content:'La bandera del Regne de València, quatre barres roges sobre fons daurat. Símbol d\'identitat i d\'independència. La seua història es remunta al s. XIII amb la Reconquista.' }
             ]
         },
-        xativa: {
-            name: 'Castell de Xàtiva', file_art: 'assets/xativa_art.png', file_photo: 'assets/xativa_photo.png',
+        plaza_redonda: {
+            name: 'Plaça Redona', file_art: 'assets/plaza_redonda_pixelart.png?v=2', file_photo: 'assets/xativa_photo.png',
             hotspots: [
-                { color:'blue',   x:55, y:18, icon:'🏰', title:'Castell de Xàtiva', wiki:'Castell_de_X%C3%A0tiva', content:'Una de les fortaleses més importants de la península ibèrica. D\'origen ibèric i romà, ampliat pels àrabs i reconquerit por Jaume I en 1244. Ofereix vistes espectaculars de la Costera.' },
-                { color:'red',    x:35, y:45, icon:'🔥', title:'Incendi de Xàtiva (1707)', wiki:'Crema_de_X%C3%A0tiva', content:'Felip V va ordenar cremar i resar Xàtiva com a càstig per la seua resistència durant la Guerra de Successió. El rei apareix penjat del cap al Museu de l\'Almodí de Xàtiva.' },
-                { color:'green',  x:72, y:65, icon:'💧', title:'Fonts de Xàtiva', wiki:'X%C3%A0tiva', content:'La muntanya de Xàtiva té nombroses fonts naturals que han fet de la ciutat un lloc fèrtil des de l\'antiguitat. El paper va arribar a Europa a través d\'ací al s. XII.' },
-                { color:'yellow', x:25, y:55, icon:'⚜️', title:'Els Papes valencians', wiki:'Borja', content:'Xàtiva és el bressol de dos papes: Calixt III (1455) i Alexandre VI (1492), tots dos de la família Borja. Un dels llinatges més influents i controvertits del Renaixement europeu.' }
+                { color:'blue',   x:30, y:80, icon:'🏛️', title:'Plaça Redona', wiki:'Pla%C3%A7a_Redona', content:'Construïda en 1840 per Salvador Escrig, és una plaça interior de forma circular única. Els baixos alberguen merceries tradicionals, teixits, encaixos de bolillos i records.' },
+                { color:'red',    x:71, y:28, icon:'⛪', title:'Torre de Santa Caterina', wiki:'Esgl%C3%A9sia_de_Santa_Caterina_(Val%C3%A8ncia)', content:'El magnífic campanar barroc construït entre 1705 i 1738 és visible des de la plaça. Destaca pel seu perfil octogonal i ornamentació de pedra en relleu.' },
+                { color:'green',  x:53, y:72, icon:'⛲', title:'Font de la Plaça Redona', wiki:'Pla%C3%A7a_Redona', content:'Al centre de la plaça es troba una font històrica instal·lada a mitjan segle XIX, que serveix de punt de trobada central de la plaça.' },
+                { color:'yellow', x:18, y:78, icon:'🧶', title:'Merceries i Artesania', wiki:'Pla%C3%A7a_Redona', content:'La plaça és famosa des del segle XIX pel comerç de merceria, filats i artesania de puntes. Un lloc ideal per a conéixer la història viva del comerç valencià.' }
             ]
         },
         cyberpunk: {
-            name: 'Ciutat de les Arts Cyberpunk', file_art: 'assets/cyberpunk_cac_art.png', file_photo: 'assets/cyberpunk_photo.png',
+            name: 'Ciutat de les Arts Cyberpunk', file_art: 'assets/cyberpunk_cac_pixelart.png?v=2', file_photo: 'assets/cyberpunk_photo.png',
             hotspots: [
                 { color:'blue',   x:72, y:30, icon:'🎭', title:'Palau de les Arts Reina Sofia', wiki:'Palau_de_les_Arts_Reina_Sof%C3%ADa', content:'Ópera i centre cultural dissenyat per Calatrava. Amb 75.000 m², és el segon teatre d\'òpera més gran del món. La seua silueta recorda un casc futurista o un ocell en vol.' },
                 { color:'red',    x:40, y:55, icon:'🏎️', title:'Fórmula 1 a València (2008-2012)', wiki:'Circuit_urb%C3%A0_de_Val%C3%A9ncia', content:'El circuit urbà de València va acollir el Gran Premi d\'Europa de F1 durant cinc anys. Va ser el circuit urbà permanent més llarg de l\'era moderna amb 5,419 km al voltant del port.' },
@@ -126,7 +146,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ]
         },
         malvarrosa: {
-            name: 'Amanecer en la Malvarrosa', file_art: 'assets/malvarrosa_sorolla_art.png', file_photo: 'assets/malvarrosa_photo.png',
+            name: 'Balneario de las Arenas', file_art: 'assets/malvarrosa_sorolla_pixelart.png?v=10', file_photo: 'assets/malvarrosa_photo.png',
             hotspots: [
                 { color:'blue',   x:20, y:55, icon:'🏖️', title:'Platja de la Malva-rosa', wiki:'Platja_de_la_Malva-rosa', content:'Platja urbana de 5 km de llarg, símbol de l\'oci mediterrani valencià. El seu nom prové d\'una fàbrica de perfums que hi havia al s. XIX que elaborava oli de malva-rosa.' },
                 { color:'red',    x:50, y:35, icon:'✍️', title:'Blasco Ibáñez', wiki:'Vicent_Blasco_Ib%C3%A1%C3%B1ez', content:'L\'escriptor valencià Vicente Blasco Ibáñez va viure i escriure ací. La seua novel·la "La Barraca" retrata la vida dels llauradors valencians. Va ser el primer autor de best-sellers en anglés.' },
@@ -135,7 +155,7 @@ document.addEventListener('DOMContentLoaded', () => {
             ]
         },
         space: {
-            name: 'Estación Espacial sobre Valencia', file_art: 'assets/space_art.png?v=3', file_photo: 'assets/space_photo.png',
+            name: 'Estación Espacial sobre Valencia', file_art: 'assets/space_pixelart.png?v=2', file_photo: 'assets/space_photo.png',
             hotspots: [
                 { color:'blue',   x:60, y:15, icon:'🛰️', title:'València des de l\'espai', wiki:'Val%C3%A9ncia', content:'La llum de València és visible des de l\'Estació Espacial Internacional. El seu litoral, l\'Albufera i l\'Horta formen un mosaic inconfusible vist des de l\'òrbita terrestre a 400 km d\'altura.' },
                 { color:'red',    x:30, y:35, icon:'🌊', title:'Riuada del 1957', wiki:'Gran_riuada_de_Val%C3%A9ncia', content:'El 29 d\'octubre de 1957 el riu Túria va desbordar-se causant 81 morts i devastant la ciutat. Com a conseqüència, el curs del Túria es va desviar al sud i el llit es va convertir en parc.' },
@@ -144,25 +164,25 @@ document.addEventListener('DOMContentLoaded', () => {
             ]
         },
         lonja_mercado: {
-            name: 'Mercat Central (1920)', file_art: 'assets/lonja_mercado_art.png', file_photo: 'assets/brooklyn_photo.png',
+            name: 'Mercat Central (1920)', file_art: 'assets/lonja_mercado_pixelart.png?v=6', file_photo: 'assets/brooklyn_photo.png',
             hotspots: [
-                { color:'blue',   x:35, y:35, icon:'🏪', title:'Mercat Central de València', wiki:'Mercat_Central_de_Val%C3%A9ncia', content:'Inaugurat en 1928, és un dels mercats coberts més grans d\'Europa amb 8.000 m². La seua cúpula central amb vitralls modernistes és una obra d\'art. Cada dia hi passen milers de persones.' },
-                { color:'red',    x:58, y:52, icon:'🏛️', title:'La Llotja de la Seda', wiki:'Llotja_de_Val%C3%A9ncia', content:'Declarada Patrimoni de la Humanitat por la UNESCO en 1996. Construïda entre 1482 i 1548, és el millor exemple de l\'arquitectura gòtica civil valenciana i símbol de la riquesa mercantil de la ciutat.' },
-                { color:'green',  x:25, y:65, icon:'🎨', title:'El Carme', wiki:'Barri_del_Carme', content:'El barri del Carme és el cor medieval de València. Ple de galerietres d\'art, bars i botigues de disseny, és el barri bohemi per excel·lència. Conserva restes de la muralla àrab del s. XI.' },
-                { color:'yellow', x:68, y:25, icon:'🏺', title:'Ceràmica valenciana', wiki:'Cer%C3%A0mica_de_Manises', content:'La tradició ceràmica valenciana, famosa pels azulejos blaus i blancs, es remunta al s. XV a Manises i Paterna. Va influir en la ceràmica de tot Europa i en l\'estil mudèjar hispànic.' }
+                { color:'blue',   x:28, y:48, icon:'🏪', title:'Mercat Central de València', wiki:'Mercat_Central_de_Val%C3%A9ncia', content:'Inaugurat en 1928, és un dels mercats coberts més grans d\'Europa amb 8.000 m². La seua cúpula central amb vitralls modernistes és una obra d\'art. Cada dia hi passen milers de persones.' },
+                { color:'red',    x:74, y:46, icon:'🏛️', title:'La Llotja de la Seda', wiki:'Llotja_de_Val%C3%A9ncia', content:'Declarada Patrimoni de la Humanitat por la UNESCO en 1996. Construïda entre 1482 i 1548, és el millor exemple de l\'arquitectura gòtica civil valenciana i símbol de la riquesa mercantil de la ciutat.' },
+                { color:'green',  x:12, y:66, icon:'🎨', title:'El Carme', wiki:'Barri_del_Carme', content:'El barri del Carme és el cor medieval de València. Ple de galerietres d\'art, bars i botigues de disseny, és el barri bohemi per excel·lència. Conserva restes de la muralla àrab del s. XI.' },
+                { color:'yellow', x:88, y:68, icon:'🏺', title:'Ceràmica valenciana', wiki:'Cer%C3%A0mica_de_Manises', content:'La tradició ceràmica valenciana, famosa pels azulejos blaus i blancs, es remunta al s. XV a Manises i Paterna. Va influir en la ceràmica de todo Europa i en l\'estil mudèjar hispànic.' }
             ]
         },
-        cac: {
-            name: 'Ciutat de les Arts i les Ciències', file_art: 'assets/cac_art.png?v=2', file_photo: 'assets/cac_photo.png?v=2',
+        plaza_toros: {
+            name: 'Plaza de Toros', file_art: 'assets/plaza_toros_pixelart.png?v=3',
             hotspots: [
-                { color:'blue',   x:65, y:40, icon:'🔭', title:'L\'Hemisfèric', wiki:'L%27Hemisf%C3%A8ric', content:'Edifici en forma d\'ull humà amb una parpella mòbil que s\'obre i es tanca. Acull un cinema IMAX, un planetari i una sala làser. La seua superfície és una xarxa de formigó blanc i acer.' },
-                { color:'red',    x:40, y:58, icon:'🐋', title:'L\'Oceanogràfic', wiki:'L%27Oceanogr%C3%A0fic', content:'El parc aquàtic més gran d\'Europa per volum d\'aigua (42 milions de litres). Dissenyat per Félix Candela, acull dofins, belugas, morses, taurons i més de 45.000 animals de 500 espècies.' },
-                { color:'green',  x:22, y:32, icon:'🌴', title:'L\'Umbracle', wiki:'L%27Umbracle', content:'Passeig escultòric cobert de 300 metres de llarg ple de palmeres, tarongers i plantes del Mediterrani. A la nit es converteix en un dels espais d\'oci nocturn més glamurosos de la ciutat.' },
-                { color:'yellow', x:72, y:68, icon:'🎶', title:'Palau de les Arts', wiki:'Palau_de_les_Arts_Reina_Sof%C3%ADa', content:'Una de les sales d\'òpera més importants del món. El seu disseny de Calatrava imita un casc medieval. La temporada inclou òpera, dansa i música clàssica d\'alt nivell internacional.' }
+                { color:'blue',   x:50, y:45, icon:'🐂', title:'Plaça de Bous de València', wiki:'Pla%C3%A7a_de_bous_de_Val%C3%A8ncia', content:'Construïda entre 1850 i 1860 per Sebastián Monleón, està inspirada en l\'arquitectura civil romana, com el Coliseu o l\'Amfiteatre de Nimes.' },
+                { color:'red',    x:75, y:25, icon:'🧱', title:'Arquitectura de Rajola', wiki:'Pla%C3%A7a_de_bous_de_Val%C3%A8ncia', content:'Destaca pel seu imponent cos poligonal de quatre pisos fet de rajola a cara vista, amb arcs de mig punt clàssics.' },
+                { color:'green',  x:85, y:30, icon:'🕰️', title:'Estació del Nord', wiki:'Estaci%C3%B3_del_Nord_(Val%C3%A9ncia)', content:'Just al costat es troba l\'emblemàtica Estació del Nord, formant un conjunt arquitectònic històric en ple centre de la ciutat.' },
+                { color:'yellow', x:50, y:85, icon:'🚗', title:'Carrer Xàtiva', wiki:'Carrer_de_X%C3%A0tiva', content:'Un dels carrers amb més trànsit i activitat de València, que separa el centre històric del barri de l\'Eixample.' }
             ]
         },
         valencia: {
-            name: 'Barraca en la Albufera', file_art: 'assets/valencia_art.png', file_photo: 'assets/valencia_photo.png',
+            name: 'Barraca en la Albufera', file_art: 'assets/valencia_pixelart.png?v=2', file_photo: 'assets/valencia_photo.png',
             hotspots: [
                 { color:'blue',   x:25, y:60, icon:'🦢', title:'L\'Albufera de València', wiki:'Albufera_de_Val%C3%A9ncia', content:'El llac costaner d\'aigua dolça més gran de la península ibèrica, amb 21.000 hectàrees. Hàbitat de centenars d\'espècies d\'aus, és un espai natural protegit i bressol de la paella valenciana.' },
                 { color:'red',    x:55, y:35, icon:'🍚', title:'El bressol de la paella', wiki:'Paella', content:'La paella valenciana va nàixer a les vores de l\'Albufera. La recepta autèntica porta arròs de la zona, pollastre, conill, bajoqueta, garrofó, tomaca, oli i safrà. Cap altra cosa és paella.' },
@@ -171,21 +191,67 @@ document.addEventListener('DOMContentLoaded', () => {
             ]
         },
         naranjos_360: {
-            name: 'Campo de Naranjos', file_art: 'assets/naranjos_360_art.png',
+            name: 'Campo de Naranjos', file_art: 'assets/naranjos_360_pixelart.png?v=3',
             hotspots: [
-                { color:'blue',   x:50, y:50, icon:'🍊', title:'La taronja valenciana', wiki:'Taronja', content:'Valencia i les seues comarques produeixen el 60% de les taronges d\'Espanya. Des del s. XIX s\'exporta a tot el món. La varietat Navel, la Clementina i la Navelina són las més famoses.' },
-                { color:'red',    x:28, y:30, icon:'🐛', title:'La plaga de la Tristesa (1957)', wiki:'Virus_de_la_tristesa_dels_c%C3%ADtrics', content:'Un virus devastador va destruir la pràctica totalitat dels tarongers valencians en la dècada dels 50. Gràcies a l\'esforç dels llauradors i nous patrons resistents, la taronja es va recuperar.' },
-                { color:'green',  x:70, y:40, icon:'💧', title:'Séquia Reial del Xúquer', wiki:'S%C3%A9quia_Reial_del_X%C3%BAquer', content:'L\'antic sistema de reg de l\'Horta valenciana, d\'origen àrab, és Patrimoni Mundial. El Tribunal de les Aigües de València porta més de 1.000 anys resolent disputes de reg cada dijous davant la Catedral.' },
-                { color:'yellow', x:38, y:68, icon:'✈️', title:'La caixa de taronges', wiki:'Taronja', content:'Las caixes de taronges amb paper setinat i etiquetes de colors vius foren un art gràfic propi del País Valencià. Les etiquetes dels anys 20-60 son objectes de col·leccionisme arreu del món.' }
+                { color:'blue',   x:38, y:80, icon:'🍊', title:'La taronja valenciana', wiki:'Taronja', content:'Valencia i les seues comarques produeixen el 60% de les taronges d\'Espanya. Des del s. XIX s\'exporta a todo el món. La varietat Navel, la Clementina i la Navelina són las més famoses.' },
+                { color:'red',    x:22, y:55, icon:'🐛', title:'La plaga de la Tristesa (1957)', wiki:'Virus_de_la_tristesa_dels_c%C3%ADtrics', content:'Un virus devastador va destruir la pràctica totalitat dels tarongers valencians en la dècada dels 50. Gràcies a l\'esforç dels llauradors i nous patrons resistents, la taronja es va recuperar.' },
+                { color:'green',  x:80, y:85, icon:'💧', title:'Séquia Reial del Xúquer', wiki:'S%C3%A9quia_Reial_del_X%C3%BAquer', content:'L\'antic sistema de reg de l\'Horta valenciana, d\'origen àrab, és Patrimoni Mundial. El Tribunal de les Aigües de València porta més de 1.000 anys resolent disputes de reg cada dijous davant la Catedral.' },
+                { color:'yellow', x:70, y:55, icon:'✈️', title:'La caixa de taronges', wiki:'Taronja', content:'Las caixes de taronges amb paper setinat i etiquetes de colors vius foren un art gràfic propi del País Valencià. Les etiquetes dels anys 20-60 son objectes de col·leccionisme arreu del món.' }
             ]
         },
         mestalla: {
-            name: 'Estadio de Mestalla', file_art: 'assets/mestallavcf_art.png',
+            name: 'Estadio de Mestalla', file_art: 'assets/mestallavcf_pixelart.png?v=5',
+            defaultY: 100,
             hotspots: [
-                { color:'blue',   x:50, y:25, icon:'🏟️', title:'Estadi de Mestalla', wiki:'Mestalla', content:'Inaugurat el 1923, és un dels estadis amb més història d\'Espanya. Amb capacitat per a 49.430 espectadors, és famós per la seua gran inclinació de graderies, que crea una atmosfera intimidant per als visitants.' },
+                { color:'blue',   x:50, y:25, icon:'🏟️', title:'Estadi de Mestalla', wiki:'Mestalla', content:'Inaugurat el 1923, és un dels estadis amb més història d\'Espanya. Amb capacitat per a 49.430 espectadors, és famós per la seya gran inclinació de graderies, que crea una atmosfera intimidant per als visitants.' },
                 { color:'red',    x:30, y:55, icon:'🏆', title:'València CF: la grandesa', wiki:'Val%C3%A9ncia_Club_de_Futbol', content:'Fundat en 1919, el Valencia CF ha sigut campió de Lliga en 1942, 1944, 1947, 2002 i 2004. Dos vegades campió de la UEFA (1980, 2004) i finalista de la Champions en 2001. Cinc vegades campió de Copa.' },
                 { color:'green',  x:65, y:60, icon:'🧣', title:'La Graderia de Mestalla', wiki:'Mestalla', content:'Les grades de Mestalla, especialment el Fondo Nord, són famoses per la seua passió i la seua presència sonora. La penya "Yomus" és un dels colectius ultres més antics i actius del futbol espanyol.' },
                 { color:'yellow', x:20, y:35, icon:'🦇', title:'El Murciélago de la Llegenda', wiki:'Lo_Rat_Penat', content:'Segons la llegenda, durant la Reconquista de València per Jaume I en 1238, un ratpenat va apareixer sobre el seu elm aturant-lo d\'una emboscada. Per agraïment, el ratpenat es va incloure a l\'escut del regne i del club.' }
+            ]
+        },
+        fallas: {
+            name: 'Fallas y Mascletà', file_art: 'assets/fallas_pixelart.png?v=2',
+            hotspots: [
+                { color:'blue',   x:18, y:18, icon:'🏛️', title:'Ajuntament de València', wiki:'Ajuntament_de_Val%C3%A9ncia', content:'Edifici modernista construït entre 1704 i 1934. Destaca el seu balcó principal, des d\'on la Fallera Major crida la famosa frase: \'Senyor pirotècnic, pot començar la mascletà!\'.' },
+                { color:'red',    x:35, y:72, icon:'🔥', title:'La Cremà', wiki:'Crem%C3%A0', content:'L\'acte de cremar els monuments fallers la nit del 19 de març, dia de Sant Josep. Símbol de purificació i de renaixement per a rebre la primavera.' },
+                { color:'green',  x:62, y:48, icon:'💥', title:'La Mascletà', wiki:'Masclet%C3%A0', content:'Espectacle sonor de petards (masclets) que es dispara cada dia de l\'1 al 19 de març a les 14h. No busca la llum, sinó el ritme, la potència i el terratrèmol final.' },
+                { color:'yellow', x:82, y:72, icon:'🍩', title:'Bunyols de carabassa', wiki:'Bunyol', content:'Dolç típic de la festa fallera, fet amb massa de farina i carabassa, fregit i arrebossat de sucre. Se sol acompanyar d\'una bona xocolata calenta.' }
+            ]
+        },
+        parque_cabecera: {
+            name: 'Parque Cabecera', file_art: 'assets/parque_cabecera_pixelart.png?v=2',
+            hotspots: [
+                { color:'blue',   x:60, y:35, icon:'🌉', title:'Parc de Capçalera', wiki:'Parc_de_Cap%C3%A7alera', content:'Situat a l\'inici de l\'antic llit del riu Túria. Recrea el paisatge fluvial original del riu amb un gran llac navegable i un turó mirador fet de terra excavada.' },
+                { color:'red',    x:65, y:46, icon:'🚣', title:'El Llac de Capçalera', wiki:'Parc_de_Cap%C3%A7alera', content:'Gran llac artificial d\'aigua depurada on conviuen ànecs, peixos i cignes. Disposa d\'embarcacions de pedals amb forma de cigne per a passejar per l\'aigua.' },
+                { color:'green',  x:40, y:80, icon:'🧺', title:'L\'oci a l\'aire lliure', wiki:'Jard%C3%AD_del_T%C3%BAria', content:'Espai molt popular per a practicar esport, passejar, fer pícnics en la gespa o vore la posta de sol. Representa la integració de la naturalesa en la ciutat.' },
+                { color:'yellow', x:10, y:22, icon:'🌴', title:'Flora i Fauna del Parc', wiki:'Flora_de_Val%C3%A9ncia', content:'El parc compta amb una densa vegetació de ribera, com salzes, àlbers i pins, que recreen el bosc de galeria. És refugi urbà per a moltes aus aquàtiques.' }
+            ]
+        },
+        virgen: {
+            name: 'Plaza de la Virgen', file_art: 'assets/plazadelavirgen_pixelart.png?v=2',
+            hotspots: [
+                { color:'blue',   x:45, y:55, icon:'⛲', title:'La Font del Túria', wiki:'Font_del_T%C3%BAria', content:'Escultura de Manuel Silvestre Edeta que representa el riu Túria envoltat de huit dones nues, que simbolitzen les huit séquies de l\'Horta valenciana.' },
+                { color:'red',    x:25, y:40, icon:'🏛️', title:'Basílica de la Mare de Déu', wiki:'Bas%C3%ADlica_de_la_Mare_de_D%C3%A9u_dels_Desemparats', content:'Santuari del s. XVII dedicat a la patrona de València. La seua cúpula ovalada està pintada al fresc per Antonio Palomino. Acull la venerada imatge de la Geperudeta.' },
+                { color:'green',  x:70, y:45, icon:'⛪', title:'Porta dels Apòstols', wiki:'Catedral_de_Val%C3%A9ncia', content:'Porta gòtica de la Catedral de València. Mundialment famosa perquè ací es reuneix cada dijous a les 12:00 hores el mil·lenari Tribunal de les Aigües.' },
+                { color:'yellow', x:75, y:20, icon:'🔔', title:'El Micalet', wiki:'El_Micalet', content:'Campanar gòtic de la Catedral i símbol inconfusible de la ciutat. Té 51 metres d\'alçària. La seua campana principal marca les hores des del s. XVI.' }
+            ]
+        },
+        estacion_norte: {
+            name: 'Estación del Norte', file_art: 'assets/estacion_norte_pixelart.png?v=3',
+            hotspots: [
+                { color:'blue',   x:50, y:30, icon:'🕰️', title:'Reloj de la Fachada', wiki:'Estaci%C3%B3_del_Nord_(Val%C3%A9ncia)', content:'El gran rellotge corona la façana modernista. L\'estació, inaugurada en 1917, és obra de Demetri Ribes i un símbol de la burgesia industrial valenciana.' },
+                { color:'red',    x:25, y:45, icon:'🍊', title:'Mosaics i Taronges', wiki:'Modernisme_valenci%C3%A0', content:'Tota l\'estació està decorada amb motius agrícoles valencians: taronges, flors de tarongina i l\'escut de la ciutat. Un cant a la fertilitat de l\'Horta.' },
+                { color:'green',  x:75, y:65, icon:'🚂', title:'El Ferrocarril', wiki:'Hist%C3%B2ria_del_ferrocarril_al_Pa%C3%ADs_Valenci%C3%A0', content:'Punt d\'arribada i partida de milers de viatgers diaris. Està declarada Bé d\'Interés Cultural i és una de les estacions més monumentals d\'Espanya.' },
+                { color:'yellow', x:50, y:80, icon:'🚶', title:'Carrer Xàtiva', wiki:'Carrer_de_X%C3%A0tiva', content:'Un dels carrers més vibrants del centre. En Falles, esta zona es talla al trànsit i s\'ompli de llums i llocs de xurros.' }
+            ]
+        },
+        torres_quart: {
+            name: 'Torres de Quart', file_art: 'assets/torres_quart_pixelart.png?v=4',
+            hotspots: [
+                { color:'blue',   x:30, y:40, icon:'🛡️', title:'Impactes de Canó', wiki:'Torres_de_Quart', content:'Les marques als murs són dels canons de les tropes napoleòniques durant el Setge de València de 1808. Les torres van resistir estoicament.' },
+                { color:'red',    x:50, y:70, icon:'🏰', title:'Porta de Ponent', wiki:'Muralles_de_Val%C3%A9ncia', content:'Construïdes en el s. XV per Pere Bonfill, eren l\'accés a la ciutat des de Castella. Són un rar exemple d\'arquitectura militar gòtica tardana.' },
+                { color:'green',  x:70, y:30, icon:'🦇', title:'Presó de Dones', wiki:'Torres_de_Quart', content:'Durant molts anys l\'interior de les torres, que és obert pel costat intramurs, es va utilitzar com a presó de dones.' },
+                { color:'yellow', x:50, y:85, icon:'🌙', title:'La Nit Valenciana', wiki:'Val%C3%A9ncia', content:'El barri del Carme als peus de les torres s\'il·lumina cada nit. Un lloc on es barreja la història viva amb la València més bohèmia.' }
             ]
         }
     };
@@ -199,11 +265,11 @@ document.addEventListener('DOMContentLoaded', () => {
     
     // Posiciones objetivo (a donde el usuario quiere ir arrastrando)
     let bgTargetX = 50; 
-    let bgTargetY = 50;
+    let bgTargetY = 100;
 
     // Posiciones actuales (las que se renderizan y persiguen al objetivo con inercia)
     let bgCurrentX = 50;
-    let bgCurrentY = 50;
+    let bgCurrentY = 100;
 
     const bgEasing = 0.12; // Velocidad de la inercia (menor = más inercia)
     const dragSensitivityNormal = 0.15; // Sensibilidad del porcentaje por pixel arrastrado
@@ -295,12 +361,17 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!AMBIENTS[ambientKey]) return;
         currentAmbient = ambientKey;
         
-        // Restablecer el zoom al mínimo y centrar para ver el máximo de fondo
-        bgTargetX = 50;
-        bgTargetY = 50;
-        bgZoomTarget = ZOOM_MIN;
-        
         const amb = AMBIENTS[ambientKey];
+        
+        // Restablecer el zoom al mínimo y centrar para ver el máximo de fondo (usando valores personalizados si existen)
+        bgTargetX = amb.defaultX !== undefined ? amb.defaultX : 50;
+        bgTargetY = amb.defaultY !== undefined ? amb.defaultY : 100;
+        bgZoomTarget = amb.defaultZoom !== undefined ? amb.defaultZoom : ZOOM_MIN;
+        
+        // Igualar la posición y zoom actuales para evitar transiciones bruscas al cambiar de ambiente
+        bgCurrentX = bgTargetX;
+        bgCurrentY = bgTargetY;
+        bgZoomCurrent = bgZoomTarget;
         const bgUrl = amb.file_art;
 
         // Cambiar la imagen de fondo con transición CSS3 suave
@@ -366,6 +437,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Rueda del ratón / trackpad → mueve el fondo (pan), NO cambia de ambiente
     window.addEventListener('wheel', (e) => {
+        if (window.isAdventureActive) return;
         if (e.target.closest('#player-panel') || e.target.closest('#hotspot-modal')) return;
         e.preventDefault();
         bgTargetX = Math.max(0, Math.min(100, bgTargetX + e.deltaX * 0.08));
@@ -373,6 +445,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }, { passive: false });
 
 
+
+    // --- Memoria de los Paneles ---
+    let wasMinimizedBeforePanel = false;
 
     // --- Minimizar / Maximizar Reproductor ---
     const playerPanel = document.getElementById('player-panel');
@@ -388,6 +463,19 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(positionPanel, 150);
     }
 
+    window.togglePlayerMinimize = togglePlayerMinimize;
+    window.isPlayerMinimized = () => playerPanel.classList.contains('minimized');
+    window.minimizePlayer = () => {
+        if (!playerPanel.classList.contains('minimized')) {
+            togglePlayerMinimize();
+        }
+    };
+    window.maximizePlayer = () => {
+        if (playerPanel.classList.contains('minimized')) {
+            togglePlayerMinimize();
+        }
+    };
+
     togglePlayerBtn.addEventListener('click', togglePlayerMinimize);
 
     // En dispositivos móviles (ancho <= 580px) arranca minimizado por defecto
@@ -398,19 +486,45 @@ document.addEventListener('DOMContentLoaded', () => {
         togglePlayerBtn.title = dict.btnMaximize;
     }
 
-    // --- Desplegar / Colapsar Selector de Ambientes ---
-    const toggleSelectorBtn = document.getElementById('toggle-selector-btn');
+    // --- Despliegue de Paneles (Fondos e Historial) ---
+    const ambientToggleBtn = document.getElementById('ambient-toggle-btn');
     const ambientSelectorWrapper = document.getElementById('ambient-selector-wrapper');
 
-    toggleSelectorBtn.addEventListener('click', () => {
-        const isCollapsed = ambientSelectorWrapper.classList.toggle('collapsed');
-        const dict = TRANSLATIONS[currentLang];
-        toggleSelectorBtn.textContent = isCollapsed ? '▲' : '▼';
-        toggleSelectorBtn.title = isCollapsed ? dict.btnShowAmbients : dict.btnHideAmbients;
-        
-        // Ajustar posición del panel al cambiar de altura
-        setTimeout(positionPanel, 150);
-    });
+    if (ambientToggleBtn && ambientSelectorWrapper) {
+        ambientToggleBtn.addEventListener('click', (e) => {
+            e.stopPropagation();
+            const isCollapsed = ambientSelectorWrapper.classList.contains('collapsed');
+            
+            // Cerrar historial si está abierto
+            const historyWrapper = document.getElementById('history-wrapper');
+            const isSwitchingFromHistory = historyWrapper && !historyWrapper.classList.contains('collapsed');
+            
+            if (isSwitchingFromHistory) {
+                historyWrapper.classList.add('collapsed');
+                const hBtn = document.getElementById('history-btn');
+                if(hBtn) hBtn.classList.remove('active');
+            } else if (isCollapsed) {
+                wasMinimizedBeforePanel = playerPanel.classList.contains('minimized');
+            }
+
+            if (isCollapsed) {
+                if (playerPanel.classList.contains('minimized')) {
+                    togglePlayerMinimize();
+                }
+                ambientSelectorWrapper.classList.remove('collapsed');
+                ambientToggleBtn.classList.add('active');
+            } else {
+                ambientSelectorWrapper.classList.add('collapsed');
+                ambientToggleBtn.classList.remove('active');
+                if (wasMinimizedBeforePanel) {
+                    togglePlayerMinimize();
+                    wasMinimizedBeforePanel = false;
+                }
+            }
+            
+            setTimeout(positionPanel, 300);
+        });
+    }
 
     // Helpers cross-browser para fullscreen
     function isFullscreen() {
@@ -693,18 +807,23 @@ document.addEventListener('DOMContentLoaded', () => {
         
         isDragging = true;
         playerPanel.classList.add('dragging');
-        playerPanel.style.bottom = 'auto'; // Asegurar desactivación de bottom en arrastre
+        
+        // 1. Leer las coordenadas reales ACTUALES
+        initialLeft = playerPanel.offsetLeft;
+        initialTop = playerPanel.offsetTop;
+        
+        // 2. Anclar rígidamente al techo y la izquierda con esas coordenadas
+        playerPanel.style.top = `${initialTop}px`;
+        playerPanel.style.left = `${initialLeft}px`;
+        
+        // 3. Ahora sí podemos quitar el anclaje inferior sin que salte
+        playerPanel.style.bottom = 'auto'; 
         
         const clientX = e.type === 'touchstart' ? e.touches[0].clientX : e.clientX;
         const clientY = e.type === 'touchstart' ? e.touches[0].clientY : e.clientY;
         
         startX = clientX;
         startY = clientY;
-        
-        // Usar offsetLeft y offsetTop en lugar de style.left y style.top porque
-        // positionPanel resetea top a 'auto', lo que causaría parseFloat('auto') = NaN = 0.
-        initialLeft = playerPanel.offsetLeft;
-        initialTop = playerPanel.offsetTop;
     }
 
     function drag(e) {
@@ -800,9 +919,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 exitIcon.classList.add('hidden');
             }
         }
-        // Restablecer el zoom a 1.0 y centrar para el menor desplazamiento posible
-        bgTargetX = 50;
-        bgTargetY = 50;
+        // Restablecer el zoom a 1.0 y posicionamiento inicial
+        const amb = AMBIENTS[currentAmbient] || {};
+        bgTargetX = amb.defaultX !== undefined ? amb.defaultX : 50;
+        bgTargetY = amb.defaultY !== undefined ? amb.defaultY : 100;
         bgZoomTarget = ZOOM_MIN;
     };
 
@@ -875,6 +995,7 @@ document.addEventListener('DOMContentLoaded', () => {
     // Navegación panorámica con cursores del teclado
     // Cambio de ambiente solo con AvPág / RePág (+ botones numerados)
     window.addEventListener('keydown', (e) => {
+        if (window.isAdventureActive) return;
         if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
         // Revelar posiciones de círculos (Hotspots) con Windows + X o Ctrl + X
@@ -1168,9 +1289,10 @@ document.addEventListener('DOMContentLoaded', () => {
             const isFs = isFullscreen();
             fullscreenBtn.title = isFs ? dict.btnFullscreenExit : dict.btnFullscreenEnter;
         }
-        if (toggleSelectorBtn) {
+        const ambientToggleBtn = document.getElementById('ambient-toggle-btn');
+        if (ambientToggleBtn) {
             const isCollapsed = ambientSelectorWrapper.classList.contains('collapsed');
-            toggleSelectorBtn.title = isCollapsed ? dict.btnShowAmbients : dict.btnHideAmbients;
+            ambientToggleBtn.title = isCollapsed ? dict.btnShowAmbients : dict.btnHideAmbients;
         }
         
         // 7. Títulos de los ambientes en la cuadrícula
@@ -1204,4 +1326,119 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Inicialización del idioma
     updateLanguageUI();
+
+    // --- Lógica del Minijuego Aventura ---
+    const btnAdventure = document.getElementById('btn-adventure');
+    if (btnAdventure) {
+        btnAdventure.addEventListener('click', () => {
+            if (typeof startAdventure === 'function') {
+                const ambientArt = AMBIENTS[currentAmbient].file_art;
+                startAdventure(currentAmbient, ambientArt);
+            }
+        });
+    }
+
+    // --- Lógica del Historial de Emisión ---
+    const historyBtn = document.getElementById('history-btn');
+    const historyWrapper = document.getElementById('history-wrapper');
+    const historyList = document.getElementById('history-list');
+
+    if (historyBtn && historyWrapper) {
+        historyBtn.addEventListener('click', async () => {
+            const isCollapsed = historyWrapper.classList.contains('collapsed');
+            
+            // Cerrar fondos si están abiertos
+            const ambientWrapper = document.getElementById('ambient-selector-wrapper');
+            const isSwitchingFromAmbient = ambientWrapper && !ambientWrapper.classList.contains('collapsed');
+            
+            if (isSwitchingFromAmbient) {
+                ambientWrapper.classList.add('collapsed');
+                const ambBtn = document.getElementById('ambient-toggle-btn');
+                if(ambBtn) ambBtn.classList.remove('active');
+            } else if (isCollapsed) {
+                wasMinimizedBeforePanel = playerPanel.classList.contains('minimized');
+            }
+
+            if (!isCollapsed) {
+                historyWrapper.classList.add('collapsed');
+                historyBtn.classList.remove('active');
+                if (wasMinimizedBeforePanel) {
+                    togglePlayerMinimize();
+                    wasMinimizedBeforePanel = false;
+                }
+                setTimeout(positionPanel, 300);
+                return;
+            }
+
+            // Desplegar el panel
+            if (playerPanel.classList.contains('minimized')) {
+                togglePlayerMinimize();
+            }
+            historyWrapper.classList.remove('collapsed');
+            historyBtn.classList.add('active');
+            setTimeout(positionPanel, 300);
+            historyList.innerHTML = '<li class="history-loading">Cargando historial...</li>';
+
+            try {
+                // Fetch al archivo de log (usamos ?t= para evitar caché)
+                const response = await fetch('/backend/mp3/historial_emision.log?t=' + new Date().getTime());
+                if (!response.ok) throw new Error('No se pudo cargar el historial');
+                const text = await response.text();
+                
+                const lines = text.split('\n').filter(l => l.trim() !== '');
+                if (lines.length === 0) {
+                    historyList.innerHTML = '<li class="history-loading">El historial está vacío.</li>';
+                    return;
+                }
+
+                // Definimos el límite de 3 horas hacia atrás
+                const threeHoursAgo = new Date();
+                threeHoursAgo.setHours(threeHoursAgo.getHours() - 3);
+
+                const recentItems = [];
+
+                // Recorremos de abajo a arriba (más recientes primero)
+                for (let i = lines.length - 1; i >= 0; i--) {
+                    const line = lines[i];
+                    const parts = line.split(' | ');
+                    if (parts.length < 3) continue;
+
+                    const dateStr = parts[0];
+                    const artist = parts[1].trim();
+                    const title = parts[2].trim();
+
+                    // Parseo compatible de fecha (YYYY-MM-DDTHH:MM:SS)
+                    const logDate = new Date(dateStr.replace(' ', 'T'));
+                    
+                    // Si ya nos hemos pasado de las 3 horas, cortamos el bucle
+                    if (logDate < threeHoursAgo) {
+                        break; 
+                    }
+
+                    // Formato de hora limpio (Ej: "15:30")
+                    const timeStr = logDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
+                    recentItems.push({ time: timeStr, artist, title });
+                }
+
+                if (recentItems.length === 0) {
+                    historyList.innerHTML = '<li class="history-loading">No hay emisiones registradas en las últimas 3 horas.</li>';
+                    return;
+                }
+
+                // Generamos el HTML dinámico
+                historyList.innerHTML = recentItems.map(item => `
+                    <li>
+                        <span class="time">${item.time}</span>
+                        <span class="artist">${item.artist}</span>
+                        <span class="title">${item.title}</span>
+                    </li>
+                `).join('');
+
+            } catch (error) {
+                historyList.innerHTML = '<li class="history-loading">El historial no está disponible en este momento.</li>';
+                console.error('Error fetching history:', error);
+            }
+        });
+    }
 });

@@ -306,56 +306,12 @@ body, html {
     border-color: rgba(255, 255, 255, 0.2);
 }
 
-.player-header-text {
-    display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    text-align: left;
-    overflow: hidden;
-    flex: 1;
-}
-
-.title-row {
-    display: flex;
-    align-items: center;
-    gap: 0.8rem;
-    width: 100%;
-}
-
 .player-header-actions {
     display: flex;
     align-items: center;
     gap: 0.4rem;
     flex-shrink: 0;
-}
-
-.badge {
-    background: rgba(255, 159, 28, 0.15);
-    color: var(--primary-color);
-    border: 1px solid rgba(255, 159, 28, 0.3);
-    font-size: 0.62rem;
-    font-weight: 800;
-    letter-spacing: 2.5px;
-    padding: 0.2rem 0.6rem;
-    border-radius: 50px;
-    display: inline-block;
-    margin-bottom: 0.2rem;
-}
-
-.radio-title {
-    font-family: var(--font-serif);
-    font-size: 1.6rem;
-    font-weight: 700;
-    letter-spacing: -0.5px;
-    color: #ffffff;
-    white-space: nowrap;
-}
-
-.tagline {
-    font-size: 0.8rem;
-    color: rgba(255, 255, 255, 0.45);
-    font-weight: 300;
-    margin-top: 0.1rem;
+    margin-left: auto;
 }
 
 /* Botón Play/Pausa General */
@@ -410,9 +366,8 @@ body, html {
     height: 16px;
 }
 
-/* Botones de Cabecera (Fullscreen y Minimizar) */
-.player-fullscreen-btn,
-.player-toggle-btn {
+/* Botones de Cabecera (Historial, Fullscreen y Minimizar) */
+.player-action-btn {
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(255, 255, 255, 0.06);
     color: rgba(255, 255, 255, 0.55);
@@ -428,8 +383,7 @@ body, html {
     outline: none;
 }
 
-.player-fullscreen-btn:hover,
-.player-toggle-btn:hover {
+.player-action-btn:hover {
     color: #ffffff;
     background: rgba(255, 255, 255, 0.1);
     border-color: rgba(255, 255, 255, 0.18);
@@ -847,7 +801,7 @@ body, html {
         flex-shrink: 0 !important;
     }
 
-    .player-panel.minimized .player-fullscreen-btn,
+    .player-panel.minimized .player-action-btn,
     .player-panel.minimized .header-play-btn {
         display: none !important;
     }
@@ -906,9 +860,95 @@ body, html {
     opacity: 0;
     background: rgba(255, 255, 255, 0.9);
     transform: translate(-50%, -50%) scale(1);
-    transition: background 0.3s ease, opacity 0.3s ease, transform 0.2s ease;
-    box-shadow: 0 0 8px rgba(255, 255, 255, 0.5);
-    will-change: left, top, opacity, background;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* --- Panel Integrado de Historial --- */
+.history-wrapper {
+    margin-top: 15px;
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    padding-top: 15px;
+    padding-bottom: 15px;
+    max-height: 280px;
+    opacity: 1;
+    overflow-y: auto;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.history-wrapper.collapsed {
+    max-height: 0;
+    opacity: 0;
+    margin-top: 0;
+    padding-top: 0;
+    padding-bottom: 0;
+    border-top-color: transparent;
+    pointer-events: none;
+}
+
+.history-header {
+    font-size: 0.75rem;
+    color: rgba(255, 255, 255, 0.4);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 12px;
+    text-align: center;
+}
+
+#history-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+#history-list li {
+    display: flex;
+    flex-direction: column;
+    background: rgba(255, 255, 255, 0.02);
+    border-radius: 6px;
+    padding: 8px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.03);
+}
+
+#history-list li .time {
+    font-size: 0.7rem;
+    color: var(--primary-color);
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+#history-list li .artist {
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.6);
+    margin-bottom: 2px;
+}
+
+#history-list li .title {
+    font-size: 0.85rem;
+    color: #fff;
+    font-weight: 400;
+}
+
+.history-loading {
+    text-align: center;
+    color: rgba(255, 255, 255, 0.5) !important;
+    font-style: italic;
+    background: none !important;
+    border: none !important;
+}
+
+/* Scrollbar fina para el historial */
+.history-wrapper::-webkit-scrollbar {
+    width: 4px;
+}
+.history-wrapper::-webkit-scrollbar-track {
+    background: transparent;
+}
+.history-wrapper::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.15);
+    border-radius: 4px;
 }
 
 /* --- Anell fi sobre el hotspot (apareix en apropar-se) --- */
