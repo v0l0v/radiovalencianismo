@@ -7,26 +7,23 @@ import xml.etree.ElementTree as ET
 
 # Configuración
 RSS_URL = "https://rss.app/feeds/7vARajiOaO8zJO76.xml"
-SSH_KEY_PATH = os.path.expanduser("~/.ssh/id_ed25519")
+SSH_KEY_PATH = os.path.expanduser("~/.ssh/id_ed25519_vps_sync")
 
-# Destino remoto de producción para rsync (desde local)
-RSYNC_TARGET = "debian@54.36.100.247:/home/debian/radiovalencianismo/backend/mp3/generico/nyas_coca/"
+# Destinos remotos de producción para rsync (desde local)
+RSYNC_TARGETS = [
+    {"target": "debian@51.38.236.161:/opt/v0l0v/apps/radiovalencianismo/backend/mp3/generico/nyas_coca/", "port": 5122}, # Servidor Principal Nuevo
+    {"target": "debian@54.36.100.247:/home/debian/radiovalencianismo/backend/mp3/generico/nyas_coca/", "port": 22}      # Servidor en la sombra
+]
 
 # Detección inteligente de entorno (VPS de producción o máquina local)
-VPS_BASE_PATH = "/home/debian/radiovalencianismo"
-LOCAL_BASE_PATH = "/home/victor/proyectos/RadioValencianismomasmas"
+script_dir = os.path.dirname(os.path.abspath(__file__))
+BASE_PATH = os.path.dirname(script_dir)
+IS_VPS = os.path.exists("/opt/v0l0v/apps/radiovalencianismo") or os.path.exists("/home/debian/radiovalencianismo")
+DEST_DIR = os.path.join(BASE_PATH, "backend/mp3/generico/nyas_coca")
 
-if os.path.exists(VPS_BASE_PATH):
-    # Estamos en el VPS de producción
-    BASE_PATH = VPS_BASE_PATH
-    DEST_DIR = os.path.join(BASE_PATH, "backend/mp3/generico/nyas_coca")
-    IS_VPS = True
+if IS_VPS:
     print("🖥️ Entorno detectado: VPS de Producción")
 else:
-    # Estamos en la máquina local de Víctor
-    BASE_PATH = LOCAL_BASE_PATH
-    DEST_DIR = os.path.join(BASE_PATH, "backend/mp3/generico/nyas_coca")
-    IS_VPS = False
     print("💻 Entorno detectado: Máquina Local (Víctor)")
 
 ARCHIVE_PATH = os.path.join(DEST_DIR, "archive_nyas_coca.txt")
@@ -101,20 +98,22 @@ def descargar():
 
         # Sincronización rsync (Solo si estamos en local)
         if not IS_VPS:
-            print("\n📤 Sincronizando con el servidor de producción (VPS) via rsync...")
-            rsync_cmd = ["rsync", "-avz", "--delete", "--exclude=*.txt"]
-            if os.path.exists(SSH_KEY_PATH):
-                rsync_cmd += ["-e", f"ssh -i {SSH_KEY_PATH} -o StrictHostKeyChecking=no"]
-            
-            # Origen local y destino remoto
+            print("\n📤 Sincronizando con los servidores de producción via rsync...")
             src_dir = DEST_DIR + "/"
-            rsync_cmd += [src_dir, RSYNC_TARGET]
-            
-            sync_res = subprocess.run(rsync_cmd)
-            if sync_res.returncode == 0:
-                print("✅ Sincronización con el servidor de producción completada con éxito.")
-            else:
-                print("⚠️ Advertencia: Error durante la sincronización rsync con producción.")
+            for target_info in RSYNC_TARGETS:
+                target = target_info["target"]
+                port = target_info["port"]
+                print(f"🌍 Iniciando sincronización a {target} en puerto {port}...")
+                
+                rsync_base_cmd = ["rsync", "-avz", "--delete", "--exclude=*.txt"]
+                if os.path.exists(SSH_KEY_PATH):
+                    rsync_base_cmd += ["-e", f"ssh -i {SSH_KEY_PATH} -p {port} -o StrictHostKeyChecking=no"]
+                
+                sync_res = subprocess.run(rsync_base_cmd + [src_dir, target])
+                if sync_res.returncode == 0:
+                    print(f"✅ Sincronización con {target} completada con éxito.")
+                else:
+                    print(f"⚠️ Advertencia: Error durante la sincronización rsync a {target}.")
         else:
             print("\nℹ️ Ejecución directa en VPS: Archivos depositados localmente. Sincronización rsync omitida.")
 

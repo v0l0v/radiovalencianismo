@@ -14,13 +14,8 @@ import subprocess
 from datetime import datetime, timedelta
 
 # Detección de entorno
-VPS_BASE_PATH = "/home/debian/radiovalencianismo"
-LOCAL_BASE_PATH = "/home/victor/proyectos/RadioValencianismomasmas"
-
-if os.path.exists(VPS_BASE_PATH):
-    BASE_PATH = VPS_BASE_PATH
-else:
-    BASE_PATH = LOCAL_BASE_PATH
+script_dir = os.path.dirname(os.path.abspath(__file__))
+BASE_PATH = os.path.dirname(script_dir)
 
 CONFIG_FILE = os.path.join(BASE_PATH, "scripts/programacion.json")
 SELECTOR_SCRIPT = os.path.join(BASE_PATH, "scripts/selector_maestro.py")

@@ -48,8 +48,18 @@ echo "{\"title\": \"$SELECTED\"}" > "$BASE_DIR/seleccion/ultimo_programa.json"
 echo "$(date '+%Y-%m-%d %H:%M:%S') - Seleccionado Don Pio: $SELECTED" >> "$BASE_DIR/selector_log.txt"
 echo "Cambio completado: $SELECTED"
 
-# Publicar avís en Nostr (Normes d'El Puig)
-BOT_DIR="$SCRIPT_DIR/../nostr_bot"
-if [ -f "$BOT_DIR/.env" ]; then
-    docker run --rm --env-file "$BOT_DIR/.env" nostr-bot node index.js "📻 En 5 minuts comença La Hora de Don Pío en Valencianismo Radio! Connecta't ya en valencianismo.com" &
+
+# Sincronizar selección con el VPS si existe la clave local (Opción A - Backup)
+SSH_KEY_PATH="$HOME/.ssh/id_ed25519_vps_sync"
+if [ -f "$SSH_KEY_PATH" ]; then
+    RSYNC_TARGETS=(
+        "debian@51.38.236.161:/opt/v0l0v/apps/radiovalencianismo/backend/mp3/programas/horaDonPio/seleccion/|5122"
+        "debian@54.36.100.247:/home/debian/radiovalencianismo/backend/mp3/programas/horaDonPio/seleccion/|22"
+    )
+    for target_entry in "${RSYNC_TARGETS[@]}"; do
+        target="${target_entry%%|*}"
+        port="${target_entry##*|}"
+        echo "📤 Sincronizando selección de Don Pío a $target en puerto $port..."
+        rsync -avz --delete --exclude=*.txt -e "ssh -i $SSH_KEY_PATH -p $port -o StrictHostKeyChecking=no" "$SELECCION_DIR/" "$target"
+    done
 fi

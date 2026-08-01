@@ -22,15 +22,9 @@ import argparse
 from datetime import datetime
 
 # Detección de entorno (Local vs VPS de producción)
-VPS_BASE_PATH = "/home/debian/radiovalencianismo"
-LOCAL_BASE_PATH = "/home/victor/proyectos/RadioValencianismomasmas"
-
-if os.path.exists(VPS_BASE_PATH):
-    BASE_PATH = VPS_BASE_PATH
-    IS_VPS = True
-else:
-    BASE_PATH = LOCAL_BASE_PATH
-    IS_VPS = False
+script_dir = os.path.dirname(os.path.abspath(__file__))
+BASE_PATH = os.path.dirname(script_dir)
+IS_VPS = os.path.exists("/opt/v0l0v/apps/radiovalencianismo") or os.path.exists("/home/debian/radiovalencianismo")
 
 # Mapeo de directorios por programa
 PROGRAMAS_CONFIG = {
@@ -321,6 +315,25 @@ def main():
     # 6. Enviar aviso por Nostr si está configurado
     if config["nostr_aviso"]:
         enviar_aviso_nostr(config["nostr_aviso"])
+
+    # 7. Sincronizar selección con el VPS (Solo si estamos en local y existe la clave SSH)
+    if not IS_VPS:
+        SSH_KEY_PATH = os.path.expanduser("~/.ssh/id_ed25519_vps_sync")
+        if os.path.exists(SSH_KEY_PATH):
+            RSYNC_TARGETS = [
+                {"target": f"debian@51.38.236.161:/opt/v0l0v/apps/radiovalencianismo/{config['dir']}/seleccion/", "port": 5122},
+                {"target": f"debian@54.36.100.247:/home/debian/radiovalencianismo/{config['dir']}/seleccion/", "port": 22}
+            ]
+            for target_info in RSYNC_TARGETS:
+                target = target_info["target"]
+                port = target_info["port"]
+                try:
+                    print(f"📤 Sincronizando selección de {prog_id} a {target} en puerto {port}...")
+                    rsync_cmd = ["rsync", "-avz", "--delete", "--exclude=*.txt", "-e", f"ssh -i {SSH_KEY_PATH} -p {port} -o StrictHostKeyChecking=no", seleccion_dir + "/", target]
+                    import subprocess
+                    subprocess.run(rsync_cmd, check=True)
+                except Exception as rse:
+                    sys.stderr.write(f"⚠️ Error al sincronizar selección de {prog_id} a {target}: {rse}\n")
 
     # Imprimir por stdout la ruta del archivo copiado (por si se necesita)
     print(dest_mp3)

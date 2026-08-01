@@ -28,8 +28,11 @@ FFMPEG_PATH = get_binary_path("ffmpeg")
 
 # Configuración del puente de envío (rsync)
 RSYNC_ENABLED = True
-RSYNC_TARGET = "debian@54.36.100.247:/home/debian/radiovalencianismo/backend/mp3/programas/"
-SSH_KEY_PATH = os.path.expanduser("~/.ssh/id_ed25519")
+RSYNC_TARGETS = [
+    {"target": "debian@51.38.236.161:/opt/v0l0v/apps/radiovalencianismo/backend/mp3/programas/", "port": 5122}, # Servidor Principal Nuevo
+    {"target": "debian@54.36.100.247:/home/debian/radiovalencianismo/backend/mp3/programas/", "port": 22}     # Servidor Antiguo (En la sombra)
+]
+SSH_KEY_PATH = os.path.expanduser("~/.ssh/id_ed25519_vps_sync")
 
 
 
@@ -60,33 +63,48 @@ def download_videos(feed_filename):
     # El sistema ahora usa el archivo alerta.mp3 estático que debe estar en la carpeta del programa.
 
     try:
-        response = requests.get(rss_url, timeout=30)
-        response.raise_for_status()
-        root = ET.fromstring(response.content)
+        is_youtube_channel = "youtube.com" in rss_url and ("/@" in rss_url or "/channel/" in rss_url or "/c/" in rss_url)
         links = []
-        
-        # Procesar feeds RSS standard (<item>)
-        for item in root.findall('.//item'):
-            link = item.find('link')
-            if link is not None and link.text and ('youtube.com' in link.text or 'youtu.be' in link.text):
-                clean_url = link.text.split('&')[0] if 'watch?v=' in link.text else link.text
-                if clean_url not in links:
-                    links.append(clean_url)
-                    
-        # Procesar feeds Atom (<entry>), que es el nativo de YouTube
-        # Buscar tanto con namespace como sin namespace
-        entries = root.findall('.//{http://www.w3.org/2005/Atom}entry')
-        if not entries:
-            entries = root.findall('.//entry')
+        if is_youtube_channel:
+            print(f"🔍 Obteniendo los últimos 5 vídeos del canal {rss_url} con yt-dlp...")
+            cmd = [YT_DLP_PATH, "-i", "--print", "webpage_url", "--playlist-items", "1-5", rss_url]
+            if os.path.exists(os.path.join(base_path, "cookies.txt")):
+                cmd.extend(["--cookies", os.path.join(base_path, "cookies.txt")])
             
-        for entry in entries:
-            # Buscar el elemento link. En Atom es <link rel="alternate" href="..."/>
-            for link in entry.findall('{http://www.w3.org/2005/Atom}link') + entry.findall('link'):
-                href = link.get('href')
-                if href and ('youtube.com' in href or 'youtu.be' in href):
-                    clean_url = href.split('&')[0] if 'watch?v=' in href else href
+            res = subprocess.run(cmd, capture_output=True, text=True, check=False)
+            for line in res.stdout.strip().split("\n"):
+                if line and ("youtube.com" in line or "youtu.be" in line):
+                    links.append(line)
+            
+            if res.returncode != 0 and not links:
+                print(f"⚠️ Error al obtener vídeos con yt-dlp: {res.stderr}")
+        else:
+            response = requests.get(rss_url, timeout=30)
+            response.raise_for_status()
+            root = ET.fromstring(response.content)
+            
+            # Procesar feeds RSS standard (<item>)
+            for item in root.findall('.//item'):
+                link = item.find('link')
+                if link is not None and link.text and ('youtube.com' in link.text or 'youtu.be' in link.text):
+                    clean_url = link.text.split('&')[0] if 'watch?v=' in link.text else link.text
                     if clean_url not in links:
                         links.append(clean_url)
+                        
+            # Procesar feeds Atom (<entry>), que es el nativo de YouTube
+            # Buscar tanto con namespace como sin namespace
+            entries = root.findall('.//{http://www.w3.org/2005/Atom}entry')
+            if not entries:
+                entries = root.findall('.//entry')
+                
+            for entry in entries:
+                # Buscar el elemento link. En Atom es <link rel="alternate" href="..."/>
+                for link in entry.findall('{http://www.w3.org/2005/Atom}link') + entry.findall('link'):
+                    href = link.get('href')
+                    if href and ('youtube.com' in href or 'youtu.be' in href):
+                        clean_url = href.split('&')[0] if 'watch?v=' in href else href
+                        if clean_url not in links:
+                            links.append(clean_url)
 
         if not links:
             print("No se encontraron vídeos de YouTube en este feed.")
@@ -103,16 +121,28 @@ def download_videos(feed_filename):
         if not os.path.exists(dest_path):
             os.makedirs(dest_path, exist_ok=True)
             
-        # Recorrer el feed buscando el más reciente que podamos bajar
-        # Si encontramos uno ya archivado, paramos (ya estamos al día)
-        ultimo_audio_path = ""
-        success = False
+        # 1. Identificar todos los vídeos pendientes (que no están en el archivo)
+        pending_links = []
         for video_url in links:
             video_id = video_url.split("v=")[-1] if "v=" in video_url else video_url.split("/")[-1]
-            
             if video_id in archived_ids:
-                print(f"🛑 El vídeo {video_id} ya ha sido procesado. Estamos al día. Finalizando.")
+                print(f"🛑 Límite alcanzado: El vídeo {video_id} ya fue procesado.")
                 break
+            pending_links.append(video_url)
+
+        if not pending_links:
+            print("Estamos al día. Finalizando.")
+            return
+
+        # 2. Invertir la lista para descargar del MÁS ANTIGUO al MÁS RECIENTE.
+        # Así, si hay varios, el último en procesarse (el más nuevo) será el que se quede
+        # activo en 'seleccion/' y como 'ultimo_programa.json'.
+        pending_links.reverse()
+
+        ultimo_audio_path = ""
+        success = False
+        for video_url in pending_links:
+            video_id = video_url.split("v=")[-1] if "v=" in video_url else video_url.split("/")[-1]
 
             print(f"\n--- Procesando novedad: {video_url} ---")
             
@@ -157,7 +187,7 @@ def download_videos(feed_filename):
                 if program_folder == "gothamvcf":
                     print(f"🧹 Gotham: Sustituyendo episodio antiguo por: {f}")
                     for f_old in files_before:
-                        if f_old.endswith(".mp3") and f_old != f:
+                        if (f_old.endswith(".mp3") or f_old.endswith(".json")) and f_old != f and f_old != "ultimo_programa.json" and f_old != "ateneo_estado.json":
                             try: os.remove(os.path.join(dest_path, f_old))
                             except: pass
                     # Asegurar que el título contiene el nombre del programa para que el frontend cargue la carátula
@@ -169,7 +199,9 @@ def download_videos(feed_filename):
                     ahora = t_lib.time()
                     siete_dias = 7 * 24 * 60 * 60
                     for f_old in os.listdir(dest_path):
-                        if f_old.endswith(".mp3"):
+                        if f_old.endswith(".mp3") or f_old.endswith(".json"):
+                            if f_old in ["ultimo_programa.json", "ateneo_estado.json"]:
+                                continue
                             f_path = os.path.join(dest_path, f_old)
                             mtime = os.path.getmtime(f_path)
                             if (ahora - mtime) > siete_dias:
@@ -246,9 +278,11 @@ def download_videos(feed_filename):
                         json.dump(json_data, jf, indent=4)
                         
                     # Guardar una copia específica del episodio para que el selector pueda recuperar la carátula
-                    with open(os.path.join(dest_path, f"{clean_title}.json"), "w") as jf:
+                    # Usamos el nombre del archivo original (f) con extensión .json para evitar problemas con barras inclinadas en clean_title
+                    json_filename = f.replace(".mp3", ".json")
+                    with open(os.path.join(dest_path, json_filename), "w") as jf:
                         json.dump(json_data, jf, indent=4)
-                    print(f"📊 Metadatos exportados a ultimo_programa.json")
+                    print(f"📊 Metadatos exportados a ultimo_programa.json y {json_filename}")
                     
                     # --- NUEVO: Copiar inmediatamente a la carpeta seleccion ---
                     import shutil
@@ -271,7 +305,7 @@ def download_videos(feed_filename):
                 except Exception as je:
                     print(f"⚠️ Error exportando JSON o copiando a seleccion: {je}")
 
-                break
+                # NOTA: Ya no rompemos el bucle (break), continuamos con el siguiente pendiente
             else:
                 # Si llegamos aquí es porque yt-dlp falló (video privado, miembros, etc.)
                 print(f"⚠️ No se pudo descargar el vídeo {video_id} (posiblemente privado o bloqueado).")
@@ -281,34 +315,36 @@ def download_videos(feed_filename):
                 # Continuamos con el siguiente vídeo del feed
                 continue
 
-        # ---------- RSYNC SINCRONIZACIÓN ----------
-        # Ejecutamos rsync con captura de salida y manejo de errores
-        rsync_base_cmd = ["rsync", "-avz", "--delete", "--exclude=*.txt"]
-        if os.path.exists(SSH_KEY_PATH):
-            rsync_base_cmd += ["-e", f"ssh -i {SSH_KEY_PATH} -o StrictHostKeyChecking=no"]
-        else:
-            print("⚠️ Advertencia: No se encontró la clave SSH en {}. Se usará la autenticación por defecto.".format(SSH_KEY_PATH))
-        
-        try:
-            if program_folder == "gothamvcf":
-                src_gotham = os.path.join(base_path, "backend/mp3/programas/gothamvcf/")
-                dest_gotham = RSYNC_TARGET + "gothamvcf/"
-                print(f"📤 Sincronizando Gotham (con limpieza)...")
-                rsync_result = subprocess.run(rsync_base_cmd + [src_gotham, dest_gotham], capture_output=True, text=True)
-            else:
-                src_all = os.path.join(base_path, "backend/mp3/programas/")
-                print(f"📤 Sincronizando todos los programas...")
-                rsync_result = subprocess.run(rsync_base_cmd + [src_all, RSYNC_TARGET], capture_output=True, text=True)
-            
-            if rsync_result.returncode != 0:
-                print("❌ Error en rsync:")
-                print(rsync_result.stderr)
-            else:
-                print("✅ Sincronización completa.")
-                # Opcional: imprimir stdout resumido
-                # print(rsync_result.stdout)
-        except Exception as rsync_exc:
-            print(f"⚠️ Excepción durante rsync: {rsync_exc}")
+        for target_info in RSYNC_TARGETS:
+            target = target_info["target"]
+            port = target_info["port"]
+            try:
+                print(f"🌍 Iniciando sincronización a {target} en puerto {port}...")
+                
+                # Ejecutamos rsync con captura de salida y manejo de errores
+                rsync_base_cmd = ["rsync", "-avz", "--delete", "--exclude=*.txt"]
+                if os.path.exists(SSH_KEY_PATH):
+                    rsync_base_cmd += ["-e", f"ssh -i {SSH_KEY_PATH} -p {port} -o StrictHostKeyChecking=no"]
+                else:
+                    print("⚠️ Advertencia: No se encontró la clave SSH en {}. Se usará la autenticación por defecto.".format(SSH_KEY_PATH))
+                
+                if program_folder == "gothamvcf":
+                    src_gotham = os.path.join(base_path, "backend/mp3/programas/gothamvcf/")
+                    dest_gotham = target + "gothamvcf/"
+                    print(f"📤 Sincronizando Gotham (con limpieza)...")
+                    rsync_result = subprocess.run(rsync_base_cmd + [src_gotham, dest_gotham], capture_output=True, text=True)
+                else:
+                    src_all = os.path.join(base_path, "backend/mp3/programas/")
+                    print(f"📤 Sincronizando todos los programas...")
+                    rsync_result = subprocess.run(rsync_base_cmd + [src_all, target], capture_output=True, text=True)
+                
+                if rsync_result.returncode != 0:
+                    print(f"❌ Error en rsync a {target}:")
+                    print(rsync_result.stderr)
+                else:
+                    print(f"✅ Sincronización completa a {target}.")
+            except Exception as rsync_exc:
+                print(f"⚠️ Excepción durante rsync a {target}: {rsync_exc}")
 
 
     except Exception as e:

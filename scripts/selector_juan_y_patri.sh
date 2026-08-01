@@ -53,8 +53,18 @@ echo "{\"title\": \"$SELECTED\", \"type\": \"pildora\"}" > "$BASE_DIR/seleccion/
 echo "$(date '+%Y-%m-%d %H:%M:%S') - Seleccionado Juan y Patri: $SELECTED" >> "$BASE_DIR/selector_log.txt"
 echo "Cambio completado: $SELECTED"
 
-# Publicar avís en Nostr (Normes d'El Puig)
-BOT_DIR="$SCRIPT_DIR/../nostr_bot"
-if [ -f "$BOT_DIR/.env" ]; then
-    docker run --rm --env-file "$BOT_DIR/.env" nostr-bot node index.js "📻 En breu: nova pílula del Món de Juan i Patri en Valencianismo Radio! Connecta't ya en valencianismo.com" &
+
+# Sincronizar selección con el VPS si existe la clave local (Opción A - Backup)
+SSH_KEY_PATH="$HOME/.ssh/id_ed25519_vps_sync"
+if [ -f "$SSH_KEY_PATH" ]; then
+    RSYNC_TARGETS=(
+        "debian@51.38.236.161:/opt/v0l0v/apps/radiovalencianismo/backend/mp3/programas/juan_y_patri/seleccion/|5122"
+        "debian@54.36.100.247:/home/debian/radiovalencianismo/backend/mp3/programas/juan_y_patri/seleccion/|22"
+    )
+    for target_entry in "${RSYNC_TARGETS[@]}"; do
+        target="${target_entry%%|*}"
+        port="${target_entry##*|}"
+        echo "📤 Sincronizando selección de Juan y Patri a $target en puerto $port..."
+        rsync -avz --delete --exclude=*.txt -e "ssh -i $SSH_KEY_PATH -p $port -o StrictHostKeyChecking=no" "$SELECCION_DIR/" "$target"
+    done
 fi

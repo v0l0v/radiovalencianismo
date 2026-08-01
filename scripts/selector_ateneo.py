@@ -20,16 +20,15 @@ import glob
 import argparse
 from datetime import datetime
 
-# Detección de entorno
-VPS_BASE_PATH = "/home/debian/radiovalencianismo"
-LOCAL_BASE_PATH = "/home/victor/proyectos/RadioValencianismomasmas"
+# Configurar zona horaria de Madrid para evitar desfases con el contenedor Docker de la radio
+os.environ['TZ'] = 'Europe/Madrid'
+time.tzset()
 
-if os.path.exists(VPS_BASE_PATH):
-    BASE_PATH = VPS_BASE_PATH
-    IS_VPS = True
-else:
-    BASE_PATH = LOCAL_BASE_PATH
-    IS_VPS = False
+
+# Detección de entorno
+script_dir = os.path.dirname(os.path.abspath(__file__))
+BASE_PATH = os.path.dirname(script_dir)
+IS_VPS = os.path.exists("/opt/v0l0v/apps/radiovalencianismo") or os.path.exists("/home/debian/radiovalencianismo")
 
 ATENEO_DIR = os.path.join(BASE_PATH, "backend/mp3/programas/ateneo")
 SELECCION_DIR = os.path.join(ATENEO_DIR, "seleccion")
@@ -217,17 +216,25 @@ def main():
     except Exception as e:
         print(f"⚠️ Error escribiendo log: {e}")
 
-    # 8. Publicar aviso en Nostr (Solo si estamos en el VPS)
-    if IS_VPS:
-        try:
-            bot_dir = os.path.join(BASE_PATH, "nostr_bot")
-            if os.path.exists(os.path.join(bot_dir, ".env")):
-                import subprocess
-                cmd = f'docker run --rm --env-file "{os.path.join(bot_dir, ".env")}" nostr-bot node index.js "📻 En 5 minuts comença L\'Ateneo en Valencianismo Radio! Connecta\'t ya en valencianismo.com"'
-                subprocess.Popen(cmd, shell=True, stdout=subprocess.DEVNULL, stderr=subprocess.DEVNULL)
-                print("📣 Lanzado aviso de emisión en Nostr.")
-        except Exception as ne:
-            print(f"⚠️ Error al lanzar aviso en Nostr: {ne}")
+
+    # 9. Sincronizar selección con el VPS (Solo si estamos en local y existe la clave SSH)
+    if not IS_VPS:
+        SSH_KEY_PATH = os.path.expanduser("~/.ssh/id_ed25519_vps_sync")
+        if os.path.exists(SSH_KEY_PATH):
+            RSYNC_TARGETS = [
+                {"target": "debian@51.38.236.161:/opt/v0l0v/apps/radiovalencianismo/backend/mp3/programas/ateneo/seleccion/", "port": 5122},
+                {"target": "debian@54.36.100.247:/home/debian/radiovalencianismo/backend/mp3/programas/ateneo/seleccion/", "port": 22}
+            ]
+            for target_info in RSYNC_TARGETS:
+                target = target_info["target"]
+                port = target_info["port"]
+                try:
+                    print(f"📤 Sincronizando selección de Ateneo a {target} en puerto {port}...")
+                    rsync_cmd = ["rsync", "-avz", "--delete", "--exclude=*.txt", "-e", f"ssh -i {SSH_KEY_PATH} -p {port} -o StrictHostKeyChecking=no", SELECCION_DIR + "/", target]
+                    import subprocess
+                    subprocess.run(rsync_cmd, check=True)
+                except Exception as rse:
+                    print(f"⚠️ Error al sincronizar selección a {target}: {rse}")
 
 if __name__ == "__main__":
     main()
